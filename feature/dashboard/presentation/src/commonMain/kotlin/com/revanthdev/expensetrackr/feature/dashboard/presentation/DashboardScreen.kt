@@ -35,6 +35,7 @@ import com.revanthdev.expensetrackr.core.presentation.ObserveAsEvents
 import expensetrackr.core.presentation.generated.resources.*
 import org.jetbrains.compose.resources.stringResource
 import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
+import com.revanthdev.expensetrackr.core.presentation.util.toPercentString
 import com.revanthdev.expensetrackr.core.presentation.util.toDisplayDate
 import com.revanthdev.expensetrackr.core.presentation.util.toDisplayTime
 import com.revanthdev.expensetrackr.core.presentation.util.toMonthYear
@@ -187,11 +188,6 @@ fun DashboardScreen(state: DashboardState, onAction: (DashboardAction) -> Unit) 
                         Text(state.totalSpend.toCurrencyString(), style = MaterialTheme.typography.headlineSmall)
                     }
                 },
-                actions = {
-                    IconButton(onClick = {}) {
-                        Icon(Icons.Rounded.FilterList, "Filter")
-                    }
-                }
             )
         },
         floatingActionButton = {
@@ -241,7 +237,7 @@ fun DashboardScreen(state: DashboardState, onAction: (DashboardAction) -> Unit) 
                             icon = catUi.category.icon,
                             color = hexToColor(catUi.category.colorHex),
                             totalAmount = catUi.total.toCurrencyString(),
-                            percentage = "${catUi.percentage.toInt()}%",
+                            percentage = catUi.percentage.toPercentString(),
                             budgetAmount = catUi.category.budgetAmount?.toCurrencyString(),
                             budgetProgress = catUi.budgetProgress,
                             onClick = { onAction(DashboardAction.OnCategoryClick(catUi.category.id, catUi.category.name)) },
@@ -470,7 +466,7 @@ fun SubCategoryDrilldownScreen(state: SubCategoryDrilldownState, onAction: (SubC
                                         if (item.subCategoryId == null) stringResource(Res.string.common_uncategorized) else item.name,
                                         style = MaterialTheme.typography.titleSmall
                                     )
-                                    Text(stringResource(Res.string.drilldown_percent_of_total, item.percentage.toInt()), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                    Text(stringResource(Res.string.drilldown_percent_of_total, item.percentage.toPercentString()), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                 }
                                 Text(item.total.toCurrencyString(), style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
                             }

@@ -35,8 +35,37 @@ fun LocalDateTime.toDisplayTime(): String {
 fun LocalDateTime.toMonthYear(): String =
     "${MONTHS[date.monthNumber - 1]} ${date.year}"
 
+/** Groups an integer the Indian way: last 3 digits, then groups of 2 (e.g. 1234567 → 12,34,567). */
+private fun groupIndian(intPart: Long): String {
+    val s = intPart.toString()
+    if (s.length <= 3) return s
+    val last3 = s.substring(s.length - 3)
+    var rest = s.substring(0, s.length - 3)
+    val sb = StringBuilder()
+    while (rest.length > 2) {
+        sb.insert(0, "," + rest.substring(rest.length - 2))
+        rest = rest.substring(0, rest.length - 2)
+    }
+    sb.insert(0, rest)
+    return "$sb,$last3"
+}
+
+/** "₹12,34,567.89" — Indian digit grouping, 2 decimals, rounded. */
 fun Double.toCurrencyString(): String {
-    val intPart = toLong()
-    val decPart = ((this - intPart) * 100).toLong()
-    return "₹$intPart.${decPart.toString().padStart(2, '0')}"
+    val negative = this < 0
+    val cents = kotlin.math.round(kotlin.math.abs(this) * 100).toLong()
+    val intPart = cents / 100
+    val frac = cents % 100
+    val sign = if (negative) "-" else ""
+    return "$sign₹${groupIndian(intPart)}.${frac.toString().padStart(2, '0')}"
+}
+
+/** "0.01%", "12.50%" — 2 decimals, rounded (never truncates small values to 0%). */
+fun Double.toPercentString(): String {
+    val negative = this < 0
+    val hundredths = kotlin.math.round(kotlin.math.abs(this) * 100).toLong()
+    val intPart = hundredths / 100
+    val frac = hundredths % 100
+    val sign = if (negative) "-" else ""
+    return "$sign$intPart.${frac.toString().padStart(2, '0')}%"
 }

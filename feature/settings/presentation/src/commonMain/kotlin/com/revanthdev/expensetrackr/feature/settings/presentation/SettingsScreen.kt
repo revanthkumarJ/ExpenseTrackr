@@ -19,6 +19,7 @@ import com.revanthdev.expensetrackr.core.domain.model.AppSettings
 import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
 import com.revanthdev.expensetrackr.core.presentation.ObserveAsEvents
 import com.revanthdev.expensetrackr.core.presentation.appLanguages
+import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
 import expensetrackr.core.presentation.generated.resources.*
 import org.jetbrains.compose.resources.stringResource
 import kotlinx.coroutines.channels.Channel
@@ -226,20 +227,20 @@ fun SettingsScreen(state: SettingsState, onAction: (SettingsAction) -> Unit) {
                     onClick = { onAction(SettingsAction.OnAppLockClick) }
                 )
             }
-            item {
-                SettingsItem(
-                    icon = Icons.Rounded.Notifications,
-                    title = stringResource(Res.string.settings_notifications),
-                    subtitle = if (state.settings.dailyReminderEnabled) stringResource(Res.string.settings_notifications_on) else stringResource(Res.string.settings_notifications_off),
-                    onClick = { onAction(SettingsAction.OnNotificationSettingsClick) }
-                )
-            }
+//            item {
+//                SettingsItem(
+//                    icon = Icons.Rounded.Notifications,
+//                    title = stringResource(Res.string.settings_notifications),
+//                    subtitle = if (state.settings.dailyReminderEnabled) stringResource(Res.string.settings_notifications_on) else stringResource(Res.string.settings_notifications_off),
+//                    onClick = { onAction(SettingsAction.OnNotificationSettingsClick) }
+//                )
+//            }
             item { SettingsSectionHeader(stringResource(Res.string.settings_section_budget)) }
             item {
                 SettingsItem(
                     icon = Icons.Rounded.AccountBalance,
                     title = stringResource(Res.string.settings_budget_mgmt),
-                    subtitle = state.settings.overallMonthlyBudget?.let { stringResource(Res.string.settings_budget_value, "₹$it") } ?: stringResource(Res.string.common_not_set),
+                    subtitle = state.settings.overallMonthlyBudget?.let { stringResource(Res.string.settings_budget_value, it.toCurrencyString()) } ?: stringResource(Res.string.common_not_set),
                     onClick = { onAction(SettingsAction.OnBudgetClick) }
                 )
             }

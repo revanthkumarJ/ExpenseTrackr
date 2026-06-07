@@ -41,7 +41,7 @@
     <string name="dashboard_budget_monthly">Monthly Budget</string>
     <string name="dashboard_empty_title">No expenses yet</string>
     <string name="dashboard_empty_message">Tap the + button to add your first expense</string>
-    <string name="drilldown_percent_of_total">%1$d%% of total</string>
+    <string name="drilldown_percent_of_total">%1$s of total</string>
     <string name="drilldown_empty_title">No expenses</string>
     <string name="drilldown_empty_message">No expenses in this category for the selected period</string>
     <string name="filtered_empty_title">No expenses</string>

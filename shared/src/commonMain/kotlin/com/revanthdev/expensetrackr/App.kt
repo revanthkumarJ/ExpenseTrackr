@@ -250,7 +250,7 @@ private fun MainScaffold(rootNavController: androidx.navigation.NavController) {
         NavHost(
             navController = tabNavController,
             startDestination = DashboardRoute,
-            modifier = Modifier.padding(padding),
+            modifier = Modifier.padding(bottom = padding.calculateBottomPadding()),
             enterTransition = tabEnter,
             exitTransition = tabExit,
             popEnterTransition = tabEnter,

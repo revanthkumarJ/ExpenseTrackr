@@ -24,6 +24,8 @@ import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
 import com.revanthdev.expensetrackr.core.presentation.ObserveAsEvents
 import expensetrackr.core.presentation.generated.resources.*
 import org.jetbrains.compose.resources.stringResource
+import com.revanthdev.expensetrackr.core.presentation.util.DecimalFormatter
+import com.revanthdev.expensetrackr.core.presentation.util.DecimalInputVisualTransformation
 import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
@@ -155,8 +157,9 @@ fun BudgetScreen(state: BudgetState, onAction: (BudgetAction) -> Unit) {
             )
         }
     ) { padding ->
+        Column(modifier = Modifier.padding(padding).fillMaxSize().imePadding()) {
         LazyColumn(
-            modifier = Modifier.padding(padding).fillMaxSize(),
+            modifier = Modifier.weight(1f).fillMaxWidth(),
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
@@ -176,6 +179,7 @@ fun BudgetScreen(state: BudgetState, onAction: (BudgetAction) -> Unit) {
                                 prefix = { Text("₹") },
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                                 singleLine = true,
+                                visualTransformation = DecimalInputVisualTransformation(DecimalFormatter()),
                                 modifier = Modifier.fillMaxWidth()
                             )
                             Spacer(Modifier.height(12.dp))
@@ -216,26 +220,29 @@ fun BudgetScreen(state: BudgetState, onAction: (BudgetAction) -> Unit) {
                         prefix = { Text("₹") },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                         singleLine = true,
+                        visualTransformation = DecimalInputVisualTransformation(DecimalFormatter()),
                         shape = MaterialTheme.shapes.medium,
                         modifier = Modifier.width(130.dp)
                     )
                 }
             }
-            item {
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    OutlinedButton(onClick = { onAction(BudgetAction.OnResetAll) }, modifier = Modifier.weight(1f)) {
-                        Text(stringResource(Res.string.budget_reset_all))
-                    }
-                    Button(
-                        onClick = { onAction(BudgetAction.OnSave) },
-                        modifier = Modifier.weight(1f),
-                        enabled = !state.isSaving
-                    ) {
-                        if (state.isSaving) CircularProgressIndicator(Modifier.size(20.dp))
-                        else Text(stringResource(Res.string.action_save))
-                    }
-                }
+        }
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.fillMaxWidth().padding(16.dp)
+        ) {
+            OutlinedButton(onClick = { onAction(BudgetAction.OnResetAll) }, modifier = Modifier.weight(1f)) {
+                Text(stringResource(Res.string.budget_reset_all))
             }
+            Button(
+                onClick = { onAction(BudgetAction.OnSave) },
+                modifier = Modifier.weight(1f),
+                enabled = !state.isSaving
+            ) {
+                if (state.isSaving) CircularProgressIndicator(Modifier.size(20.dp))
+                else Text(stringResource(Res.string.action_save))
+            }
+        }
         }
     }
 }

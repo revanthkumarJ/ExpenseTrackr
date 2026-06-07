@@ -31,6 +31,7 @@ import com.revanthdev.expensetrackr.core.domain.repository.CategoryRepository
 import com.revanthdev.expensetrackr.core.domain.repository.ExpenseRepository
 import expensetrackr.core.presentation.generated.resources.*
 import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
+import com.revanthdev.expensetrackr.core.presentation.util.toPercentString
 import org.jetbrains.compose.resources.stringResource
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -253,7 +254,7 @@ fun LegendItem(stat: CategoryStat, modifier: Modifier = Modifier) {
             Text(stat.total.toCurrencyString(), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
             Surface(shape = RoundedCornerShape(6.dp), color = stat.color.copy(alpha = 0.14f)) {
                 Text(
-                    "${stat.percentage.toInt()}%",
+                    stat.percentage.toPercentString(),
                     style = MaterialTheme.typography.labelSmall,
                     color = stat.color,
                     modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)

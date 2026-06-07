@@ -35,7 +35,7 @@
     <string name="dashboard_budget_monthly">నెలవారీ బడ్జెట్</string>
     <string name="dashboard_empty_title">ఇంకా ఖర్చులు లేవు</string>
     <string name="dashboard_empty_message">మీ మొదటి ఖర్చును జోడించడానికి + బటన్ నొక్కండి</string>
-    <string name="drilldown_percent_of_total">మొత్తంలో %1$d%%</string>
+    <string name="drilldown_percent_of_total">మొత్తంలో %1$s</string>
     <string name="drilldown_empty_title">ఖర్చులు లేవు</string>
     <string name="drilldown_empty_message">ఎంచుకున్న వ్యవధికి ఈ వర్గంలో ఖర్చులు లేవు</string>
     <string name="filtered_empty_title">ఖర్చులు లేవు</string>

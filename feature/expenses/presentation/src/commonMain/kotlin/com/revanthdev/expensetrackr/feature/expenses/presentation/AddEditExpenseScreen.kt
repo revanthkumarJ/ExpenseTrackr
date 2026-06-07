@@ -34,6 +34,8 @@ import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
 import com.revanthdev.expensetrackr.core.domain.util.onFailure
 import com.revanthdev.expensetrackr.core.domain.util.onSuccess
 import com.revanthdev.expensetrackr.core.presentation.ObserveAsEvents
+import com.revanthdev.expensetrackr.core.presentation.util.DecimalFormatter
+import com.revanthdev.expensetrackr.core.presentation.util.DecimalInputVisualTransformation
 import expensetrackr.core.presentation.generated.resources.*
 import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
 import com.revanthdev.expensetrackr.core.presentation.util.toDisplayDate
@@ -85,11 +87,13 @@ data class AddEditExpenseState(
 /** A budget-overflow warning, carrying pre-formatted amounts so the UI can localize the message. */
 sealed interface BudgetWarning {
     data class Monthly(val projected: String, val budget: String) : BudgetWarning
-    data class Category(val categoryName: String, val projected: String, val budget: String) : BudgetWarning
+    data class Category(val categoryName: String, val projected: String, val budget: String) :
+        BudgetWarning
 }
 
 val AddEditExpenseState.isValid: Boolean
-    get() = name.isNotBlank() && amountText.toDoubleOrNull()?.let { it > 0 } == true && selectedCategory != null
+    get() = name.isNotBlank() && amountText.toDoubleOrNull()
+        ?.let { it > 0 } == true && selectedCategory != null
 
 sealed interface AddEditExpenseAction {
     data class OnNameChange(val name: String) : AddEditExpenseAction
@@ -166,21 +170,31 @@ class AddEditExpenseViewModel(
                 savedStateHandle["name"] = action.name
                 _state.update { it.copy(name = action.name, nameError = null) }
             }
+
             is AddEditExpenseAction.OnAmountChange -> {
                 savedStateHandle["amount"] = action.amount
                 _state.update { it.copy(amountText = action.amount, amountError = null) }
             }
+
             is AddEditExpenseAction.OnCategorySelect -> {
-                _state.update { it.copy(selectedCategory = action.category, selectedSubCategory = null) }
+                _state.update {
+                    it.copy(
+                        selectedCategory = action.category,
+                        selectedSubCategory = null
+                    )
+                }
                 viewModelScope.launch {
-                    categoryRepository.getSubCategoriesForCategory(action.category.id).collect { subs ->
-                        _state.update { it.copy(subCategories = subs) }
-                    }
+                    categoryRepository.getSubCategoriesForCategory(action.category.id)
+                        .collect { subs ->
+                            _state.update { it.copy(subCategories = subs) }
+                        }
                 }
             }
+
             is AddEditExpenseAction.OnSubCategorySelect -> {
                 _state.update { it.copy(selectedSubCategory = action.subCategory) }
             }
+
             is AddEditExpenseAction.OnNotesChange -> _state.update { it.copy(notes = action.notes) }
             is AddEditExpenseAction.OnDateTimeChange -> _state.update { it.copy(dateTime = action.dateTime) }
             AddEditExpenseAction.OnSave -> saveExpense()
@@ -232,7 +246,11 @@ class AddEditExpenseViewModel(
      * monthly total or the category total over its budget; null if it's fine. For edits, the
      * expense's existing amount is excluded so it isn't double-counted.
      */
-    private suspend fun checkBudget(amount: Double, category: Category, settings: AppSettings): BudgetWarning? {
+    private suspend fun checkBudget(
+        amount: Double,
+        category: Category,
+        settings: AppSettings
+    ): BudgetWarning? {
         val s = _state.value
         val isEditing = expenseId != -1L
         val monthlyTotal = expenseRepository.getTotalSpend(DateFilter.ThisMonth).first()
@@ -243,16 +261,24 @@ class AddEditExpenseViewModel(
             val oldAmount = if (isEditing) s.originalAmount else 0.0
             val projected = monthlyTotal - oldAmount + amount
             if (projected > overall) {
-                return BudgetWarning.Monthly(projected.toCurrencyString(), overall.toCurrencyString())
+                return BudgetWarning.Monthly(
+                    projected.toCurrencyString(),
+                    overall.toCurrencyString()
+                )
             }
         }
 
         val catBudget = category.budgetAmount
         if (catBudget != null) {
-            val catOld = if (isEditing && s.originalCategoryId == category.id) s.originalAmount else 0.0
+            val catOld =
+                if (isEditing && s.originalCategoryId == category.id) s.originalAmount else 0.0
             val catProjected = (catSpend[category.id] ?: 0.0) - catOld + amount
             if (catProjected > catBudget) {
-                return BudgetWarning.Category(category.name, catProjected.toCurrencyString(), catBudget.toCurrencyString())
+                return BudgetWarning.Category(
+                    category.name,
+                    catProjected.toCurrencyString(),
+                    catBudget.toCurrencyString()
+                )
             }
         }
         return null
@@ -291,7 +317,8 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
 
     if (showDatePicker) {
         val dpState = rememberDatePickerState(
-            initialSelectedDateMillis = state.dateTime.date.atStartOfDayIn(TimeZone.UTC).toEpochMilliseconds(),
+            initialSelectedDateMillis = state.dateTime.date.atStartOfDayIn(TimeZone.UTC)
+                .toEpochMilliseconds(),
             selectableDates = PastOrTodayDates
         )
         DatePickerDialog(
@@ -299,13 +326,25 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
             confirmButton = {
                 TextButton(onClick = {
                     dpState.selectedDateMillis?.let { ms ->
-                        val pickedDate = Instant.fromEpochMilliseconds(ms).toLocalDateTime(TimeZone.UTC).date
-                        onAction(AddEditExpenseAction.OnDateTimeChange(LocalDateTime(pickedDate, state.dateTime.time)))
+                        val pickedDate =
+                            Instant.fromEpochMilliseconds(ms).toLocalDateTime(TimeZone.UTC).date
+                        onAction(
+                            AddEditExpenseAction.OnDateTimeChange(
+                                LocalDateTime(
+                                    pickedDate,
+                                    state.dateTime.time
+                                )
+                            )
+                        )
                     }
                     showDatePicker = false
                 }) { Text(stringResource(Res.string.action_ok)) }
             },
-            dismissButton = { TextButton(onClick = { showDatePicker = false }) { Text(stringResource(Res.string.action_cancel)) } }
+            dismissButton = {
+                TextButton(onClick = {
+                    showDatePicker = false
+                }) { Text(stringResource(Res.string.action_cancel)) }
+            }
         ) {
             DatePicker(state = dpState)
         }
@@ -321,33 +360,59 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
             onDismissRequest = { showTimePicker = false },
             title = { Text(stringResource(Res.string.pick_time)) },
             text = {
-                Box(Modifier.fillMaxWidth(), contentAlignment = androidx.compose.ui.Alignment.Center) {
+                Box(
+                    Modifier.fillMaxWidth(),
+                    contentAlignment = androidx.compose.ui.Alignment.Center
+                ) {
                     TimePicker(state = tpState)
                 }
             },
             confirmButton = {
                 TextButton(onClick = {
-                    onAction(AddEditExpenseAction.OnDateTimeChange(
-                        LocalDateTime(state.dateTime.date, LocalTime(tpState.hour, tpState.minute))
-                    ))
+                    onAction(
+                        AddEditExpenseAction.OnDateTimeChange(
+                            LocalDateTime(
+                                state.dateTime.date,
+                                LocalTime(tpState.hour, tpState.minute)
+                            )
+                        )
+                    )
                     showTimePicker = false
                 }) { Text(stringResource(Res.string.action_ok)) }
             },
-            dismissButton = { TextButton(onClick = { showTimePicker = false }) { Text(stringResource(Res.string.action_cancel)) } }
+            dismissButton = {
+                TextButton(onClick = {
+                    showTimePicker = false
+                }) { Text(stringResource(Res.string.action_cancel)) }
+            }
         )
     }
 
     state.budgetWarning?.let { warning ->
         val message = when (warning) {
-            is BudgetWarning.Monthly -> stringResource(Res.string.budget_warn_monthly, warning.projected, warning.budget)
-            is BudgetWarning.Category -> stringResource(Res.string.budget_warn_category, warning.categoryName, warning.projected, warning.budget)
+            is BudgetWarning.Monthly -> stringResource(
+                Res.string.budget_warn_monthly,
+                warning.projected,
+                warning.budget
+            )
+
+            is BudgetWarning.Category -> stringResource(
+                Res.string.budget_warn_category,
+                warning.categoryName,
+                warning.projected,
+                warning.budget
+            )
         }
         AlertDialog(
             onDismissRequest = { onAction(AddEditExpenseAction.OnBudgetWarningDismiss) },
             title = { Text(stringResource(Res.string.over_budget_title)) },
             text = { Text(message) },
             confirmButton = {
-                TextButton(onClick = { onAction(AddEditExpenseAction.OnBudgetWarningDismiss) }) { Text(stringResource(Res.string.action_ok)) }
+                TextButton(onClick = { onAction(AddEditExpenseAction.OnBudgetWarningDismiss) }) {
+                    Text(
+                        stringResource(Res.string.action_ok)
+                    )
+                }
             }
         )
     }
@@ -358,10 +423,19 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
             title = { Text(stringResource(Res.string.delete_expense_title)) },
             text = { Text(stringResource(Res.string.delete_expense_message)) },
             confirmButton = {
-                TextButton(onClick = { onAction(AddEditExpenseAction.OnDeleteConfirm) }) { Text(stringResource(Res.string.action_delete), color = MaterialTheme.colorScheme.error) }
+                TextButton(onClick = { onAction(AddEditExpenseAction.OnDeleteConfirm) }) {
+                    Text(
+                        stringResource(Res.string.action_delete),
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
             },
             dismissButton = {
-                TextButton(onClick = { onAction(AddEditExpenseAction.OnDeleteDismiss) }) { Text(stringResource(Res.string.action_cancel)) }
+                TextButton(onClick = { onAction(AddEditExpenseAction.OnDeleteDismiss) }) {
+                    Text(
+                        stringResource(Res.string.action_cancel)
+                    )
+                }
             }
         )
     }
@@ -378,7 +452,11 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
                 actions = {
                     if (isEdit) {
                         IconButton(onClick = { onAction(AddEditExpenseAction.OnDeleteClick) }) {
-                            Icon(Icons.Rounded.Delete, stringResource(Res.string.action_delete), tint = MaterialTheme.colorScheme.error)
+                            Icon(
+                                Icons.Rounded.Delete,
+                                stringResource(Res.string.action_delete),
+                                tint = MaterialTheme.colorScheme.error
+                            )
                         }
                     }
                 }
@@ -389,136 +467,158 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
+                .imePadding()
                 .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            OutlinedTextField(
-                value = state.name,
-                onValueChange = { onAction(AddEditExpenseAction.OnNameChange(it.take(100))) },
-                label = { Text(stringResource(Res.string.field_expense_name)) },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-                isError = state.nameError != null,
-                supportingText = state.nameError?.let { { Text(it) } }
-            )
-
-            OutlinedTextField(
-                value = state.amountText,
-                onValueChange = { onAction(AddEditExpenseAction.OnAmountChange(it)) },
-                label = { Text(stringResource(Res.string.field_amount)) },
-                prefix = { Text("₹") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-                isError = state.amountError != null,
-                supportingText = state.amountError?.let { { Text(it) } }
-            )
-
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                Box(modifier = Modifier.weight(1.4f)) {
-                    OutlinedTextField(
-                        value = state.dateTime.toDisplayDate(),
-                        onValueChange = {},
-                        readOnly = true,
-                        label = { Text(stringResource(Res.string.field_date)) },
-                        leadingIcon = { Icon(Icons.Rounded.CalendarMonth, null) },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                    Box(Modifier.matchParentSize().clickable { showDatePicker = true })
-                }
-                Box(modifier = Modifier.weight(1f)) {
-                    OutlinedTextField(
-                        value = state.dateTime.toDisplayTime(),
-                        onValueChange = {},
-                        readOnly = true,
-                        label = { Text(stringResource(Res.string.field_time)) },
-                        leadingIcon = { Icon(Icons.Rounded.Schedule, null) },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                    Box(Modifier.matchParentSize().clickable { showTimePicker = true })
-                }
-            }
-
-            ExposedDropdownMenuBox(
-                expanded = showCategoryDropdown,
-                onExpandedChange = { showCategoryDropdown = it }
+            Column(
+                Modifier.weight(1f).verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 OutlinedTextField(
-                    value = state.selectedCategory?.let { "${it.icon} ${it.name}" } ?: "",
-                    onValueChange = {},
-                    readOnly = true,
-                    label = { Text(stringResource(Res.string.field_category)) },
-                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(showCategoryDropdown) },
-                    modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable).fillMaxWidth(),
-                    isError = state.categoryError != null
+                    value = state.name,
+                    onValueChange = { onAction(AddEditExpenseAction.OnNameChange(it.take(100))) },
+                    label = { Text(stringResource(Res.string.field_expense_name)) },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    isError = state.nameError != null,
+                    supportingText = state.nameError?.let { { Text(it) } }
                 )
-                ExposedDropdownMenu(expanded = showCategoryDropdown, onDismissRequest = { showCategoryDropdown = false }) {
-                    state.categories.forEach { cat ->
-                        DropdownMenuItem(
-                            text = { Text("${cat.icon} ${cat.name}") },
-                            onClick = {
-                                onAction(AddEditExpenseAction.OnCategorySelect(cat))
-                                showCategoryDropdown = false
-                            }
-                        )
-                    }
-                }
-            }
 
-            AnimatedVisibility(
-                visible = state.selectedCategory != null,
-                enter = expandVertically() + fadeIn(),
-                exit = shrinkVertically() + fadeOut()
-            ) {
-              Column {
-                if (state.subCategories.isEmpty()) {
-                    OutlinedTextField(
-                        value = stringResource(Res.string.common_none),
-                        onValueChange = {},
-                        readOnly = true,
-                        enabled = false,
-                        label = { Text(stringResource(Res.string.field_subcategory)) },
-                        supportingText = { Text(stringResource(Res.string.subcategory_none_hint)) },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                } else {
-                    ExposedDropdownMenuBox(
-                        expanded = showSubCategoryDropdown,
-                        onExpandedChange = { showSubCategoryDropdown = it }
-                    ) {
+                OutlinedTextField(
+                    value = state.amountText,
+                    onValueChange = { onAction(AddEditExpenseAction.OnAmountChange(it)) },
+                    label = { Text(stringResource(Res.string.field_amount)) },
+                    prefix = { Text("₹") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    isError = state.amountError != null,
+                    supportingText = state.amountError?.let { { Text(it) } },
+                    visualTransformation = DecimalInputVisualTransformation(DecimalFormatter())
+                )
+
+                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Box(modifier = Modifier.weight(1.4f)) {
                         OutlinedTextField(
-                            value = state.selectedSubCategory?.name ?: stringResource(Res.string.common_none),
+                            value = state.dateTime.toDisplayDate(),
                             onValueChange = {},
                             readOnly = true,
-                            label = { Text(stringResource(Res.string.field_subcategory)) },
-                            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(showSubCategoryDropdown) },
-                            modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable).fillMaxWidth()
+                            label = { Text(stringResource(Res.string.field_date)) },
+                            leadingIcon = { Icon(Icons.Rounded.CalendarMonth, null) },
+                            modifier = Modifier.fillMaxWidth()
                         )
-                        ExposedDropdownMenu(expanded = showSubCategoryDropdown, onDismissRequest = { showSubCategoryDropdown = false }) {
-                            DropdownMenuItem(text = { Text(stringResource(Res.string.common_none)) }, onClick = {
-                                onAction(AddEditExpenseAction.OnSubCategorySelect(null))
-                                showSubCategoryDropdown = false
-                            })
-                            state.subCategories.forEach { sub ->
-                                DropdownMenuItem(text = { Text(sub.name) }, onClick = {
-                                    onAction(AddEditExpenseAction.OnSubCategorySelect(sub))
-                                    showSubCategoryDropdown = false
-                                })
+                        Box(Modifier.matchParentSize().clickable { showDatePicker = true })
+                    }
+                    Box(modifier = Modifier.weight(1f)) {
+                        OutlinedTextField(
+                            value = state.dateTime.toDisplayTime(),
+                            onValueChange = {},
+                            readOnly = true,
+                            label = { Text(stringResource(Res.string.field_time)) },
+                            leadingIcon = { Icon(Icons.Rounded.Schedule, null) },
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Box(Modifier.matchParentSize().clickable { showTimePicker = true })
+                    }
+                }
+
+                ExposedDropdownMenuBox(
+                    expanded = showCategoryDropdown,
+                    onExpandedChange = { showCategoryDropdown = it }
+                ) {
+                    OutlinedTextField(
+                        value = state.selectedCategory?.let { "${it.icon} ${it.name}" } ?: "",
+                        onValueChange = {},
+                        readOnly = true,
+                        label = { Text(stringResource(Res.string.field_category)) },
+                        trailingIcon = {
+                            ExposedDropdownMenuDefaults.TrailingIcon(
+                                showCategoryDropdown
+                            )
+                        },
+                        modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable)
+                            .fillMaxWidth(),
+                        isError = state.categoryError != null
+                    )
+                    ExposedDropdownMenu(
+                        expanded = showCategoryDropdown,
+                        onDismissRequest = { showCategoryDropdown = false }) {
+                        state.categories.forEach { cat ->
+                            DropdownMenuItem(
+                                text = { Text("${cat.icon} ${cat.name}") },
+                                onClick = {
+                                    onAction(AddEditExpenseAction.OnCategorySelect(cat))
+                                    showCategoryDropdown = false
+                                }
+                            )
+                        }
+                    }
+                }
+
+                AnimatedVisibility(
+                    visible = state.selectedCategory != null,
+                    enter = expandVertically() + fadeIn(),
+                    exit = shrinkVertically() + fadeOut()
+                ) {
+                    Column {
+                        if (state.subCategories.isEmpty()) {
+                            OutlinedTextField(
+                                value = stringResource(Res.string.common_none),
+                                onValueChange = {},
+                                readOnly = true,
+                                enabled = false,
+                                label = { Text(stringResource(Res.string.field_subcategory)) },
+                                supportingText = { Text(stringResource(Res.string.subcategory_none_hint)) },
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        } else {
+                            ExposedDropdownMenuBox(
+                                expanded = showSubCategoryDropdown,
+                                onExpandedChange = { showSubCategoryDropdown = it }
+                            ) {
+                                OutlinedTextField(
+                                    value = state.selectedSubCategory?.name
+                                        ?: stringResource(Res.string.common_none),
+                                    onValueChange = {},
+                                    readOnly = true,
+                                    label = { Text(stringResource(Res.string.field_subcategory)) },
+                                    trailingIcon = {
+                                        ExposedDropdownMenuDefaults.TrailingIcon(
+                                            showSubCategoryDropdown
+                                        )
+                                    },
+                                    modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable)
+                                        .fillMaxWidth()
+                                )
+                                ExposedDropdownMenu(
+                                    expanded = showSubCategoryDropdown,
+                                    onDismissRequest = { showSubCategoryDropdown = false }) {
+                                    DropdownMenuItem(
+                                        text = { Text(stringResource(Res.string.common_none)) },
+                                        onClick = {
+                                            onAction(AddEditExpenseAction.OnSubCategorySelect(null))
+                                            showSubCategoryDropdown = false
+                                        })
+                                    state.subCategories.forEach { sub ->
+                                        DropdownMenuItem(text = { Text(sub.name) }, onClick = {
+                                            onAction(AddEditExpenseAction.OnSubCategorySelect(sub))
+                                            showSubCategoryDropdown = false
+                                        })
+                                    }
+                                }
                             }
                         }
                     }
                 }
-              }
-            }
 
-            OutlinedTextField(
-                value = state.notes,
-                onValueChange = { onAction(AddEditExpenseAction.OnNotesChange(it.take(300))) },
-                label = { Text(stringResource(Res.string.field_notes)) },
-                minLines = 3,
-                modifier = Modifier.fillMaxWidth()
-            )
+                OutlinedTextField(
+                    value = state.notes,
+                    onValueChange = { onAction(AddEditExpenseAction.OnNotesChange(it.take(300))) },
+                    label = { Text(stringResource(Res.string.field_notes)) },
+                    minLines = 3,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
 
             Button(
                 onClick = { onAction(AddEditExpenseAction.OnSave) },
@@ -526,8 +626,14 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
                 shape = MaterialTheme.shapes.large,
                 enabled = state.isValid && !state.isSaving
             ) {
-                if (state.isSaving) CircularProgressIndicator(Modifier.size(20.dp), color = MaterialTheme.colorScheme.onPrimary)
-                else Text(stringResource(if (isEdit) Res.string.update_expense else Res.string.save_expense), style = MaterialTheme.typography.titleMedium)
+                if (state.isSaving) CircularProgressIndicator(
+                    Modifier.size(20.dp),
+                    color = MaterialTheme.colorScheme.onPrimary
+                )
+                else Text(
+                    stringResource(if (isEdit) Res.string.update_expense else Res.string.save_expense),
+                    style = MaterialTheme.typography.titleMedium
+                )
             }
         }
     }
