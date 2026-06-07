@@ -22,6 +22,8 @@ import com.revanthdev.expensetrackr.core.domain.model.Category
 import com.revanthdev.expensetrackr.core.domain.repository.CategoryRepository
 import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
 import com.revanthdev.expensetrackr.core.presentation.ObserveAsEvents
+import expensetrackr.core.presentation.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
@@ -144,10 +146,10 @@ fun BudgetScreen(state: BudgetState, onAction: (BudgetAction) -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Budget Management") },
+                title = { Text(stringResource(Res.string.budget_title)) },
                 navigationIcon = {
                     IconButton(onClick = { onAction(BudgetAction.OnBack) }) {
-                        Icon(Icons.Rounded.ArrowBack, "Back")
+                        Icon(Icons.Rounded.ArrowBack, stringResource(Res.string.action_back))
                     }
                 }
             )
@@ -162,7 +164,7 @@ fun BudgetScreen(state: BudgetState, onAction: (BudgetAction) -> Unit) {
                 Card(modifier = Modifier.fillMaxWidth()) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text("Monthly Budget", style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
+                            Text(stringResource(Res.string.budget_monthly), style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
                             Switch(checked = state.overallBudgetEnabled, onCheckedChange = { onAction(BudgetAction.OnOverallToggle(it)) })
                         }
                         if (state.overallBudgetEnabled) {
@@ -170,7 +172,7 @@ fun BudgetScreen(state: BudgetState, onAction: (BudgetAction) -> Unit) {
                             OutlinedTextField(
                                 value = state.overallBudgetText,
                                 onValueChange = { onAction(BudgetAction.OnOverallBudgetChange(it)) },
-                                label = { Text("Amount (₹)") },
+                                label = { Text(stringResource(Res.string.budget_amount)) },
                                 prefix = { Text("₹") },
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                                 singleLine = true,
@@ -181,12 +183,9 @@ fun BudgetScreen(state: BudgetState, onAction: (BudgetAction) -> Unit) {
                             Spacer(Modifier.height(12.dp))
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Column(Modifier.weight(1f)) {
-                                    Text("Allow spending over budget", style = MaterialTheme.typography.titleSmall)
+                                    Text(stringResource(Res.string.budget_allow_over_title), style = MaterialTheme.typography.titleSmall)
                                     Text(
-                                        if (state.allowExceedBudget)
-                                            "Expenses over your budget are allowed"
-                                        else
-                                            "You'll be blocked from adding expenses that exceed your monthly or category budget",
+                                        stringResource(if (state.allowExceedBudget) Res.string.budget_allow_over_on else Res.string.budget_allow_over_off),
                                         style = MaterialTheme.typography.bodySmall,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
@@ -201,7 +200,7 @@ fun BudgetScreen(state: BudgetState, onAction: (BudgetAction) -> Unit) {
                     }
                 }
             }
-            item { Text("Per-Category Budgets", style = MaterialTheme.typography.titleMedium) }
+            item { Text(stringResource(Res.string.budget_per_category), style = MaterialTheme.typography.titleMedium) }
             items(state.categories, key = { it.id }) { cat ->
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -225,7 +224,7 @@ fun BudgetScreen(state: BudgetState, onAction: (BudgetAction) -> Unit) {
             item {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     OutlinedButton(onClick = { onAction(BudgetAction.OnResetAll) }, modifier = Modifier.weight(1f)) {
-                        Text("Reset All")
+                        Text(stringResource(Res.string.budget_reset_all))
                     }
                     Button(
                         onClick = { onAction(BudgetAction.OnSave) },
@@ -233,7 +232,7 @@ fun BudgetScreen(state: BudgetState, onAction: (BudgetAction) -> Unit) {
                         enabled = !state.isSaving
                     ) {
                         if (state.isSaving) CircularProgressIndicator(Modifier.size(20.dp))
-                        else Text("Save")
+                        else Text(stringResource(Res.string.action_save))
                     }
                 }
             }

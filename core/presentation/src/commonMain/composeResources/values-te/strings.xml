@@ -1,0 +1,177 @@
+<resources>
+    <string name="nav_dashboard">డాష్‌బోర్డ్</string>
+    <string name="nav_expenses">ఖర్చులు</string>
+    <string name="nav_analytics">విశ్లేషణ</string>
+    <string name="nav_settings">సెట్టింగ్‌లు</string>
+
+    <string name="action_save">సేవ్ చేయి</string>
+    <string name="action_cancel">రద్దు చేయి</string>
+    <string name="action_delete">తొలగించు</string>
+    <string name="action_ok">సరే</string>
+    <string name="action_close">మూసివేయి</string>
+    <string name="action_add">జోడించు</string>
+    <string name="action_apply">వర్తింపజేయి</string>
+    <string name="action_back">వెనుకకు</string>
+    <string name="action_edit">సవరించు</string>
+    <string name="action_new">కొత్తది</string>
+
+    <string name="common_none">ఏదీ కాదు</string>
+    <string name="common_default">డిఫాల్ట్</string>
+    <string name="common_not_set">సెట్ చేయలేదు</string>
+    <string name="common_uncategorized">వర్గీకరించనివి</string>
+    <string name="common_total">మొత్తం</string>
+    <string name="action_add_expense">ఖర్చు జోడించు</string>
+
+    <string name="filter_this_month">ఈ నెల</string>
+    <string name="filter_this_week">ఈ వారం</string>
+    <string name="filter_last_month">గత నెల</string>
+    <string name="filter_this_year">ఈ సంవత్సరం</string>
+    <string name="filter_custom">అనుకూలం</string>
+    <string name="period_custom_range">అనుకూల వ్యవధి</string>
+
+    <string name="card_percent_of_spend">ఖర్చులో %1$s</string>
+    <string name="card_budget">బడ్జెట్: %1$s</string>
+
+    <string name="dashboard_budget_monthly">నెలవారీ బడ్జెట్</string>
+    <string name="dashboard_empty_title">ఇంకా ఖర్చులు లేవు</string>
+    <string name="dashboard_empty_message">మీ మొదటి ఖర్చును జోడించడానికి + బటన్ నొక్కండి</string>
+    <string name="drilldown_percent_of_total">మొత్తంలో %1$d%%</string>
+    <string name="drilldown_empty_title">ఖర్చులు లేవు</string>
+    <string name="drilldown_empty_message">ఎంచుకున్న వ్యవధికి ఈ వర్గంలో ఖర్చులు లేవు</string>
+    <string name="filtered_empty_title">ఖర్చులు లేవు</string>
+    <string name="filtered_empty_message">ఈ ఎంపికకు ఖర్చులు కనుగొనబడలేదు</string>
+
+    <string name="expenses_title">అన్ని ఖర్చులు</string>
+    <string name="expenses_search_hint">ఖర్చులను వెతకండి...</string>
+    <string name="expenses_empty_title">ఖర్చులు లేవు</string>
+    <string name="expenses_empty_message">మీ మొదటి ఖర్చును జోడించడానికి + నొక్కండి</string>
+    <string name="expense_deleted">ఖర్చు తొలగించబడింది</string>
+
+    <string name="add_expense_title">ఖర్చు జోడించు</string>
+    <string name="edit_expense_title">ఖర్చును సవరించు</string>
+    <string name="field_expense_name">ఖర్చు పేరు *</string>
+    <string name="field_amount">మొత్తం (₹) *</string>
+    <string name="field_category">వర్గం *</string>
+    <string name="field_subcategory">ఉప-వర్గం (ఐచ్ఛికం)</string>
+    <string name="field_date">తేదీ *</string>
+    <string name="field_time">సమయం</string>
+    <string name="field_notes">గమనికలు (ఐచ్ఛికం)</string>
+    <string name="subcategory_none_hint">ఈ వర్గానికి ఇంకా ఉప-వర్గాలు లేవు</string>
+    <string name="save_expense">ఖర్చును సేవ్ చేయి</string>
+    <string name="update_expense">ఖర్చును నవీకరించు</string>
+    <string name="delete_expense_title">ఖర్చును తొలగించాలా?</string>
+    <string name="delete_expense_message">ఈ చర్యను రద్దు చేయలేరు.</string>
+    <string name="over_budget_title">బడ్జెట్ దాటింది</string>
+    <string name="budget_warn_monthly">ఈ ఖర్చు మీ నెలవారీ ఖర్చును %1$sకి తీసుకువస్తుంది, ఇది మీ %2$s బడ్జెట్‌ను దాటుతుంది.</string>
+    <string name="budget_warn_category">ఈ ఖర్చు %1$s ఖర్చును %2$sకి తీసుకువస్తుంది, ఇది దాని %3$s బడ్జెట్‌ను దాటుతుంది.</string>
+    <string name="pick_time">సమయాన్ని ఎంచుకోండి</string>
+
+    <string name="analytics_top_category">అగ్ర వర్గం</string>
+    <string name="analytics_avg_day">సగటు / రోజు</string>
+    <string name="analytics_breakdown">విభజన</string>
+    <string name="analytics_empty_title">ఈ వ్యవధికి డేటా లేదు</string>
+    <string name="analytics_empty_message">పైన వేరే వ్యవధిని ప్రయత్నించండి, లేదా కొన్ని ఖర్చులను జోడించండి</string>
+
+    <string name="settings_section_preferences">ప్రాధాన్యతలు</string>
+    <string name="settings_section_budget">బడ్జెట్</string>
+    <string name="settings_section_data">డేటా నిర్వహణ</string>
+    <string name="settings_section_app_info">యాప్ సమాచారం</string>
+    <string name="settings_theme">థీమ్</string>
+    <string name="settings_theme_system">సిస్టమ్ డిఫాల్ట్</string>
+    <string name="settings_theme_light">లైట్</string>
+    <string name="settings_theme_dark">డార్క్</string>
+    <string name="settings_app_lock">యాప్ లాక్</string>
+    <string name="settings_notifications">నోటిఫికేషన్‌లు</string>
+    <string name="settings_notifications_on">రిమైండర్‌లు ఆన్</string>
+    <string name="settings_notifications_off">రిమైండర్‌లు ఆఫ్</string>
+    <string name="settings_budget_mgmt">బడ్జెట్ నిర్వహణ</string>
+    <string name="settings_budget_value">%1$s/నెల</string>
+    <string name="settings_manage_categories">వర్గాలను నిర్వహించు</string>
+    <string name="settings_manage_subcategories">ఉప-వర్గాలను నిర్వహించు</string>
+    <string name="settings_about">గురించి</string>
+    <string name="settings_privacy">గోప్యతా విధానం</string>
+    <string name="settings_terms">సేవా నిబంధనలు</string>
+    <string name="settings_language">భాష</string>
+    <string name="language_system_default">సిస్టమ్ డిఫాల్ట్</string>
+
+    <string name="onboarding_language_title">మీ భాషను ఎంచుకోండి</string>
+    <string name="onboarding_language_desc">మీరు దీన్ని సెట్టింగ్‌లలో ఎప్పుడైనా మార్చవచ్చు</string>
+
+    <string name="budget_title">బడ్జెట్ నిర్వహణ</string>
+    <string name="budget_monthly">నెలవారీ బడ్జెట్</string>
+    <string name="budget_amount">మొత్తం (₹)</string>
+    <string name="budget_allow_over_title">బడ్జెట్ కంటే ఎక్కువ ఖర్చును అనుమతించు</string>
+    <string name="budget_allow_over_on">బడ్జెట్ కంటే ఎక్కువ ఖర్చులు అనుమతించబడ్డాయి</string>
+    <string name="budget_allow_over_off">మీ నెలవారీ లేదా వర్గం బడ్జెట్‌ను దాటే ఖర్చులను జోడించకుండా మీరు నిరోధించబడతారు</string>
+    <string name="budget_per_category">వర్గం వారీ బడ్జెట్‌లు</string>
+    <string name="budget_reset_all">అన్నీ రీసెట్ చేయి</string>
+
+    <string name="categories_title">వర్గాలను నిర్వహించు</string>
+    <string name="categories_new">కొత్త వర్గం</string>
+    <string name="categories_edit">వర్గాన్ని సవరించు</string>
+    <string name="field_name">పేరు</string>
+    <string name="field_icon_emoji">ఐకాన్ (ఇమోజీ)</string>
+    <string name="category_default_badge">డిఫాల్ట్</string>
+    <string name="cannot_delete_title">తొలగించలేరు</string>
+    <string name="cannot_delete_message">\'%1$s\'ను తొలగించలేరు — దీనికి అనుబంధిత ఖర్చులు ఉన్నాయి.</string>
+    <string name="categories_empty_title">వర్గాలు లేవు</string>
+    <string name="categories_empty_message">మీ మొదటి వర్గాన్ని సృష్టించడానికి కొత్తది నొక్కండి</string>
+
+    <string name="subcategories_title">ఉప-వర్గాలను నిర్వహించు</string>
+    <string name="subcategory_new">కొత్త ఉప-వర్గం</string>
+    <string name="subcategory_edit">ఉప-వర్గాన్ని సవరించు</string>
+    <string name="field_parent_category">మూల వర్గం</string>
+    <string name="select_category">వర్గాన్ని ఎంచుకోండి</string>
+    <string name="subcategory_has_expenses_title">ఉప-వర్గంలో ఖర్చులు ఉన్నాయి</string>
+    <string name="subcategory_has_expenses_message">\'%1$s\'కి అనుబంధిత ఖర్చులు ఉన్నాయి. దీన్ని తొలగిస్తే ఆ ఖర్చుల నుండి ఈ ఉప-వర్గం తీసివేయబడుతుంది. కొనసాగించాలా?</string>
+    <string name="action_delete_detach">తొలగించి వేరు చేయి</string>
+    <string name="subcategories_empty_title">ఇంకా ఉప-వర్గాలు లేవు</string>
+    <string name="subcategories_empty_message">ఒకటి సృష్టించడానికి కొత్తది నొక్కండి</string>
+
+    <string name="applock_enter_pin">పిన్ నమోదు చేయండి</string>
+    <string name="applock_enter_pin_sub">అన్‌లాక్ చేయడానికి మీ 6-అంకెల పిన్‌ను నమోదు చేయండి</string>
+    <string name="applock_incorrect">తప్పు పిన్. మళ్లీ ప్రయత్నించండి.</string>
+    <string name="applock_unlock_title">ExpenseTrackrను అన్‌లాక్ చేయి</string>
+    <string name="applock_unlock_sub">కొనసాగించడానికి మీ గుర్తింపును ధృవీకరించండి</string>
+
+    <string name="applock_setup_title">యాప్ లాక్</string>
+    <string name="applock_on">యాప్ లాక్ ఆన్‌లో ఉంది</string>
+    <string name="applock_off">యాప్ లాక్ ఆఫ్‌లో ఉంది</string>
+    <string name="applock_status_pin">పిన్ అన్‌లాక్</string>
+    <string name="applock_status_both">పిన్ + బయోమెట్రిక్ అన్‌లాక్</string>
+    <string name="applock_status_none">మీ యాప్ లాక్ లేకుండా తెరుచుకుంటుంది</string>
+    <string name="applock_set_pin">పిన్ సెటప్ చేయి</string>
+    <string name="applock_change_pin">పిన్ మార్చు</string>
+    <string name="applock_biometric_title">బయోమెట్రిక్‌తో అన్‌లాక్ చేయి</string>
+    <string name="applock_biometric_none">ఈ పరికరంలో బయోమెట్రిక్ నమోదు కాలేదు</string>
+    <string name="applock_biometric_need_pin">ముందుగా పిన్ సెటప్ చేయండి</string>
+    <string name="applock_biometric_use">అన్‌లాక్ చేయడానికి వేలిముద్ర / ముఖాన్ని ఉపయోగించండి</string>
+    <string name="applock_remove">యాప్ లాక్‌ను తీసివేయి</string>
+    <string name="applock_forgot">⚠ మీరు మీ పిన్‌ను మరిచిపోతే, రీసెట్ చేయడానికి యాప్ డేటాను క్లియర్ చేయాలి.</string>
+
+    <string name="pin_set_title">పిన్ సెట్ చేయి</string>
+    <string name="pin_confirm_title">పిన్ నిర్ధారించు</string>
+    <string name="pin_create">పిన్ సృష్టించండి</string>
+    <string name="pin_reenter">మీ పిన్‌ను మళ్లీ నమోదు చేయండి</string>
+    <string name="pin_choose_sub">6-అంకెల పిన్‌ను ఎంచుకోండి</string>
+    <string name="pin_confirm_sub">మీ 6-అంకెల పిన్‌ను నిర్ధారించండి</string>
+    <string name="pin_mismatch">పిన్‌లు సరిపోలడం లేదు. మళ్లీ ప్రయత్నించండి.</string>
+
+    <string name="notif_title">నోటిఫికేషన్ సెట్టింగ్‌లు</string>
+    <string name="notif_daily_title">రోజువారీ ఖర్చు రిమైండర్</string>
+    <string name="notif_daily_sub">నేటి ఖర్చులను నమోదు చేయడానికి %1$sకి గుర్తు చేయి</string>
+    <string name="notif_budget_title">బడ్జెట్ హెచ్చరికలు</string>
+    <string name="notif_budget_sub">ఖర్చు బడ్జెట్‌లో 80%% దాటినప్పుడు హెచ్చరించు</string>
+
+    <string name="onboarding_skip">దాటవేయి</string>
+    <string name="onboarding_next">తదుపరి</string>
+    <string name="onboarding_get_started">ప్రారంభించు</string>
+    <string name="onboarding_welcome_title">ExpenseTrackrకు స్వాగతం</string>
+    <string name="onboarding_welcome_desc">ప్రతి రూపాయిని ట్రాక్ చేయండి. ప్రైవేట్, ఆఫ్‌లైన్ మరియు అందంగా సరళం.</string>
+    <string name="onboarding_track_title">మీ ఖర్చును ట్రాక్ చేయండి</string>
+    <string name="onboarding_track_desc">ఖర్చులను వర్గాలు మరియు ఉప-వర్గాలుగా నిర్వహించండి. మీ డబ్బు ఎక్కడికి వెళుతుందో ఖచ్చితంగా చూడండి.</string>
+    <string name="onboarding_analytics_title">స్మార్ట్ విశ్లేషణ</string>
+    <string name="onboarding_analytics_desc">అందమైన పై చార్ట్‌లు మరియు బడ్జెట్ ట్రాకింగ్ మీ ఆర్థిక వ్యవహారాలపై నియంత్రణ ఉంచడంలో సహాయపడతాయి.</string>
+    <string name="onboarding_privacy_title">మీ డేటా, మీ పరికరం</string>
+    <string name="onboarding_privacy_desc">ఇంటర్నెట్ లేదు. క్లౌడ్ లేదు. ఖాతాలు లేవు. మీ డేటా అంతా ఎల్లప్పుడూ మీ పరికరంలోనే ఉంటుంది.</string>
+</resources>

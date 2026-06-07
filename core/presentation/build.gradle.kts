@@ -17,6 +17,9 @@ kotlin {
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
         compilerOptions { jvmTarget = JvmTarget.JVM_11 }
+        // Required for the string-resource catalog to be packaged into the APK as Android assets.
+        // The com.android.kotlin.multiplatform.library plugin disables Android resources by default.
+        androidResources { enable = true }
     }
     sourceSets {
         commonMain.dependencies {
@@ -30,6 +33,15 @@ kotlin {
             implementation(libs.koin.composeViewmodel)
         }
     }
+}
+
+// App-wide string resources live here (every feature, design-system and shared depend on
+// core:presentation), exposed publicly so other modules can use them via `Res.string.*`.
+// NOTE: do NOT set a custom packageOfResClass — on Android the physical resources are packaged
+// under the default `expensetrackr.core.presentation.generated.resources` path, while a custom
+// package only moves the generated Res class, causing a runtime MissingResourceException.
+compose.resources {
+    publicResClass = true
 }
 
 dependencies {

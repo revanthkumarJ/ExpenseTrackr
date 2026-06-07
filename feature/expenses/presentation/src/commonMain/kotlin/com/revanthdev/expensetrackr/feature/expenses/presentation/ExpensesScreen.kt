@@ -22,6 +22,8 @@ import com.revanthdev.expensetrackr.core.domain.model.ExpenseWithDetails
 import com.revanthdev.expensetrackr.core.domain.repository.ExpenseRepository
 import com.revanthdev.expensetrackr.core.presentation.ObserveAsEvents
 import com.revanthdev.expensetrackr.core.presentation.UiText
+import expensetrackr.core.presentation.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import com.revanthdev.expensetrackr.core.presentation.util.toDisplayDate
 import com.revanthdev.expensetrackr.core.presentation.util.toDisplayTime
 import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
@@ -134,13 +136,13 @@ fun AllExpensesRoot(
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
+    val deletedMessage = stringResource(Res.string.expense_deleted)
     ObserveAsEvents(viewModel.events) { event ->
         when (event) {
             is ExpensesEvent.NavigateToEdit -> onNavigateToEdit(event.id)
             ExpensesEvent.NavigateToAddExpense -> onNavigateToAddExpense()
             is ExpensesEvent.ShowSnackbar -> {
-                val msg = (event.message as? UiText.DynamicString)?.value ?: ""
-                scope.launch { snackbarHostState.showSnackbar(msg) }
+                scope.launch { snackbarHostState.showSnackbar(deletedMessage) }
             }
         }
     }
@@ -158,7 +160,7 @@ fun AllExpensesScreen(
     Scaffold(
         topBar = {
             Column {
-                TopAppBar(title = { Text("All Expenses") })
+                TopAppBar(title = { Text(stringResource(Res.string.expenses_title)) })
                 SearchBar(
                     inputField = {
                         SearchBarDefaults.InputField(
@@ -167,7 +169,7 @@ fun AllExpensesScreen(
                             onSearch = {},
                             expanded = false,
                             onExpandedChange = {},
-                            placeholder = { Text("Search expenses...") },
+                            placeholder = { Text(stringResource(Res.string.expenses_search_hint)) },
                             leadingIcon = { Icon(Icons.Rounded.Search, null) }
                         )
                     },
@@ -180,8 +182,8 @@ fun AllExpensesScreen(
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 onClick = { onAction(ExpensesAction.OnAddExpenseClick) },
-                icon = { Icon(Icons.Rounded.Add, "Add Expense") },
-                text = { Text("Add") }
+                icon = { Icon(Icons.Rounded.Add, stringResource(Res.string.action_add_expense)) },
+                text = { Text(stringResource(Res.string.action_add)) }
             )
         },
         snackbarHost = { SnackbarHost(snackbarHostState) }
@@ -199,9 +201,9 @@ fun AllExpensesScreen(
                 }
             } else if (state.grouped.isEmpty()) {
                 EmptyState(
-                    title = "No expenses",
-                    message = "Tap + to add your first expense",
-                    actionLabel = "Add Expense",
+                    title = stringResource(Res.string.expenses_empty_title),
+                    message = stringResource(Res.string.expenses_empty_message),
+                    actionLabel = stringResource(Res.string.action_add_expense),
                     onAction = { onAction(ExpensesAction.OnAddExpenseClick) }
                 )
             } else {

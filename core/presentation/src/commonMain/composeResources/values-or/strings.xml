@@ -1,0 +1,19 @@
+<resources>
+    <string name="nav_dashboard">ଡ୍ୟାସବୋର୍ଡ</string>
+    <string name="nav_expenses">ଖର୍ଚ୍ଚ</string>
+    <string name="nav_analytics">ବିଶ୍ଳେଷଣ</string>
+    <string name="nav_settings">ସେଟିଂସ୍</string>
+    <string name="action_save">ସେଭ୍ କରନ୍ତୁ</string>
+    <string name="action_cancel">ବାତିଲ୍ କରନ୍ତୁ</string>
+    <string name="action_delete">ବିଲୋପ କରନ୍ତୁ</string>
+    <string name="action_ok">ଠିକ୍ ଅଛି</string>
+    <string name="action_close">ବନ୍ଦ କରନ୍ତୁ</string>
+    <string name="action_add">ଯୋଡ଼ନ୍ତୁ</string>
+    <string name="action_apply">ପ୍ରୟୋଗ କରନ୍ତୁ</string>
+    <string name="action_back">ପଛକୁ</string>
+    <string name="filter_this_month">ଏହି ମାସ</string>
+    <string name="filter_this_week">ଏହି ସପ୍ତାହ</string>
+    <string name="filter_last_month">ଗତ ମାସ</string>
+    <string name="filter_this_year">ଏହି ବର୍ଷ</string>
+    <string name="filter_custom">କଷ୍ଟମ୍</string>
+</resources>

@@ -23,6 +23,8 @@ import com.revanthdev.expensetrackr.core.domain.model.Category
 import com.revanthdev.expensetrackr.core.domain.model.SubCategory
 import com.revanthdev.expensetrackr.core.domain.repository.CategoryRepository
 import com.revanthdev.expensetrackr.core.presentation.ObserveAsEvents
+import expensetrackr.core.presentation.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -88,7 +90,7 @@ class ManageCategoriesViewModel(private val categoryRepository: CategoryReposito
             is ManageCategoriesAction.OnIconChange -> _state.update { it.copy(newIcon = action.icon) }
             ManageCategoriesAction.OnSaveNew -> saveNew()
             ManageCategoriesAction.OnSaveEdit -> saveEdit()
-            ManageCategoriesAction.OnDismissDialog -> _state.update { it.copy(showAddDialog = false, showEditDialog = null) }
+            ManageCategoriesAction.OnDismissDialog -> _state.update { it.copy(showAddDialog = false, showEditDialog = null, deleteError = null) }
             ManageCategoriesAction.OnBack -> viewModelScope.launch { _events.send(ManageCategoriesEvent.NavigateBack) }
         }
     }
@@ -116,7 +118,7 @@ class ManageCategoriesViewModel(private val categoryRepository: CategoryReposito
     private fun deleteCategory(category: Category) {
         viewModelScope.launch {
             if (categoryRepository.hasExpensesForCategory(category.id)) {
-                _state.update { it.copy(deleteError = "Cannot delete '${category.name}' — it has linked expenses.") }
+                _state.update { it.copy(deleteError = category.name) }
             } else {
                 categoryRepository.deleteCategory(category.id)
             }
@@ -137,59 +139,59 @@ fun ManageCategoriesScreen(state: ManageCategoriesState, onAction: (ManageCatego
     if (state.showAddDialog || state.showEditDialog != null) {
         AlertDialog(
             onDismissRequest = { onAction(ManageCategoriesAction.OnDismissDialog) },
-            title = { Text(if (state.showAddDialog) "New Category" else "Edit Category") },
+            title = { Text(stringResource(if (state.showAddDialog) Res.string.categories_new else Res.string.categories_edit)) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     OutlinedTextField(
                         value = state.newName,
                         onValueChange = { onAction(ManageCategoriesAction.OnNameChange(it)) },
-                        label = { Text("Name") },
+                        label = { Text(stringResource(Res.string.field_name)) },
                         singleLine = true
                     )
                     OutlinedTextField(
                         value = state.newIcon,
                         onValueChange = { if (it.length <= 2) onAction(ManageCategoriesAction.OnIconChange(it)) },
-                        label = { Text("Icon (emoji)") },
+                        label = { Text(stringResource(Res.string.field_icon_emoji)) },
                         singleLine = true
                     )
                 }
             },
             confirmButton = {
-                TextButton(onClick = { if (state.showAddDialog) onAction(ManageCategoriesAction.OnSaveNew) else onAction(ManageCategoriesAction.OnSaveEdit) }) { Text("Save") }
+                TextButton(onClick = { if (state.showAddDialog) onAction(ManageCategoriesAction.OnSaveNew) else onAction(ManageCategoriesAction.OnSaveEdit) }) { Text(stringResource(Res.string.action_save)) }
             },
-            dismissButton = { TextButton(onClick = { onAction(ManageCategoriesAction.OnDismissDialog) }) { Text("Cancel") } }
+            dismissButton = { TextButton(onClick = { onAction(ManageCategoriesAction.OnDismissDialog) }) { Text(stringResource(Res.string.action_cancel)) } }
         )
     }
 
-    state.deleteError?.let { error ->
+    state.deleteError?.let { categoryName ->
         AlertDialog(
-            onDismissRequest = { },
-            title = { Text("Cannot Delete") },
-            text = { Text(error) },
-            confirmButton = { TextButton(onClick = { }) { Text("OK") } }
+            onDismissRequest = { onAction(ManageCategoriesAction.OnDismissDialog) },
+            title = { Text(stringResource(Res.string.cannot_delete_title)) },
+            text = { Text(stringResource(Res.string.cannot_delete_message, categoryName)) },
+            confirmButton = { TextButton(onClick = { onAction(ManageCategoriesAction.OnDismissDialog) }) { Text(stringResource(Res.string.action_ok)) } }
         )
     }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Manage Categories") },
-                navigationIcon = { IconButton(onClick = { onAction(ManageCategoriesAction.OnBack) }) { Icon(Icons.Rounded.ArrowBack, "Back") } }
+                title = { Text(stringResource(Res.string.categories_title)) },
+                navigationIcon = { IconButton(onClick = { onAction(ManageCategoriesAction.OnBack) }) { Icon(Icons.Rounded.ArrowBack, stringResource(Res.string.action_back)) } }
             )
         },
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 onClick = { onAction(ManageCategoriesAction.OnAddClick) },
-                icon = { Icon(Icons.Rounded.Add, "Add") },
-                text = { Text("New") }
+                icon = { Icon(Icons.Rounded.Add, stringResource(Res.string.action_add)) },
+                text = { Text(stringResource(Res.string.action_new)) }
             )
         }
     ) { padding ->
         if (state.categories.isEmpty()) {
             EmptyState(
                 modifier = Modifier.padding(padding),
-                title = "No categories",
-                message = "Tap New to create your first category",
+                title = stringResource(Res.string.categories_empty_title),
+                message = stringResource(Res.string.categories_empty_message),
                 emoji = "🗂️"
             )
         } else {
@@ -206,11 +208,11 @@ fun ManageCategoriesScreen(state: ManageCategoriesState, onAction: (ManageCatego
                             Spacer(Modifier.width(12.dp))
                             Text(cat.name, modifier = Modifier.weight(1f), style = MaterialTheme.typography.titleSmall)
                             if (!cat.isDefault) {
-                                IconButton(onClick = { onAction(ManageCategoriesAction.OnEditClick(cat)) }) { Icon(Icons.Rounded.Edit, "Edit") }
-                                IconButton(onClick = { onAction(ManageCategoriesAction.OnDeleteClick(cat)) }) { Icon(Icons.Rounded.Delete, "Delete", tint = MaterialTheme.colorScheme.error) }
+                                IconButton(onClick = { onAction(ManageCategoriesAction.OnEditClick(cat)) }) { Icon(Icons.Rounded.Edit, stringResource(Res.string.action_edit)) }
+                                IconButton(onClick = { onAction(ManageCategoriesAction.OnDeleteClick(cat)) }) { Icon(Icons.Rounded.Delete, stringResource(Res.string.action_delete), tint = MaterialTheme.colorScheme.error) }
                             } else {
                                 Surface(shape = RoundedCornerShape(8.dp), color = MaterialTheme.colorScheme.secondaryContainer) {
-                                    Text("Default", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSecondaryContainer, modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp))
+                                    Text(stringResource(Res.string.category_default_badge), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSecondaryContainer, modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp))
                                 }
                             }
                         }
@@ -345,13 +347,13 @@ fun ManageSubCategoriesScreen(state: ManageSubCategoriesState, onAction: (Manage
     if (state.showAddDialog || state.showEditDialog != null) {
         AlertDialog(
             onDismissRequest = { onAction(ManageSubCategoriesAction.OnDismissDialog) },
-            title = { Text(if (state.showAddDialog) "New Sub-Category" else "Edit Sub-Category") },
+            title = { Text(stringResource(if (state.showAddDialog) Res.string.subcategory_new else Res.string.subcategory_edit)) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     OutlinedTextField(
                         value = state.newName,
                         onValueChange = { onAction(ManageSubCategoriesAction.OnNameChange(it)) },
-                        label = { Text("Name") },
+                        label = { Text(stringResource(Res.string.field_name)) },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -361,10 +363,10 @@ fun ManageSubCategoriesScreen(state: ManageSubCategoriesState, onAction: (Manage
                     ) {
                         val selectedCat = state.categories.find { it.id == state.newCategoryId }
                         OutlinedTextField(
-                            value = selectedCat?.let { "${it.icon} ${it.name}" } ?: "Select Category",
+                            value = selectedCat?.let { "${it.icon} ${it.name}" } ?: stringResource(Res.string.select_category),
                             onValueChange = {},
                             readOnly = true,
-                            label = { Text("Parent Category") },
+                            label = { Text(stringResource(Res.string.field_parent_category)) },
                             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(showCategoryDropdown) },
                             modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable).fillMaxWidth()
                         )
@@ -383,44 +385,44 @@ fun ManageSubCategoriesScreen(state: ManageSubCategoriesState, onAction: (Manage
                 }
             },
             confirmButton = {
-                TextButton(onClick = { if (state.showAddDialog) onAction(ManageSubCategoriesAction.OnSaveNew) else onAction(ManageSubCategoriesAction.OnSaveEdit) }) { Text("Save") }
+                TextButton(onClick = { if (state.showAddDialog) onAction(ManageSubCategoriesAction.OnSaveNew) else onAction(ManageSubCategoriesAction.OnSaveEdit) }) { Text(stringResource(Res.string.action_save)) }
             },
-            dismissButton = { TextButton(onClick = { onAction(ManageSubCategoriesAction.OnDismissDialog) }) { Text("Cancel") } }
+            dismissButton = { TextButton(onClick = { onAction(ManageSubCategoriesAction.OnDismissDialog) }) { Text(stringResource(Res.string.action_cancel)) } }
         )
     }
 
     state.showDetachDialog?.let { sub ->
         AlertDialog(
             onDismissRequest = { onAction(ManageSubCategoriesAction.OnDetachDismiss) },
-            title = { Text("Sub-Category Has Expenses") },
-            text = { Text("'${sub.name}' has linked expenses. Deleting it will remove the sub-category from those expenses. Continue?") },
+            title = { Text(stringResource(Res.string.subcategory_has_expenses_title)) },
+            text = { Text(stringResource(Res.string.subcategory_has_expenses_message, sub.name)) },
             confirmButton = {
-                TextButton(onClick = { onAction(ManageSubCategoriesAction.OnDetachConfirm) }) { Text("Delete & Detach", color = MaterialTheme.colorScheme.error) }
+                TextButton(onClick = { onAction(ManageSubCategoriesAction.OnDetachConfirm) }) { Text(stringResource(Res.string.action_delete_detach), color = MaterialTheme.colorScheme.error) }
             },
-            dismissButton = { TextButton(onClick = { onAction(ManageSubCategoriesAction.OnDetachDismiss) }) { Text("Cancel") } }
+            dismissButton = { TextButton(onClick = { onAction(ManageSubCategoriesAction.OnDetachDismiss) }) { Text(stringResource(Res.string.action_cancel)) } }
         )
     }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Manage Sub-Categories") },
-                navigationIcon = { IconButton(onClick = { onAction(ManageSubCategoriesAction.OnBack) }) { Icon(Icons.Rounded.ArrowBack, "Back") } }
+                title = { Text(stringResource(Res.string.subcategories_title)) },
+                navigationIcon = { IconButton(onClick = { onAction(ManageSubCategoriesAction.OnBack) }) { Icon(Icons.Rounded.ArrowBack, stringResource(Res.string.action_back)) } }
             )
         },
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 onClick = { onAction(ManageSubCategoriesAction.OnAddClick) },
-                icon = { Icon(Icons.Rounded.Add, "Add") },
-                text = { Text("New") }
+                icon = { Icon(Icons.Rounded.Add, stringResource(Res.string.action_add)) },
+                text = { Text(stringResource(Res.string.action_new)) }
             )
         }
     ) { padding ->
         if (state.subCategories.isEmpty()) {
             EmptyState(
                 modifier = Modifier.padding(padding),
-                title = "No sub-categories yet",
-                message = "Tap New to create one",
+                title = stringResource(Res.string.subcategories_empty_title),
+                message = stringResource(Res.string.subcategories_empty_message),
                 emoji = "🏷️"
             )
         } else {
@@ -440,8 +442,8 @@ fun ManageSubCategoriesScreen(state: ManageSubCategoriesState, onAction: (Manage
                                     Text("${parentCat.icon} ${parentCat.name}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                 }
                             }
-                            IconButton(onClick = { onAction(ManageSubCategoriesAction.OnEditClick(sub)) }) { Icon(Icons.Rounded.Edit, "Edit") }
-                            IconButton(onClick = { onAction(ManageSubCategoriesAction.OnDeleteClick(sub)) }) { Icon(Icons.Rounded.Delete, "Delete", tint = MaterialTheme.colorScheme.error) }
+                            IconButton(onClick = { onAction(ManageSubCategoriesAction.OnEditClick(sub)) }) { Icon(Icons.Rounded.Edit, stringResource(Res.string.action_edit)) }
+                            IconButton(onClick = { onAction(ManageSubCategoriesAction.OnDeleteClick(sub)) }) { Icon(Icons.Rounded.Delete, stringResource(Res.string.action_delete), tint = MaterialTheme.colorScheme.error) }
                         }
                     }
                 }

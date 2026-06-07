@@ -1,0 +1,19 @@
+<resources>
+    <string name="nav_dashboard">Painel</string>
+    <string name="nav_expenses">Despesas</string>
+    <string name="nav_analytics">Análises</string>
+    <string name="nav_settings">Configurações</string>
+    <string name="action_save">Salvar</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_delete">Excluir</string>
+    <string name="action_ok">OK</string>
+    <string name="action_close">Fechar</string>
+    <string name="action_add">Adicionar</string>
+    <string name="action_apply">Aplicar</string>
+    <string name="action_back">Voltar</string>
+    <string name="filter_this_month">Este mês</string>
+    <string name="filter_this_week">Esta semana</string>
+    <string name="filter_last_month">Mês passado</string>
+    <string name="filter_this_year">Este ano</string>
+    <string name="filter_custom">Personalizado</string>
+</resources>

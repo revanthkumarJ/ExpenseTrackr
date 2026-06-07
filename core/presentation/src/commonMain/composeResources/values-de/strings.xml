@@ -1,0 +1,19 @@
+<resources>
+    <string name="nav_dashboard">Übersicht</string>
+    <string name="nav_expenses">Ausgaben</string>
+    <string name="nav_analytics">Analysen</string>
+    <string name="nav_settings">Einstellungen</string>
+    <string name="action_save">Speichern</string>
+    <string name="action_cancel">Abbrechen</string>
+    <string name="action_delete">Löschen</string>
+    <string name="action_ok">OK</string>
+    <string name="action_close">Schließen</string>
+    <string name="action_add">Hinzufügen</string>
+    <string name="action_apply">Anwenden</string>
+    <string name="action_back">Zurück</string>
+    <string name="filter_this_month">Dieser Monat</string>
+    <string name="filter_this_week">Diese Woche</string>
+    <string name="filter_last_month">Letzter Monat</string>
+    <string name="filter_this_year">Dieses Jahr</string>
+    <string name="filter_custom">Benutzerdefiniert</string>
+</resources>

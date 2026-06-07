@@ -32,6 +32,8 @@ import com.revanthdev.expensetrackr.core.domain.repository.CategoryRepository
 import com.revanthdev.expensetrackr.core.domain.repository.ExpenseRepository
 import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
 import com.revanthdev.expensetrackr.core.presentation.ObserveAsEvents
+import expensetrackr.core.presentation.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
 import com.revanthdev.expensetrackr.core.presentation.util.toDisplayDate
 import com.revanthdev.expensetrackr.core.presentation.util.toDisplayTime
@@ -174,8 +176,14 @@ fun DashboardScreen(state: DashboardState, onAction: (DashboardAction) -> Unit) 
         topBar = {
             TopAppBar(
                 title = {
+                    val periodLabel = when (state.filter) {
+                        DateFilter.ThisWeek -> stringResource(Res.string.filter_this_week)
+                        DateFilter.LastMonth -> stringResource(Res.string.filter_last_month)
+                        is DateFilter.CustomRange -> stringResource(Res.string.period_custom_range)
+                        else -> state.monthLabel
+                    }
                     Column {
-                        Text(state.monthLabel, style = MaterialTheme.typography.titleMedium)
+                        Text(periodLabel, style = MaterialTheme.typography.titleMedium)
                         Text(state.totalSpend.toCurrencyString(), style = MaterialTheme.typography.headlineSmall)
                     }
                 },
@@ -189,8 +197,8 @@ fun DashboardScreen(state: DashboardState, onAction: (DashboardAction) -> Unit) 
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 onClick = { onAction(DashboardAction.OnAddExpenseClick) },
-                icon = { Icon(Icons.Rounded.Add, "Add Expense") },
-                text = { Text("Add") }
+                icon = { Icon(Icons.Rounded.Add, stringResource(Res.string.action_add_expense)) },
+                text = { Text(stringResource(Res.string.action_add)) }
             )
         }
     ) { padding ->
@@ -217,9 +225,9 @@ fun DashboardScreen(state: DashboardState, onAction: (DashboardAction) -> Unit) 
                 }
             } else if (state.categories.isEmpty()) {
                 EmptyState(
-                    title = "No expenses yet",
-                    message = "Tap the + button to add your first expense",
-                    actionLabel = "Add Expense",
+                    title = stringResource(Res.string.dashboard_empty_title),
+                    message = stringResource(Res.string.dashboard_empty_message),
+                    actionLabel = stringResource(Res.string.action_add_expense),
                     onAction = { onAction(DashboardAction.OnAddExpenseClick) }
                 )
             } else {
@@ -261,7 +269,7 @@ private fun BudgetProgressBar(spent: String, budget: String, progress: Float, mo
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                Text("Monthly Budget", style = MaterialTheme.typography.titleSmall)
+                Text(stringResource(Res.string.dashboard_budget_monthly), style = MaterialTheme.typography.titleSmall)
                 Text("$spent / $budget", style = MaterialTheme.typography.titleSmall, color = color)
             }
             Spacer(Modifier.height(10.dp))
@@ -418,7 +426,7 @@ fun SubCategoryDrilldownScreen(state: SubCategoryDrilldownState, onAction: (SubC
                 },
                 navigationIcon = {
                     IconButton(onClick = { onAction(SubCategoryDrilldownAction.OnBack) }) {
-                        Icon(Icons.Rounded.ArrowBack, "Back")
+                        Icon(Icons.Rounded.ArrowBack, stringResource(Res.string.action_back))
                     }
                 }
             )
@@ -426,8 +434,8 @@ fun SubCategoryDrilldownScreen(state: SubCategoryDrilldownState, onAction: (SubC
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 onClick = { onAction(SubCategoryDrilldownAction.OnAddExpenseClick) },
-                icon = { Icon(Icons.Rounded.Add, "Add Expense") },
-                text = { Text("Add") }
+                icon = { Icon(Icons.Rounded.Add, stringResource(Res.string.action_add_expense)) },
+                text = { Text(stringResource(Res.string.action_add)) }
             )
         }
     ) { padding ->
@@ -441,9 +449,9 @@ fun SubCategoryDrilldownScreen(state: SubCategoryDrilldownState, onAction: (SubC
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
             } else if (state.items.all { it.total == 0.0 }) {
                 EmptyState(
-                    title = "No expenses",
-                    message = "No expenses in this category for the selected period",
-                    actionLabel = "Add Expense",
+                    title = stringResource(Res.string.drilldown_empty_title),
+                    message = stringResource(Res.string.drilldown_empty_message),
+                    actionLabel = stringResource(Res.string.action_add_expense),
                     onAction = { onAction(SubCategoryDrilldownAction.OnAddExpenseClick) }
                 )
             } else {
@@ -458,8 +466,11 @@ fun SubCategoryDrilldownScreen(state: SubCategoryDrilldownState, onAction: (SubC
                         ) {
                             Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
                                 Column(modifier = Modifier.weight(1f)) {
-                                    Text(item.name, style = MaterialTheme.typography.titleSmall)
-                                    Text("${item.percentage.toInt()}% of total", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                    Text(
+                                        if (item.subCategoryId == null) stringResource(Res.string.common_uncategorized) else item.name,
+                                        style = MaterialTheme.typography.titleSmall
+                                    )
+                                    Text(stringResource(Res.string.drilldown_percent_of_total, item.percentage.toInt()), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                 }
                                 Text(item.total.toCurrencyString(), style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
                             }
@@ -559,7 +570,7 @@ fun FilteredExpensesScreen(state: FilteredExpensesState, onAction: (FilteredExpe
                 title = { Text(state.title) },
                 navigationIcon = {
                     IconButton(onClick = { onAction(FilteredExpensesAction.OnBack) }) {
-                        Icon(Icons.Rounded.ArrowBack, "Back")
+                        Icon(Icons.Rounded.ArrowBack, stringResource(Res.string.action_back))
                     }
                 }
             )
@@ -574,7 +585,7 @@ fun FilteredExpensesScreen(state: FilteredExpensesState, onAction: (FilteredExpe
             if (state.isLoading) {
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
             } else if (state.grouped.isEmpty()) {
-                EmptyState(title = "No expenses", message = "No expenses found for this selection")
+                EmptyState(title = stringResource(Res.string.filtered_empty_title), message = stringResource(Res.string.filtered_empty_message))
             } else {
                 LazyColumn(contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     state.grouped.forEach { (date, expenses) ->

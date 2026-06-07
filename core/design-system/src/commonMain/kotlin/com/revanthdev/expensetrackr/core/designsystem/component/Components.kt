@@ -31,6 +31,17 @@ import kotlin.time.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import expensetrackr.core.presentation.generated.resources.Res
+import expensetrackr.core.presentation.generated.resources.action_apply
+import expensetrackr.core.presentation.generated.resources.action_cancel
+import expensetrackr.core.presentation.generated.resources.card_budget
+import expensetrackr.core.presentation.generated.resources.card_percent_of_spend
+import expensetrackr.core.presentation.generated.resources.filter_custom
+import expensetrackr.core.presentation.generated.resources.filter_last_month
+import expensetrackr.core.presentation.generated.resources.filter_this_month
+import expensetrackr.core.presentation.generated.resources.filter_this_week
+import expensetrackr.core.presentation.generated.resources.filter_this_year
+import org.jetbrains.compose.resources.stringResource
 import com.revanthdev.expensetrackr.core.designsystem.theme.BudgetGreen
 import com.revanthdev.expensetrackr.core.designsystem.theme.BudgetRed
 import com.revanthdev.expensetrackr.core.designsystem.theme.BudgetYellow
@@ -141,7 +152,7 @@ fun CategoryCard(
                     Spacer(Modifier.height(2.dp))
                     Surface(shape = RoundedCornerShape(6.dp), color = color.copy(alpha = 0.14f)) {
                         Text(
-                            "$percentage of spend",
+                            stringResource(Res.string.card_percent_of_spend, percentage),
                             style = MaterialTheme.typography.labelSmall,
                             color = color,
                             modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
@@ -169,7 +180,7 @@ fun CategoryCard(
                 )
                 Spacer(Modifier.height(6.dp))
                 Text(
-                    "Budget: $budgetAmount",
+                    stringResource(Res.string.card_budget, budgetAmount),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -268,10 +279,10 @@ fun DateFilterRow(
             selectedLeadingIconColor = MaterialTheme.colorScheme.onPrimary
         )
         listOf(
-            DateFilter.ThisMonth to "This Month",
-            DateFilter.ThisWeek to "This Week",
-            DateFilter.LastMonth to "Last Month",
-            DateFilter.ThisYear to "This Year"
+            DateFilter.ThisMonth to stringResource(Res.string.filter_this_month),
+            DateFilter.ThisWeek to stringResource(Res.string.filter_this_week),
+            DateFilter.LastMonth to stringResource(Res.string.filter_last_month),
+            DateFilter.ThisYear to stringResource(Res.string.filter_this_year)
         ).forEach { (filter, label) ->
             FilterChip(
                 selected = selected == filter,
@@ -286,7 +297,7 @@ fun DateFilterRow(
         FilterChip(
             selected = isCustom,
             onClick = { showRangePicker = true },
-            label = { Text(if (isCustom) (selected as DateFilter.CustomRange).label() else "Custom") },
+            label = { Text(if (isCustom) (selected as DateFilter.CustomRange).label() else stringResource(Res.string.filter_custom)) },
             leadingIcon = { Text("📅", style = MaterialTheme.typography.labelLarge) },
             shape = MaterialTheme.shapes.large,
             colors = chipColors,
@@ -327,9 +338,9 @@ private fun DateRangePickerDialog(
                     }
                 },
                 enabled = state.selectedStartDateMillis != null && state.selectedEndDateMillis != null
-            ) { Text("Apply") }
+            ) { Text(stringResource(Res.string.action_apply)) }
         },
-        dismissButton = { TextButton(onClick = onDismiss) { Text("Cancel") } }
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(Res.string.action_cancel)) } }
     ) {
         DateRangePicker(state = state, modifier = Modifier.weight(1f))
     }

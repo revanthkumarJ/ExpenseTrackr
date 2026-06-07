@@ -20,6 +20,7 @@ class DataStoreSettingsRepository(
 
     private companion object Keys {
         val IS_DARK_MODE = booleanPreferencesKey("isDarkMode")
+        val LANGUAGE = stringPreferencesKey("language")
         val APP_LOCK_TYPE = stringPreferencesKey("appLockType")
         val PIN_HASH = stringPreferencesKey("pinHash")
         val LOCK_TIMEOUT_MINUTES = intPreferencesKey("lockTimeoutMinutes")
@@ -41,6 +42,11 @@ class DataStoreSettingsRepository(
                 prefs[IS_DARK_MODE] = settings.isDarkMode!!
             } else {
                 prefs.remove(IS_DARK_MODE)
+            }
+            if (settings.language != null) {
+                prefs[LANGUAGE] = settings.language!!
+            } else {
+                prefs.remove(LANGUAGE)
             }
             prefs[APP_LOCK_TYPE] = settings.appLockType.name
             if (settings.pinHash != null) {
@@ -68,6 +74,7 @@ class DataStoreSettingsRepository(
 
     private fun Preferences.toAppSettings(): AppSettings = AppSettings(
         isDarkMode = this[IS_DARK_MODE],
+        language = this[LANGUAGE],
         appLockType = this[APP_LOCK_TYPE]?.let { name ->
             runCatching { AppLockType.valueOf(name) }.getOrDefault(AppLockType.NONE)
         } ?: AppLockType.NONE,

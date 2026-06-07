@@ -1,0 +1,19 @@
+<resources>
+    <string name="nav_dashboard">ダッシュボード</string>
+    <string name="nav_expenses">支出</string>
+    <string name="nav_analytics">分析</string>
+    <string name="nav_settings">設定</string>
+    <string name="action_save">保存</string>
+    <string name="action_cancel">キャンセル</string>
+    <string name="action_delete">削除</string>
+    <string name="action_ok">OK</string>
+    <string name="action_close">閉じる</string>
+    <string name="action_add">追加</string>
+    <string name="action_apply">適用</string>
+    <string name="action_back">戻る</string>
+    <string name="filter_this_month">今月</string>
+    <string name="filter_this_week">今週</string>
+    <string name="filter_last_month">先月</string>
+    <string name="filter_this_year">今年</string>
+    <string name="filter_custom">カスタム</string>
+</resources>

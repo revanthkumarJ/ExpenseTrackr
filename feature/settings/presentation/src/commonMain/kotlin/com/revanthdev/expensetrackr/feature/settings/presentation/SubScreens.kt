@@ -21,6 +21,8 @@ import com.revanthdev.expensetrackr.core.domain.model.AppLockType
 import com.revanthdev.expensetrackr.core.domain.model.AppSettings
 import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
 import com.revanthdev.expensetrackr.core.presentation.LocalBiometricAuthenticator
+import expensetrackr.core.presentation.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -33,7 +35,7 @@ import org.koin.core.module.dsl.viewModelOf
 @Composable
 fun AboutScreen(onBack: () -> Unit) {
     Scaffold(topBar = {
-        TopAppBar(title = { Text("About") }, navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.Rounded.ArrowBack, "Back") } })
+        TopAppBar(title = { Text(stringResource(Res.string.settings_about)) }, navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.Rounded.ArrowBack, stringResource(Res.string.action_back)) } })
     }) { padding ->
         Column(
             modifier = Modifier.padding(padding).fillMaxSize().verticalScroll(rememberScrollState()).padding(24.dp),
@@ -57,13 +59,13 @@ fun AboutScreen(onBack: () -> Unit) {
 @Composable
 fun PrivacyPolicyScreen(onBack: () -> Unit) {
     Scaffold(topBar = {
-        TopAppBar(title = { Text("Privacy Policy") }, navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.Rounded.ArrowBack, "Back") } })
+        TopAppBar(title = { Text(stringResource(Res.string.settings_privacy)) }, navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.Rounded.ArrowBack, stringResource(Res.string.action_back)) } })
     }) { padding ->
         Column(
             modifier = Modifier.padding(padding).fillMaxSize().verticalScroll(rememberScrollState()).padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Text("Privacy Policy", style = MaterialTheme.typography.headlineMedium)
+            Text(stringResource(Res.string.settings_privacy), style = MaterialTheme.typography.headlineMedium)
             Text("Last updated: June 2026", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
 
             PolicySection("Data Collection", "ExpenseTrackr collects no data. We have no servers, no analytics, no crash reporting, and no advertising SDKs.")
@@ -81,13 +83,13 @@ fun PrivacyPolicyScreen(onBack: () -> Unit) {
 @Composable
 fun TermsOfServiceScreen(onBack: () -> Unit) {
     Scaffold(topBar = {
-        TopAppBar(title = { Text("Terms of Service") }, navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.Rounded.ArrowBack, "Back") } })
+        TopAppBar(title = { Text(stringResource(Res.string.settings_terms)) }, navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.Rounded.ArrowBack, stringResource(Res.string.action_back)) } })
     }) { padding ->
         Column(
             modifier = Modifier.padding(padding).fillMaxSize().verticalScroll(rememberScrollState()).padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Text("Terms of Service", style = MaterialTheme.typography.headlineMedium)
+            Text(stringResource(Res.string.settings_terms), style = MaterialTheme.typography.headlineMedium)
             Text("Last updated: June 2026", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
 
             PolicySection("Acceptance", "By using ExpenseTrackr, you agree to these terms.")
@@ -223,15 +225,16 @@ fun NotificationSettingsScreen(
     onBack: () -> Unit
 ) {
     Scaffold(topBar = {
-        TopAppBar(title = { Text("Notification Settings") }, navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.Rounded.ArrowBack, "Back") } })
+        TopAppBar(title = { Text(stringResource(Res.string.notif_title)) }, navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.Rounded.ArrowBack, stringResource(Res.string.action_back)) } })
     }) { padding ->
         Column(modifier = Modifier.padding(padding).fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
             Card(modifier = Modifier.fillMaxWidth()) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Row(modifier = Modifier.fillMaxWidth()) {
                         Column(modifier = Modifier.weight(1f)) {
-                            Text("Daily Expense Reminder", style = MaterialTheme.typography.titleSmall)
-                            Text("Remind you to log today's expenses at ${hour.toString().padStart(2,'0')}:${minute.toString().padStart(2,'0')}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Text(stringResource(Res.string.notif_daily_title), style = MaterialTheme.typography.titleSmall)
+                            val reminderTime = "${hour.toString().padStart(2,'0')}:${minute.toString().padStart(2,'0')}"
+                            Text(stringResource(Res.string.notif_daily_sub, reminderTime), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                         Switch(checked = enabled, onCheckedChange = onToggleReminder)
                     }
@@ -241,8 +244,8 @@ fun NotificationSettingsScreen(
                 Column(modifier = Modifier.padding(16.dp)) {
                     Row(modifier = Modifier.fillMaxWidth()) {
                         Column(modifier = Modifier.weight(1f)) {
-                            Text("Budget Alerts", style = MaterialTheme.typography.titleSmall)
-                            Text("Alert when spending exceeds 80% of budget", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Text(stringResource(Res.string.notif_budget_title), style = MaterialTheme.typography.titleSmall)
+                            Text(stringResource(Res.string.notif_budget_sub), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                         Switch(checked = budgetAlertsEnabled, onCheckedChange = onToggleBudgetAlerts)
                     }
@@ -282,7 +285,7 @@ fun AppLockSetupScreen(
     }
 
     Scaffold(topBar = {
-        TopAppBar(title = { Text("App Lock") }, navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.Rounded.ArrowBack, "Back") } })
+        TopAppBar(title = { Text(stringResource(Res.string.applock_setup_title)) }, navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.Rounded.ArrowBack, stringResource(Res.string.action_back)) } })
     }) { padding ->
         Column(
             modifier = Modifier.padding(padding).fillMaxSize().padding(16.dp),
@@ -304,15 +307,15 @@ fun AppLockSetupScreen(
                     Spacer(Modifier.width(12.dp))
                     Column {
                         Text(
-                            if (pinSet) "App Lock is on" else "App Lock is off",
+                            stringResource(if (pinSet) Res.string.applock_on else Res.string.applock_off),
                             style = MaterialTheme.typography.titleSmall,
                             color = if (pinSet) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
                         )
                         Text(
                             when {
-                                !pinSet -> "Your app opens without a lock"
-                                biometricEnabled -> "PIN + biometric unlock"
-                                else -> "PIN unlock"
+                                !pinSet -> stringResource(Res.string.applock_status_none)
+                                biometricEnabled -> stringResource(Res.string.applock_status_both)
+                                else -> stringResource(Res.string.applock_status_pin)
                             },
                             style = MaterialTheme.typography.bodySmall,
                             color = if (pinSet) MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f) else MaterialTheme.colorScheme.onSurfaceVariant
@@ -329,7 +332,7 @@ fun AppLockSetupScreen(
             ) {
                 Icon(Icons.Rounded.Pin, contentDescription = null)
                 Spacer(Modifier.width(8.dp))
-                Text(if (pinSet) "Change PIN" else "Set up PIN")
+                Text(stringResource(if (pinSet) Res.string.applock_change_pin else Res.string.applock_set_pin))
             }
 
             // Biometric toggle
@@ -341,12 +344,12 @@ fun AppLockSetupScreen(
             ) {
                 Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) {
-                        Text("Unlock with biometric", style = MaterialTheme.typography.titleSmall)
+                        Text(stringResource(Res.string.applock_biometric_title), style = MaterialTheme.typography.titleSmall)
                         Text(
                             when {
-                                !biometricAvailable -> "No biometric enrolled on this device"
-                                !pinSet -> "Set up a PIN first"
-                                else -> "Use fingerprint / face to unlock"
+                                !biometricAvailable -> stringResource(Res.string.applock_biometric_none)
+                                !pinSet -> stringResource(Res.string.applock_biometric_need_pin)
+                                else -> stringResource(Res.string.applock_biometric_use)
                             },
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -369,13 +372,13 @@ fun AppLockSetupScreen(
                 ) {
                     Icon(Icons.Rounded.LockOpen, contentDescription = null)
                     Spacer(Modifier.width(8.dp))
-                    Text("Remove App Lock")
+                    Text(stringResource(Res.string.applock_remove))
                 }
             }
 
             Spacer(Modifier.height(4.dp))
             Text(
-                "⚠ If you forget your PIN, you must clear app data to reset it.",
+                stringResource(Res.string.applock_forgot),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.error
             )
@@ -394,17 +397,18 @@ private fun PinSetupFlow(onComplete: (String) -> Unit, onCancel: () -> Unit) {
     var pin by remember { mutableStateOf("") }
     var confirming by remember { mutableStateOf(false) }
     var error by remember { mutableStateOf<String?>(null) }
+    val mismatchMessage = stringResource(Res.string.pin_mismatch)
 
     Scaffold(topBar = {
         TopAppBar(
-            title = { Text(if (confirming) "Confirm PIN" else "Set PIN") },
-            navigationIcon = { IconButton(onClick = onCancel) { Icon(Icons.Rounded.ArrowBack, "Back") } }
+            title = { Text(stringResource(if (confirming) Res.string.pin_confirm_title else Res.string.pin_set_title)) },
+            navigationIcon = { IconButton(onClick = onCancel) { Icon(Icons.Rounded.ArrowBack, stringResource(Res.string.action_back)) } }
         )
     }) { padding ->
         PinEntryScreen(
             modifier = Modifier.padding(padding),
-            title = if (confirming) "Re-enter your PIN" else "Create a PIN",
-            subtitle = if (confirming) "Confirm your 6-digit PIN" else "Choose a 6-digit PIN",
+            title = stringResource(if (confirming) Res.string.pin_reenter else Res.string.pin_create),
+            subtitle = stringResource(if (confirming) Res.string.pin_confirm_sub else Res.string.pin_choose_sub),
             pin = pin,
             error = error,
             onDigit = { digit ->
@@ -419,7 +423,7 @@ private fun PinSetupFlow(onComplete: (String) -> Unit, onCancel: () -> Unit) {
                         } else if (pin == firstPin) {
                             onComplete(firstPin)
                         } else {
-                            error = "PINs don't match. Try again."
+                            error = mismatchMessage
                             pin = ""
                             firstPin = ""
                             confirming = false

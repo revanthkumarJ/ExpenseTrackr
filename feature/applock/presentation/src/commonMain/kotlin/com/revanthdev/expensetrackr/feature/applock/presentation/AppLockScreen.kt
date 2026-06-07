@@ -13,6 +13,8 @@ import com.revanthdev.expensetrackr.core.domain.model.AppLockType
 import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
 import com.revanthdev.expensetrackr.core.presentation.LocalBiometricAuthenticator
 import com.revanthdev.expensetrackr.core.presentation.ObserveAsEvents
+import expensetrackr.core.presentation.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -106,12 +108,14 @@ fun AppLockRoot(
     viewModel: AppLockViewModel = koinViewModel()
 ) {
     val biometric = LocalBiometricAuthenticator.current
+    val bioTitle = stringResource(Res.string.applock_unlock_title)
+    val bioSubtitle = stringResource(Res.string.applock_unlock_sub)
     ObserveAsEvents(viewModel.events) { event ->
         when (event) {
             AppLockEvent.Unlocked -> onUnlocked()
             AppLockEvent.TriggerBiometric -> biometric?.authenticate(
-                title = "Unlock ExpenseTrackr",
-                subtitle = "Confirm your identity to continue",
+                title = bioTitle,
+                subtitle = bioSubtitle,
                 onSuccess = { viewModel.onBiometricSuccess() },
                 onError = {}
             )
@@ -124,10 +128,10 @@ fun AppLockRoot(
 @Composable
 fun AppLockScreen(state: AppLockState, onAction: (AppLockAction) -> Unit) {
     PinEntryScreen(
-        title = "Enter PIN",
-        subtitle = "Enter your 6-digit PIN to unlock",
+        title = stringResource(Res.string.applock_enter_pin),
+        subtitle = stringResource(Res.string.applock_enter_pin_sub),
         pin = state.pin,
-        error = state.error,
+        error = state.error?.let { stringResource(Res.string.applock_incorrect) },
         onDigit = { onAction(AppLockAction.OnPinDigit(it)) },
         onBackspace = { onAction(AppLockAction.OnPinBackspace) },
         biometricIcon = if (state.showBiometric) Icons.Rounded.Fingerprint else null,

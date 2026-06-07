@@ -1,0 +1,19 @@
+<resources>
+    <string name="nav_dashboard">ડેશબોર્ડ</string>
+    <string name="nav_expenses">ખર્ચ</string>
+    <string name="nav_analytics">વિશ્લેષણ</string>
+    <string name="nav_settings">સેટિંગ્સ</string>
+    <string name="action_save">સાચવો</string>
+    <string name="action_cancel">રદ કરો</string>
+    <string name="action_delete">કાઢી નાખો</string>
+    <string name="action_ok">બરાબર</string>
+    <string name="action_close">બંધ કરો</string>
+    <string name="action_add">ઉમેરો</string>
+    <string name="action_apply">લાગુ કરો</string>
+    <string name="action_back">પાછળ</string>
+    <string name="filter_this_month">આ મહિનો</string>
+    <string name="filter_this_week">આ અઠવાડિયું</string>
+    <string name="filter_last_month">ગયો મહિનો</string>
+    <string name="filter_this_year">આ વર્ષ</string>
+    <string name="filter_custom">કસ્ટમ</string>
+</resources>

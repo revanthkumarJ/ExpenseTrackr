@@ -1,0 +1,19 @@
+<resources>
+    <string name="nav_dashboard">ড্যাশবোর্ড</string>
+    <string name="nav_expenses">খরচ</string>
+    <string name="nav_analytics">বিশ্লেষণ</string>
+    <string name="nav_settings">সেটিংস</string>
+    <string name="action_save">সংরক্ষণ করুন</string>
+    <string name="action_cancel">বাতিল করুন</string>
+    <string name="action_delete">মুছুন</string>
+    <string name="action_ok">ঠিক আছে</string>
+    <string name="action_close">বন্ধ করুন</string>
+    <string name="action_add">যোগ করুন</string>
+    <string name="action_apply">প্রয়োগ করুন</string>
+    <string name="action_back">পিছনে</string>
+    <string name="filter_this_month">এই মাস</string>
+    <string name="filter_this_week">এই সপ্তাহ</string>
+    <string name="filter_last_month">গত মাস</string>
+    <string name="filter_this_year">এই বছর</string>
+    <string name="filter_custom">কাস্টম</string>
+</resources>

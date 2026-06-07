@@ -5,13 +5,16 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.CalendarMonth
 import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material.icons.rounded.Schedule
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -31,19 +34,31 @@ import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
 import com.revanthdev.expensetrackr.core.domain.util.onFailure
 import com.revanthdev.expensetrackr.core.domain.util.onSuccess
 import com.revanthdev.expensetrackr.core.presentation.ObserveAsEvents
+import expensetrackr.core.presentation.generated.resources.*
 import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
+import com.revanthdev.expensetrackr.core.presentation.util.toDisplayDate
+import com.revanthdev.expensetrackr.core.presentation.util.toDisplayTime
+import org.jetbrains.compose.resources.stringResource
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.Serializable
+import kotlin.time.Clock
+import kotlin.time.Instant
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.core.parameter.parametersOf
 
 @Serializable
 data class AddEditExpenseRoute(val expenseId: Long = -1L)
+
+private fun nowDateTime(): LocalDateTime =
+    Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
 
 data class AddEditExpenseState(
     val expenseId: Long = -1L,
@@ -52,6 +67,7 @@ data class AddEditExpenseState(
     val selectedCategory: Category? = null,
     val selectedSubCategory: SubCategory? = null,
     val notes: String = "",
+    val dateTime: LocalDateTime = nowDateTime(),
     val categories: List<Category> = emptyList(),
     val subCategories: List<SubCategory> = emptyList(),
     val isLoading: Boolean = false,
@@ -60,10 +76,17 @@ data class AddEditExpenseState(
     val nameError: String? = null,
     val amountError: String? = null,
     val categoryError: String? = null,
-    val budgetWarning: String? = null,
+    val budgetWarning: BudgetWarning? = null,
     val originalAmount: Double = 0.0,
-    val originalCategoryId: Long? = null
+    val originalCategoryId: Long? = null,
+    val originalCreatedAt: LocalDateTime? = null
 )
+
+/** A budget-overflow warning, carrying pre-formatted amounts so the UI can localize the message. */
+sealed interface BudgetWarning {
+    data class Monthly(val projected: String, val budget: String) : BudgetWarning
+    data class Category(val categoryName: String, val projected: String, val budget: String) : BudgetWarning
+}
 
 val AddEditExpenseState.isValid: Boolean
     get() = name.isNotBlank() && amountText.toDoubleOrNull()?.let { it > 0 } == true && selectedCategory != null
@@ -74,6 +97,7 @@ sealed interface AddEditExpenseAction {
     data class OnCategorySelect(val category: Category) : AddEditExpenseAction
     data class OnSubCategorySelect(val subCategory: SubCategory?) : AddEditExpenseAction
     data class OnNotesChange(val notes: String) : AddEditExpenseAction
+    data class OnDateTimeChange(val dateTime: LocalDateTime) : AddEditExpenseAction
     data object OnSave : AddEditExpenseAction
     data object OnDeleteClick : AddEditExpenseAction
     data object OnDeleteConfirm : AddEditExpenseAction
@@ -125,8 +149,10 @@ class AddEditExpenseViewModel(
                         selectedSubCategory = subCat,
                         subCategories = subCats,
                         notes = expense.notes ?: "",
+                        dateTime = expense.expenseDate,
                         originalAmount = expense.amount,
                         originalCategoryId = expense.categoryId,
+                        originalCreatedAt = expense.createdAt,
                         isLoading = false
                     )
                 }
@@ -156,6 +182,7 @@ class AddEditExpenseViewModel(
                 _state.update { it.copy(selectedSubCategory = action.subCategory) }
             }
             is AddEditExpenseAction.OnNotesChange -> _state.update { it.copy(notes = action.notes) }
+            is AddEditExpenseAction.OnDateTimeChange -> _state.update { it.copy(dateTime = action.dateTime) }
             AddEditExpenseAction.OnSave -> saveExpense()
             AddEditExpenseAction.OnDeleteClick -> _state.update { it.copy(showDeleteDialog = true) }
             AddEditExpenseAction.OnDeleteConfirm -> deleteExpense()
@@ -183,7 +210,7 @@ class AddEditExpenseViewModel(
                 }
             }
 
-            val now = kotlin.time.Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+            val now = nowDateTime()
             val expense = Expense(
                 id = if (expenseId == -1L) 0L else expenseId,
                 name = s.name.trim(),
@@ -191,8 +218,8 @@ class AddEditExpenseViewModel(
                 categoryId = category.id,
                 subCategoryId = s.selectedSubCategory?.id,
                 notes = s.notes.trim().ifBlank { null },
-                expenseDate = now,
-                createdAt = now
+                expenseDate = s.dateTime,
+                createdAt = if (expenseId == -1L) now else (s.originalCreatedAt ?: now)
             )
             if (expenseId == -1L) expenseRepository.insertExpense(expense)
             else expenseRepository.updateExpense(expense)
@@ -205,7 +232,7 @@ class AddEditExpenseViewModel(
      * monthly total or the category total over its budget; null if it's fine. For edits, the
      * expense's existing amount is excluded so it isn't double-counted.
      */
-    private suspend fun checkBudget(amount: Double, category: Category, settings: AppSettings): String? {
+    private suspend fun checkBudget(amount: Double, category: Category, settings: AppSettings): BudgetWarning? {
         val s = _state.value
         val isEditing = expenseId != -1L
         val monthlyTotal = expenseRepository.getTotalSpend(DateFilter.ThisMonth).first()
@@ -216,8 +243,7 @@ class AddEditExpenseViewModel(
             val oldAmount = if (isEditing) s.originalAmount else 0.0
             val projected = monthlyTotal - oldAmount + amount
             if (projected > overall) {
-                return "This expense would bring your monthly spending to ${projected.toCurrencyString()}, " +
-                    "over your ${overall.toCurrencyString()} budget."
+                return BudgetWarning.Monthly(projected.toCurrencyString(), overall.toCurrencyString())
             }
         }
 
@@ -226,8 +252,7 @@ class AddEditExpenseViewModel(
             val catOld = if (isEditing && s.originalCategoryId == category.id) s.originalAmount else 0.0
             val catProjected = (catSpend[category.id] ?: 0.0) - catOld + amount
             if (catProjected > catBudget) {
-                return "This expense would bring ${category.name} spending to ${catProjected.toCurrencyString()}, " +
-                    "over its ${catBudget.toCurrencyString()} budget."
+                return BudgetWarning.Category(category.name, catProjected.toCurrencyString(), catBudget.toCurrencyString())
             }
         }
         return null
@@ -261,14 +286,68 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
     val isEdit = state.expenseId != -1L
     var showCategoryDropdown by remember { mutableStateOf(false) }
     var showSubCategoryDropdown by remember { mutableStateOf(false) }
+    var showDatePicker by remember { mutableStateOf(false) }
+    var showTimePicker by remember { mutableStateOf(false) }
 
-    if (state.budgetWarning != null) {
+    if (showDatePicker) {
+        val dpState = rememberDatePickerState(
+            initialSelectedDateMillis = state.dateTime.date.atStartOfDayIn(TimeZone.UTC).toEpochMilliseconds(),
+            selectableDates = PastOrTodayDates
+        )
+        DatePickerDialog(
+            onDismissRequest = { showDatePicker = false },
+            confirmButton = {
+                TextButton(onClick = {
+                    dpState.selectedDateMillis?.let { ms ->
+                        val pickedDate = Instant.fromEpochMilliseconds(ms).toLocalDateTime(TimeZone.UTC).date
+                        onAction(AddEditExpenseAction.OnDateTimeChange(LocalDateTime(pickedDate, state.dateTime.time)))
+                    }
+                    showDatePicker = false
+                }) { Text(stringResource(Res.string.action_ok)) }
+            },
+            dismissButton = { TextButton(onClick = { showDatePicker = false }) { Text(stringResource(Res.string.action_cancel)) } }
+        ) {
+            DatePicker(state = dpState)
+        }
+    }
+
+    if (showTimePicker) {
+        val tpState = rememberTimePickerState(
+            initialHour = state.dateTime.hour,
+            initialMinute = state.dateTime.minute,
+            is24Hour = false
+        )
+        AlertDialog(
+            onDismissRequest = { showTimePicker = false },
+            title = { Text(stringResource(Res.string.pick_time)) },
+            text = {
+                Box(Modifier.fillMaxWidth(), contentAlignment = androidx.compose.ui.Alignment.Center) {
+                    TimePicker(state = tpState)
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    onAction(AddEditExpenseAction.OnDateTimeChange(
+                        LocalDateTime(state.dateTime.date, LocalTime(tpState.hour, tpState.minute))
+                    ))
+                    showTimePicker = false
+                }) { Text(stringResource(Res.string.action_ok)) }
+            },
+            dismissButton = { TextButton(onClick = { showTimePicker = false }) { Text(stringResource(Res.string.action_cancel)) } }
+        )
+    }
+
+    state.budgetWarning?.let { warning ->
+        val message = when (warning) {
+            is BudgetWarning.Monthly -> stringResource(Res.string.budget_warn_monthly, warning.projected, warning.budget)
+            is BudgetWarning.Category -> stringResource(Res.string.budget_warn_category, warning.categoryName, warning.projected, warning.budget)
+        }
         AlertDialog(
             onDismissRequest = { onAction(AddEditExpenseAction.OnBudgetWarningDismiss) },
-            title = { Text("Over Budget") },
-            text = { Text(state.budgetWarning) },
+            title = { Text(stringResource(Res.string.over_budget_title)) },
+            text = { Text(message) },
             confirmButton = {
-                TextButton(onClick = { onAction(AddEditExpenseAction.OnBudgetWarningDismiss) }) { Text("OK") }
+                TextButton(onClick = { onAction(AddEditExpenseAction.OnBudgetWarningDismiss) }) { Text(stringResource(Res.string.action_ok)) }
             }
         )
     }
@@ -276,13 +355,13 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
     if (state.showDeleteDialog) {
         AlertDialog(
             onDismissRequest = { onAction(AddEditExpenseAction.OnDeleteDismiss) },
-            title = { Text("Delete Expense?") },
-            text = { Text("This action cannot be undone.") },
+            title = { Text(stringResource(Res.string.delete_expense_title)) },
+            text = { Text(stringResource(Res.string.delete_expense_message)) },
             confirmButton = {
-                TextButton(onClick = { onAction(AddEditExpenseAction.OnDeleteConfirm) }) { Text("Delete", color = MaterialTheme.colorScheme.error) }
+                TextButton(onClick = { onAction(AddEditExpenseAction.OnDeleteConfirm) }) { Text(stringResource(Res.string.action_delete), color = MaterialTheme.colorScheme.error) }
             },
             dismissButton = {
-                TextButton(onClick = { onAction(AddEditExpenseAction.OnDeleteDismiss) }) { Text("Cancel") }
+                TextButton(onClick = { onAction(AddEditExpenseAction.OnDeleteDismiss) }) { Text(stringResource(Res.string.action_cancel)) }
             }
         )
     }
@@ -290,16 +369,16 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(if (isEdit) "Edit Expense" else "Add Expense") },
+                title = { Text(stringResource(if (isEdit) Res.string.edit_expense_title else Res.string.add_expense_title)) },
                 navigationIcon = {
                     IconButton(onClick = { onAction(AddEditExpenseAction.OnBack) }) {
-                        Icon(Icons.Rounded.ArrowBack, "Back")
+                        Icon(Icons.Rounded.ArrowBack, stringResource(Res.string.action_back))
                     }
                 },
                 actions = {
                     if (isEdit) {
                         IconButton(onClick = { onAction(AddEditExpenseAction.OnDeleteClick) }) {
-                            Icon(Icons.Rounded.Delete, "Delete", tint = MaterialTheme.colorScheme.error)
+                            Icon(Icons.Rounded.Delete, stringResource(Res.string.action_delete), tint = MaterialTheme.colorScheme.error)
                         }
                     }
                 }
@@ -317,7 +396,7 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
             OutlinedTextField(
                 value = state.name,
                 onValueChange = { onAction(AddEditExpenseAction.OnNameChange(it.take(100))) },
-                label = { Text("Expense Name *") },
+                label = { Text(stringResource(Res.string.field_expense_name)) },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
                 isError = state.nameError != null,
@@ -327,7 +406,7 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
             OutlinedTextField(
                 value = state.amountText,
                 onValueChange = { onAction(AddEditExpenseAction.OnAmountChange(it)) },
-                label = { Text("Amount (₹) *") },
+                label = { Text(stringResource(Res.string.field_amount)) },
                 prefix = { Text("₹") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                 singleLine = true,
@@ -335,6 +414,31 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
                 isError = state.amountError != null,
                 supportingText = state.amountError?.let { { Text(it) } }
             )
+
+            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Box(modifier = Modifier.weight(1.4f)) {
+                    OutlinedTextField(
+                        value = state.dateTime.toDisplayDate(),
+                        onValueChange = {},
+                        readOnly = true,
+                        label = { Text(stringResource(Res.string.field_date)) },
+                        leadingIcon = { Icon(Icons.Rounded.CalendarMonth, null) },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Box(Modifier.matchParentSize().clickable { showDatePicker = true })
+                }
+                Box(modifier = Modifier.weight(1f)) {
+                    OutlinedTextField(
+                        value = state.dateTime.toDisplayTime(),
+                        onValueChange = {},
+                        readOnly = true,
+                        label = { Text(stringResource(Res.string.field_time)) },
+                        leadingIcon = { Icon(Icons.Rounded.Schedule, null) },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Box(Modifier.matchParentSize().clickable { showTimePicker = true })
+                }
+            }
 
             ExposedDropdownMenuBox(
                 expanded = showCategoryDropdown,
@@ -344,7 +448,7 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
                     value = state.selectedCategory?.let { "${it.icon} ${it.name}" } ?: "",
                     onValueChange = {},
                     readOnly = true,
-                    label = { Text("Category *") },
+                    label = { Text(stringResource(Res.string.field_category)) },
                     trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(showCategoryDropdown) },
                     modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable).fillMaxWidth(),
                     isError = state.categoryError != null
@@ -370,12 +474,12 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
               Column {
                 if (state.subCategories.isEmpty()) {
                     OutlinedTextField(
-                        value = "None",
+                        value = stringResource(Res.string.common_none),
                         onValueChange = {},
                         readOnly = true,
                         enabled = false,
-                        label = { Text("Sub-Category (optional)") },
-                        supportingText = { Text("No sub-categories for this category yet") },
+                        label = { Text(stringResource(Res.string.field_subcategory)) },
+                        supportingText = { Text(stringResource(Res.string.subcategory_none_hint)) },
                         modifier = Modifier.fillMaxWidth()
                     )
                 } else {
@@ -384,15 +488,15 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
                         onExpandedChange = { showSubCategoryDropdown = it }
                     ) {
                         OutlinedTextField(
-                            value = state.selectedSubCategory?.name ?: "None",
+                            value = state.selectedSubCategory?.name ?: stringResource(Res.string.common_none),
                             onValueChange = {},
                             readOnly = true,
-                            label = { Text("Sub-Category (optional)") },
+                            label = { Text(stringResource(Res.string.field_subcategory)) },
                             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(showSubCategoryDropdown) },
                             modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable).fillMaxWidth()
                         )
                         ExposedDropdownMenu(expanded = showSubCategoryDropdown, onDismissRequest = { showSubCategoryDropdown = false }) {
-                            DropdownMenuItem(text = { Text("None") }, onClick = {
+                            DropdownMenuItem(text = { Text(stringResource(Res.string.common_none)) }, onClick = {
                                 onAction(AddEditExpenseAction.OnSubCategorySelect(null))
                                 showSubCategoryDropdown = false
                             })
@@ -411,7 +515,7 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
             OutlinedTextField(
                 value = state.notes,
                 onValueChange = { onAction(AddEditExpenseAction.OnNotesChange(it.take(300))) },
-                label = { Text("Notes (optional)") },
+                label = { Text(stringResource(Res.string.field_notes)) },
                 minLines = 3,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -423,10 +527,20 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
                 enabled = state.isValid && !state.isSaving
             ) {
                 if (state.isSaving) CircularProgressIndicator(Modifier.size(20.dp), color = MaterialTheme.colorScheme.onPrimary)
-                else Text(if (isEdit) "Update Expense" else "Save Expense", style = MaterialTheme.typography.titleMedium)
+                else Text(stringResource(if (isEdit) Res.string.update_expense else Res.string.save_expense), style = MaterialTheme.typography.titleMedium)
             }
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+private val PastOrTodayDates = object : SelectableDates {
+    // Block future days — you can't have spent money tomorrow.
+    override fun isSelectableDate(utcTimeMillis: Long): Boolean =
+        utcTimeMillis <= Clock.System.now().toEpochMilliseconds()
+
+    override fun isSelectableYear(year: Int): Boolean =
+        year <= Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).year
 }
 
 val addEditExpenseModule = org.koin.dsl.module {

@@ -1,0 +1,19 @@
+<resources>
+    <string name="nav_dashboard">仪表盘</string>
+    <string name="nav_expenses">支出</string>
+    <string name="nav_analytics">分析</string>
+    <string name="nav_settings">设置</string>
+    <string name="action_save">保存</string>
+    <string name="action_cancel">取消</string>
+    <string name="action_delete">删除</string>
+    <string name="action_ok">确定</string>
+    <string name="action_close">关闭</string>
+    <string name="action_add">添加</string>
+    <string name="action_apply">应用</string>
+    <string name="action_back">返回</string>
+    <string name="filter_this_month">本月</string>
+    <string name="filter_this_week">本周</string>
+    <string name="filter_last_month">上月</string>
+    <string name="filter_this_year">今年</string>
+    <string name="filter_custom">自定义</string>
+</resources>

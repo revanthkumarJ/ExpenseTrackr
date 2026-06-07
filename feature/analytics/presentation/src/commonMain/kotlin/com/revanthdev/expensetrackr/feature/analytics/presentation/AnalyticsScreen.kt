@@ -29,7 +29,9 @@ import com.revanthdev.expensetrackr.core.domain.model.DateFilter
 import kotlinx.datetime.daysUntil
 import com.revanthdev.expensetrackr.core.domain.repository.CategoryRepository
 import com.revanthdev.expensetrackr.core.domain.repository.ExpenseRepository
+import expensetrackr.core.presentation.generated.resources.*
 import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
+import org.jetbrains.compose.resources.stringResource
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
@@ -122,7 +124,7 @@ fun AnalyticsRoot(viewModel: AnalyticsViewModel = koinViewModel()) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AnalyticsScreen(state: AnalyticsState, onAction: (AnalyticsAction) -> Unit) {
-    Scaffold(topBar = { TopAppBar(title = { Text("Analytics") }) }) { padding ->
+    Scaffold(topBar = { TopAppBar(title = { Text(stringResource(Res.string.nav_analytics)) }) }) { padding ->
         Column(Modifier.padding(padding).fillMaxSize()) {
             // Filter chips are always visible so the user can switch periods even when a
             // selected period happens to have no data.
@@ -140,8 +142,8 @@ fun AnalyticsScreen(state: AnalyticsState, onAction: (AnalyticsAction) -> Unit) 
 
                 state.categoryStats.isEmpty() -> EmptyState(
                     modifier = Modifier.weight(1f),
-                    title = "No data for this period",
-                    message = "Try a different period above, or add some expenses",
+                    title = stringResource(Res.string.analytics_empty_title),
+                    message = stringResource(Res.string.analytics_empty_message),
                     emoji = "📊"
                 )
 
@@ -153,19 +155,19 @@ fun AnalyticsScreen(state: AnalyticsState, onAction: (AnalyticsAction) -> Unit) 
                     item {
                         DonutChart(
                             stats = state.categoryStats,
-                            centerLabel = "Total",
+                            centerLabel = stringResource(Res.string.common_total),
                             centerValue = state.totalSpend.toCurrencyString(),
                             modifier = Modifier.fillMaxWidth().height(260.dp)
                         )
                     }
                     item {
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                            StatCard("Top Category", state.highestCategory, Modifier.weight(1f))
-                            StatCard("Avg / Day", state.avgDailySpend, Modifier.weight(1f))
+                            StatCard(stringResource(Res.string.analytics_top_category), state.highestCategory, Modifier.weight(1f))
+                            StatCard(stringResource(Res.string.analytics_avg_day), state.avgDailySpend, Modifier.weight(1f))
                         }
                     }
                     item {
-                        Text("Breakdown", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                        Text(stringResource(Res.string.analytics_breakdown), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
                     }
                     items(state.categoryStats, key = { it.category.id }) { stat ->
                         LegendItem(stat, modifier = Modifier.animateItem())

@@ -1,0 +1,196 @@
+<resources>
+    <!-- Bottom navigation -->
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_expenses">Expenses</string>
+    <string name="nav_analytics">Analytics</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Common actions -->
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_ok">OK</string>
+    <string name="action_close">Close</string>
+    <string name="action_add">Add</string>
+    <string name="action_apply">Apply</string>
+    <string name="action_back">Back</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_new">New</string>
+
+    <!-- Common values -->
+    <string name="common_none">None</string>
+    <string name="common_default">Default</string>
+    <string name="common_not_set">Not set</string>
+    <string name="common_uncategorized">Uncategorized</string>
+    <string name="common_total">Total</string>
+    <string name="action_add_expense">Add Expense</string>
+
+    <!-- Date filter chips -->
+    <string name="filter_this_month">This Month</string>
+    <string name="filter_this_week">This Week</string>
+    <string name="filter_last_month">Last Month</string>
+    <string name="filter_this_year">This Year</string>
+    <string name="filter_custom">Custom</string>
+    <string name="period_custom_range">Custom Range</string>
+
+    <!-- Cards (design-system) -->
+    <string name="card_percent_of_spend">%1$s of spend</string>
+    <string name="card_budget">Budget: %1$s</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_budget_monthly">Monthly Budget</string>
+    <string name="dashboard_empty_title">No expenses yet</string>
+    <string name="dashboard_empty_message">Tap the + button to add your first expense</string>
+    <string name="drilldown_percent_of_total">%1$d%% of total</string>
+    <string name="drilldown_empty_title">No expenses</string>
+    <string name="drilldown_empty_message">No expenses in this category for the selected period</string>
+    <string name="filtered_empty_title">No expenses</string>
+    <string name="filtered_empty_message">No expenses found for this selection</string>
+
+    <!-- Expenses list -->
+    <string name="expenses_title">All Expenses</string>
+    <string name="expenses_search_hint">Search expenses...</string>
+    <string name="expenses_empty_title">No expenses</string>
+    <string name="expenses_empty_message">Tap + to add your first expense</string>
+    <string name="expense_deleted">Expense deleted</string>
+
+    <!-- Add / Edit expense -->
+    <string name="add_expense_title">Add Expense</string>
+    <string name="edit_expense_title">Edit Expense</string>
+    <string name="field_expense_name">Expense Name *</string>
+    <string name="field_amount">Amount (₹) *</string>
+    <string name="field_category">Category *</string>
+    <string name="field_subcategory">Sub-Category (optional)</string>
+    <string name="field_date">Date *</string>
+    <string name="field_time">Time</string>
+    <string name="field_notes">Notes (optional)</string>
+    <string name="subcategory_none_hint">No sub-categories for this category yet</string>
+    <string name="save_expense">Save Expense</string>
+    <string name="update_expense">Update Expense</string>
+    <string name="delete_expense_title">Delete Expense?</string>
+    <string name="delete_expense_message">This action cannot be undone.</string>
+    <string name="over_budget_title">Over Budget</string>
+    <string name="budget_warn_monthly">This expense would bring your monthly spending to %1$s, over your %2$s budget.</string>
+    <string name="budget_warn_category">This expense would bring %1$s spending to %2$s, over its %3$s budget.</string>
+    <string name="pick_time">Pick a time</string>
+
+    <!-- Analytics -->
+    <string name="analytics_top_category">Top Category</string>
+    <string name="analytics_avg_day">Avg / Day</string>
+    <string name="analytics_breakdown">Breakdown</string>
+    <string name="analytics_empty_title">No data for this period</string>
+    <string name="analytics_empty_message">Try a different period above, or add some expenses</string>
+
+    <!-- Settings -->
+    <string name="settings_section_preferences">Preferences</string>
+    <string name="settings_section_budget">Budget</string>
+    <string name="settings_section_data">Data Management</string>
+    <string name="settings_section_app_info">App Info</string>
+    <string name="settings_theme">Theme</string>
+    <string name="settings_theme_system">System Default</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_app_lock">App Lock</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_notifications_on">Reminders enabled</string>
+    <string name="settings_notifications_off">Reminders disabled</string>
+    <string name="settings_budget_mgmt">Budget Management</string>
+    <string name="settings_budget_value">%1$s/month</string>
+    <string name="settings_manage_categories">Manage Categories</string>
+    <string name="settings_manage_subcategories">Manage Sub-Categories</string>
+    <string name="settings_about">About</string>
+    <string name="settings_privacy">Privacy Policy</string>
+    <string name="settings_terms">Terms of Service</string>
+    <string name="settings_language">Language</string>
+    <string name="language_system_default">System default</string>
+
+    <!-- Onboarding language picker (first page) -->
+    <string name="onboarding_language_title">Choose your language</string>
+    <string name="onboarding_language_desc">You can change this anytime in Settings</string>
+
+    <!-- Budget -->
+    <string name="budget_title">Budget Management</string>
+    <string name="budget_monthly">Monthly Budget</string>
+    <string name="budget_amount">Amount (₹)</string>
+    <string name="budget_allow_over_title">Allow spending over budget</string>
+    <string name="budget_allow_over_on">Expenses over your budget are allowed</string>
+    <string name="budget_allow_over_off">You'll be blocked from adding expenses that exceed your monthly or category budget</string>
+    <string name="budget_per_category">Per-Category Budgets</string>
+    <string name="budget_reset_all">Reset All</string>
+
+    <!-- Categories -->
+    <string name="categories_title">Manage Categories</string>
+    <string name="categories_new">New Category</string>
+    <string name="categories_edit">Edit Category</string>
+    <string name="field_name">Name</string>
+    <string name="field_icon_emoji">Icon (emoji)</string>
+    <string name="category_default_badge">Default</string>
+    <string name="cannot_delete_title">Cannot Delete</string>
+    <string name="cannot_delete_message">Cannot delete \'%1$s\' — it has linked expenses.</string>
+    <string name="categories_empty_title">No categories</string>
+    <string name="categories_empty_message">Tap New to create your first category</string>
+
+    <!-- Sub-categories -->
+    <string name="subcategories_title">Manage Sub-Categories</string>
+    <string name="subcategory_new">New Sub-Category</string>
+    <string name="subcategory_edit">Edit Sub-Category</string>
+    <string name="field_parent_category">Parent Category</string>
+    <string name="select_category">Select Category</string>
+    <string name="subcategory_has_expenses_title">Sub-Category Has Expenses</string>
+    <string name="subcategory_has_expenses_message">\'%1$s\' has linked expenses. Deleting it will remove the sub-category from those expenses. Continue?</string>
+    <string name="action_delete_detach">Delete &amp; Detach</string>
+    <string name="subcategories_empty_title">No sub-categories yet</string>
+    <string name="subcategories_empty_message">Tap New to create one</string>
+
+    <!-- App lock (unlock) -->
+    <string name="applock_enter_pin">Enter PIN</string>
+    <string name="applock_enter_pin_sub">Enter your 6-digit PIN to unlock</string>
+    <string name="applock_incorrect">Incorrect PIN. Try again.</string>
+    <string name="applock_unlock_title">Unlock ExpenseTrackr</string>
+    <string name="applock_unlock_sub">Confirm your identity to continue</string>
+
+    <!-- App lock setup -->
+    <string name="applock_setup_title">App Lock</string>
+    <string name="applock_on">App Lock is on</string>
+    <string name="applock_off">App Lock is off</string>
+    <string name="applock_status_pin">PIN unlock</string>
+    <string name="applock_status_both">PIN + biometric unlock</string>
+    <string name="applock_status_none">Your app opens without a lock</string>
+    <string name="applock_set_pin">Set up PIN</string>
+    <string name="applock_change_pin">Change PIN</string>
+    <string name="applock_biometric_title">Unlock with biometric</string>
+    <string name="applock_biometric_none">No biometric enrolled on this device</string>
+    <string name="applock_biometric_need_pin">Set up a PIN first</string>
+    <string name="applock_biometric_use">Use fingerprint / face to unlock</string>
+    <string name="applock_remove">Remove App Lock</string>
+    <string name="applock_forgot">⚠ If you forget your PIN, you must clear app data to reset it.</string>
+
+    <!-- PIN setup flow -->
+    <string name="pin_set_title">Set PIN</string>
+    <string name="pin_confirm_title">Confirm PIN</string>
+    <string name="pin_create">Create a PIN</string>
+    <string name="pin_reenter">Re-enter your PIN</string>
+    <string name="pin_choose_sub">Choose a 6-digit PIN</string>
+    <string name="pin_confirm_sub">Confirm your 6-digit PIN</string>
+    <string name="pin_mismatch">PINs don\'t match. Try again.</string>
+
+    <!-- Notification settings -->
+    <string name="notif_title">Notification Settings</string>
+    <string name="notif_daily_title">Daily Expense Reminder</string>
+    <string name="notif_daily_sub">Remind you to log today\'s expenses at %1$s</string>
+    <string name="notif_budget_title">Budget Alerts</string>
+    <string name="notif_budget_sub">Alert when spending exceeds 80%% of budget</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">Skip</string>
+    <string name="onboarding_next">Next</string>
+    <string name="onboarding_get_started">Get Started</string>
+    <string name="onboarding_welcome_title">Welcome to ExpenseTrackr</string>
+    <string name="onboarding_welcome_desc">Track every rupee. Private, offline, and beautifully simple.</string>
+    <string name="onboarding_track_title">Track Your Spending</string>
+    <string name="onboarding_track_desc">Organize expenses into categories and sub-categories. See exactly where your money goes.</string>
+    <string name="onboarding_analytics_title">Smart Analytics</string>
+    <string name="onboarding_analytics_desc">Beautiful pie charts and budget tracking help you stay on top of your finances.</string>
+    <string name="onboarding_privacy_title">Your Data, Your Device</string>
+    <string name="onboarding_privacy_desc">No internet. No cloud. No accounts. All your data stays on your device — always.</string>
+</resources>

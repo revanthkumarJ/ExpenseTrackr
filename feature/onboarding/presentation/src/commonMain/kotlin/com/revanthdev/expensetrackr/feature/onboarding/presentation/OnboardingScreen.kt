@@ -3,6 +3,8 @@ package com.revanthdev.expensetrackr.feature.onboarding.presentation
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
@@ -21,8 +23,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
 import com.revanthdev.expensetrackr.core.presentation.ObserveAsEvents
+import com.revanthdev.expensetrackr.core.presentation.appLanguages
+import expensetrackr.core.presentation.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import org.koin.compose.viewmodel.koinViewModel
@@ -33,13 +42,6 @@ data object OnboardingRoute
 
 data class OnboardingPage(val emoji: String, val title: String, val description: String)
 
-private val pages = listOf(
-    OnboardingPage("💰", "Welcome to ExpenseTrackr", "Track every rupee. Private, offline, and beautifully simple."),
-    OnboardingPage("📂", "Track Your Spending", "Organize expenses into categories and sub-categories. See exactly where your money goes."),
-    OnboardingPage("📊", "Smart Analytics", "Beautiful pie charts and budget tracking help you stay on top of your finances."),
-    OnboardingPage("🔒", "Your Data, Your Device", "No internet. No cloud. No accounts. All your data stays on your device — always."),
-)
-
 sealed interface OnboardingEvent {
     data object NavigateToMain : OnboardingEvent
 }
@@ -47,6 +49,17 @@ sealed interface OnboardingEvent {
 class OnboardingViewModel(private val settingsRepository: SettingsRepository) : ViewModel() {
     private val _events = Channel<OnboardingEvent>()
     val events = _events.receiveAsFlow()
+
+    val language: StateFlow<String?> = settingsRepository.getSettings()
+        .map { it.language }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
+
+    fun setLanguage(tag: String?) {
+        viewModelScope.launch {
+            val current = settingsRepository.getSettingsOnce()
+            settingsRepository.updateSettings(current.copy(language = tag))
+        }
+    }
 
     fun onGetStarted() {
         viewModelScope.launch {
@@ -67,24 +80,44 @@ fun OnboardingRoot(
             OnboardingEvent.NavigateToMain -> onNavigateToMain()
         }
     }
-    OnboardingScreen(onGetStarted = viewModel::onGetStarted)
+    val language by viewModel.language.collectAsState()
+    OnboardingScreen(
+        currentLanguage = language,
+        onSelectLanguage = viewModel::setLanguage,
+        onGetStarted = viewModel::onGetStarted
+    )
 }
 
 @Composable
-fun OnboardingScreen(onGetStarted: () -> Unit) {
-    val pagerState = rememberPagerState(pageCount = { pages.size })
+fun OnboardingScreen(
+    currentLanguage: String?,
+    onSelectLanguage: (String?) -> Unit,
+    onGetStarted: () -> Unit
+) {
+    val infoPages = listOf(
+        OnboardingPage("💰", stringResource(Res.string.onboarding_welcome_title), stringResource(Res.string.onboarding_welcome_desc)),
+        OnboardingPage("📂", stringResource(Res.string.onboarding_track_title), stringResource(Res.string.onboarding_track_desc)),
+        OnboardingPage("📊", stringResource(Res.string.onboarding_analytics_title), stringResource(Res.string.onboarding_analytics_desc)),
+        OnboardingPage("🔒", stringResource(Res.string.onboarding_privacy_title), stringResource(Res.string.onboarding_privacy_desc)),
+    )
+    val pageCount = infoPages.size + 1 // page 0 = language picker
+    val pagerState = rememberPagerState(pageCount = { pageCount })
     val scope = rememberCoroutineScope()
 
     Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
         Box(modifier = Modifier.fillMaxWidth().padding(16.dp), contentAlignment = Alignment.CenterEnd) {
-            if (pagerState.currentPage < pages.lastIndex) {
-                TextButton(onClick = onGetStarted) { Text("Skip") }
+            if (pagerState.currentPage < pageCount - 1) {
+                TextButton(onClick = onGetStarted) { Text(stringResource(Res.string.onboarding_skip)) }
             }
         }
 
         HorizontalPager(state = pagerState, modifier = Modifier.weight(1f)) { page ->
-            val pageOffset = (pagerState.currentPage - page) + pagerState.currentPageOffsetFraction
-            OnboardingPageContent(pages[page], pageOffset)
+            if (page == 0) {
+                LanguageSelectionPage(currentLanguage, onSelectLanguage)
+            } else {
+                val pageOffset = (pagerState.currentPage - page) + pagerState.currentPageOffsetFraction
+                OnboardingPageContent(infoPages[page - 1], pageOffset)
+            }
         }
 
         Column(
@@ -92,7 +125,7 @@ fun OnboardingScreen(onGetStarted: () -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                repeat(pages.size) { index ->
+                repeat(pageCount) { index ->
                     Box(
                         modifier = Modifier
                             .size(if (pagerState.currentPage == index) 24.dp else 8.dp, 8.dp)
@@ -105,7 +138,7 @@ fun OnboardingScreen(onGetStarted: () -> Unit) {
                 }
             }
             Spacer(Modifier.height(24.dp))
-            val isLast = pagerState.currentPage == pages.lastIndex
+            val isLast = pagerState.currentPage == pageCount - 1
             Button(
                 onClick = {
                     if (isLast) onGetStarted()
@@ -114,8 +147,68 @@ fun OnboardingScreen(onGetStarted: () -> Unit) {
                 modifier = Modifier.fillMaxWidth().height(56.dp),
                 shape = MaterialTheme.shapes.large
             ) {
-                Text(if (isLast) "Get Started" else "Next", style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(if (isLast) Res.string.onboarding_get_started else Res.string.onboarding_next), style = MaterialTheme.typography.titleMedium)
             }
+        }
+    }
+}
+
+@Composable
+private fun LanguageSelectionPage(currentLanguage: String?, onSelectLanguage: (String?) -> Unit) {
+    Column(
+        modifier = Modifier.fillMaxSize().padding(horizontal = 24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Spacer(Modifier.height(8.dp))
+        Text("🌐", style = MaterialTheme.typography.displaySmall)
+        Spacer(Modifier.height(12.dp))
+        Text(
+            stringResource(Res.string.onboarding_language_title),
+            style = MaterialTheme.typography.headlineSmall,
+            textAlign = TextAlign.Center
+        )
+        Spacer(Modifier.height(6.dp))
+        Text(
+            stringResource(Res.string.onboarding_language_desc),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center
+        )
+        Spacer(Modifier.height(16.dp))
+        LazyColumn(
+            modifier = Modifier.weight(1f).fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            contentPadding = PaddingValues(bottom = 8.dp)
+        ) {
+            item {
+                LanguageOption(stringResource(Res.string.language_system_default), currentLanguage == null) {
+                    onSelectLanguage(null)
+                }
+            }
+            items(appLanguages) { lang ->
+                LanguageOption(lang.nativeName, currentLanguage == lang.tag) { onSelectLanguage(lang.tag) }
+            }
+        }
+    }
+}
+
+@Composable
+private fun LanguageOption(name: String, selected: Boolean, onClick: () -> Unit) {
+    Surface(
+        onClick = onClick,
+        modifier = Modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.large,
+        color = if (selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainerLow,
+        tonalElevation = 1.dp
+    ) {
+        Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+            RadioButton(selected = selected, onClick = null)
+            Spacer(Modifier.width(12.dp))
+            Text(
+                name,
+                style = MaterialTheme.typography.titleSmall,
+                color = if (selected) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
+            )
         }
     }
 }

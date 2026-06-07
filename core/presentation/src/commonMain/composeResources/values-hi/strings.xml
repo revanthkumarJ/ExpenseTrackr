@@ -1,0 +1,177 @@
+<resources>
+    <string name="nav_dashboard">डैशबोर्ड</string>
+    <string name="nav_expenses">खर्च</string>
+    <string name="nav_analytics">विश्लेषण</string>
+    <string name="nav_settings">सेटिंग्स</string>
+
+    <string name="action_save">सहेजें</string>
+    <string name="action_cancel">रद्द करें</string>
+    <string name="action_delete">हटाएं</string>
+    <string name="action_ok">ठीक है</string>
+    <string name="action_close">बंद करें</string>
+    <string name="action_add">जोड़ें</string>
+    <string name="action_apply">लागू करें</string>
+    <string name="action_back">वापस</string>
+    <string name="action_edit">संपादित करें</string>
+    <string name="action_new">नया</string>
+
+    <string name="common_none">कोई नहीं</string>
+    <string name="common_default">डिफ़ॉल्ट</string>
+    <string name="common_not_set">सेट नहीं</string>
+    <string name="common_uncategorized">अवर्गीकृत</string>
+    <string name="common_total">कुल</string>
+    <string name="action_add_expense">खर्च जोड़ें</string>
+
+    <string name="filter_this_month">इस माह</string>
+    <string name="filter_this_week">इस सप्ताह</string>
+    <string name="filter_last_month">पिछला माह</string>
+    <string name="filter_this_year">इस वर्ष</string>
+    <string name="filter_custom">कस्टम</string>
+    <string name="period_custom_range">कस्टम अवधि</string>
+
+    <string name="card_percent_of_spend">खर्च का %1$s</string>
+    <string name="card_budget">बजट: %1$s</string>
+
+    <string name="dashboard_budget_monthly">मासिक बजट</string>
+    <string name="dashboard_empty_title">अभी तक कोई खर्च नहीं</string>
+    <string name="dashboard_empty_message">अपना पहला खर्च जोड़ने के लिए + बटन दबाएं</string>
+    <string name="drilldown_percent_of_total">कुल का %1$d%%</string>
+    <string name="drilldown_empty_title">कोई खर्च नहीं</string>
+    <string name="drilldown_empty_message">चयनित अवधि के लिए इस श्रेणी में कोई खर्च नहीं</string>
+    <string name="filtered_empty_title">कोई खर्च नहीं</string>
+    <string name="filtered_empty_message">इस चयन के लिए कोई खर्च नहीं मिला</string>
+
+    <string name="expenses_title">सभी खर्च</string>
+    <string name="expenses_search_hint">खर्च खोजें...</string>
+    <string name="expenses_empty_title">कोई खर्च नहीं</string>
+    <string name="expenses_empty_message">अपना पहला खर्च जोड़ने के लिए + दबाएं</string>
+    <string name="expense_deleted">खर्च हटा दिया गया</string>
+
+    <string name="add_expense_title">खर्च जोड़ें</string>
+    <string name="edit_expense_title">खर्च संपादित करें</string>
+    <string name="field_expense_name">खर्च का नाम *</string>
+    <string name="field_amount">राशि (₹) *</string>
+    <string name="field_category">श्रेणी *</string>
+    <string name="field_subcategory">उप-श्रेणी (वैकल्पिक)</string>
+    <string name="field_date">तारीख *</string>
+    <string name="field_time">समय</string>
+    <string name="field_notes">नोट्स (वैकल्पिक)</string>
+    <string name="subcategory_none_hint">इस श्रेणी के लिए अभी कोई उप-श्रेणी नहीं</string>
+    <string name="save_expense">खर्च सहेजें</string>
+    <string name="update_expense">खर्च अपडेट करें</string>
+    <string name="delete_expense_title">खर्च हटाएं?</string>
+    <string name="delete_expense_message">यह क्रिया पूर्ववत नहीं की जा सकती।</string>
+    <string name="over_budget_title">बजट से अधिक</string>
+    <string name="budget_warn_monthly">यह खर्च आपके मासिक खर्च को %1$s तक ले आएगा, जो आपके %2$s बजट से अधिक है।</string>
+    <string name="budget_warn_category">यह खर्च %1$s के खर्च को %2$s तक ले आएगा, जो इसके %3$s बजट से अधिक है।</string>
+    <string name="pick_time">समय चुनें</string>
+
+    <string name="analytics_top_category">शीर्ष श्रेणी</string>
+    <string name="analytics_avg_day">औसत / दिन</string>
+    <string name="analytics_breakdown">विवरण</string>
+    <string name="analytics_empty_title">इस अवधि के लिए कोई डेटा नहीं</string>
+    <string name="analytics_empty_message">ऊपर कोई अन्य अवधि आज़माएं, या कुछ खर्च जोड़ें</string>
+
+    <string name="settings_section_preferences">प्राथमिकताएं</string>
+    <string name="settings_section_budget">बजट</string>
+    <string name="settings_section_data">डेटा प्रबंधन</string>
+    <string name="settings_section_app_info">ऐप जानकारी</string>
+    <string name="settings_theme">थीम</string>
+    <string name="settings_theme_system">सिस्टम डिफ़ॉल्ट</string>
+    <string name="settings_theme_light">लाइट</string>
+    <string name="settings_theme_dark">डार्क</string>
+    <string name="settings_app_lock">ऐप लॉक</string>
+    <string name="settings_notifications">सूचनाएं</string>
+    <string name="settings_notifications_on">रिमाइंडर चालू</string>
+    <string name="settings_notifications_off">रिमाइंडर बंद</string>
+    <string name="settings_budget_mgmt">बजट प्रबंधन</string>
+    <string name="settings_budget_value">%1$s/माह</string>
+    <string name="settings_manage_categories">श्रेणियां प्रबंधित करें</string>
+    <string name="settings_manage_subcategories">उप-श्रेणियां प्रबंधित करें</string>
+    <string name="settings_about">परिचय</string>
+    <string name="settings_privacy">गोपनीयता नीति</string>
+    <string name="settings_terms">सेवा की शर्तें</string>
+    <string name="settings_language">भाषा</string>
+    <string name="language_system_default">सिस्टम डिफ़ॉल्ट</string>
+
+    <string name="onboarding_language_title">अपनी भाषा चुनें</string>
+    <string name="onboarding_language_desc">आप इसे कभी भी सेटिंग्स में बदल सकते हैं</string>
+
+    <string name="budget_title">बजट प्रबंधन</string>
+    <string name="budget_monthly">मासिक बजट</string>
+    <string name="budget_amount">राशि (₹)</string>
+    <string name="budget_allow_over_title">बजट से अधिक खर्च की अनुमति दें</string>
+    <string name="budget_allow_over_on">बजट से अधिक खर्च की अनुमति है</string>
+    <string name="budget_allow_over_off">आपको ऐसे खर्च जोड़ने से रोका जाएगा जो आपके मासिक या श्रेणी बजट से अधिक हों</string>
+    <string name="budget_per_category">प्रति-श्रेणी बजट</string>
+    <string name="budget_reset_all">सभी रीसेट करें</string>
+
+    <string name="categories_title">श्रेणियां प्रबंधित करें</string>
+    <string name="categories_new">नई श्रेणी</string>
+    <string name="categories_edit">श्रेणी संपादित करें</string>
+    <string name="field_name">नाम</string>
+    <string name="field_icon_emoji">आइकन (इमोजी)</string>
+    <string name="category_default_badge">डिफ़ॉल्ट</string>
+    <string name="cannot_delete_title">हटाया नहीं जा सकता</string>
+    <string name="cannot_delete_message">\'%1$s\' को हटाया नहीं जा सकता — इससे जुड़े खर्च हैं।</string>
+    <string name="categories_empty_title">कोई श्रेणी नहीं</string>
+    <string name="categories_empty_message">अपनी पहली श्रेणी बनाने के लिए नया दबाएं</string>
+
+    <string name="subcategories_title">उप-श्रेणियां प्रबंधित करें</string>
+    <string name="subcategory_new">नई उप-श्रेणी</string>
+    <string name="subcategory_edit">उप-श्रेणी संपादित करें</string>
+    <string name="field_parent_category">मूल श्रेणी</string>
+    <string name="select_category">श्रेणी चुनें</string>
+    <string name="subcategory_has_expenses_title">उप-श्रेणी में खर्च हैं</string>
+    <string name="subcategory_has_expenses_message">\'%1$s\' से जुड़े खर्च हैं। इसे हटाने से उन खर्चों से यह उप-श्रेणी हट जाएगी। जारी रखें?</string>
+    <string name="action_delete_detach">हटाएं और अलग करें</string>
+    <string name="subcategories_empty_title">अभी तक कोई उप-श्रेणी नहीं</string>
+    <string name="subcategories_empty_message">एक बनाने के लिए नया दबाएं</string>
+
+    <string name="applock_enter_pin">पिन दर्ज करें</string>
+    <string name="applock_enter_pin_sub">अनलॉक करने के लिए अपना 6-अंकीय पिन दर्ज करें</string>
+    <string name="applock_incorrect">गलत पिन। पुनः प्रयास करें।</string>
+    <string name="applock_unlock_title">ExpenseTrackr अनलॉक करें</string>
+    <string name="applock_unlock_sub">जारी रखने के लिए अपनी पहचान की पुष्टि करें</string>
+
+    <string name="applock_setup_title">ऐप लॉक</string>
+    <string name="applock_on">ऐप लॉक चालू है</string>
+    <string name="applock_off">ऐप लॉक बंद है</string>
+    <string name="applock_status_pin">पिन अनलॉक</string>
+    <string name="applock_status_both">पिन + बायोमेट्रिक अनलॉक</string>
+    <string name="applock_status_none">आपका ऐप बिना लॉक के खुलता है</string>
+    <string name="applock_set_pin">पिन सेट करें</string>
+    <string name="applock_change_pin">पिन बदलें</string>
+    <string name="applock_biometric_title">बायोमेट्रिक से अनलॉक करें</string>
+    <string name="applock_biometric_none">इस डिवाइस पर कोई बायोमेट्रिक नामांकित नहीं</string>
+    <string name="applock_biometric_need_pin">पहले एक पिन सेट करें</string>
+    <string name="applock_biometric_use">अनलॉक करने के लिए फिंगरप्रिंट / चेहरे का उपयोग करें</string>
+    <string name="applock_remove">ऐप लॉक हटाएं</string>
+    <string name="applock_forgot">⚠ यदि आप अपना पिन भूल जाते हैं, तो रीसेट करने के लिए ऐप डेटा साफ़ करना होगा।</string>
+
+    <string name="pin_set_title">पिन सेट करें</string>
+    <string name="pin_confirm_title">पिन की पुष्टि करें</string>
+    <string name="pin_create">एक पिन बनाएं</string>
+    <string name="pin_reenter">अपना पिन फिर से दर्ज करें</string>
+    <string name="pin_choose_sub">6-अंकीय पिन चुनें</string>
+    <string name="pin_confirm_sub">अपने 6-अंकीय पिन की पुष्टि करें</string>
+    <string name="pin_mismatch">पिन मेल नहीं खाते। पुनः प्रयास करें।</string>
+
+    <string name="notif_title">सूचना सेटिंग्स</string>
+    <string name="notif_daily_title">दैनिक खर्च रिमाइंडर</string>
+    <string name="notif_daily_sub">आज के खर्च दर्ज करने के लिए %1$s पर याद दिलाएं</string>
+    <string name="notif_budget_title">बजट अलर्ट</string>
+    <string name="notif_budget_sub">जब खर्च बजट के 80%% से अधिक हो तो अलर्ट करें</string>
+
+    <string name="onboarding_skip">छोड़ें</string>
+    <string name="onboarding_next">आगे</string>
+    <string name="onboarding_get_started">शुरू करें</string>
+    <string name="onboarding_welcome_title">ExpenseTrackr में आपका स्वागत है</string>
+    <string name="onboarding_welcome_desc">हर रुपये का हिसाब रखें। निजी, ऑफ़लाइन और बेहद सरल।</string>
+    <string name="onboarding_track_title">अपने खर्च पर नज़र रखें</string>
+    <string name="onboarding_track_desc">खर्चों को श्रेणियों और उप-श्रेणियों में व्यवस्थित करें। देखें कि आपका पैसा कहां जाता है।</string>
+    <string name="onboarding_analytics_title">स्मार्ट विश्लेषण</string>
+    <string name="onboarding_analytics_desc">सुंदर पाई चार्ट और बजट ट्रैकिंग आपको अपने वित्त पर नियंत्रण रखने में मदद करते हैं।</string>
+    <string name="onboarding_privacy_title">आपका डेटा, आपका डिवाइस</string>
+    <string name="onboarding_privacy_desc">कोई इंटरनेट नहीं। कोई क्लाउड नहीं। कोई खाता नहीं। आपका सारा डेटा हमेशा आपके डिवाइस पर रहता है।</string>
+</resources>

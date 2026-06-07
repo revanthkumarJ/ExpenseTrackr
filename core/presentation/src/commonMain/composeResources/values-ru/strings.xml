@@ -1,0 +1,19 @@
+<resources>
+    <string name="nav_dashboard">Панель</string>
+    <string name="nav_expenses">Расходы</string>
+    <string name="nav_analytics">Аналитика</string>
+    <string name="nav_settings">Настройки</string>
+    <string name="action_save">Сохранить</string>
+    <string name="action_cancel">Отмена</string>
+    <string name="action_delete">Удалить</string>
+    <string name="action_ok">ОК</string>
+    <string name="action_close">Закрыть</string>
+    <string name="action_add">Добавить</string>
+    <string name="action_apply">Применить</string>
+    <string name="action_back">Назад</string>
+    <string name="filter_this_month">Этот месяц</string>
+    <string name="filter_this_week">Эта неделя</string>
+    <string name="filter_last_month">Прошлый месяц</string>
+    <string name="filter_this_year">Этот год</string>
+    <string name="filter_custom">Произвольный</string>
+</resources>

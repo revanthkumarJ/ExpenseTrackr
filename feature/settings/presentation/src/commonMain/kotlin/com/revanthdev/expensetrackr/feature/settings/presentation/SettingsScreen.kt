@@ -3,6 +3,7 @@ package com.revanthdev.expensetrackr.feature.settings.presentation
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.*
@@ -17,6 +18,9 @@ import com.revanthdev.expensetrackr.core.domain.model.AppLockType
 import com.revanthdev.expensetrackr.core.domain.model.AppSettings
 import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
 import com.revanthdev.expensetrackr.core.presentation.ObserveAsEvents
+import com.revanthdev.expensetrackr.core.presentation.appLanguages
+import expensetrackr.core.presentation.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -46,6 +50,7 @@ data class SettingsState(val settings: AppSettings = AppSettings(), val isLoadin
 
 sealed interface SettingsAction {
     data class OnThemeChange(val isDark: Boolean?) : SettingsAction
+    data class OnLanguageChange(val tag: String?) : SettingsAction
     data object OnBudgetClick : SettingsAction
     data object OnManageCategoriesClick : SettingsAction
     data object OnManageSubCategoriesClick : SettingsAction
@@ -86,6 +91,10 @@ class SettingsViewModel(private val settingsRepository: SettingsRepository) : Vi
             is SettingsAction.OnThemeChange -> viewModelScope.launch {
                 val s = _state.value.settings
                 settingsRepository.updateSettings(s.copy(isDarkMode = action.isDark))
+            }
+            is SettingsAction.OnLanguageChange -> viewModelScope.launch {
+                val s = _state.value.settings
+                settingsRepository.updateSettings(s.copy(language = action.tag))
             }
             SettingsAction.OnBudgetClick -> viewModelScope.launch { _events.send(SettingsEvent.NavigateToBudget) }
             SettingsAction.OnManageCategoriesClick -> viewModelScope.launch { _events.send(SettingsEvent.NavigateToManageCategories) }
@@ -131,14 +140,42 @@ fun SettingsRoot(
 @Composable
 fun SettingsScreen(state: SettingsState, onAction: (SettingsAction) -> Unit) {
     var showThemeDialog by remember { mutableStateOf(false) }
+    var showLanguageDialog by remember { mutableStateOf(false) }
+
+    if (showLanguageDialog) {
+        val systemDefault = stringResource(Res.string.language_system_default)
+        AlertDialog(
+            onDismissRequest = { showLanguageDialog = false },
+            title = { Text(stringResource(Res.string.settings_language)) },
+            text = {
+                LazyColumn {
+                    item {
+                        LanguageRow(systemDefault, selected = state.settings.language == null) {
+                            onAction(SettingsAction.OnLanguageChange(null)); showLanguageDialog = false
+                        }
+                    }
+                    items(appLanguages) { lang ->
+                        LanguageRow(lang.nativeName, selected = state.settings.language == lang.tag) {
+                            onAction(SettingsAction.OnLanguageChange(lang.tag)); showLanguageDialog = false
+                        }
+                    }
+                }
+            },
+            confirmButton = { TextButton(onClick = { showLanguageDialog = false }) { Text(stringResource(Res.string.action_close)) } }
+        )
+    }
 
     if (showThemeDialog) {
         AlertDialog(
             onDismissRequest = { showThemeDialog = false },
-            title = { Text("Theme") },
+            title = { Text(stringResource(Res.string.settings_theme)) },
             text = {
                 Column {
-                    listOf(null to "System Default", false to "Light", true to "Dark").forEach { (value, label) ->
+                    listOf(
+                        null to stringResource(Res.string.settings_theme_system),
+                        false to stringResource(Res.string.settings_theme_light),
+                        true to stringResource(Res.string.settings_theme_dark)
+                    ).forEach { (value, label) ->
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier.fillMaxWidth().clickable {
@@ -153,25 +190,38 @@ fun SettingsScreen(state: SettingsState, onAction: (SettingsAction) -> Unit) {
                     }
                 }
             },
-            confirmButton = { TextButton(onClick = { showThemeDialog = false }) { Text("Close") } }
+            confirmButton = { TextButton(onClick = { showThemeDialog = false }) { Text(stringResource(Res.string.action_close)) } }
         )
     }
 
-    Scaffold(topBar = { TopAppBar(title = { Text("Settings") }) }) { padding ->
+    Scaffold(topBar = { TopAppBar(title = { Text(stringResource(Res.string.nav_settings)) }) }) { padding ->
         LazyColumn(modifier = Modifier.padding(padding).fillMaxSize(), contentPadding = PaddingValues(bottom = 16.dp)) {
-            item { SettingsSectionHeader("Preferences") }
+            item { SettingsSectionHeader(stringResource(Res.string.settings_section_preferences)) }
             item {
                 SettingsItem(
                     icon = Icons.Rounded.Brightness6,
-                    title = "Theme",
-                    subtitle = when (state.settings.isDarkMode) { null -> "System Default"; true -> "Dark"; false -> "Light" },
+                    title = stringResource(Res.string.settings_theme),
+                    subtitle = when (state.settings.isDarkMode) {
+                        null -> stringResource(Res.string.settings_theme_system)
+                        true -> stringResource(Res.string.settings_theme_dark)
+                        false -> stringResource(Res.string.settings_theme_light)
+                    },
                     onClick = { showThemeDialog = true }
                 )
             }
             item {
                 SettingsItem(
+                    icon = Icons.Rounded.Language,
+                    title = stringResource(Res.string.settings_language),
+                    subtitle = appLanguages.find { it.tag == state.settings.language }?.nativeName
+                        ?: stringResource(Res.string.language_system_default),
+                    onClick = { showLanguageDialog = true }
+                )
+            }
+            item {
+                SettingsItem(
                     icon = Icons.Rounded.Lock,
-                    title = "App Lock",
+                    title = stringResource(Res.string.settings_app_lock),
                     subtitle = state.settings.appLockType.name.lowercase().replaceFirstChar { it.uppercase() },
                     onClick = { onAction(SettingsAction.OnAppLockClick) }
                 )
@@ -179,28 +229,40 @@ fun SettingsScreen(state: SettingsState, onAction: (SettingsAction) -> Unit) {
             item {
                 SettingsItem(
                     icon = Icons.Rounded.Notifications,
-                    title = "Notifications",
-                    subtitle = if (state.settings.dailyReminderEnabled) "Reminders enabled" else "Reminders disabled",
+                    title = stringResource(Res.string.settings_notifications),
+                    subtitle = if (state.settings.dailyReminderEnabled) stringResource(Res.string.settings_notifications_on) else stringResource(Res.string.settings_notifications_off),
                     onClick = { onAction(SettingsAction.OnNotificationSettingsClick) }
                 )
             }
-            item { SettingsSectionHeader("Budget") }
+            item { SettingsSectionHeader(stringResource(Res.string.settings_section_budget)) }
             item {
                 SettingsItem(
                     icon = Icons.Rounded.AccountBalance,
-                    title = "Budget Management",
-                    subtitle = state.settings.overallMonthlyBudget?.let { "₹${it}/month" } ?: "Not set",
+                    title = stringResource(Res.string.settings_budget_mgmt),
+                    subtitle = state.settings.overallMonthlyBudget?.let { stringResource(Res.string.settings_budget_value, "₹$it") } ?: stringResource(Res.string.common_not_set),
                     onClick = { onAction(SettingsAction.OnBudgetClick) }
                 )
             }
-            item { SettingsSectionHeader("Data Management") }
-            item { SettingsItem(Icons.Rounded.Category, "Manage Categories", onClick = { onAction(SettingsAction.OnManageCategoriesClick) }) }
-            item { SettingsItem(Icons.Rounded.Folder, "Manage Sub-Categories", onClick = { onAction(SettingsAction.OnManageSubCategoriesClick) }) }
-            item { SettingsSectionHeader("App Info") }
-            item { SettingsItem(Icons.Rounded.Info, "About", onClick = { onAction(SettingsAction.OnAboutClick) }) }
-            item { SettingsItem(Icons.Rounded.Security, "Privacy Policy", onClick = { onAction(SettingsAction.OnPrivacyPolicyClick) }) }
-            item { SettingsItem(Icons.Rounded.Gavel, "Terms of Service", onClick = { onAction(SettingsAction.OnTermsClick) }) }
+            item { SettingsSectionHeader(stringResource(Res.string.settings_section_data)) }
+            item { SettingsItem(Icons.Rounded.Category, stringResource(Res.string.settings_manage_categories), onClick = { onAction(SettingsAction.OnManageCategoriesClick) }) }
+            item { SettingsItem(Icons.Rounded.Folder, stringResource(Res.string.settings_manage_subcategories), onClick = { onAction(SettingsAction.OnManageSubCategoriesClick) }) }
+            item { SettingsSectionHeader(stringResource(Res.string.settings_section_app_info)) }
+            item { SettingsItem(Icons.Rounded.Info, stringResource(Res.string.settings_about), onClick = { onAction(SettingsAction.OnAboutClick) }) }
+            item { SettingsItem(Icons.Rounded.Security, stringResource(Res.string.settings_privacy), onClick = { onAction(SettingsAction.OnPrivacyPolicyClick) }) }
+            item { SettingsItem(Icons.Rounded.Gavel, stringResource(Res.string.settings_terms), onClick = { onAction(SettingsAction.OnTermsClick) }) }
         }
+    }
+}
+
+@Composable
+private fun LanguageRow(name: String, selected: Boolean, onClick: () -> Unit) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth().clickable(onClick = onClick).padding(vertical = 10.dp)
+    ) {
+        RadioButton(selected = selected, onClick = null)
+        Spacer(Modifier.width(8.dp))
+        Text(name)
     }
 }
 

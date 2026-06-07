@@ -1,0 +1,19 @@
+<resources>
+    <string name="nav_dashboard">नियन्त्रणफलकम्</string>
+    <string name="nav_expenses">व्ययाः</string>
+    <string name="nav_analytics">विश्लेषणम्</string>
+    <string name="nav_settings">समायोजनानि</string>
+    <string name="action_save">रक्षतु</string>
+    <string name="action_cancel">निरसयतु</string>
+    <string name="action_delete">लोपयतु</string>
+    <string name="action_ok">अस्तु</string>
+    <string name="action_close">पिदधातु</string>
+    <string name="action_add">योजयतु</string>
+    <string name="action_apply">प्रयोजयतु</string>
+    <string name="action_back">पृष्ठतः</string>
+    <string name="filter_this_month">अयं मासः</string>
+    <string name="filter_this_week">अयं सप्ताहः</string>
+    <string name="filter_last_month">गतमासः</string>
+    <string name="filter_this_year">अस्मिन् वर्षे</string>
+    <string name="filter_custom">यथेच्छम्</string>
+</resources>

@@ -1,0 +1,19 @@
+<resources>
+    <string name="nav_dashboard">ڈیش بورڈ</string>
+    <string name="nav_expenses">اخراجات</string>
+    <string name="nav_analytics">تجزیہ</string>
+    <string name="nav_settings">ترتیبات</string>
+    <string name="action_save">محفوظ کریں</string>
+    <string name="action_cancel">منسوخ کریں</string>
+    <string name="action_delete">حذف کریں</string>
+    <string name="action_ok">ٹھیک ہے</string>
+    <string name="action_close">بند کریں</string>
+    <string name="action_add">شامل کریں</string>
+    <string name="action_apply">لاگو کریں</string>
+    <string name="action_back">واپس</string>
+    <string name="filter_this_month">اس ماہ</string>
+    <string name="filter_this_week">اس ہفتے</string>
+    <string name="filter_last_month">پچھلے ماہ</string>
+    <string name="filter_this_year">اس سال</string>
+    <string name="filter_custom">حسب ضرورت</string>
+</resources>

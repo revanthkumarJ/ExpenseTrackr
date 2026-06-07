@@ -1,0 +1,19 @@
+<resources>
+    <string name="nav_dashboard">डॅशबोर्ड</string>
+    <string name="nav_expenses">खर्च</string>
+    <string name="nav_analytics">विश्लेषण</string>
+    <string name="nav_settings">सेटिंग्ज</string>
+    <string name="action_save">जतन करा</string>
+    <string name="action_cancel">रद्द करा</string>
+    <string name="action_delete">हटवा</string>
+    <string name="action_ok">ठीक आहे</string>
+    <string name="action_close">बंद करा</string>
+    <string name="action_add">जोडा</string>
+    <string name="action_apply">लागू करा</string>
+    <string name="action_back">मागे</string>
+    <string name="filter_this_month">हा महिना</string>
+    <string name="filter_this_week">हा आठवडा</string>
+    <string name="filter_last_month">मागील महिना</string>
+    <string name="filter_this_year">हे वर्ष</string>
+    <string name="filter_custom">सानुकूल</string>
+</resources>

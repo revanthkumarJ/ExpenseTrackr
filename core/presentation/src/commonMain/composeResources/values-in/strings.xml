@@ -1,0 +1,19 @@
+<resources>
+    <string name="nav_dashboard">Dasbor</string>
+    <string name="nav_expenses">Pengeluaran</string>
+    <string name="nav_analytics">Analitik</string>
+    <string name="nav_settings">Pengaturan</string>
+    <string name="action_save">Simpan</string>
+    <string name="action_cancel">Batal</string>
+    <string name="action_delete">Hapus</string>
+    <string name="action_ok">OK</string>
+    <string name="action_close">Tutup</string>
+    <string name="action_add">Tambah</string>
+    <string name="action_apply">Terapkan</string>
+    <string name="action_back">Kembali</string>
+    <string name="filter_this_month">Bulan Ini</string>
+    <string name="filter_this_week">Minggu Ini</string>
+    <string name="filter_last_month">Bulan Lalu</string>
+    <string name="filter_this_year">Tahun Ini</string>
+    <string name="filter_custom">Kustom</string>
+</resources>

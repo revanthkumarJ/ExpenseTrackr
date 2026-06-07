@@ -26,6 +26,12 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.revanthdev.expensetrackr.core.designsystem.theme.ExpenseTrackerTheme
 import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
+import expensetrackr.core.presentation.generated.resources.Res
+import expensetrackr.core.presentation.generated.resources.nav_analytics
+import expensetrackr.core.presentation.generated.resources.nav_dashboard
+import expensetrackr.core.presentation.generated.resources.nav_expenses
+import expensetrackr.core.presentation.generated.resources.nav_settings
+import org.jetbrains.compose.resources.stringResource
 import com.revanthdev.expensetrackr.feature.analytics.presentation.AnalyticsRoot
 import com.revanthdev.expensetrackr.feature.analytics.presentation.AnalyticsRoute
 import com.revanthdev.expensetrackr.feature.applock.presentation.AppLockRoot
@@ -107,14 +113,16 @@ fun App() {
         }
     }
 
-    ExpenseTrackerTheme(darkTheme = settingsState?.isDarkMode ?: false) {
-        if (startDestination == null) {
-            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
+    ProvideAppLocale(settingsState?.language) {
+        ExpenseTrackerTheme(darkTheme = settingsState?.isDarkMode ?: false) {
+            if (startDestination == null) {
+                Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
+                }
+                return@ExpenseTrackerTheme
             }
-            return@ExpenseTrackerTheme
+            AppNavHost(startDestination = startDestination!!)
         }
-        AppNavHost(startDestination = startDestination!!)
     }
 }
 
@@ -211,10 +219,10 @@ private fun MainScaffold(rootNavController: androidx.navigation.NavController) {
     val currentEntry by tabNavController.currentBackStackEntryAsState()
 
     val bottomNavItems = listOf(
-        Triple(DashboardRoute as Any, Icons.Rounded.PieChart, "Dashboard"),
-        Triple(AllExpensesRoute as Any, Icons.Rounded.Receipt, "Expenses"),
-        Triple(AnalyticsRoute as Any, Icons.Rounded.BarChart, "Analytics"),
-        Triple(SettingsRoute as Any, Icons.Rounded.Settings, "Settings"),
+        Triple(DashboardRoute as Any, Icons.Rounded.PieChart, stringResource(Res.string.nav_dashboard)),
+        Triple(AllExpensesRoute as Any, Icons.Rounded.Receipt, stringResource(Res.string.nav_expenses)),
+        Triple(AnalyticsRoute as Any, Icons.Rounded.BarChart, stringResource(Res.string.nav_analytics)),
+        Triple(SettingsRoute as Any, Icons.Rounded.Settings, stringResource(Res.string.nav_settings)),
     )
 
     Scaffold(

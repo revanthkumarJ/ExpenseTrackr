@@ -1,0 +1,19 @@
+<resources>
+    <string name="nav_dashboard">Panel</string>
+    <string name="nav_expenses">Gastos</string>
+    <string name="nav_analytics">Análisis</string>
+    <string name="nav_settings">Ajustes</string>
+    <string name="action_save">Guardar</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_delete">Eliminar</string>
+    <string name="action_ok">Aceptar</string>
+    <string name="action_close">Cerrar</string>
+    <string name="action_add">Añadir</string>
+    <string name="action_apply">Aplicar</string>
+    <string name="action_back">Atrás</string>
+    <string name="filter_this_month">Este mes</string>
+    <string name="filter_this_week">Esta semana</string>
+    <string name="filter_last_month">Mes pasado</string>
+    <string name="filter_this_year">Este año</string>
+    <string name="filter_custom">Personalizado</string>
+</resources>

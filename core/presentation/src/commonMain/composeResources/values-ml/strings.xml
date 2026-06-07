@@ -1,0 +1,19 @@
+<resources>
+    <string name="nav_dashboard">ഡാഷ്‌ബോർഡ്</string>
+    <string name="nav_expenses">ചെലവുകൾ</string>
+    <string name="nav_analytics">വിശകലനം</string>
+    <string name="nav_settings">ക്രമീകരണങ്ങൾ</string>
+    <string name="action_save">സംരക്ഷിക്കുക</string>
+    <string name="action_cancel">റദ്ദാക്കുക</string>
+    <string name="action_delete">ഇല്ലാതാക്കുക</string>
+    <string name="action_ok">ശരി</string>
+    <string name="action_close">അടയ്ക്കുക</string>
+    <string name="action_add">ചേർക്കുക</string>
+    <string name="action_apply">പ്രയോഗിക്കുക</string>
+    <string name="action_back">തിരികെ</string>
+    <string name="filter_this_month">ഈ മാസം</string>
+    <string name="filter_this_week">ഈ ആഴ്ച</string>
+    <string name="filter_last_month">കഴിഞ്ഞ മാസം</string>
+    <string name="filter_this_year">ഈ വർഷം</string>
+    <string name="filter_custom">ഇഷ്‌ടാനുസൃതം</string>
+</resources>
