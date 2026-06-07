@@ -11,8 +11,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.lerp
+import kotlin.math.absoluteValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
@@ -79,7 +83,8 @@ fun OnboardingScreen(onGetStarted: () -> Unit) {
         }
 
         HorizontalPager(state = pagerState, modifier = Modifier.weight(1f)) { page ->
-            OnboardingPageContent(pages[page])
+            val pageOffset = (pagerState.currentPage - page) + pagerState.currentPageOffsetFraction
+            OnboardingPageContent(pages[page], pageOffset)
         }
 
         Column(
@@ -100,39 +105,66 @@ fun OnboardingScreen(onGetStarted: () -> Unit) {
                 }
             }
             Spacer(Modifier.height(24.dp))
-            if (pagerState.currentPage == pages.lastIndex) {
-                Button(onClick = onGetStarted, modifier = Modifier.fillMaxWidth()) {
-                    Text("Get Started")
-                }
-            } else {
-                Button(
-                    onClick = { scope.launch { pagerState.animateScrollToPage(pagerState.currentPage + 1) } },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text("Next")
-                }
+            val isLast = pagerState.currentPage == pages.lastIndex
+            Button(
+                onClick = {
+                    if (isLast) onGetStarted()
+                    else scope.launch { pagerState.animateScrollToPage(pagerState.currentPage + 1) }
+                },
+                modifier = Modifier.fillMaxWidth().height(56.dp),
+                shape = MaterialTheme.shapes.large
+            ) {
+                Text(if (isLast) "Get Started" else "Next", style = MaterialTheme.typography.titleMedium)
             }
         }
     }
 }
 
 @Composable
-private fun OnboardingPageContent(page: OnboardingPage) {
+private fun OnboardingPageContent(page: OnboardingPage, pageOffset: Float) {
+    val clamped = pageOffset.absoluteValue.coerceIn(0f, 1f)
+    val scale = lerp(0.82f, 1f, 1f - clamped)
+    val contentAlpha = lerp(0.3f, 1f, 1f - clamped)
     Column(
         modifier = Modifier.fillMaxSize().padding(32.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(page.emoji, style = MaterialTheme.typography.displayLarge)
-        Spacer(Modifier.height(32.dp))
-        Text(page.title, style = MaterialTheme.typography.headlineSmall, textAlign = TextAlign.Center)
-        Spacer(Modifier.height(16.dp))
-        Text(
-            page.description,
-            style = MaterialTheme.typography.bodyLarge,
-            textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
+        Box(
+            modifier = Modifier
+                .size(160.dp)
+                .graphicsLayer {
+                    scaleX = scale
+                    scaleY = scale
+                    alpha = contentAlpha
+                    translationX = pageOffset * 120f
+                }
+                .clip(CircleShape)
+                .background(
+                    Brush.linearGradient(
+                        listOf(
+                            MaterialTheme.colorScheme.primaryContainer,
+                            MaterialTheme.colorScheme.secondaryContainer
+                        )
+                    )
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(page.emoji, style = MaterialTheme.typography.displayLarge)
+        }
+        Spacer(Modifier.height(40.dp))
+        Box(Modifier.graphicsLayer { alpha = contentAlpha; translationX = pageOffset * 60f }) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(page.title, style = MaterialTheme.typography.headlineMedium, textAlign = TextAlign.Center)
+                Spacer(Modifier.height(16.dp))
+                Text(
+                    page.description,
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
     }
 }
 

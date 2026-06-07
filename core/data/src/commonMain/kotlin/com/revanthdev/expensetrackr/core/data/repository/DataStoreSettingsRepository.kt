@@ -28,6 +28,7 @@ class DataStoreSettingsRepository(
         val DAILY_REMINDER_MINUTE = intPreferencesKey("dailyReminderMinute")
         val BUDGET_ALERT_ENABLED = booleanPreferencesKey("budgetAlertEnabled")
         val OVERALL_MONTHLY_BUDGET = doublePreferencesKey("overallMonthlyBudget")
+        val ALLOW_EXCEED_BUDGET = booleanPreferencesKey("allowExceedBudget")
         val IS_ONBOARDING_DONE = booleanPreferencesKey("isOnboardingDone")
     }
 
@@ -57,6 +58,7 @@ class DataStoreSettingsRepository(
             } else {
                 prefs.remove(OVERALL_MONTHLY_BUDGET)
             }
+            prefs[ALLOW_EXCEED_BUDGET] = settings.allowExceedBudget
             prefs[IS_ONBOARDING_DONE] = settings.isOnboardingDone
         }
     }
@@ -76,6 +78,7 @@ class DataStoreSettingsRepository(
         dailyReminderMinute = this[DAILY_REMINDER_MINUTE] ?: 0,
         budgetAlertEnabled = this[BUDGET_ALERT_ENABLED] ?: true,
         overallMonthlyBudget = this[OVERALL_MONTHLY_BUDGET],
+        allowExceedBudget = this[ALLOW_EXCEED_BUDGET] ?: true,
         isOnboardingDone = this[IS_ONBOARDING_DONE] ?: false
     )
 }

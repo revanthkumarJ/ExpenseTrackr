@@ -15,6 +15,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.revanthdev.expensetrackr.core.designsystem.component.GradientIconTile
+import com.revanthdev.expensetrackr.core.designsystem.theme.hexToColor
 import com.revanthdev.expensetrackr.core.domain.model.AppSettings
 import com.revanthdev.expensetrackr.core.domain.model.Category
 import com.revanthdev.expensetrackr.core.domain.repository.CategoryRepository
@@ -34,6 +36,7 @@ data object BudgetRoute
 data class BudgetState(
     val overallBudgetEnabled: Boolean = false,
     val overallBudgetText: String = "",
+    val allowExceedBudget: Boolean = true,
     val categories: List<Category> = emptyList(),
     val categoryBudgets: Map<Long, String> = emptyMap(),
     val isLoading: Boolean = true,
@@ -43,6 +46,7 @@ data class BudgetState(
 sealed interface BudgetAction {
     data class OnOverallToggle(val enabled: Boolean) : BudgetAction
     data class OnOverallBudgetChange(val text: String) : BudgetAction
+    data class OnAllowExceedToggle(val allow: Boolean) : BudgetAction
     data class OnCategoryBudgetChange(val categoryId: Long, val text: String) : BudgetAction
     data object OnSave : BudgetAction
     data object OnResetAll : BudgetAction
@@ -71,6 +75,7 @@ class BudgetViewModel(
                 BudgetState(
                     overallBudgetEnabled = settings.overallMonthlyBudget != null,
                     overallBudgetText = settings.overallMonthlyBudget?.let { "%.2f".format(it) } ?: "",
+                    allowExceedBudget = settings.allowExceedBudget,
                     categories = cats,
                     categoryBudgets = cats.associate { cat ->
                         cat.id to (cat.budgetAmount?.let { "%.2f".format(it) } ?: "")
@@ -85,6 +90,7 @@ class BudgetViewModel(
         when (action) {
             is BudgetAction.OnOverallToggle -> _state.update { it.copy(overallBudgetEnabled = action.enabled) }
             is BudgetAction.OnOverallBudgetChange -> _state.update { it.copy(overallBudgetText = action.text) }
+            is BudgetAction.OnAllowExceedToggle -> _state.update { it.copy(allowExceedBudget = action.allow) }
             is BudgetAction.OnCategoryBudgetChange -> _state.update {
                 it.copy(categoryBudgets = it.categoryBudgets + (action.categoryId to action.text))
             }
@@ -100,7 +106,9 @@ class BudgetViewModel(
             val s = _state.value
             val settings = settingsRepository.getSettingsOnce()
             val newBudget = if (s.overallBudgetEnabled) s.overallBudgetText.toDoubleOrNull() else null
-            settingsRepository.updateSettings(settings.copy(overallMonthlyBudget = newBudget))
+            settingsRepository.updateSettings(
+                settings.copy(overallMonthlyBudget = newBudget, allowExceedBudget = s.allowExceedBudget)
+            )
             s.categories.forEach { cat ->
                 val budgetText = s.categoryBudgets[cat.id] ?: ""
                 val budgetAmount = if (budgetText.isBlank()) null else budgetText.toDoubleOrNull()
@@ -168,22 +176,49 @@ fun BudgetScreen(state: BudgetState, onAction: (BudgetAction) -> Unit) {
                                 singleLine = true,
                                 modifier = Modifier.fillMaxWidth()
                             )
+                            Spacer(Modifier.height(12.dp))
+                            HorizontalDivider()
+                            Spacer(Modifier.height(12.dp))
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Column(Modifier.weight(1f)) {
+                                    Text("Allow spending over budget", style = MaterialTheme.typography.titleSmall)
+                                    Text(
+                                        if (state.allowExceedBudget)
+                                            "Expenses over your budget are allowed"
+                                        else
+                                            "You'll be blocked from adding expenses that exceed your monthly or category budget",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                }
+                                Spacer(Modifier.width(12.dp))
+                                Switch(
+                                    checked = state.allowExceedBudget,
+                                    onCheckedChange = { onAction(BudgetAction.OnAllowExceedToggle(it)) }
+                                )
+                            }
                         }
                     }
                 }
             }
             item { Text("Per-Category Budgets", style = MaterialTheme.typography.titleMedium) }
             items(state.categories, key = { it.id }) { cat ->
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text("${cat.icon} ${cat.name}", modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier.animateItem()
+                ) {
+                    GradientIconTile(cat.icon, hexToColor(cat.colorHex), size = 40)
+                    Text(cat.name, modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)
                     OutlinedTextField(
                         value = state.categoryBudgets[cat.id] ?: "",
                         onValueChange = { onAction(BudgetAction.OnCategoryBudgetChange(cat.id, it)) },
-                        placeholder = { Text("₹ 0") },
+                        placeholder = { Text("0") },
                         prefix = { Text("₹") },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                         singleLine = true,
-                        modifier = Modifier.width(140.dp)
+                        shape = MaterialTheme.shapes.medium,
+                        modifier = Modifier.width(130.dp)
                     )
                 }
             }

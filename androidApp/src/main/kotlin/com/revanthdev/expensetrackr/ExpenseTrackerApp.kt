@@ -50,7 +50,7 @@ class ExpenseTrackerApp : Application() {
         }
 
         CoroutineScope(Dispatchers.IO).launch {
-            get<DefaultCategorySeeder>().seedCategories()
+            get<DefaultCategorySeeder>().seedIfEmpty()
         }
     }
 }

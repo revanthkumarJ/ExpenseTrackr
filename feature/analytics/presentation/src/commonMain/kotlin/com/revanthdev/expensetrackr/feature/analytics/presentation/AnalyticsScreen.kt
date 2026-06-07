@@ -1,9 +1,12 @@
 package com.revanthdev.expensetrackr.feature.analytics.presentation
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -11,14 +14,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.revanthdev.expensetrackr.core.designsystem.component.DateFilterRow
+import com.revanthdev.expensetrackr.core.designsystem.component.EmptyState
 import com.revanthdev.expensetrackr.core.designsystem.theme.categoryColorPalette
 import com.revanthdev.expensetrackr.core.designsystem.theme.hexToColor
 import com.revanthdev.expensetrackr.core.domain.model.Category
 import com.revanthdev.expensetrackr.core.domain.model.DateFilter
+import kotlinx.datetime.daysUntil
 import com.revanthdev.expensetrackr.core.domain.repository.CategoryRepository
 import com.revanthdev.expensetrackr.core.domain.repository.ExpenseRepository
 import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
@@ -85,12 +93,19 @@ class AnalyticsViewModel(
                 }.filter { it.total > 0 }.sortedByDescending { it.total }
 
                 val highest = stats.firstOrNull()?.category?.name ?: "-"
+                val days = when (filter) {
+                    DateFilter.ThisWeek -> 7
+                    DateFilter.ThisMonth, DateFilter.LastMonth -> 30
+                    DateFilter.ThisYear -> 365
+                    is DateFilter.CustomRange -> maxOf(1, filter.start.daysUntil(filter.end) + 1)
+                }
+                val avg = if (total > 0 && days > 0) (total / days).toCurrencyString() else "-"
                 AnalyticsState(
                     filter = filter,
                     totalSpend = total,
                     categoryStats = stats,
                     highestCategory = highest,
-                    avgDailySpend = "-",
+                    avgDailySpend = avg,
                     isLoading = false
                 )
             }.collect { _state.value = it }
@@ -108,40 +123,52 @@ fun AnalyticsRoot(viewModel: AnalyticsViewModel = koinViewModel()) {
 @Composable
 fun AnalyticsScreen(state: AnalyticsState, onAction: (AnalyticsAction) -> Unit) {
     Scaffold(topBar = { TopAppBar(title = { Text("Analytics") }) }) { padding ->
-        if (state.isLoading) {
-            Box(Modifier.fillMaxSize().padding(padding), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
-            }
-        } else {
-            LazyColumn(
-                modifier = Modifier.padding(padding).fillMaxSize(),
-                contentPadding = PaddingValues(16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                item {
-                    DateFilterRow(selected = state.filter, onSelect = { onAction(AnalyticsAction.OnFilterChange(it)) })
-                }
-                item {
-                    Text(
-                        "Total: ${state.totalSpend.toCurrencyString()}",
-                        style = MaterialTheme.typography.headlineMedium
-                    )
-                }
-                if (state.categoryStats.isNotEmpty()) {
-                    item { PieChart(state.categoryStats, modifier = Modifier.fillMaxWidth().height(240.dp)) }
+        Column(Modifier.padding(padding).fillMaxSize()) {
+            // Filter chips are always visible so the user can switch periods even when a
+            // selected period happens to have no data.
+            DateFilterRow(
+                selected = state.filter,
+                onSelect = { onAction(AnalyticsAction.OnFilterChange(it)) },
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp)
+            )
+
+            when {
+                state.isLoading -> Box(
+                    Modifier.weight(1f).fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) { CircularProgressIndicator() }
+
+                state.categoryStats.isEmpty() -> EmptyState(
+                    modifier = Modifier.weight(1f),
+                    title = "No data for this period",
+                    message = "Try a different period above, or add some expenses",
+                    emoji = "📊"
+                )
+
+                else -> LazyColumn(
+                    modifier = Modifier.weight(1f).fillMaxWidth(),
+                    contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 16.dp, top = 4.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
                     item {
-                        Card(modifier = Modifier.fillMaxWidth()) {
-                            Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                                Text("Summary", style = MaterialTheme.typography.titleMedium)
-                                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                                    Text("Highest Category", style = MaterialTheme.typography.bodyMedium)
-                                    Text(state.highestCategory, style = MaterialTheme.typography.bodyMedium)
-                                }
-                            }
+                        DonutChart(
+                            stats = state.categoryStats,
+                            centerLabel = "Total",
+                            centerValue = state.totalSpend.toCurrencyString(),
+                            modifier = Modifier.fillMaxWidth().height(260.dp)
+                        )
+                    }
+                    item {
+                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                            StatCard("Top Category", state.highestCategory, Modifier.weight(1f))
+                            StatCard("Avg / Day", state.avgDailySpend, Modifier.weight(1f))
                         }
                     }
-                    items(state.categoryStats) { stat ->
-                        LegendItem(stat)
+                    item {
+                        Text("Breakdown", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                    }
+                    items(state.categoryStats, key = { it.category.id }) { stat ->
+                        LegendItem(stat, modifier = Modifier.animateItem())
                     }
                 }
             }
@@ -150,38 +177,87 @@ fun AnalyticsScreen(state: AnalyticsState, onAction: (AnalyticsAction) -> Unit) 
 }
 
 @Composable
-fun PieChart(stats: List<CategoryStat>, modifier: Modifier = Modifier) {
-    val total = stats.sumOf { it.total }.toFloat()
-    Canvas(modifier = modifier) {
-        var startAngle = -90f
-        val diameter = size.minDimension * 0.85f
-        val topLeft = Offset((size.width - diameter) / 2, (size.height - diameter) / 2)
-        stats.forEach { stat ->
-            val sweep = if (total > 0) ((stat.total / total) * 360f).toFloat() else 0f
-            drawArc(
-                color = stat.color,
-                startAngle = startAngle,
-                sweepAngle = sweep,
-                useCenter = true,
-                topLeft = topLeft,
-                size = Size(diameter, diameter)
-            )
-            startAngle += sweep
+fun StatCard(label: String, value: String, modifier: Modifier = Modifier) {
+    Surface(
+        modifier = modifier,
+        shape = MaterialTheme.shapes.large,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
+        tonalElevation = 1.dp
+    ) {
+        Column(Modifier.padding(16.dp)) {
+            Text(label, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Spacer(Modifier.height(6.dp))
+            Text(value, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, maxLines = 1)
         }
     }
 }
 
 @Composable
-fun LegendItem(stat: CategoryStat) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
+fun DonutChart(
+    stats: List<CategoryStat>,
+    centerLabel: String,
+    centerValue: String,
+    modifier: Modifier = Modifier
+) {
+    val total = stats.sumOf { it.total }.toFloat()
+    val sweepProgress by animateFloatAsState(
+        targetValue = 1f,
+        animationSpec = tween(900),
+        label = "donutSweep"
+    )
+    Box(modifier = modifier, contentAlignment = Alignment.Center) {
+        Canvas(modifier = Modifier.fillMaxSize()) {
+            val stroke = size.minDimension * 0.16f
+            val diameter = size.minDimension * 0.82f - stroke
+            val topLeft = Offset((size.width - diameter) / 2, (size.height - diameter) / 2)
+            var startAngle = -90f
+            stats.forEach { stat ->
+                val full = if (total > 0) ((stat.total / total) * 360f).toFloat() else 0f
+                val sweep = full * sweepProgress
+                drawArc(
+                    color = stat.color,
+                    startAngle = startAngle,
+                    sweepAngle = sweep - 3f,
+                    useCenter = false,
+                    topLeft = topLeft,
+                    size = Size(diameter, diameter),
+                    style = Stroke(width = stroke, cap = StrokeCap.Round)
+                )
+                startAngle += full
+            }
+        }
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(centerLabel, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(centerValue, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
+        }
+    }
+}
+
+@Composable
+fun LegendItem(stat: CategoryStat, modifier: Modifier = Modifier) {
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.large,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
+        tonalElevation = 1.dp
     ) {
-        Surface(shape = MaterialTheme.shapes.extraSmall, color = stat.color, modifier = Modifier.size(12.dp)) {}
-        Text("${stat.category.icon} ${stat.category.name}", modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)
-        Text(stat.total.toCurrencyString(), style = MaterialTheme.typography.bodyMedium)
-        Text("$stat.percentage}%", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Row(
+            modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            Surface(shape = RoundedCornerShape(4.dp), color = stat.color, modifier = Modifier.size(14.dp)) {}
+            Text("${stat.category.icon} ${stat.category.name}", modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)
+            Text(stat.total.toCurrencyString(), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
+            Surface(shape = RoundedCornerShape(6.dp), color = stat.color.copy(alpha = 0.14f)) {
+                Text(
+                    "${stat.percentage.toInt()}%",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = stat.color,
+                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                )
+            }
+        }
     }
 }
 

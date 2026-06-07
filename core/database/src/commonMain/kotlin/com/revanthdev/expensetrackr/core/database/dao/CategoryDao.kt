@@ -27,4 +27,7 @@ interface CategoryDao {
 
     @Query("SELECT COUNT(*) > 0 FROM expenses WHERE categoryId = :categoryId")
     suspend fun hasExpenses(categoryId: Long): Boolean
+
+    @Query("SELECT COUNT(*) FROM categories")
+    suspend fun getCategoryCount(): Int
 }

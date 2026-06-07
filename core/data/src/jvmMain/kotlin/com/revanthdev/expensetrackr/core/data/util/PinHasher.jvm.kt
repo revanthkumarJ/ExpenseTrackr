@@ -1,4 +1,4 @@
-package com.revanthdev.expensetrackr.feature.applock.presentation
+package com.revanthdev.expensetrackr.core.data.util
 
 import java.security.MessageDigest
 

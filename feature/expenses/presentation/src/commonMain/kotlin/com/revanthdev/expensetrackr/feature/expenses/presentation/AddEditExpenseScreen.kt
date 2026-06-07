@@ -1,5 +1,10 @@
 package com.revanthdev.expensetrackr.feature.expenses.presentation
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
@@ -15,14 +20,18 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.revanthdev.expensetrackr.core.domain.model.AppSettings
 import com.revanthdev.expensetrackr.core.domain.model.Category
+import com.revanthdev.expensetrackr.core.domain.model.DateFilter
 import com.revanthdev.expensetrackr.core.domain.model.Expense
 import com.revanthdev.expensetrackr.core.domain.model.SubCategory
 import com.revanthdev.expensetrackr.core.domain.repository.CategoryRepository
 import com.revanthdev.expensetrackr.core.domain.repository.ExpenseRepository
+import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
 import com.revanthdev.expensetrackr.core.domain.util.onFailure
 import com.revanthdev.expensetrackr.core.domain.util.onSuccess
 import com.revanthdev.expensetrackr.core.presentation.ObserveAsEvents
+import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -50,7 +59,10 @@ data class AddEditExpenseState(
     val showDeleteDialog: Boolean = false,
     val nameError: String? = null,
     val amountError: String? = null,
-    val categoryError: String? = null
+    val categoryError: String? = null,
+    val budgetWarning: String? = null,
+    val originalAmount: Double = 0.0,
+    val originalCategoryId: Long? = null
 )
 
 val AddEditExpenseState.isValid: Boolean
@@ -66,6 +78,7 @@ sealed interface AddEditExpenseAction {
     data object OnDeleteClick : AddEditExpenseAction
     data object OnDeleteConfirm : AddEditExpenseAction
     data object OnDeleteDismiss : AddEditExpenseAction
+    data object OnBudgetWarningDismiss : AddEditExpenseAction
     data object OnBack : AddEditExpenseAction
 }
 
@@ -76,7 +89,8 @@ sealed interface AddEditExpenseEvent {
 class AddEditExpenseViewModel(
     private val savedStateHandle: SavedStateHandle,
     private val expenseRepository: ExpenseRepository,
-    private val categoryRepository: CategoryRepository
+    private val categoryRepository: CategoryRepository,
+    private val settingsRepository: SettingsRepository
 ) : ViewModel() {
     private val expenseId: Long = savedStateHandle["expenseId"] ?: -1L
     private val _state = MutableStateFlow(AddEditExpenseState(expenseId = expenseId))
@@ -96,25 +110,27 @@ class AddEditExpenseViewModel(
     private fun loadExpense(id: Long) {
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
-//            expenseRepository.getExpenseById(id).onSuccess { expense ->
-//                val cats = _state.value.categories
-//                val cat = cats.find { it.id == expense.categoryId }
-//                val subCats = if (cat != null) {
-//                    categoryRepository.getSubCategoriesForCategory(cat.id).first()
-//                } else emptyList()
-//                val subCat = subCats.find { it.id == expense.subCategoryId }
-//                _state.update { state ->
-//                    state.copy(
-//                        name = expense.name,
-//                        amountText = expense.amount.toString(),
-//                        selectedCategory = cat,
-//                        selectedSubCategory = subCat,
-//                        subCategories = subCats,
-//                        notes = expense.notes ?: "",
-//                        isLoading = false
-//                    )
-//                }
-//            }.onFailure { _state.update { it.copy(isLoading = false) } }
+            expenseRepository.getExpenseById(id).onSuccess { expense ->
+                val cats = categoryRepository.getAllCategories().first()
+                val cat = cats.find { it.id == expense.categoryId }
+                val subCats = if (cat != null) {
+                    categoryRepository.getSubCategoriesForCategory(cat.id).first()
+                } else emptyList()
+                val subCat = subCats.find { it.id == expense.subCategoryId }
+                _state.update { state ->
+                    state.copy(
+                        name = expense.name,
+                        amountText = expense.amount.toString(),
+                        selectedCategory = cat,
+                        selectedSubCategory = subCat,
+                        subCategories = subCats,
+                        notes = expense.notes ?: "",
+                        originalAmount = expense.amount,
+                        originalCategoryId = expense.categoryId,
+                        isLoading = false
+                    )
+                }
+            }.onFailure { _state.update { it.copy(isLoading = false) } }
         }
     }
 
@@ -144,6 +160,7 @@ class AddEditExpenseViewModel(
             AddEditExpenseAction.OnDeleteClick -> _state.update { it.copy(showDeleteDialog = true) }
             AddEditExpenseAction.OnDeleteConfirm -> deleteExpense()
             AddEditExpenseAction.OnDeleteDismiss -> _state.update { it.copy(showDeleteDialog = false) }
+            AddEditExpenseAction.OnBudgetWarningDismiss -> _state.update { it.copy(budgetWarning = null) }
             AddEditExpenseAction.OnBack -> viewModelScope.launch { _events.send(AddEditExpenseEvent.NavigateBack) }
         }
     }
@@ -151,16 +168,27 @@ class AddEditExpenseViewModel(
     private fun saveExpense() {
         val s = _state.value
         val amount = s.amountText.toDoubleOrNull()
-        if (s.name.isBlank() || amount == null || amount <= 0 || s.selectedCategory == null) return
+        val category = s.selectedCategory
+        if (s.name.isBlank() || amount == null || amount <= 0 || category == null) return
 
         viewModelScope.launch {
             _state.update { it.copy(isSaving = true) }
+
+            val settings = settingsRepository.getSettingsOnce()
+            if (!settings.allowExceedBudget) {
+                val warning = checkBudget(amount, category, settings)
+                if (warning != null) {
+                    _state.update { it.copy(isSaving = false, budgetWarning = warning) }
+                    return@launch
+                }
+            }
+
             val now = kotlin.time.Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
             val expense = Expense(
                 id = if (expenseId == -1L) 0L else expenseId,
                 name = s.name.trim(),
                 amount = amount,
-                categoryId = s.selectedCategory.id,
+                categoryId = category.id,
                 subCategoryId = s.selectedSubCategory?.id,
                 notes = s.notes.trim().ifBlank { null },
                 expenseDate = now,
@@ -170,6 +198,39 @@ class AddEditExpenseViewModel(
             else expenseRepository.updateExpense(expense)
             _events.send(AddEditExpenseEvent.NavigateBack)
         }
+    }
+
+    /**
+     * Returns a warning message if recording [amount] in [category] this month would push the
+     * monthly total or the category total over its budget; null if it's fine. For edits, the
+     * expense's existing amount is excluded so it isn't double-counted.
+     */
+    private suspend fun checkBudget(amount: Double, category: Category, settings: AppSettings): String? {
+        val s = _state.value
+        val isEditing = expenseId != -1L
+        val monthlyTotal = expenseRepository.getTotalSpend(DateFilter.ThisMonth).first()
+        val catSpend = expenseRepository.getSpendByCategory(DateFilter.ThisMonth).first()
+
+        val overall = settings.overallMonthlyBudget
+        if (overall != null) {
+            val oldAmount = if (isEditing) s.originalAmount else 0.0
+            val projected = monthlyTotal - oldAmount + amount
+            if (projected > overall) {
+                return "This expense would bring your monthly spending to ${projected.toCurrencyString()}, " +
+                    "over your ${overall.toCurrencyString()} budget."
+            }
+        }
+
+        val catBudget = category.budgetAmount
+        if (catBudget != null) {
+            val catOld = if (isEditing && s.originalCategoryId == category.id) s.originalAmount else 0.0
+            val catProjected = (catSpend[category.id] ?: 0.0) - catOld + amount
+            if (catProjected > catBudget) {
+                return "This expense would bring ${category.name} spending to ${catProjected.toCurrencyString()}, " +
+                    "over its ${catBudget.toCurrencyString()} budget."
+            }
+        }
+        return null
     }
 
     private fun deleteExpense() {
@@ -200,6 +261,17 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
     val isEdit = state.expenseId != -1L
     var showCategoryDropdown by remember { mutableStateOf(false) }
     var showSubCategoryDropdown by remember { mutableStateOf(false) }
+
+    if (state.budgetWarning != null) {
+        AlertDialog(
+            onDismissRequest = { onAction(AddEditExpenseAction.OnBudgetWarningDismiss) },
+            title = { Text("Over Budget") },
+            text = { Text(state.budgetWarning) },
+            confirmButton = {
+                TextButton(onClick = { onAction(AddEditExpenseAction.OnBudgetWarningDismiss) }) { Text("OK") }
+            }
+        )
+    }
 
     if (state.showDeleteDialog) {
         AlertDialog(
@@ -290,32 +362,50 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
                 }
             }
 
-            if (state.subCategories.isNotEmpty()) {
-                ExposedDropdownMenuBox(
-                    expanded = showSubCategoryDropdown,
-                    onExpandedChange = { showSubCategoryDropdown = it }
-                ) {
+            AnimatedVisibility(
+                visible = state.selectedCategory != null,
+                enter = expandVertically() + fadeIn(),
+                exit = shrinkVertically() + fadeOut()
+            ) {
+              Column {
+                if (state.subCategories.isEmpty()) {
                     OutlinedTextField(
-                        value = state.selectedSubCategory?.name ?: "None",
+                        value = "None",
                         onValueChange = {},
                         readOnly = true,
+                        enabled = false,
                         label = { Text("Sub-Category (optional)") },
-                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(showSubCategoryDropdown) },
-                        modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable).fillMaxWidth()
+                        supportingText = { Text("No sub-categories for this category yet") },
+                        modifier = Modifier.fillMaxWidth()
                     )
-                    ExposedDropdownMenu(expanded = showSubCategoryDropdown, onDismissRequest = { showSubCategoryDropdown = false }) {
-                        DropdownMenuItem(text = { Text("None") }, onClick = {
-                            onAction(AddEditExpenseAction.OnSubCategorySelect(null))
-                            showSubCategoryDropdown = false
-                        })
-                        state.subCategories.forEach { sub ->
-                            DropdownMenuItem(text = { Text(sub.name) }, onClick = {
-                                onAction(AddEditExpenseAction.OnSubCategorySelect(sub))
+                } else {
+                    ExposedDropdownMenuBox(
+                        expanded = showSubCategoryDropdown,
+                        onExpandedChange = { showSubCategoryDropdown = it }
+                    ) {
+                        OutlinedTextField(
+                            value = state.selectedSubCategory?.name ?: "None",
+                            onValueChange = {},
+                            readOnly = true,
+                            label = { Text("Sub-Category (optional)") },
+                            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(showSubCategoryDropdown) },
+                            modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable).fillMaxWidth()
+                        )
+                        ExposedDropdownMenu(expanded = showSubCategoryDropdown, onDismissRequest = { showSubCategoryDropdown = false }) {
+                            DropdownMenuItem(text = { Text("None") }, onClick = {
+                                onAction(AddEditExpenseAction.OnSubCategorySelect(null))
                                 showSubCategoryDropdown = false
                             })
+                            state.subCategories.forEach { sub ->
+                                DropdownMenuItem(text = { Text(sub.name) }, onClick = {
+                                    onAction(AddEditExpenseAction.OnSubCategorySelect(sub))
+                                    showSubCategoryDropdown = false
+                                })
+                            }
                         }
                     }
                 }
+              }
             }
 
             OutlinedTextField(
@@ -328,11 +418,12 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
 
             Button(
                 onClick = { onAction(AddEditExpenseAction.OnSave) },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().height(54.dp),
+                shape = MaterialTheme.shapes.large,
                 enabled = state.isValid && !state.isSaving
             ) {
-                if (state.isSaving) CircularProgressIndicator(Modifier.size(20.dp))
-                else Text(if (isEdit) "Update Expense" else "Save Expense")
+                if (state.isSaving) CircularProgressIndicator(Modifier.size(20.dp), color = MaterialTheme.colorScheme.onPrimary)
+                else Text(if (isEdit) "Update Expense" else "Save Expense", style = MaterialTheme.typography.titleMedium)
             }
         }
     }

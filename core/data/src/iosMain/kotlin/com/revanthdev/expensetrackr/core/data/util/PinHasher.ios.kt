@@ -1,12 +1,12 @@
-package com.revanthdev.expensetrackr.feature.applock.presentation
+package com.revanthdev.expensetrackr.core.data.util
 
-import platform.CoreCrypto.CC_SHA256
-import platform.CoreCrypto.CC_SHA256_DIGEST_LENGTH
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.UByteVar
 import kotlinx.cinterop.allocArray
 import kotlinx.cinterop.memScoped
-import kotlinx.cinterop.toKString
+import kotlinx.cinterop.toCValues
+import platform.CoreCrypto.CC_SHA256
+import platform.CoreCrypto.CC_SHA256_DIGEST_LENGTH
 
 @OptIn(ExperimentalForeignApi::class)
 actual fun hashPin(pin: String): String {

@@ -1,5 +1,13 @@
 package com.revanthdev.expensetrackr
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -9,6 +17,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -25,8 +34,14 @@ import com.revanthdev.expensetrackr.feature.budget.presentation.BudgetRoot
 import com.revanthdev.expensetrackr.feature.budget.presentation.BudgetRoute
 import com.revanthdev.expensetrackr.feature.categories.presentation.ManageCategoriesRoot
 import com.revanthdev.expensetrackr.feature.categories.presentation.ManageCategoriesRoute
+import com.revanthdev.expensetrackr.feature.categories.presentation.ManageSubCategoriesRoot
+import com.revanthdev.expensetrackr.feature.categories.presentation.ManageSubCategoriesRoute
 import com.revanthdev.expensetrackr.feature.dashboard.presentation.DashboardRoot
 import com.revanthdev.expensetrackr.feature.dashboard.presentation.DashboardRoute
+import com.revanthdev.expensetrackr.feature.dashboard.presentation.FilteredExpensesRoot
+import com.revanthdev.expensetrackr.feature.dashboard.presentation.FilteredExpensesRoute
+import com.revanthdev.expensetrackr.feature.dashboard.presentation.SubCategoryDrilldownRoot
+import com.revanthdev.expensetrackr.feature.dashboard.presentation.SubCategoryRoute
 import com.revanthdev.expensetrackr.feature.expenses.presentation.AddEditExpenseRoot
 import com.revanthdev.expensetrackr.feature.expenses.presentation.AddEditExpenseRoute
 import com.revanthdev.expensetrackr.feature.expenses.presentation.AllExpensesRoot
@@ -40,6 +55,42 @@ import org.koin.compose.koinInject
 
 @Serializable
 private data object MainRoute
+
+// ---- Screen transition specs ----
+private const val NAV_DURATION = 380
+
+private val navEnter: AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition = {
+    slideIntoContainer(
+        AnimatedContentTransitionScope.SlideDirection.Start,
+        animationSpec = tween(NAV_DURATION, easing = FastOutSlowInEasing)
+    ) + fadeIn(tween(NAV_DURATION))
+}
+private val navExit: AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition = {
+    slideOutOfContainer(
+        AnimatedContentTransitionScope.SlideDirection.Start,
+        animationSpec = tween(NAV_DURATION, easing = FastOutSlowInEasing)
+    ) + fadeOut(tween(NAV_DURATION))
+}
+private val navPopEnter: AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition = {
+    slideIntoContainer(
+        AnimatedContentTransitionScope.SlideDirection.End,
+        animationSpec = tween(NAV_DURATION, easing = FastOutSlowInEasing)
+    ) + fadeIn(tween(NAV_DURATION))
+}
+private val navPopExit: AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition = {
+    slideOutOfContainer(
+        AnimatedContentTransitionScope.SlideDirection.End,
+        animationSpec = tween(NAV_DURATION, easing = FastOutSlowInEasing)
+    ) + fadeOut(tween(NAV_DURATION))
+}
+
+// Tabs are siblings — cross-fade with a gentle zoom instead of sliding.
+private val tabEnter: AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition = {
+    fadeIn(tween(280)) + scaleIn(initialScale = 0.96f, animationSpec = tween(280))
+}
+private val tabExit: AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition = {
+    fadeOut(tween(200))
+}
 
 @Composable
 fun App() {
@@ -71,7 +122,14 @@ fun App() {
 private fun AppNavHost(startDestination: Any) {
     val rootNavController = rememberNavController()
 
-    NavHost(navController = rootNavController, startDestination = startDestination) {
+    NavHost(
+        navController = rootNavController,
+        startDestination = startDestination,
+        enterTransition = navEnter,
+        exitTransition = navExit,
+        popEnterTransition = navPopEnter,
+        popExitTransition = navPopExit
+    ) {
         composable<OnboardingRoute> {
             OnboardingRoot(onNavigateToMain = {
                 rootNavController.navigate(MainRoute) {
@@ -86,8 +144,7 @@ private fun AppNavHost(startDestination: Any) {
                     rootNavController.navigate(MainRoute) {
                         popUpTo(AppLockRoute) { inclusive = true }
                     }
-                },
-                onTriggerBiometric = {}
+                }
             )
         }
 
@@ -103,6 +160,35 @@ private fun AppNavHost(startDestination: Any) {
 
         composable<ManageCategoriesRoute> {
             ManageCategoriesRoot(onNavigateBack = { rootNavController.popBackStack() })
+        }
+
+        composable<ManageSubCategoriesRoute> {
+            ManageSubCategoriesRoot(onNavigateBack = { rootNavController.popBackStack() })
+        }
+
+        composable<SubCategoryRoute> {
+            SubCategoryDrilldownRoot(
+                onNavigateBack = { rootNavController.popBackStack() },
+                onNavigateToAddExpense = { rootNavController.navigate(AddEditExpenseRoute()) },
+                onNavigateToFilteredExpenses = { catId, subCatId, title ->
+                    rootNavController.navigate(FilteredExpensesRoute(catId, subCatId, title))
+                }
+            )
+        }
+
+        composable<FilteredExpensesRoute> {
+            FilteredExpensesRoot(
+                onNavigateBack = { rootNavController.popBackStack() },
+                onNavigateToEdit = { id -> rootNavController.navigate(AddEditExpenseRoute(id)) }
+            )
+        }
+
+        composable<NotificationSettingsRoute> {
+            NotificationSettingsRoot(onBack = { rootNavController.popBackStack() })
+        }
+
+        composable<AppLockSetupRoute> {
+            AppLockSetupRoot(onBack = { rootNavController.popBackStack() })
         }
 
         composable<AboutRoute> {
@@ -153,10 +239,20 @@ private fun MainScaffold(rootNavController: androidx.navigation.NavController) {
             }
         }
     ) { padding ->
-        NavHost(navController = tabNavController, startDestination = DashboardRoute, modifier = Modifier.padding(padding)) {
+        NavHost(
+            navController = tabNavController,
+            startDestination = DashboardRoute,
+            modifier = Modifier.padding(padding),
+            enterTransition = tabEnter,
+            exitTransition = tabExit,
+            popEnterTransition = tabEnter,
+            popExitTransition = tabExit
+        ) {
             composable<DashboardRoute> {
                 DashboardRoot(
-                    onNavigateToSubCategory = { _, _ -> },
+                    onNavigateToSubCategory = { id, name ->
+                        rootNavController.navigate(SubCategoryRoute(id, name))
+                    },
                     onNavigateToAddExpense = { rootNavController.navigate(AddEditExpenseRoute()) }
                 )
             }
@@ -171,9 +267,9 @@ private fun MainScaffold(rootNavController: androidx.navigation.NavController) {
                 SettingsRoot(
                     onNavigateToBudget = { rootNavController.navigate(BudgetRoute) },
                     onNavigateToManageCategories = { rootNavController.navigate(ManageCategoriesRoute) },
-                    onNavigateToManageSubCategories = { rootNavController.navigate(ManageCategoriesRoute) },
-                    onNavigateToAppLockSetup = {},
-                    onNavigateToNotificationSettings = {},
+                    onNavigateToManageSubCategories = { rootNavController.navigate(ManageSubCategoriesRoute) },
+                    onNavigateToAppLockSetup = { rootNavController.navigate(AppLockSetupRoute) },
+                    onNavigateToNotificationSettings = { rootNavController.navigate(NotificationSettingsRoute) },
                     onNavigateToAbout = { rootNavController.navigate(AboutRoute) },
                     onNavigateToPrivacyPolicy = { rootNavController.navigate(PrivacyPolicyRoute) },
                     onNavigateToTerms = { rootNavController.navigate(TermsOfServiceRoute) }

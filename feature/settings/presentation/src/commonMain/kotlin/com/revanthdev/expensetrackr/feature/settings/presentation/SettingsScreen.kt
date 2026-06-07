@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.revanthdev.expensetrackr.core.designsystem.component.bounceClick
 import com.revanthdev.expensetrackr.core.domain.model.AppLockType
 import com.revanthdev.expensetrackr.core.domain.model.AppSettings
 import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
@@ -209,7 +210,7 @@ fun SettingsSectionHeader(title: String) {
         title,
         style = MaterialTheme.typography.labelLarge,
         color = MaterialTheme.colorScheme.primary,
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
+        modifier = Modifier.padding(start = 20.dp, end = 16.dp, top = 20.dp, bottom = 8.dp)
     )
 }
 
@@ -220,15 +221,42 @@ fun SettingsItem(
     subtitle: String? = null,
     onClick: () -> Unit
 ) {
-    ListItem(
-        headlineContent = { Text(title) },
-        supportingContent = subtitle?.let { { Text(it) } },
-        leadingContent = { Icon(icon, contentDescription = null) },
-        trailingContent = { Icon(Icons.Rounded.ChevronRight, null) },
-        modifier = Modifier.clickable(onClick = onClick)
-    )
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 4.dp)
+            .bounceClick(onClick = onClick),
+        shape = MaterialTheme.shapes.large,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
+        tonalElevation = 1.dp
+    ) {
+        Row(
+            modifier = Modifier.padding(14.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Surface(
+                shape = MaterialTheme.shapes.medium,
+                color = MaterialTheme.colorScheme.primaryContainer,
+                modifier = Modifier.size(40.dp)
+            ) {
+                Box(contentAlignment = Alignment.Center) {
+                    Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.onPrimaryContainer)
+                }
+            }
+            Spacer(Modifier.width(14.dp))
+            Column(Modifier.weight(1f)) {
+                Text(title, style = MaterialTheme.typography.titleSmall)
+                if (subtitle != null) {
+                    Text(subtitle, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+            }
+            Icon(Icons.Rounded.ChevronRight, null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+    }
 }
 
 val settingsModule = org.koin.dsl.module {
     viewModelOf(::SettingsViewModel)
+    viewModelOf(::NotificationSettingsViewModel)
+    viewModelOf(::AppLockSetupViewModel)
 }

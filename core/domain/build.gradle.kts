@@ -1,9 +1,13 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
 }
 
 kotlin {
-    jvm()
+    jvm {
+        compilerOptions { jvmTarget = JvmTarget.JVM_11 }
+    }
     iosArm64()
     iosSimulatorArm64()
     sourceSets {

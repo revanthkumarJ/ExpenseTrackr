@@ -133,13 +133,14 @@ fun AllExpensesRoot(
     viewModel: ExpensesViewModel = koinViewModel()
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
     ObserveAsEvents(viewModel.events) { event ->
         when (event) {
             is ExpensesEvent.NavigateToEdit -> onNavigateToEdit(event.id)
             ExpensesEvent.NavigateToAddExpense -> onNavigateToAddExpense()
             is ExpensesEvent.ShowSnackbar -> {
                 val msg = (event.message as? UiText.DynamicString)?.value ?: ""
-//                snackbarHostState.showSnackbar(msg)
+                scope.launch { snackbarHostState.showSnackbar(msg) }
             }
         }
     }
@@ -177,9 +178,11 @@ fun AllExpensesScreen(
             }
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { onAction(ExpensesAction.OnAddExpenseClick) }) {
-                Icon(Icons.Rounded.Add, "Add Expense")
-            }
+            ExtendedFloatingActionButton(
+                onClick = { onAction(ExpensesAction.OnAddExpenseClick) },
+                icon = { Icon(Icons.Rounded.Add, "Add Expense") },
+                text = { Text("Add") }
+            )
         },
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { padding ->
@@ -221,7 +224,8 @@ fun AllExpensesScreen(
                                 categoryIcon = expense.category.icon,
                                 subCategoryName = expense.subCategory?.name,
                                 time = expense.expenseDate.toDisplayTime(),
-                                onClick = { onAction(ExpensesAction.OnExpenseClick(expense.id)) }
+                                onClick = { onAction(ExpensesAction.OnExpenseClick(expense.id)) },
+                                modifier = Modifier.animateItem()
                             )
                         }
                     }

@@ -1,23 +1,17 @@
 package com.revanthdev.expensetrackr.feature.applock.presentation
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Fingerprint
-import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
+import com.revanthdev.expensetrackr.core.designsystem.component.PinEntryScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
+import com.revanthdev.expensetrackr.core.data.util.hashPin
 import com.revanthdev.expensetrackr.core.domain.model.AppLockType
 import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
+import com.revanthdev.expensetrackr.core.presentation.LocalBiometricAuthenticator
 import com.revanthdev.expensetrackr.core.presentation.ObserveAsEvents
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -77,7 +71,7 @@ class AppLockViewModel(private val settingsRepository: SettingsRepository) : Vie
                 if (current.length < 6) {
                     val newPin = current + action.digit
                     _state.update { it.copy(pin = newPin, error = null) }
-                    if (newPin.length >= 4) checkPin(newPin)
+                    if (newPin.length == 6) checkPin(newPin)
                 }
             }
             AppLockAction.OnPinBackspace -> {
@@ -106,18 +100,21 @@ class AppLockViewModel(private val settingsRepository: SettingsRepository) : Vie
     }
 }
 
-expect fun hashPin(pin: String): String
-
 @Composable
 fun AppLockRoot(
     onUnlocked: () -> Unit,
-    onTriggerBiometric: () -> Unit,
     viewModel: AppLockViewModel = koinViewModel()
 ) {
+    val biometric = LocalBiometricAuthenticator.current
     ObserveAsEvents(viewModel.events) { event ->
         when (event) {
             AppLockEvent.Unlocked -> onUnlocked()
-            AppLockEvent.TriggerBiometric -> onTriggerBiometric()
+            AppLockEvent.TriggerBiometric -> biometric?.authenticate(
+                title = "Unlock ExpenseTrackr",
+                subtitle = "Confirm your identity to continue",
+                onSuccess = { viewModel.onBiometricSuccess() },
+                onError = {}
+            )
         }
     }
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -126,74 +123,18 @@ fun AppLockRoot(
 
 @Composable
 fun AppLockScreen(state: AppLockState, onAction: (AppLockAction) -> Unit) {
-    Column(
-        modifier = Modifier.fillMaxSize().padding(32.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Icon(Icons.Rounded.Lock, contentDescription = null, modifier = Modifier.size(64.dp), tint = MaterialTheme.colorScheme.primary)
-        Spacer(Modifier.height(24.dp))
-        Text("Enter PIN", style = MaterialTheme.typography.headlineSmall)
-        Spacer(Modifier.height(8.dp))
-
-        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            repeat(6) { i ->
-                Box(
-                    modifier = Modifier.size(16.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Surface(
-                        shape = MaterialTheme.shapes.small,
-                        color = if (i < state.pin.length) MaterialTheme.colorScheme.primary
-                        else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f),
-                        modifier = Modifier.size(12.dp)
-                    ) {}
-                }
-            }
-        }
-
-        if (state.error != null) {
-            Spacer(Modifier.height(8.dp))
-            Text(state.error, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error, textAlign = TextAlign.Center)
-        }
-
-        Spacer(Modifier.height(32.dp))
-
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            listOf("1 2 3", "4 5 6", "7 8 9", "  0 ⌫").forEach { row ->
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
-                    row.trim().split(" ").filter { it.isNotEmpty() }.forEach { key ->
-                        FilledTonalButton(
-                            onClick = {
-                                if (key == "⌫") onAction(AppLockAction.OnPinBackspace)
-                                else onAction(AppLockAction.OnPinDigit(key))
-                            },
-                            modifier = Modifier.weight(1f).height(56.dp)
-                        ) {
-                            Text(key, style = MaterialTheme.typography.titleLarge)
-                        }
-                    }
-                }
-            }
-        }
-
-        if (state.showBiometric) {
-            Spacer(Modifier.height(24.dp))
-            OutlinedButton(onClick = { onAction(AppLockAction.OnBiometricRequest) }) {
-                Icon(Icons.Rounded.Fingerprint, contentDescription = null)
-                Spacer(Modifier.width(8.dp))
-                Text("Use Biometric")
-            }
-        }
-
-        Spacer(Modifier.height(16.dp))
-        Text(
-            "Forgot PIN? Clear app data to reset.",
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            textAlign = TextAlign.Center
-        )
-    }
+    PinEntryScreen(
+        title = "Enter PIN",
+        subtitle = "Enter your 6-digit PIN to unlock",
+        pin = state.pin,
+        error = state.error,
+        onDigit = { onAction(AppLockAction.OnPinDigit(it)) },
+        onBackspace = { onAction(AppLockAction.OnPinBackspace) },
+        biometricIcon = if (state.showBiometric) Icons.Rounded.Fingerprint else null,
+        onBiometric = if (state.showBiometric) {
+            { onAction(AppLockAction.OnBiometricRequest) }
+        } else null
+    )
 }
 
 private fun String.collectAsStateWithLifecycle() = this

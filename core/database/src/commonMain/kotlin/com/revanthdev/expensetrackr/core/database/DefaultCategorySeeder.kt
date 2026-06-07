@@ -80,16 +80,8 @@ class DefaultCategorySeeder(private val dao: CategoryDao) {
     )
 
     suspend fun seedIfEmpty() {
-        // Seed only when no categories exist yet.
-        // getAllCategories() is a Flow; we check via a dedicated approach —
-        // since CategoryDao has no count query, we attempt an insert-and-ignore
-        // pattern by just calling seedCategories() guarded externally, or we
-        // rely on callers to check before calling this.
-        // For a self-contained version, callers should invoke seedCategories()
-        // only when the categories flow first emits an empty list.
-    }
-
-    suspend fun seedCategories() {
-        defaultCategories.forEach { dao.insertCategory(it) }
+        if (dao.getCategoryCount() == 0) {
+            defaultCategories.forEach { dao.insertCategory(it) }
+        }
     }
 }
