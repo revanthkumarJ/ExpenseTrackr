@@ -31,19 +31,8 @@ class DecimalInputVisualTransformation(
 
 
 class DecimalFormatter() {
-    private val decimalSeparator = ","
 
-    fun formatForVisual(input: String): String {
-
-        val split = input.split(decimalSeparator)
-
-        val intPart = split[0].commaSeparated()
-
-
-        val fractionPart = split.getOrNull(1)
-
-        return if (fractionPart == null) intPart else intPart + decimalSeparator + fractionPart
-    }
+    fun formatForVisual(input: String): String = input.commaSeparated()
 }
 
 
@@ -83,17 +72,24 @@ private class DecimalOffsetMapping(
 
 private fun String.commaSeparated(): String {
     if (isEmpty()) return this
-    if (length <= 3) return this
 
-    // Last 3 digits separate, then groups of 2
-    val lastThree = takeLast(3)
-    val remaining = dropLast(3)
+    // Only the integer part is grouped; the decimal part (incl. the '.') is kept as-is.
+    // e.g. "1234567.89" -> intPart "1234567", fractionPart ".89"
+    val dotIndex = indexOf('.')
+    val intPart = if (dotIndex == -1) this else substring(0, dotIndex)
+    val fractionPart = if (dotIndex == -1) "" else substring(dotIndex)
 
-    val formatted = remaining
+    if (intPart.length <= 3) return intPart + fractionPart
+
+    // Indian grouping: last 3 digits, then groups of 2.
+    val lastThree = intPart.takeLast(3)
+    val remaining = intPart.dropLast(3)
+
+    val grouped = remaining
         .reversed()
         .chunked(2)
         .joinToString(",")
         .reversed()
 
-    return "$formatted,$lastThree"
+    return "$grouped,$lastThree$fractionPart"
 }
