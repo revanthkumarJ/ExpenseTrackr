@@ -28,6 +28,7 @@ import com.revanthdev.expensetrackr.core.designsystem.theme.hexToColor
 import com.revanthdev.expensetrackr.core.domain.model.Category
 import com.revanthdev.expensetrackr.core.domain.model.DateFilter
 import com.revanthdev.expensetrackr.core.domain.model.ExpenseWithDetails
+import com.revanthdev.expensetrackr.core.domain.model.SalaryCalculator
 import com.revanthdev.expensetrackr.core.domain.repository.CategoryRepository
 import com.revanthdev.expensetrackr.core.domain.repository.ExpenseRepository
 import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
@@ -66,6 +67,8 @@ data class DashboardState(
     val totalSpend: Double = 0.0,
     val overallBudget: Double? = null,
     val overallProgress: Float? = null,
+    // Salary for the current month (only populated when viewing ThisMonth). null = no salary set.
+    val monthlySalary: Double? = null,
     val categories: List<CategoryUi> = emptyList(),
     val filter: DateFilter = DateFilter.ThisMonth,
     val isLoading: Boolean = true
@@ -129,6 +132,12 @@ class DashboardViewModel(
                     is DateFilter.CustomRange -> "Custom Range"
                 }
                 val overallBudget = if (isThisMonth) settings.overallMonthlyBudget else null
+                val monthlySalary = if (isThisMonth) {
+                    SalaryCalculator.salaryForMonth(
+                        settings.salaryHistory,
+                        SalaryCalculator.monthIndexOf(now.year, now.monthNumber)
+                    ).takeIf { it > 0.0 }
+                } else null
                 val categoryUis = categories.map { cat ->
                     val catTotal = spendMap[cat.id] ?: 0.0
                     val percent = if (total > 0) (catTotal / total) * 100 else 0.0
@@ -138,13 +147,14 @@ class DashboardViewModel(
                         }
                     } else null
                     CategoryUi(cat, catTotal, percent, budgetProgress)
-                }.filter { it.total > 0 }
+                }.filter { it.total > 0 }.sortedByDescending { it.total }
 
                 DashboardState(
                     monthLabel = periodLabel,
                     totalSpend = total,
                     overallBudget = overallBudget,
                     overallProgress = overallBudget?.let { if (it > 0) (total / it).toFloat() else null },
+                    monthlySalary = monthlySalary,
                     categories = categoryUis,
                     filter = filter,
                     isLoading = false
@@ -215,6 +225,15 @@ fun DashboardScreen(state: DashboardState, onAction: (DashboardAction) -> Unit) 
                 Spacer(Modifier.height(8.dp))
             }
 
+            if (state.monthlySalary != null) {
+                SalaryRemainingCard(
+                    salary = state.monthlySalary,
+                    spent = state.totalSpend,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+                Spacer(Modifier.height(8.dp))
+            }
+
             if (state.isLoading) {
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     CircularProgressIndicator()
@@ -270,6 +289,43 @@ private fun BudgetProgressBar(spent: String, budget: String, progress: Float, mo
             }
             Spacer(Modifier.height(10.dp))
             AnimatedProgressBar(progress = progress, color = color, modifier = Modifier.fillMaxWidth())
+        }
+    }
+}
+
+@Composable
+private fun SalaryRemainingCard(salary: Double, spent: Double, modifier: Modifier = Modifier) {
+    val remaining = salary - spent
+    val progress = if (salary > 0) (spent / salary).toFloat() else 0f
+    val overspent = remaining < 0
+    val accent = when {
+        overspent -> BudgetRed
+        progress < 0.7f -> BudgetGreen
+        progress < 0.9f -> BudgetYellow
+        else -> BudgetRed
+    }
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.large,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
+        tonalElevation = 1.dp
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                Text(
+                    stringResource(if (overspent) Res.string.dashboard_salary_overspent else Res.string.dashboard_salary_remaining),
+                    style = MaterialTheme.typography.titleSmall
+                )
+                Text(remaining.toCurrencyString(), style = MaterialTheme.typography.titleSmall, color = accent)
+            }
+            Spacer(Modifier.height(4.dp))
+            Text(
+                stringResource(Res.string.dashboard_salary_of, spent.toCurrencyString(), salary.toCurrencyString()),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Spacer(Modifier.height(10.dp))
+            AnimatedProgressBar(progress = progress.coerceIn(0f, 1f), color = accent, modifier = Modifier.fillMaxWidth())
         }
     }
 }

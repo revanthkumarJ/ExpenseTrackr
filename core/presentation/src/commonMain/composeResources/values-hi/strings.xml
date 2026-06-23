@@ -174,4 +174,21 @@
     <string name="onboarding_analytics_desc">सुंदर पाई चार्ट और बजट ट्रैकिंग आपको अपने वित्त पर नियंत्रण रखने में मदद करते हैं।</string>
     <string name="onboarding_privacy_title">आपका डेटा, आपका डिवाइस</string>
     <string name="onboarding_privacy_desc">कोई इंटरनेट नहीं। कोई क्लाउड नहीं। कोई खाता नहीं। आपका सारा डेटा हमेशा आपके डिवाइस पर रहता है।</string>
+
+    <!-- Salary / income -->
+    <string name="settings_salary">वेतन / आय</string>
+    <string name="salary_dialog_hint">यह जानने के लिए कि आप कितना बचाते हैं, अपनी मासिक आय निर्धारित करें।</string>
+    <string name="salary_amount">मासिक वेतन (₹)</string>
+    <string name="salary_apply_scope">लागू करें</string>
+    <string name="salary_apply_all">सभी महीनों में</string>
+    <string name="salary_apply_from_current">इस महीने से आगे</string>
+    <string name="salary_remove">हटाएँ</string>
+    <string name="dashboard_salary_remaining">शेष वेतन</string>
+    <string name="dashboard_salary_overspent">वेतन से अधिक</string>
+    <string name="dashboard_salary_of">%2$s में से %1$s खर्च</string>
+    <string name="analytics_spent_vs_saved">खर्च बनाम बचत</string>
+    <string name="analytics_income">आय</string>
+    <string name="analytics_spent">खर्च</string>
+    <string name="analytics_saved">बचत</string>
+    <string name="analytics_savings_rate">बचत दर</string>
 </resources>

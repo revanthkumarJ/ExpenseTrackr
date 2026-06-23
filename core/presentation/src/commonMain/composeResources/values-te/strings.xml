@@ -174,4 +174,21 @@
     <string name="onboarding_analytics_desc">అందమైన పై చార్ట్‌లు మరియు బడ్జెట్ ట్రాకింగ్ మీ ఆర్థిక వ్యవహారాలపై నియంత్రణ ఉంచడంలో సహాయపడతాయి.</string>
     <string name="onboarding_privacy_title">మీ డేటా, మీ పరికరం</string>
     <string name="onboarding_privacy_desc">ఇంటర్నెట్ లేదు. క్లౌడ్ లేదు. ఖాతాలు లేవు. మీ డేటా అంతా ఎల్లప్పుడూ మీ పరికరంలోనే ఉంటుంది.</string>
+
+    <!-- Salary / income -->
+    <string name="settings_salary">జీతం / ఆదాయం</string>
+    <string name="salary_dialog_hint">మీరు ఎంత ఆదా చేస్తారో తెలుసుకోవడానికి మీ నెలవారీ ఆదాయాన్ని సెట్ చేయండి.</string>
+    <string name="salary_amount">నెలవారీ జీతం (₹)</string>
+    <string name="salary_apply_scope">వర్తింపజేయి</string>
+    <string name="salary_apply_all">అన్ని నెలలకు</string>
+    <string name="salary_apply_from_current">ఈ నెల నుండి</string>
+    <string name="salary_remove">తీసివేయి</string>
+    <string name="dashboard_salary_remaining">మిగిలిన జీతం</string>
+    <string name="dashboard_salary_overspent">జీతం దాటింది</string>
+    <string name="dashboard_salary_of">%2$s లో %1$s ఖర్చు</string>
+    <string name="analytics_spent_vs_saved">ఖర్చు vs ఆదా</string>
+    <string name="analytics_income">ఆదాయం</string>
+    <string name="analytics_spent">ఖర్చు</string>
+    <string name="analytics_saved">ఆదా</string>
+    <string name="analytics_savings_rate">ఆదా రేటు</string>
 </resources>

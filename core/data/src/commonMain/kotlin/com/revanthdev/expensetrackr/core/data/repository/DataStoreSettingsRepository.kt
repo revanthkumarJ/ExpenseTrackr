@@ -9,6 +9,7 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.revanthdev.expensetrackr.core.domain.model.AppLockType
 import com.revanthdev.expensetrackr.core.domain.model.AppSettings
+import com.revanthdev.expensetrackr.core.domain.model.SalaryEntry
 import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -29,6 +30,7 @@ class DataStoreSettingsRepository(
         val DAILY_REMINDER_MINUTE = intPreferencesKey("dailyReminderMinute")
         val BUDGET_ALERT_ENABLED = booleanPreferencesKey("budgetAlertEnabled")
         val OVERALL_MONTHLY_BUDGET = doublePreferencesKey("overallMonthlyBudget")
+        val SALARY_HISTORY = stringPreferencesKey("salaryHistory")
         val ALLOW_EXCEED_BUDGET = booleanPreferencesKey("allowExceedBudget")
         val IS_ONBOARDING_DONE = booleanPreferencesKey("isOnboardingDone")
     }
@@ -64,6 +66,11 @@ class DataStoreSettingsRepository(
             } else {
                 prefs.remove(OVERALL_MONTHLY_BUDGET)
             }
+            if (settings.salaryHistory.isNotEmpty()) {
+                prefs[SALARY_HISTORY] = settings.salaryHistory.encodeSalaryHistory()
+            } else {
+                prefs.remove(SALARY_HISTORY)
+            }
             prefs[ALLOW_EXCEED_BUDGET] = settings.allowExceedBudget
             prefs[IS_ONBOARDING_DONE] = settings.isOnboardingDone
         }
@@ -85,7 +92,21 @@ class DataStoreSettingsRepository(
         dailyReminderMinute = this[DAILY_REMINDER_MINUTE] ?: 0,
         budgetAlertEnabled = this[BUDGET_ALERT_ENABLED] ?: true,
         overallMonthlyBudget = this[OVERALL_MONTHLY_BUDGET],
+        salaryHistory = this[SALARY_HISTORY]?.decodeSalaryHistory() ?: emptyList(),
         allowExceedBudget = this[ALLOW_EXCEED_BUDGET] ?: true,
         isOnboardingDone = this[IS_ONBOARDING_DONE] ?: false
     )
+
+    // Salary history is stored as a compact string: "monthIndex:amount" pairs joined by ';'.
+    private fun List<SalaryEntry>.encodeSalaryHistory(): String =
+        joinToString(";") { "${it.effectiveFromMonth}:${it.amount}" }
+
+    private fun String.decodeSalaryHistory(): List<SalaryEntry> =
+        split(";").mapNotNull { token ->
+            val parts = token.split(":")
+            if (parts.size != 2) return@mapNotNull null
+            val month = parts[0].toIntOrNull() ?: return@mapNotNull null
+            val amount = parts[1].toDoubleOrNull() ?: return@mapNotNull null
+            SalaryEntry(month, amount)
+        }
 }

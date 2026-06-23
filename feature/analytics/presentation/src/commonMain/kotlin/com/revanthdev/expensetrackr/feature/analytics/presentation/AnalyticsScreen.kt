@@ -3,6 +3,7 @@ package com.revanthdev.expensetrackr.feature.analytics.presentation
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -11,6 +12,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
@@ -22,13 +24,23 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.revanthdev.expensetrackr.core.designsystem.component.DateFilterRow
 import com.revanthdev.expensetrackr.core.designsystem.component.EmptyState
+import com.revanthdev.expensetrackr.core.designsystem.theme.BudgetGreen
+import com.revanthdev.expensetrackr.core.designsystem.theme.BudgetRed
 import com.revanthdev.expensetrackr.core.designsystem.theme.categoryColorPalette
 import com.revanthdev.expensetrackr.core.designsystem.theme.hexToColor
 import com.revanthdev.expensetrackr.core.domain.model.Category
 import com.revanthdev.expensetrackr.core.domain.model.DateFilter
+import com.revanthdev.expensetrackr.core.domain.model.SalaryCalculator
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.daysUntil
+import kotlinx.datetime.minus
+import kotlinx.datetime.plus
+import kotlinx.datetime.toLocalDateTime
 import com.revanthdev.expensetrackr.core.domain.repository.CategoryRepository
 import com.revanthdev.expensetrackr.core.domain.repository.ExpenseRepository
+import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
 import expensetrackr.core.presentation.generated.resources.*
 import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
 import com.revanthdev.expensetrackr.core.presentation.util.toPercentString
@@ -55,8 +67,14 @@ data class AnalyticsState(
     val categoryStats: List<CategoryStat> = emptyList(),
     val highestCategory: String = "",
     val avgDailySpend: String = "",
+    // Income (salary) applicable to the selected period, and savings (income - spend).
+    // income == 0.0 means no salary is set → the savings section is hidden.
+    val income: Double = 0.0,
+    val saved: Double = 0.0,
     val isLoading: Boolean = true
-)
+) {
+    val savingsRate: Float get() = if (income > 0) (saved / income).toFloat() else 0f
+}
 
 sealed interface AnalyticsAction {
     data class OnFilterChange(val filter: DateFilter) : AnalyticsAction
@@ -64,7 +82,8 @@ sealed interface AnalyticsAction {
 
 class AnalyticsViewModel(
     private val expenseRepository: ExpenseRepository,
-    private val categoryRepository: CategoryRepository
+    private val categoryRepository: CategoryRepository,
+    private val settingsRepository: SettingsRepository
 ) : ViewModel() {
     private val _state = MutableStateFlow(AnalyticsState())
     val state = _state.asStateFlow()
@@ -83,8 +102,9 @@ class AnalyticsViewModel(
             combine(
                 categoryRepository.getAllCategories(),
                 expenseRepository.getSpendByCategory(filter),
-                expenseRepository.getTotalSpend(filter)
-            ) { categories, spendMap, total ->
+                expenseRepository.getTotalSpend(filter),
+                settingsRepository.getSettings()
+            ) { categories, spendMap, total, settings ->
                 val stats = categories.mapIndexed { idx, cat ->
                     val t = spendMap[cat.id] ?: 0.0
                     CategoryStat(
@@ -103,16 +123,43 @@ class AnalyticsViewModel(
                     is DateFilter.CustomRange -> maxOf(1, filter.start.daysUntil(filter.end) + 1)
                 }
                 val avg = if (total > 0 && days > 0) (total / days).toCurrencyString() else "-"
+                val (start, end) = filter.toLocalDateRange()
+                val income = SalaryCalculator.salaryForRange(settings.salaryHistory, start, end)
                 AnalyticsState(
                     filter = filter,
                     totalSpend = total,
                     categoryStats = stats,
                     highestCategory = highest,
                     avgDailySpend = avg,
+                    income = income,
+                    saved = income - total,
                     isLoading = false
                 )
             }.collect { _state.value = it }
         }
+    }
+}
+
+/** Inclusive LocalDate range for a filter, mirroring DateFilterHelper (which works in epoch ms). */
+private fun DateFilter.toLocalDateRange(): Pair<LocalDate, LocalDate> {
+    val today = kotlin.time.Clock.System.now()
+        .toLocalDateTime(TimeZone.currentSystemDefault()).date
+    return when (this) {
+        DateFilter.ThisMonth -> {
+            val start = LocalDate(today.year, today.month, 1)
+            start to start.plus(1, DateTimeUnit.MONTH).minus(1, DateTimeUnit.DAY)
+        }
+        DateFilter.LastMonth -> {
+            val lastMonth = today.minus(1, DateTimeUnit.MONTH)
+            val start = LocalDate(lastMonth.year, lastMonth.month, 1)
+            start to start.plus(1, DateTimeUnit.MONTH).minus(1, DateTimeUnit.DAY)
+        }
+        DateFilter.ThisWeek -> {
+            val monday = today.minus(today.dayOfWeek.ordinal, DateTimeUnit.DAY)
+            monday to monday.plus(6, DateTimeUnit.DAY)
+        }
+        DateFilter.ThisYear -> LocalDate(today.year, 1, 1) to LocalDate(today.year, 12, 31)
+        is DateFilter.CustomRange -> start to end
     }
 }
 
@@ -165,6 +212,38 @@ fun AnalyticsScreen(state: AnalyticsState, onAction: (AnalyticsAction) -> Unit) 
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                             StatCard(stringResource(Res.string.analytics_top_category), state.highestCategory, Modifier.weight(1f))
                             StatCard(stringResource(Res.string.analytics_avg_day), state.avgDailySpend, Modifier.weight(1f))
+                        }
+                    }
+                    if (state.income > 0) {
+                        item {
+                            Text(
+                                stringResource(Res.string.analytics_spent_vs_saved),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
+                        item {
+                            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                                StatCard(stringResource(Res.string.analytics_income), state.income.toCurrencyString(), Modifier.weight(1f))
+                                StatCard(
+                                    stringResource(Res.string.analytics_saved),
+                                    state.saved.toCurrencyString(),
+                                    Modifier.weight(1f)
+                                )
+                                StatCard(
+                                    stringResource(Res.string.analytics_savings_rate),
+                                    state.savingsRate.coerceAtLeast(0f).let { "${(it * 100).toInt()}%" },
+                                    Modifier.weight(1f)
+                                )
+                            }
+                        }
+                        item {
+                            SpentVsSavedChart(
+                                spent = state.totalSpend,
+                                saved = state.saved,
+                                income = state.income,
+                                modifier = Modifier.fillMaxWidth()
+                            )
                         }
                     }
                     item {
@@ -260,6 +339,58 @@ fun LegendItem(stat: CategoryStat, modifier: Modifier = Modifier) {
                     modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
                 )
             }
+        }
+    }
+}
+
+/**
+ * Two horizontal bars comparing spend vs savings, each scaled against income so their
+ * lengths are directly comparable. When overspent, the saved bar is empty and shown in red.
+ */
+@Composable
+fun SpentVsSavedChart(spent: Double, saved: Double, income: Double, modifier: Modifier = Modifier) {
+    val denominator = maxOf(income, spent, 1.0)
+    Surface(
+        modifier = modifier,
+        shape = MaterialTheme.shapes.large,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
+        tonalElevation = 1.dp
+    ) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+            BarRow(
+                label = stringResource(Res.string.analytics_spent),
+                value = spent.toCurrencyString(),
+                fraction = (spent / denominator).toFloat().coerceIn(0f, 1f),
+                color = BudgetRed
+            )
+            BarRow(
+                label = stringResource(Res.string.analytics_saved),
+                value = saved.toCurrencyString(),
+                fraction = (saved / denominator).toFloat().coerceIn(0f, 1f),
+                color = if (saved < 0) BudgetRed else BudgetGreen
+            )
+        }
+    }
+}
+
+@Composable
+private fun BarRow(label: String, value: String, fraction: Float, color: Color) {
+    val animated by animateFloatAsState(targetValue = fraction, animationSpec = tween(700), label = "barFill")
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            Text(label, style = MaterialTheme.typography.bodyMedium)
+            Text(value, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold, color = color)
+        }
+        Box(
+            Modifier.fillMaxWidth().height(12.dp)
+                .clip(RoundedCornerShape(6.dp))
+                .background(MaterialTheme.colorScheme.surfaceVariant)
+        ) {
+            Box(
+                Modifier.fillMaxWidth(animated).fillMaxHeight()
+                    .clip(RoundedCornerShape(6.dp))
+                    .background(color)
+            )
         }
     }
 }
