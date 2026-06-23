@@ -60,6 +60,18 @@ fun Double.toCurrencyString(): String {
     return "$sign₹${groupIndian(intPart)}.${frac.toString().padStart(2, '0')}"
 }
 
+/**
+ * Plain 2-decimal string with no currency symbol or grouping (e.g. 1234.5 → "1234.50").
+ * Multiplatform-safe replacement for JVM-only `"%.2f".format(this)` — used to prefill
+ * amount text fields.
+ */
+fun Double.toAmountString(): String {
+    val negative = this < 0
+    val cents = kotlin.math.round(kotlin.math.abs(this) * 100).toLong()
+    val sign = if (negative) "-" else ""
+    return "$sign${cents / 100}.${(cents % 100).toString().padStart(2, '0')}"
+}
+
 /** "0.01%", "12.50%" — 2 decimals, rounded (never truncates small values to 0%). */
 fun Double.toPercentString(): String {
     val negative = this < 0

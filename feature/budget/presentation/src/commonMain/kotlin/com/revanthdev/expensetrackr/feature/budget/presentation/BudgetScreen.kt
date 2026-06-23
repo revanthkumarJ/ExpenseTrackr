@@ -26,6 +26,7 @@ import expensetrackr.core.presentation.generated.resources.*
 import org.jetbrains.compose.resources.stringResource
 import com.revanthdev.expensetrackr.core.presentation.util.DecimalFormatter
 import com.revanthdev.expensetrackr.core.presentation.util.DecimalInputVisualTransformation
+import com.revanthdev.expensetrackr.core.presentation.util.toAmountString
 import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
@@ -78,11 +79,11 @@ class BudgetViewModel(
             ) { settings, cats ->
                 BudgetState(
                     overallBudgetEnabled = settings.overallMonthlyBudget != null,
-                    overallBudgetText = settings.overallMonthlyBudget?.let { "%.2f".format(it) } ?: "",
+                    overallBudgetText = settings.overallMonthlyBudget?.let { it.toAmountString() } ?: "",
                     allowExceedBudget = settings.allowExceedBudget,
                     categories = cats,
                     categoryBudgets = cats.associate { cat ->
-                        cat.id to (cat.budgetAmount?.let { "%.2f".format(it) } ?: "")
+                        cat.id to (cat.budgetAmount?.let { it.toAmountString() } ?: "")
                     },
                     isLoading = false
                 )

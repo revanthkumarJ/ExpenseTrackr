@@ -147,9 +147,11 @@ core:data → core:database, core:domain
 ./gradlew :androidApp:assembleDebug                # full Android APK
 ./gradlew :core:presentation:compileKotlinJvm      # regenerate string-resource accessors
 ```
-> A pre-existing iOS opt-in error in `core/database/.../DatabaseFactory.ios.kt` fails iOS metadata
-> builds; it's unrelated to feature work. Use the JVM/Android tasks above to verify.
+> The iOS `Shared` framework now builds & links — verify iOS with
+> `./gradlew :shared:linkDebugFrameworkIosSimulatorArm64`.
 
 ## Docs
 - `docs/LOCALIZATION.md` — localization deep dive (this is the source of truth for i18n).
 - `docs/FEATURE_IDEAS.md` — growth/feature roadmap & status.
+- `docs/IOS_SWIFTUI_PLAN.md` — **iOS/SwiftUI migration plan & context handoff.** Read this before
+  any iOS/Swift work; it tracks the screen-by-screen SwiftUI rebuild (reusing shared KMP logic).
