@@ -7,6 +7,7 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.scaleIn
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
@@ -23,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -31,6 +33,8 @@ import kotlin.time.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.painterResource
 import expensetrackr.core.presentation.generated.resources.Res
 import expensetrackr.core.presentation.generated.resources.action_apply
 import expensetrackr.core.presentation.generated.resources.action_cancel
@@ -217,6 +221,8 @@ fun EmptyState(
     title: String,
     message: String,
     emoji: String = "💰",
+    /** When set, the app logo image is shown instead of [emoji] in the hero tile. */
+    logo: DrawableResource? = null,
     actionLabel: String? = null,
     onAction: (() -> Unit)? = null,
     modifier: Modifier = Modifier
@@ -232,13 +238,22 @@ fun EmptyState(
             )
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Surface(
-                    shape = MaterialTheme.shapes.extraLarge,
-                    color = MaterialTheme.colorScheme.primaryContainer,
-                    modifier = Modifier.size(96.dp)
-                ) {
-                    Box(contentAlignment = Alignment.Center) {
-                        Text(emoji, style = MaterialTheme.typography.displaySmall)
+                if (logo != null) {
+                    Image(
+                        painter = painterResource(logo),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.size(96.dp).clip(MaterialTheme.shapes.extraLarge)
+                    )
+                } else {
+                    Surface(
+                        shape = MaterialTheme.shapes.extraLarge,
+                        color = MaterialTheme.colorScheme.primaryContainer,
+                        modifier = Modifier.size(96.dp)
+                    ) {
+                        Box(contentAlignment = Alignment.Center) {
+                            Text(emoji, style = MaterialTheme.typography.displaySmall)
+                        }
                     }
                 }
                 Spacer(Modifier.height(20.dp))

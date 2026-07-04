@@ -78,6 +78,8 @@
     <string name="analytics_top_category">Top Category</string>
     <string name="analytics_avg_day">Avg / Day</string>
     <string name="analytics_breakdown">Breakdown</string>
+    <string name="analytics_spending_trend">Spending trend</string>
+    <string name="analytics_spending_trend_sub">Tap a day to see the total</string>
     <string name="analytics_empty_title">No data for this period</string>
     <string name="analytics_empty_message">Try a different period above, or add some expenses</string>
 

@@ -69,6 +69,8 @@
     <string name="analytics_top_category">అగ్ర వర్గం</string>
     <string name="analytics_avg_day">సగటు / రోజు</string>
     <string name="analytics_breakdown">విభజన</string>
+    <string name="analytics_spending_trend">ఖర్చు ధోరణి</string>
+    <string name="analytics_spending_trend_sub">మొత్తం చూడటానికి ఒక రోజుపై నొక్కండి</string>
     <string name="analytics_empty_title">ఈ వ్యవధికి డేటా లేదు</string>
     <string name="analytics_empty_message">పైన వేరే వ్యవధిని ప్రయత్నించండి, లేదా కొన్ని ఖర్చులను జోడించండి</string>
 

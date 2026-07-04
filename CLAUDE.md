@@ -87,6 +87,23 @@ Full detail: **`docs/LOCALIZATION.md`**.
 
 ---
 
+## 📘 MANDATORY: Swift learning notes (iOS work)
+
+The user is **learning Swift/SwiftUI** by porting this app component-by-component from
+Jetpack/Compose. Whenever you **build or change an iOS SwiftUI component**, you MUST also add or
+update a teaching Markdown file under **`swift_learn/`**:
+
+- **One concept per file**, named after the component: `navigation_bottom_bar.md`, `expense_card.md`,
+  `settings_card.md`, etc. (Reuse/extend an existing file if the concept already has one.)
+- Each file teaches **(a)** the Kotlin/Compose → Swift/SwiftUI conversion for that piece (side by
+  side) and **(b)** how the Swift/SwiftUI part actually works (the language + framework concepts).
+- Add a row to the index table in `swift_learn/README.md`.
+- Do this **without being asked** — it's a standing requirement for all iOS/Swift changes.
+- Follow the style of `swift_learn/00_swiftui_basics_hello.md` (code both ways, concept-by-concept
+  breakdown, a "new Swift words" recap).
+
+Big-picture iOS plan/status: **`docs/IOS_SWIFTUI_PLAN.md`** (read before any iOS/Swift work).
+
 ## Architecture
 
 Kotlin Multiplatform + Compose Multiplatform (Android + iOS + JVM/desktop). Clean, modular MVI.

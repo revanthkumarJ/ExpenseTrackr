@@ -69,6 +69,8 @@
     <string name="analytics_top_category">शीर्ष श्रेणी</string>
     <string name="analytics_avg_day">औसत / दिन</string>
     <string name="analytics_breakdown">विवरण</string>
+    <string name="analytics_spending_trend">खर्च का रुझान</string>
+    <string name="analytics_spending_trend_sub">कुल राशि देखने के लिए किसी दिन पर टैप करें</string>
     <string name="analytics_empty_title">इस अवधि के लिए कोई डेटा नहीं</string>
     <string name="analytics_empty_message">ऊपर कोई अन्य अवधि आज़माएं, या कुछ खर्च जोड़ें</string>
 
