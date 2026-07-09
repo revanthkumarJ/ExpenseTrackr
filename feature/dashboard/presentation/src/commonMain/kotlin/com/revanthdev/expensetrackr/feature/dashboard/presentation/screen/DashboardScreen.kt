@@ -87,9 +87,9 @@ fun DashboardScreen(state: DashboardState, onAction: (DashboardAction) -> Unit) 
                 Spacer(Modifier.height(8.dp))
             }
 
-            if (state.monthlySalary != null) {
-                SalaryRemainingCard(
-                    salary = state.monthlySalary,
+            if (state.income != null) {
+                IncomeRemainingCard(
+                    income = state.income,
                     spent = state.totalSpend,
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )

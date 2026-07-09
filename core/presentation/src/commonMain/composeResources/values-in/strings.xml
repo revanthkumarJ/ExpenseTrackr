@@ -1,8 +1,11 @@
 <resources>
+    <!-- Bottom navigation -->
     <string name="nav_dashboard">Dasbor</string>
     <string name="nav_expenses">Pengeluaran</string>
     <string name="nav_analytics">Analitik</string>
     <string name="nav_settings">Pengaturan</string>
+
+    <!-- Common actions -->
     <string name="action_save">Simpan</string>
     <string name="action_cancel">Batal</string>
     <string name="action_delete">Hapus</string>
@@ -11,9 +14,202 @@
     <string name="action_add">Tambah</string>
     <string name="action_apply">Terapkan</string>
     <string name="action_back">Kembali</string>
-    <string name="filter_this_month">Bulan Ini</string>
-    <string name="filter_this_week">Minggu Ini</string>
-    <string name="filter_last_month">Bulan Lalu</string>
-    <string name="filter_this_year">Tahun Ini</string>
-    <string name="filter_custom">Kustom</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_new">Baru</string>
+
+    <!-- Common values -->
+    <string name="common_none">Tidak ada</string>
+    <string name="common_default">Bawaan</string>
+    <string name="common_not_set">Belum diatur</string>
+    <string name="common_uncategorized">Tanpa kategori</string>
+    <string name="common_total">Total</string>
+    <string name="action_add_expense">Tambah pengeluaran</string>
+
+    <!-- Date filter chips -->
+    <string name="filter_this_month">Bulan ini</string>
+    <string name="filter_this_week">Minggu ini</string>
+    <string name="filter_last_month">Bulan lalu</string>
+    <string name="filter_this_year">Tahun ini</string>
+    <string name="filter_custom">Khusus</string>
+    <string name="period_custom_range">Rentang khusus</string>
+
+    <!-- Cards (design-system) -->
+    <string name="card_percent_of_spend">%1$s dari pengeluaran</string>
+    <string name="card_budget">Anggaran: %1$s</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_budget_monthly">Anggaran bulanan</string>
+    <string name="dashboard_empty_title">Belum ada pengeluaran</string>
+    <string name="dashboard_empty_message">Ketuk tombol + untuk menambah pengeluaran pertama Anda</string>
+    <string name="drilldown_percent_of_total">%1$s dari total</string>
+    <string name="drilldown_empty_title">Tidak ada pengeluaran</string>
+    <string name="drilldown_empty_message">Tidak ada pengeluaran di kategori ini untuk periode yang dipilih</string>
+    <string name="filtered_empty_title">Tidak ada pengeluaran</string>
+    <string name="filtered_empty_message">Tidak ada pengeluaran yang ditemukan untuk pilihan ini</string>
+
+    <!-- Expenses list -->
+    <string name="expenses_title">Semua pengeluaran</string>
+    <string name="expenses_search_hint">Cari pengeluaran...</string>
+    <string name="expenses_empty_title">Tidak ada pengeluaran</string>
+    <string name="expenses_empty_message">Ketuk + untuk menambah pengeluaran pertama Anda</string>
+    <string name="expense_deleted">Pengeluaran dihapus</string>
+
+    <!-- Add / Edit expense -->
+    <string name="add_expense_title">Tambah pengeluaran</string>
+    <string name="edit_expense_title">Edit pengeluaran</string>
+    <string name="field_expense_name">Nama pengeluaran *</string>
+    <string name="field_amount">Jumlah (₹) *</string>
+    <string name="field_category">Kategori *</string>
+    <string name="field_subcategory">Subkategori (opsional)</string>
+    <string name="field_date">Tanggal *</string>
+    <string name="field_time">Waktu</string>
+    <string name="field_notes">Catatan (opsional)</string>
+    <string name="subcategory_none_hint">Belum ada subkategori untuk kategori ini</string>
+    <string name="save_expense">Simpan pengeluaran</string>
+    <string name="update_expense">Perbarui pengeluaran</string>
+    <string name="delete_expense_title">Hapus pengeluaran?</string>
+    <string name="delete_expense_message">Tindakan ini tidak dapat dibatalkan.</string>
+    <string name="over_budget_title">Melebihi anggaran</string>
+    <string name="budget_warn_monthly">Pengeluaran ini akan membuat pengeluaran bulanan Anda menjadi %1$s, melebihi anggaran %2$s Anda.</string>
+    <string name="budget_warn_category">Pengeluaran ini akan membuat pengeluaran %1$s menjadi %2$s, melebihi anggaran %3$s-nya.</string>
+    <string name="pick_time">Pilih waktu</string>
+
+    <!-- Analytics -->
+    <string name="analytics_top_category">Kategori teratas</string>
+    <string name="analytics_avg_day">Rata-rata / hari</string>
+    <string name="analytics_breakdown">Rincian</string>
+    <string name="analytics_spending_trend">Tren pengeluaran</string>
+    <string name="analytics_spending_trend_sub">Ketuk sebuah hari untuk melihat total</string>
+    <string name="analytics_empty_title">Tidak ada data untuk periode ini</string>
+    <string name="analytics_empty_message">Coba periode lain di atas, atau tambahkan beberapa pengeluaran</string>
+
+    <!-- Settings -->
+    <string name="settings_section_preferences">Preferensi</string>
+    <string name="settings_section_budget">Anggaran</string>
+    <string name="settings_section_data">Pengelolaan data</string>
+    <string name="settings_section_app_info">Info aplikasi</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_theme_system">Bawaan sistem</string>
+    <string name="settings_theme_light">Terang</string>
+    <string name="settings_theme_dark">Gelap</string>
+    <string name="settings_app_lock">Kunci aplikasi</string>
+    <string name="settings_notifications">Notifikasi</string>
+    <string name="settings_notifications_on">Pengingat aktif</string>
+    <string name="settings_notifications_off">Pengingat nonaktif</string>
+    <string name="settings_budget_mgmt">Pengelolaan anggaran</string>
+    <string name="settings_budget_value">%1$s/bulan</string>
+    <string name="settings_manage_categories">Kelola kategori</string>
+    <string name="settings_manage_subcategories">Kelola subkategori</string>
+    <string name="settings_about">Tentang</string>
+    <string name="settings_privacy">Kebijakan privasi</string>
+    <string name="settings_terms">Ketentuan layanan</string>
+    <string name="settings_language">Bahasa</string>
+    <string name="language_system_default">Bawaan sistem</string>
+
+    <!-- Onboarding language picker (first page) -->
+    <string name="onboarding_language_title">Pilih bahasa Anda</string>
+    <string name="onboarding_language_desc">Anda dapat mengubahnya kapan saja di Pengaturan</string>
+
+    <!-- Budget -->
+    <string name="budget_title">Pengelolaan anggaran</string>
+    <string name="budget_monthly">Anggaran bulanan</string>
+    <string name="budget_amount">Jumlah (₹)</string>
+    <string name="budget_allow_over_title">Izinkan pengeluaran melebihi anggaran</string>
+    <string name="budget_allow_over_on">Pengeluaran melebihi anggaran Anda diizinkan</string>
+    <string name="budget_allow_over_off">Anda akan dicegah menambah pengeluaran yang melebihi anggaran bulanan atau kategori</string>
+    <string name="budget_per_category">Anggaran per kategori</string>
+    <string name="budget_reset_all">Atur ulang semua</string>
+
+    <!-- Categories -->
+    <string name="categories_title">Kelola kategori</string>
+    <string name="categories_new">Kategori baru</string>
+    <string name="categories_edit">Edit kategori</string>
+    <string name="field_name">Nama</string>
+    <string name="field_icon_emoji">Ikon (emoji)</string>
+    <string name="category_default_badge">Bawaan</string>
+    <string name="cannot_delete_title">Tidak dapat dihapus</string>
+    <string name="cannot_delete_message">Tidak dapat menghapus \'%1$s\' — memiliki pengeluaran terkait.</string>
+    <string name="categories_empty_title">Tidak ada kategori</string>
+    <string name="categories_empty_message">Ketuk Baru untuk membuat kategori pertama Anda</string>
+
+    <!-- Sub-categories -->
+    <string name="subcategories_title">Kelola subkategori</string>
+    <string name="subcategory_new">Subkategori baru</string>
+    <string name="subcategory_edit">Edit subkategori</string>
+    <string name="field_parent_category">Kategori induk</string>
+    <string name="select_category">Pilih kategori</string>
+    <string name="subcategory_has_expenses_title">Subkategori memiliki pengeluaran</string>
+    <string name="subcategory_has_expenses_message">\'%1$s\' memiliki pengeluaran terkait. Menghapusnya akan menghilangkan subkategori dari pengeluaran tersebut. Lanjutkan?</string>
+    <string name="action_delete_detach">Hapus &amp; lepaskan</string>
+    <string name="subcategories_empty_title">Belum ada subkategori</string>
+    <string name="subcategories_empty_message">Ketuk Baru untuk membuatnya</string>
+
+    <!-- App lock (unlock) -->
+    <string name="applock_enter_pin">Masukkan PIN</string>
+    <string name="applock_enter_pin_sub">Masukkan PIN 6 digit Anda untuk membuka kunci</string>
+    <string name="applock_incorrect">PIN salah. Coba lagi.</string>
+    <string name="applock_unlock_title">Buka kunci ExpenseTrackr</string>
+    <string name="applock_unlock_sub">Konfirmasi identitas Anda untuk melanjutkan</string>
+
+    <!-- App lock setup -->
+    <string name="applock_setup_title">Kunci aplikasi</string>
+    <string name="applock_on">Kunci aplikasi aktif</string>
+    <string name="applock_off">Kunci aplikasi nonaktif</string>
+    <string name="applock_status_pin">Buka kunci dengan PIN</string>
+    <string name="applock_status_both">Buka kunci dengan PIN + biometrik</string>
+    <string name="applock_status_none">Aplikasi Anda terbuka tanpa kunci</string>
+    <string name="applock_set_pin">Atur PIN</string>
+    <string name="applock_change_pin">Ubah PIN</string>
+    <string name="applock_biometric_title">Buka kunci dengan biometrik</string>
+    <string name="applock_biometric_none">Tidak ada biometrik yang terdaftar di perangkat ini</string>
+    <string name="applock_biometric_need_pin">Atur PIN terlebih dahulu</string>
+    <string name="applock_biometric_use">Gunakan sidik jari / wajah untuk membuka kunci</string>
+    <string name="applock_remove">Hapus kunci aplikasi</string>
+    <string name="applock_forgot">⚠ Jika Anda lupa PIN, Anda harus menghapus data aplikasi untuk meresetnya.</string>
+
+    <!-- PIN setup flow -->
+    <string name="pin_set_title">Atur PIN</string>
+    <string name="pin_confirm_title">Konfirmasi PIN</string>
+    <string name="pin_create">Buat PIN</string>
+    <string name="pin_reenter">Masukkan kembali PIN Anda</string>
+    <string name="pin_choose_sub">Pilih PIN 6 digit</string>
+    <string name="pin_confirm_sub">Konfirmasi PIN 6 digit Anda</string>
+    <string name="pin_mismatch">PIN tidak cocok. Coba lagi.</string>
+
+    <!-- Notification settings -->
+    <string name="notif_title">Pengaturan notifikasi</string>
+    <string name="notif_daily_title">Pengingat pengeluaran harian</string>
+    <string name="notif_daily_sub">Mengingatkan Anda mencatat pengeluaran hari ini pukul %1$s</string>
+    <string name="notif_budget_title">Peringatan anggaran</string>
+    <string name="notif_budget_sub">Peringatkan saat pengeluaran melebihi 80%% anggaran</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">Lewati</string>
+    <string name="onboarding_next">Berikutnya</string>
+    <string name="onboarding_get_started">Mulai</string>
+    <string name="onboarding_welcome_title">Selamat datang di ExpenseTrackr</string>
+    <string name="onboarding_welcome_desc">Lacak setiap rupee. Pribadi, offline, dan sangat sederhana.</string>
+    <string name="onboarding_track_title">Lacak pengeluaran Anda</string>
+    <string name="onboarding_track_desc">Atur pengeluaran ke dalam kategori dan subkategori. Lihat dengan tepat ke mana uang Anda pergi.</string>
+    <string name="onboarding_analytics_title">Analitik cerdas</string>
+    <string name="onboarding_analytics_desc">Diagram lingkaran yang indah dan pelacakan anggaran membantu Anda mengendalikan keuangan.</string>
+    <string name="onboarding_privacy_title">Data Anda, perangkat Anda</string>
+    <string name="onboarding_privacy_desc">Tanpa internet. Tanpa cloud. Tanpa akun. Semua data Anda tetap di perangkat Anda — selalu.</string>
+
+    <!-- Transactions (expense / income) -->
+    <string name="type_expense">Pengeluaran</string>
+    <string name="type_income">Pemasukan</string>
+    <string name="filter_all">Semua</string>
+    <string name="add_transaction_title">Tambah transaksi</string>
+    <string name="edit_transaction_title">Edit transaksi</string>
+    <string name="save_transaction">Simpan</string>
+    <string name="update_transaction">Perbarui</string>
+    <string name="dashboard_income_remaining">Sisa pemasukan</string>
+    <string name="dashboard_income_overspent">Melebihi pemasukan</string>
+    <string name="dashboard_income_of">%1$s dari %2$s dibelanjakan</string>
+    <string name="analytics_spent_vs_saved">Dibelanjakan vs Ditabung</string>
+    <string name="analytics_income">Pemasukan</string>
+    <string name="analytics_spent">Dibelanjakan</string>
+    <string name="analytics_saved">Ditabung</string>
+    <string name="analytics_savings_rate">Tingkat tabungan</string>
 </resources>

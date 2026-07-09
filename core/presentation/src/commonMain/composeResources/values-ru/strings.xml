@@ -1,8 +1,11 @@
 <resources>
+    <!-- Bottom navigation -->
     <string name="nav_dashboard">Панель</string>
     <string name="nav_expenses">Расходы</string>
     <string name="nav_analytics">Аналитика</string>
     <string name="nav_settings">Настройки</string>
+
+    <!-- Common actions -->
     <string name="action_save">Сохранить</string>
     <string name="action_cancel">Отмена</string>
     <string name="action_delete">Удалить</string>
@@ -11,9 +14,202 @@
     <string name="action_add">Добавить</string>
     <string name="action_apply">Применить</string>
     <string name="action_back">Назад</string>
+    <string name="action_edit">Изменить</string>
+    <string name="action_new">Создать</string>
+
+    <!-- Common values -->
+    <string name="common_none">Нет</string>
+    <string name="common_default">По умолчанию</string>
+    <string name="common_not_set">Не задано</string>
+    <string name="common_uncategorized">Без категории</string>
+    <string name="common_total">Итого</string>
+    <string name="action_add_expense">Добавить расход</string>
+
+    <!-- Date filter chips -->
     <string name="filter_this_month">Этот месяц</string>
     <string name="filter_this_week">Эта неделя</string>
     <string name="filter_last_month">Прошлый месяц</string>
     <string name="filter_this_year">Этот год</string>
-    <string name="filter_custom">Произвольный</string>
+    <string name="filter_custom">Свой</string>
+    <string name="period_custom_range">Свой диапазон</string>
+
+    <!-- Cards (design-system) -->
+    <string name="card_percent_of_spend">%1$s от расходов</string>
+    <string name="card_budget">Бюджет: %1$s</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_budget_monthly">Месячный бюджет</string>
+    <string name="dashboard_empty_title">Пока нет расходов</string>
+    <string name="dashboard_empty_message">Нажмите кнопку +, чтобы добавить первый расход</string>
+    <string name="drilldown_percent_of_total">%1$s от суммы</string>
+    <string name="drilldown_empty_title">Нет расходов</string>
+    <string name="drilldown_empty_message">Нет расходов в этой категории за выбранный период</string>
+    <string name="filtered_empty_title">Нет расходов</string>
+    <string name="filtered_empty_message">Расходы для этого выбора не найдены</string>
+
+    <!-- Expenses list -->
+    <string name="expenses_title">Все расходы</string>
+    <string name="expenses_search_hint">Поиск расходов...</string>
+    <string name="expenses_empty_title">Нет расходов</string>
+    <string name="expenses_empty_message">Нажмите +, чтобы добавить первый расход</string>
+    <string name="expense_deleted">Расход удалён</string>
+
+    <!-- Add / Edit expense -->
+    <string name="add_expense_title">Добавить расход</string>
+    <string name="edit_expense_title">Изменить расход</string>
+    <string name="field_expense_name">Название расхода *</string>
+    <string name="field_amount">Сумма (₹) *</string>
+    <string name="field_category">Категория *</string>
+    <string name="field_subcategory">Подкатегория (необязательно)</string>
+    <string name="field_date">Дата *</string>
+    <string name="field_time">Время</string>
+    <string name="field_notes">Заметки (необязательно)</string>
+    <string name="subcategory_none_hint">Для этой категории ещё нет подкатегорий</string>
+    <string name="save_expense">Сохранить расход</string>
+    <string name="update_expense">Обновить расход</string>
+    <string name="delete_expense_title">Удалить расход?</string>
+    <string name="delete_expense_message">Это действие нельзя отменить.</string>
+    <string name="over_budget_title">Превышение бюджета</string>
+    <string name="budget_warn_monthly">Этот расход увеличит ваши месячные траты до %1$s, что превышает ваш бюджет %2$s.</string>
+    <string name="budget_warn_category">Этот расход увеличит траты по «%1$s» до %2$s, что превышает её бюджет %3$s.</string>
+    <string name="pick_time">Выберите время</string>
+
+    <!-- Analytics -->
+    <string name="analytics_top_category">Топ категория</string>
+    <string name="analytics_avg_day">Сред. / день</string>
+    <string name="analytics_breakdown">Разбивка</string>
+    <string name="analytics_spending_trend">Динамика расходов</string>
+    <string name="analytics_spending_trend_sub">Нажмите на день, чтобы увидеть итог</string>
+    <string name="analytics_empty_title">Нет данных за этот период</string>
+    <string name="analytics_empty_message">Выберите другой период выше или добавьте расходы</string>
+
+    <!-- Settings -->
+    <string name="settings_section_preferences">Предпочтения</string>
+    <string name="settings_section_budget">Бюджет</string>
+    <string name="settings_section_data">Управление данными</string>
+    <string name="settings_section_app_info">О приложении</string>
+    <string name="settings_theme">Тема</string>
+    <string name="settings_theme_system">Как в системе</string>
+    <string name="settings_theme_light">Светлая</string>
+    <string name="settings_theme_dark">Тёмная</string>
+    <string name="settings_app_lock">Блокировка приложения</string>
+    <string name="settings_notifications">Уведомления</string>
+    <string name="settings_notifications_on">Напоминания включены</string>
+    <string name="settings_notifications_off">Напоминания выключены</string>
+    <string name="settings_budget_mgmt">Управление бюджетом</string>
+    <string name="settings_budget_value">%1$s/мес</string>
+    <string name="settings_manage_categories">Управление категориями</string>
+    <string name="settings_manage_subcategories">Управление подкатегориями</string>
+    <string name="settings_about">О приложении</string>
+    <string name="settings_privacy">Политика конфиденциальности</string>
+    <string name="settings_terms">Условия использования</string>
+    <string name="settings_language">Язык</string>
+    <string name="language_system_default">Как в системе</string>
+
+    <!-- Onboarding language picker (first page) -->
+    <string name="onboarding_language_title">Выберите язык</string>
+    <string name="onboarding_language_desc">Вы можете изменить его в любое время в настройках</string>
+
+    <!-- Budget -->
+    <string name="budget_title">Управление бюджетом</string>
+    <string name="budget_monthly">Месячный бюджет</string>
+    <string name="budget_amount">Сумма (₹)</string>
+    <string name="budget_allow_over_title">Разрешить траты сверх бюджета</string>
+    <string name="budget_allow_over_on">Расходы сверх вашего бюджета разрешены</string>
+    <string name="budget_allow_over_off">Вы не сможете добавлять расходы, превышающие месячный бюджет или бюджет категории</string>
+    <string name="budget_per_category">Бюджеты по категориям</string>
+    <string name="budget_reset_all">Сбросить всё</string>
+
+    <!-- Categories -->
+    <string name="categories_title">Управление категориями</string>
+    <string name="categories_new">Новая категория</string>
+    <string name="categories_edit">Изменить категорию</string>
+    <string name="field_name">Название</string>
+    <string name="field_icon_emoji">Значок (эмодзи)</string>
+    <string name="category_default_badge">По умолчанию</string>
+    <string name="cannot_delete_title">Нельзя удалить</string>
+    <string name="cannot_delete_message">Нельзя удалить «%1$s» — есть связанные расходы.</string>
+    <string name="categories_empty_title">Нет категорий</string>
+    <string name="categories_empty_message">Нажмите «Создать», чтобы добавить первую категорию</string>
+
+    <!-- Sub-categories -->
+    <string name="subcategories_title">Управление подкатегориями</string>
+    <string name="subcategory_new">Новая подкатегория</string>
+    <string name="subcategory_edit">Изменить подкатегорию</string>
+    <string name="field_parent_category">Родительская категория</string>
+    <string name="select_category">Выбрать категорию</string>
+    <string name="subcategory_has_expenses_title">В подкатегории есть расходы</string>
+    <string name="subcategory_has_expenses_message">У «%1$s» есть связанные расходы. При удалении подкатегория будет убрана из этих расходов. Продолжить?</string>
+    <string name="action_delete_detach">Удалить и отвязать</string>
+    <string name="subcategories_empty_title">Пока нет подкатегорий</string>
+    <string name="subcategories_empty_message">Нажмите «Создать», чтобы добавить</string>
+
+    <!-- App lock (unlock) -->
+    <string name="applock_enter_pin">Введите PIN</string>
+    <string name="applock_enter_pin_sub">Введите 6-значный PIN для разблокировки</string>
+    <string name="applock_incorrect">Неверный PIN. Попробуйте снова.</string>
+    <string name="applock_unlock_title">Разблокировать ExpenseTrackr</string>
+    <string name="applock_unlock_sub">Подтвердите личность, чтобы продолжить</string>
+
+    <!-- App lock setup -->
+    <string name="applock_setup_title">Блокировка приложения</string>
+    <string name="applock_on">Блокировка приложения включена</string>
+    <string name="applock_off">Блокировка приложения выключена</string>
+    <string name="applock_status_pin">Разблокировка по PIN</string>
+    <string name="applock_status_both">Разблокировка по PIN + биометрии</string>
+    <string name="applock_status_none">Приложение открывается без блокировки</string>
+    <string name="applock_set_pin">Настроить PIN</string>
+    <string name="applock_change_pin">Изменить PIN</string>
+    <string name="applock_biometric_title">Разблокировка по биометрии</string>
+    <string name="applock_biometric_none">На этом устройстве нет данных биометрии</string>
+    <string name="applock_biometric_need_pin">Сначала настройте PIN</string>
+    <string name="applock_biometric_use">Используйте отпечаток / лицо для разблокировки</string>
+    <string name="applock_remove">Убрать блокировку приложения</string>
+    <string name="applock_forgot">⚠ Если вы забудете PIN, для сброса придётся очистить данные приложения.</string>
+
+    <!-- PIN setup flow -->
+    <string name="pin_set_title">Задать PIN</string>
+    <string name="pin_confirm_title">Подтвердите PIN</string>
+    <string name="pin_create">Создайте PIN</string>
+    <string name="pin_reenter">Введите PIN ещё раз</string>
+    <string name="pin_choose_sub">Выберите 6-значный PIN</string>
+    <string name="pin_confirm_sub">Подтвердите 6-значный PIN</string>
+    <string name="pin_mismatch">PIN-коды не совпадают. Попробуйте снова.</string>
+
+    <!-- Notification settings -->
+    <string name="notif_title">Настройки уведомлений</string>
+    <string name="notif_daily_title">Ежедневное напоминание о расходах</string>
+    <string name="notif_daily_sub">Напоминать записывать расходы за день в %1$s</string>
+    <string name="notif_budget_title">Оповещения о бюджете</string>
+    <string name="notif_budget_sub">Оповещать, когда траты превышают 80%% бюджета</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">Пропустить</string>
+    <string name="onboarding_next">Далее</string>
+    <string name="onboarding_get_started">Начать</string>
+    <string name="onboarding_welcome_title">Добро пожаловать в ExpenseTrackr</string>
+    <string name="onboarding_welcome_desc">Отслеживайте каждую рупию. Приватно, офлайн и красиво просто.</string>
+    <string name="onboarding_track_title">Отслеживайте свои траты</string>
+    <string name="onboarding_track_desc">Распределяйте расходы по категориям и подкатегориям. Видите, куда именно уходят ваши деньги.</string>
+    <string name="onboarding_analytics_title">Умная аналитика</string>
+    <string name="onboarding_analytics_desc">Красивые круговые диаграммы и контроль бюджета помогают держать финансы под контролем.</string>
+    <string name="onboarding_privacy_title">Ваши данные, ваше устройство</string>
+    <string name="onboarding_privacy_desc">Без интернета. Без облака. Без аккаунтов. Все ваши данные всегда остаются на устройстве.</string>
+
+    <!-- Transactions (expense / income) -->
+    <string name="type_expense">Расход</string>
+    <string name="type_income">Доход</string>
+    <string name="filter_all">Все</string>
+    <string name="add_transaction_title">Добавить операцию</string>
+    <string name="edit_transaction_title">Изменить операцию</string>
+    <string name="save_transaction">Сохранить</string>
+    <string name="update_transaction">Обновить</string>
+    <string name="dashboard_income_remaining">Остаток дохода</string>
+    <string name="dashboard_income_overspent">Сверх дохода</string>
+    <string name="dashboard_income_of">%1$s потрачено из %2$s</string>
+    <string name="analytics_spent_vs_saved">Потрачено и сэкономлено</string>
+    <string name="analytics_income">Доход</string>
+    <string name="analytics_spent">Потрачено</string>
+    <string name="analytics_saved">Сэкономлено</string>
+    <string name="analytics_savings_rate">Норма сбережений</string>
 </resources>

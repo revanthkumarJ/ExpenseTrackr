@@ -84,7 +84,9 @@ fun ExpenseItemCard(
     subCategoryName: String?,
     time: String,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    // Income rows show the amount in green with a leading "+" so credits read differently.
+    isIncome: Boolean = false
 ) {
     Surface(
         modifier = modifier.fillMaxWidth().bounceClick(onClick = onClick),
@@ -107,10 +109,10 @@ fun ExpenseItemCard(
             }
             Spacer(Modifier.width(8.dp))
             Text(
-                amount,
+                if (isIncome) "+$amount" else amount,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurface
+                color = if (isIncome) BudgetGreen else MaterialTheme.colorScheme.onSurface
             )
         }
     }

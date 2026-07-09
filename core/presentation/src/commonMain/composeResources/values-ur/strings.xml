@@ -1,8 +1,11 @@
 <resources>
+    <!-- Bottom navigation -->
     <string name="nav_dashboard">ڈیش بورڈ</string>
     <string name="nav_expenses">اخراجات</string>
-    <string name="nav_analytics">تجزیہ</string>
+    <string name="nav_analytics">تجزیات</string>
     <string name="nav_settings">ترتیبات</string>
+
+    <!-- Common actions -->
     <string name="action_save">محفوظ کریں</string>
     <string name="action_cancel">منسوخ کریں</string>
     <string name="action_delete">حذف کریں</string>
@@ -11,9 +14,202 @@
     <string name="action_add">شامل کریں</string>
     <string name="action_apply">لاگو کریں</string>
     <string name="action_back">واپس</string>
-    <string name="filter_this_month">اس ماہ</string>
+    <string name="action_edit">ترمیم کریں</string>
+    <string name="action_new">نیا</string>
+
+    <!-- Common values -->
+    <string name="common_none">کوئی نہیں</string>
+    <string name="common_default">طے شدہ</string>
+    <string name="common_not_set">مقرر نہیں</string>
+    <string name="common_uncategorized">غیر زمرہ بند</string>
+    <string name="common_total">کل</string>
+    <string name="action_add_expense">خرچہ شامل کریں</string>
+
+    <!-- Date filter chips -->
+    <string name="filter_this_month">اس مہینے</string>
     <string name="filter_this_week">اس ہفتے</string>
-    <string name="filter_last_month">پچھلے ماہ</string>
+    <string name="filter_last_month">پچھلے مہینے</string>
     <string name="filter_this_year">اس سال</string>
     <string name="filter_custom">حسب ضرورت</string>
+    <string name="period_custom_range">حسب ضرورت مدت</string>
+
+    <!-- Cards (design-system) -->
+    <string name="card_percent_of_spend">اخراجات کا %1$s</string>
+    <string name="card_budget">بجٹ: %1$s</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_budget_monthly">ماہانہ بجٹ</string>
+    <string name="dashboard_empty_title">ابھی تک کوئی خرچہ نہیں</string>
+    <string name="dashboard_empty_message">اپنا پہلا خرچہ شامل کرنے کے لیے + بٹن پر ٹیپ کریں</string>
+    <string name="drilldown_percent_of_total">کل کا %1$s</string>
+    <string name="drilldown_empty_title">کوئی خرچہ نہیں</string>
+    <string name="drilldown_empty_message">منتخب مدت کے لیے اس زمرے میں کوئی خرچہ نہیں</string>
+    <string name="filtered_empty_title">کوئی خرچہ نہیں</string>
+    <string name="filtered_empty_message">اس انتخاب کے لیے کوئی خرچہ نہیں ملا</string>
+
+    <!-- Expenses list -->
+    <string name="expenses_title">تمام اخراجات</string>
+    <string name="expenses_search_hint">اخراجات تلاش کریں...</string>
+    <string name="expenses_empty_title">کوئی خرچہ نہیں</string>
+    <string name="expenses_empty_message">اپنا پہلا خرچہ شامل کرنے کے لیے + ٹیپ کریں</string>
+    <string name="expense_deleted">خرچہ حذف ہو گیا</string>
+
+    <!-- Add / Edit expense -->
+    <string name="add_expense_title">خرچہ شامل کریں</string>
+    <string name="edit_expense_title">خرچہ میں ترمیم کریں</string>
+    <string name="field_expense_name">خرچے کا نام *</string>
+    <string name="field_amount">رقم (₹) *</string>
+    <string name="field_category">زمرہ *</string>
+    <string name="field_subcategory">ذیلی زمرہ (اختیاری)</string>
+    <string name="field_date">تاریخ *</string>
+    <string name="field_time">وقت</string>
+    <string name="field_notes">نوٹس (اختیاری)</string>
+    <string name="subcategory_none_hint">اس زمرے کے لیے ابھی کوئی ذیلی زمرہ نہیں</string>
+    <string name="save_expense">خرچہ محفوظ کریں</string>
+    <string name="update_expense">خرچہ اپ ڈیٹ کریں</string>
+    <string name="delete_expense_title">خرچہ حذف کریں؟</string>
+    <string name="delete_expense_message">یہ عمل واپس نہیں کیا جا سکتا۔</string>
+    <string name="over_budget_title">بجٹ سے زیادہ</string>
+    <string name="budget_warn_monthly">یہ خرچہ آپ کے ماہانہ اخراجات کو %1$s تک لے جائے گا، جو آپ کے %2$s بجٹ سے زیادہ ہے۔</string>
+    <string name="budget_warn_category">یہ خرچہ %1$s کے اخراجات کو %2$s تک لے جائے گا، جو اس کے %3$s بجٹ سے زیادہ ہے۔</string>
+    <string name="pick_time">وقت منتخب کریں</string>
+
+    <!-- Analytics -->
+    <string name="analytics_top_category">سرفہرست زمرہ</string>
+    <string name="analytics_avg_day">اوسط / دن</string>
+    <string name="analytics_breakdown">تفصیل</string>
+    <string name="analytics_spending_trend">اخراجات کا رجحان</string>
+    <string name="analytics_spending_trend_sub">کل دیکھنے کے لیے ایک دن پر ٹیپ کریں</string>
+    <string name="analytics_empty_title">اس مدت کے لیے کوئی ڈیٹا نہیں</string>
+    <string name="analytics_empty_message">اوپر کوئی اور مدت آزمائیں، یا کچھ اخراجات شامل کریں</string>
+
+    <!-- Settings -->
+    <string name="settings_section_preferences">ترجیحات</string>
+    <string name="settings_section_budget">بجٹ</string>
+    <string name="settings_section_data">ڈیٹا کا انتظام</string>
+    <string name="settings_section_app_info">ایپ معلومات</string>
+    <string name="settings_theme">تھیم</string>
+    <string name="settings_theme_system">سسٹم طے شدہ</string>
+    <string name="settings_theme_light">ہلکا</string>
+    <string name="settings_theme_dark">گہرا</string>
+    <string name="settings_app_lock">ایپ لاک</string>
+    <string name="settings_notifications">اطلاعات</string>
+    <string name="settings_notifications_on">یاد دہانیاں فعال</string>
+    <string name="settings_notifications_off">یاد دہانیاں غیر فعال</string>
+    <string name="settings_budget_mgmt">بجٹ کا انتظام</string>
+    <string name="settings_budget_value">%1$s/ماہ</string>
+    <string name="settings_manage_categories">زمرے منظم کریں</string>
+    <string name="settings_manage_subcategories">ذیلی زمرے منظم کریں</string>
+    <string name="settings_about">بارے میں</string>
+    <string name="settings_privacy">رازداری کی پالیسی</string>
+    <string name="settings_terms">سروس کی شرائط</string>
+    <string name="settings_language">زبان</string>
+    <string name="language_system_default">سسٹم طے شدہ</string>
+
+    <!-- Onboarding language picker (first page) -->
+    <string name="onboarding_language_title">اپنی زبان منتخب کریں</string>
+    <string name="onboarding_language_desc">آپ اسے ترتیبات میں کسی بھی وقت تبدیل کر سکتے ہیں</string>
+
+    <!-- Budget -->
+    <string name="budget_title">بجٹ کا انتظام</string>
+    <string name="budget_monthly">ماہانہ بجٹ</string>
+    <string name="budget_amount">رقم (₹)</string>
+    <string name="budget_allow_over_title">بجٹ سے زیادہ خرچ کی اجازت دیں</string>
+    <string name="budget_allow_over_on">آپ کے بجٹ سے زیادہ اخراجات کی اجازت ہے</string>
+    <string name="budget_allow_over_off">آپ کو ایسے اخراجات شامل کرنے سے روکا جائے گا جو آپ کے ماہانہ یا زمرہ بجٹ سے تجاوز کرتے ہیں</string>
+    <string name="budget_per_category">فی زمرہ بجٹ</string>
+    <string name="budget_reset_all">سب ری سیٹ کریں</string>
+
+    <!-- Categories -->
+    <string name="categories_title">زمرے منظم کریں</string>
+    <string name="categories_new">نیا زمرہ</string>
+    <string name="categories_edit">زمرہ ترمیم کریں</string>
+    <string name="field_name">نام</string>
+    <string name="field_icon_emoji">آئیکن (ایموجی)</string>
+    <string name="category_default_badge">طے شدہ</string>
+    <string name="cannot_delete_title">حذف نہیں کیا جا سکتا</string>
+    <string name="cannot_delete_message">\'%1$s\' کو حذف نہیں کیا جا سکتا — اس سے منسلک اخراجات ہیں۔</string>
+    <string name="categories_empty_title">کوئی زمرہ نہیں</string>
+    <string name="categories_empty_message">اپنا پہلا زمرہ بنانے کے لیے نیا پر ٹیپ کریں</string>
+
+    <!-- Sub-categories -->
+    <string name="subcategories_title">ذیلی زمرے منظم کریں</string>
+    <string name="subcategory_new">نیا ذیلی زمرہ</string>
+    <string name="subcategory_edit">ذیلی زمرہ ترمیم کریں</string>
+    <string name="field_parent_category">بنیادی زمرہ</string>
+    <string name="select_category">زمرہ منتخب کریں</string>
+    <string name="subcategory_has_expenses_title">ذیلی زمرے میں اخراجات ہیں</string>
+    <string name="subcategory_has_expenses_message">\'%1$s\' سے منسلک اخراجات ہیں۔ اسے حذف کرنے سے ان اخراجات سے ذیلی زمرہ ہٹا دیا جائے گا۔ جاری رکھیں؟</string>
+    <string name="action_delete_detach">حذف کریں اور الگ کریں</string>
+    <string name="subcategories_empty_title">ابھی کوئی ذیلی زمرہ نہیں</string>
+    <string name="subcategories_empty_message">ایک بنانے کے لیے نیا پر ٹیپ کریں</string>
+
+    <!-- App lock (unlock) -->
+    <string name="applock_enter_pin">پن درج کریں</string>
+    <string name="applock_enter_pin_sub">انلاک کرنے کے لیے اپنا 6 ہندسوں کا پن درج کریں</string>
+    <string name="applock_incorrect">غلط پن۔ دوبارہ کوشش کریں۔</string>
+    <string name="applock_unlock_title">ExpenseTrackr انلاک کریں</string>
+    <string name="applock_unlock_sub">جاری رکھنے کے لیے اپنی شناخت کی تصدیق کریں</string>
+
+    <!-- App lock setup -->
+    <string name="applock_setup_title">ایپ لاک</string>
+    <string name="applock_on">ایپ لاک آن ہے</string>
+    <string name="applock_off">ایپ لاک آف ہے</string>
+    <string name="applock_status_pin">پن انلاک</string>
+    <string name="applock_status_both">پن + بایومیٹرک انلاک</string>
+    <string name="applock_status_none">آپ کی ایپ بغیر لاک کے کھلتی ہے</string>
+    <string name="applock_set_pin">پن ترتیب دیں</string>
+    <string name="applock_change_pin">پن تبدیل کریں</string>
+    <string name="applock_biometric_title">بایومیٹرک سے انلاک کریں</string>
+    <string name="applock_biometric_none">اس آلے پر کوئی بایومیٹرک رجسٹرڈ نہیں</string>
+    <string name="applock_biometric_need_pin">پہلے پن ترتیب دیں</string>
+    <string name="applock_biometric_use">انلاک کرنے کے لیے فنگر پرنٹ / چہرہ استعمال کریں</string>
+    <string name="applock_remove">ایپ لاک ہٹائیں</string>
+    <string name="applock_forgot">⚠ اگر آپ اپنا پن بھول جاتے ہیں، تو اسے ری سیٹ کرنے کے لیے آپ کو ایپ ڈیٹا صاف کرنا ہوگا۔</string>
+
+    <!-- PIN setup flow -->
+    <string name="pin_set_title">پن مقرر کریں</string>
+    <string name="pin_confirm_title">پن کی تصدیق کریں</string>
+    <string name="pin_create">پن بنائیں</string>
+    <string name="pin_reenter">اپنا پن دوبارہ درج کریں</string>
+    <string name="pin_choose_sub">6 ہندسوں کا پن منتخب کریں</string>
+    <string name="pin_confirm_sub">اپنے 6 ہندسوں کے پن کی تصدیق کریں</string>
+    <string name="pin_mismatch">پن مطابقت نہیں رکھتے۔ دوبارہ کوشش کریں۔</string>
+
+    <!-- Notification settings -->
+    <string name="notif_title">اطلاعات کی ترتیبات</string>
+    <string name="notif_daily_title">روزانہ اخراجات کی یاد دہانی</string>
+    <string name="notif_daily_sub">%1$s پر آج کے اخراجات درج کرنے کی یاد دہانی کرائے گا</string>
+    <string name="notif_budget_title">بجٹ الرٹس</string>
+    <string name="notif_budget_sub">جب اخراجات بجٹ کے 80%% سے تجاوز کریں تو خبردار کریں</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">چھوڑیں</string>
+    <string name="onboarding_next">اگلا</string>
+    <string name="onboarding_get_started">شروع کریں</string>
+    <string name="onboarding_welcome_title">ExpenseTrackr میں خوش آمدید</string>
+    <string name="onboarding_welcome_desc">ہر روپیہ ٹریک کریں۔ نجی، آف لائن اور خوبصورتی سے سادہ۔</string>
+    <string name="onboarding_track_title">اپنے اخراجات ٹریک کریں</string>
+    <string name="onboarding_track_desc">اخراجات کو زمروں اور ذیلی زمروں میں ترتیب دیں۔ دیکھیں کہ آپ کا پیسہ بالکل کہاں جاتا ہے۔</string>
+    <string name="onboarding_analytics_title">اسمارٹ تجزیات</string>
+    <string name="onboarding_analytics_desc">خوبصورت پائی چارٹ اور بجٹ ٹریکنگ آپ کو اپنی مالیات پر قابو رکھنے میں مدد دیتے ہیں۔</string>
+    <string name="onboarding_privacy_title">آپ کا ڈیٹا، آپ کا آلہ</string>
+    <string name="onboarding_privacy_desc">کوئی انٹرنیٹ نہیں۔ کوئی کلاؤڈ نہیں۔ کوئی اکاؤنٹ نہیں۔ آپ کا سارا ڈیٹا ہمیشہ آپ کے آلے پر ہی رہتا ہے۔</string>
+
+    <!-- Transactions (expense / income) -->
+    <string name="type_expense">خرچہ</string>
+    <string name="type_income">آمدنی</string>
+    <string name="filter_all">سب</string>
+    <string name="add_transaction_title">لین دین شامل کریں</string>
+    <string name="edit_transaction_title">لین دین ترمیم کریں</string>
+    <string name="save_transaction">محفوظ کریں</string>
+    <string name="update_transaction">اپ ڈیٹ کریں</string>
+    <string name="dashboard_income_remaining">باقی آمدنی</string>
+    <string name="dashboard_income_overspent">آمدنی سے زیادہ</string>
+    <string name="dashboard_income_of">%2$s میں سے %1$s خرچ ہوئے</string>
+    <string name="analytics_spent_vs_saved">خرچ بمقابلہ بچت</string>
+    <string name="analytics_income">آمدنی</string>
+    <string name="analytics_spent">خرچ</string>
+    <string name="analytics_saved">بچت</string>
+    <string name="analytics_savings_rate">بچت کی شرح</string>
 </resources>

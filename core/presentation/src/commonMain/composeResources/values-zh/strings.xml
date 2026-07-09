@@ -1,8 +1,11 @@
 <resources>
+    <!-- Bottom navigation -->
     <string name="nav_dashboard">仪表盘</string>
     <string name="nav_expenses">支出</string>
     <string name="nav_analytics">分析</string>
     <string name="nav_settings">设置</string>
+
+    <!-- Common actions -->
     <string name="action_save">保存</string>
     <string name="action_cancel">取消</string>
     <string name="action_delete">删除</string>
@@ -11,9 +14,202 @@
     <string name="action_add">添加</string>
     <string name="action_apply">应用</string>
     <string name="action_back">返回</string>
+    <string name="action_edit">编辑</string>
+    <string name="action_new">新建</string>
+
+    <!-- Common values -->
+    <string name="common_none">无</string>
+    <string name="common_default">默认</string>
+    <string name="common_not_set">未设置</string>
+    <string name="common_uncategorized">未分类</string>
+    <string name="common_total">合计</string>
+    <string name="action_add_expense">添加支出</string>
+
+    <!-- Date filter chips -->
     <string name="filter_this_month">本月</string>
     <string name="filter_this_week">本周</string>
     <string name="filter_last_month">上月</string>
     <string name="filter_this_year">今年</string>
     <string name="filter_custom">自定义</string>
+    <string name="period_custom_range">自定义范围</string>
+
+    <!-- Cards (design-system) -->
+    <string name="card_percent_of_spend">占支出 %1$s</string>
+    <string name="card_budget">预算：%1$s</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_budget_monthly">每月预算</string>
+    <string name="dashboard_empty_title">还没有支出</string>
+    <string name="dashboard_empty_message">点击 + 按钮添加你的第一笔支出</string>
+    <string name="drilldown_percent_of_total">占总额 %1$s</string>
+    <string name="drilldown_empty_title">无支出</string>
+    <string name="drilldown_empty_message">所选期间此类别没有支出</string>
+    <string name="filtered_empty_title">无支出</string>
+    <string name="filtered_empty_message">未找到符合此选择的支出</string>
+
+    <!-- Expenses list -->
+    <string name="expenses_title">全部支出</string>
+    <string name="expenses_search_hint">搜索支出...</string>
+    <string name="expenses_empty_title">无支出</string>
+    <string name="expenses_empty_message">点击 + 添加你的第一笔支出</string>
+    <string name="expense_deleted">支出已删除</string>
+
+    <!-- Add / Edit expense -->
+    <string name="add_expense_title">添加支出</string>
+    <string name="edit_expense_title">编辑支出</string>
+    <string name="field_expense_name">支出名称 *</string>
+    <string name="field_amount">金额 (₹) *</string>
+    <string name="field_category">类别 *</string>
+    <string name="field_subcategory">子类别（可选）</string>
+    <string name="field_date">日期 *</string>
+    <string name="field_time">时间</string>
+    <string name="field_notes">备注（可选）</string>
+    <string name="subcategory_none_hint">此类别暂无子类别</string>
+    <string name="save_expense">保存支出</string>
+    <string name="update_expense">更新支出</string>
+    <string name="delete_expense_title">删除支出？</string>
+    <string name="delete_expense_message">此操作无法撤销。</string>
+    <string name="over_budget_title">超出预算</string>
+    <string name="budget_warn_monthly">此支出将使你的月支出达到 %1$s，超过你的预算 %2$s。</string>
+    <string name="budget_warn_category">此支出将使 %1$s 的支出达到 %2$s，超过其预算 %3$s。</string>
+    <string name="pick_time">选择时间</string>
+
+    <!-- Analytics -->
+    <string name="analytics_top_category">最高类别</string>
+    <string name="analytics_avg_day">日均</string>
+    <string name="analytics_breakdown">明细</string>
+    <string name="analytics_spending_trend">支出趋势</string>
+    <string name="analytics_spending_trend_sub">点击某一天查看总额</string>
+    <string name="analytics_empty_title">此期间无数据</string>
+    <string name="analytics_empty_message">请在上方尝试其他期间，或添加一些支出</string>
+
+    <!-- Settings -->
+    <string name="settings_section_preferences">偏好设置</string>
+    <string name="settings_section_budget">预算</string>
+    <string name="settings_section_data">数据管理</string>
+    <string name="settings_section_app_info">应用信息</string>
+    <string name="settings_theme">主题</string>
+    <string name="settings_theme_system">跟随系统</string>
+    <string name="settings_theme_light">浅色</string>
+    <string name="settings_theme_dark">深色</string>
+    <string name="settings_app_lock">应用锁</string>
+    <string name="settings_notifications">通知</string>
+    <string name="settings_notifications_on">提醒已开启</string>
+    <string name="settings_notifications_off">提醒已关闭</string>
+    <string name="settings_budget_mgmt">预算管理</string>
+    <string name="settings_budget_value">%1$s/月</string>
+    <string name="settings_manage_categories">管理类别</string>
+    <string name="settings_manage_subcategories">管理子类别</string>
+    <string name="settings_about">关于</string>
+    <string name="settings_privacy">隐私政策</string>
+    <string name="settings_terms">服务条款</string>
+    <string name="settings_language">语言</string>
+    <string name="language_system_default">跟随系统</string>
+
+    <!-- Onboarding language picker (first page) -->
+    <string name="onboarding_language_title">选择你的语言</string>
+    <string name="onboarding_language_desc">你可以随时在设置中更改</string>
+
+    <!-- Budget -->
+    <string name="budget_title">预算管理</string>
+    <string name="budget_monthly">每月预算</string>
+    <string name="budget_amount">金额 (₹)</string>
+    <string name="budget_allow_over_title">允许超出预算支出</string>
+    <string name="budget_allow_over_on">允许超过你预算的支出</string>
+    <string name="budget_allow_over_off">你将无法添加超过每月或类别预算的支出</string>
+    <string name="budget_per_category">各类别预算</string>
+    <string name="budget_reset_all">全部重置</string>
+
+    <!-- Categories -->
+    <string name="categories_title">管理类别</string>
+    <string name="categories_new">新建类别</string>
+    <string name="categories_edit">编辑类别</string>
+    <string name="field_name">名称</string>
+    <string name="field_icon_emoji">图标（表情符号）</string>
+    <string name="category_default_badge">默认</string>
+    <string name="cannot_delete_title">无法删除</string>
+    <string name="cannot_delete_message">无法删除 \'%1$s\' —— 它有关联的支出。</string>
+    <string name="categories_empty_title">无类别</string>
+    <string name="categories_empty_message">点击"新建"以创建你的第一个类别</string>
+
+    <!-- Sub-categories -->
+    <string name="subcategories_title">管理子类别</string>
+    <string name="subcategory_new">新建子类别</string>
+    <string name="subcategory_edit">编辑子类别</string>
+    <string name="field_parent_category">父类别</string>
+    <string name="select_category">选择类别</string>
+    <string name="subcategory_has_expenses_title">子类别有支出</string>
+    <string name="subcategory_has_expenses_message">\'%1$s\' 有关联的支出。删除后将从这些支出中移除该子类别。继续吗？</string>
+    <string name="action_delete_detach">删除并解除关联</string>
+    <string name="subcategories_empty_title">暂无子类别</string>
+    <string name="subcategories_empty_message">点击"新建"创建一个</string>
+
+    <!-- App lock (unlock) -->
+    <string name="applock_enter_pin">输入 PIN</string>
+    <string name="applock_enter_pin_sub">输入你的 6 位 PIN 以解锁</string>
+    <string name="applock_incorrect">PIN 错误。请重试。</string>
+    <string name="applock_unlock_title">解锁 ExpenseTrackr</string>
+    <string name="applock_unlock_sub">确认你的身份以继续</string>
+
+    <!-- App lock setup -->
+    <string name="applock_setup_title">应用锁</string>
+    <string name="applock_on">应用锁已开启</string>
+    <string name="applock_off">应用锁已关闭</string>
+    <string name="applock_status_pin">PIN 解锁</string>
+    <string name="applock_status_both">PIN + 生物识别解锁</string>
+    <string name="applock_status_none">你的应用无需锁定即可打开</string>
+    <string name="applock_set_pin">设置 PIN</string>
+    <string name="applock_change_pin">更改 PIN</string>
+    <string name="applock_biometric_title">使用生物识别解锁</string>
+    <string name="applock_biometric_none">此设备未注册生物识别</string>
+    <string name="applock_biometric_need_pin">请先设置 PIN</string>
+    <string name="applock_biometric_use">使用指纹 / 面容解锁</string>
+    <string name="applock_remove">移除应用锁</string>
+    <string name="applock_forgot">⚠ 如果你忘记 PIN，必须清除应用数据才能重置。</string>
+
+    <!-- PIN setup flow -->
+    <string name="pin_set_title">设置 PIN</string>
+    <string name="pin_confirm_title">确认 PIN</string>
+    <string name="pin_create">创建 PIN</string>
+    <string name="pin_reenter">重新输入你的 PIN</string>
+    <string name="pin_choose_sub">选择一个 6 位 PIN</string>
+    <string name="pin_confirm_sub">确认你的 6 位 PIN</string>
+    <string name="pin_mismatch">PIN 不匹配。请重试。</string>
+
+    <!-- Notification settings -->
+    <string name="notif_title">通知设置</string>
+    <string name="notif_daily_title">每日支出提醒</string>
+    <string name="notif_daily_sub">在 %1$s 提醒你记录今天的支出</string>
+    <string name="notif_budget_title">预算提醒</string>
+    <string name="notif_budget_sub">当支出超过预算的 80%% 时提醒</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">跳过</string>
+    <string name="onboarding_next">下一步</string>
+    <string name="onboarding_get_started">开始使用</string>
+    <string name="onboarding_welcome_title">欢迎使用 ExpenseTrackr</string>
+    <string name="onboarding_welcome_desc">记录每一卢比。私密、离线，且简洁美观。</string>
+    <string name="onboarding_track_title">追踪你的支出</string>
+    <string name="onboarding_track_desc">将支出整理到类别和子类别中。清楚了解你的钱花在哪里。</string>
+    <string name="onboarding_analytics_title">智能分析</string>
+    <string name="onboarding_analytics_desc">精美的饼图和预算追踪帮助你掌控财务。</string>
+    <string name="onboarding_privacy_title">你的数据，你的设备</string>
+    <string name="onboarding_privacy_desc">无需网络。无云端。无账户。你的所有数据始终留在你的设备上。</string>
+
+    <!-- Transactions (expense / income) -->
+    <string name="type_expense">支出</string>
+    <string name="type_income">收入</string>
+    <string name="filter_all">全部</string>
+    <string name="add_transaction_title">添加交易</string>
+    <string name="edit_transaction_title">编辑交易</string>
+    <string name="save_transaction">保存</string>
+    <string name="update_transaction">更新</string>
+    <string name="dashboard_income_remaining">剩余收入</string>
+    <string name="dashboard_income_overspent">超出收入</string>
+    <string name="dashboard_income_of">已花费 %1$s / %2$s</string>
+    <string name="analytics_spent_vs_saved">支出与结余</string>
+    <string name="analytics_income">收入</string>
+    <string name="analytics_spent">已花费</string>
+    <string name="analytics_saved">结余</string>
+    <string name="analytics_savings_rate">储蓄率</string>
 </resources>

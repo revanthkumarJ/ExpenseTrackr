@@ -1,8 +1,11 @@
 <resources>
+    <!-- Bottom navigation -->
     <string name="nav_dashboard">ਡੈਸ਼ਬੋਰਡ</string>
     <string name="nav_expenses">ਖਰਚੇ</string>
     <string name="nav_analytics">ਵਿਸ਼ਲੇਸ਼ਣ</string>
     <string name="nav_settings">ਸੈਟਿੰਗਾਂ</string>
+
+    <!-- Common actions -->
     <string name="action_save">ਸੰਭਾਲੋ</string>
     <string name="action_cancel">ਰੱਦ ਕਰੋ</string>
     <string name="action_delete">ਮਿਟਾਓ</string>
@@ -11,9 +14,202 @@
     <string name="action_add">ਸ਼ਾਮਲ ਕਰੋ</string>
     <string name="action_apply">ਲਾਗੂ ਕਰੋ</string>
     <string name="action_back">ਪਿੱਛੇ</string>
+    <string name="action_edit">ਸੋਧੋ</string>
+    <string name="action_new">ਨਵਾਂ</string>
+
+    <!-- Common values -->
+    <string name="common_none">ਕੋਈ ਨਹੀਂ</string>
+    <string name="common_default">ਡਿਫਾਲਟ</string>
+    <string name="common_not_set">ਸੈੱਟ ਨਹੀਂ ਕੀਤਾ</string>
+    <string name="common_uncategorized">ਬਿਨਾਂ ਸ਼੍ਰੇਣੀ</string>
+    <string name="common_total">ਕੁੱਲ</string>
+    <string name="action_add_expense">ਖਰਚਾ ਸ਼ਾਮਲ ਕਰੋ</string>
+
+    <!-- Date filter chips -->
     <string name="filter_this_month">ਇਹ ਮਹੀਨਾ</string>
     <string name="filter_this_week">ਇਹ ਹਫ਼ਤਾ</string>
     <string name="filter_last_month">ਪਿਛਲਾ ਮਹੀਨਾ</string>
     <string name="filter_this_year">ਇਹ ਸਾਲ</string>
     <string name="filter_custom">ਕਸਟਮ</string>
+    <string name="period_custom_range">ਕਸਟਮ ਰੇਂਜ</string>
+
+    <!-- Cards (design-system) -->
+    <string name="card_percent_of_spend">ਖਰਚ ਦਾ %1$s</string>
+    <string name="card_budget">ਬਜਟ: %1$s</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_budget_monthly">ਮਾਸਿਕ ਬਜਟ</string>
+    <string name="dashboard_empty_title">ਹਾਲੇ ਕੋਈ ਖਰਚਾ ਨਹੀਂ</string>
+    <string name="dashboard_empty_message">ਆਪਣਾ ਪਹਿਲਾ ਖਰਚਾ ਸ਼ਾਮਲ ਕਰਨ ਲਈ + ਬਟਨ ਟੈਪ ਕਰੋ</string>
+    <string name="drilldown_percent_of_total">ਕੁੱਲ ਦਾ %1$s</string>
+    <string name="drilldown_empty_title">ਕੋਈ ਖਰਚਾ ਨਹੀਂ</string>
+    <string name="drilldown_empty_message">ਚੁਣੀ ਮਿਆਦ ਲਈ ਇਸ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਕੋਈ ਖਰਚਾ ਨਹੀਂ</string>
+    <string name="filtered_empty_title">ਕੋਈ ਖਰਚਾ ਨਹੀਂ</string>
+    <string name="filtered_empty_message">ਇਸ ਚੋਣ ਲਈ ਕੋਈ ਖਰਚਾ ਨਹੀਂ ਮਿਲਿਆ</string>
+
+    <!-- Expenses list -->
+    <string name="expenses_title">ਸਾਰੇ ਖਰਚੇ</string>
+    <string name="expenses_search_hint">ਖਰਚੇ ਖੋਜੋ...</string>
+    <string name="expenses_empty_title">ਕੋਈ ਖਰਚਾ ਨਹੀਂ</string>
+    <string name="expenses_empty_message">ਆਪਣਾ ਪਹਿਲਾ ਖਰਚਾ ਸ਼ਾਮਲ ਕਰਨ ਲਈ + ਟੈਪ ਕਰੋ</string>
+    <string name="expense_deleted">ਖਰਚਾ ਮਿਟਾਇਆ ਗਿਆ</string>
+
+    <!-- Add / Edit expense -->
+    <string name="add_expense_title">ਖਰਚਾ ਸ਼ਾਮਲ ਕਰੋ</string>
+    <string name="edit_expense_title">ਖਰਚਾ ਸੋਧੋ</string>
+    <string name="field_expense_name">ਖਰਚੇ ਦਾ ਨਾਮ *</string>
+    <string name="field_amount">ਰਕਮ (₹) *</string>
+    <string name="field_category">ਸ਼੍ਰੇਣੀ *</string>
+    <string name="field_subcategory">ਉਪ-ਸ਼੍ਰੇਣੀ (ਵਿਕਲਪਿਕ)</string>
+    <string name="field_date">ਮਿਤੀ *</string>
+    <string name="field_time">ਸਮਾਂ</string>
+    <string name="field_notes">ਨੋਟ (ਵਿਕਲਪਿਕ)</string>
+    <string name="subcategory_none_hint">ਇਸ ਸ਼੍ਰੇਣੀ ਲਈ ਹਾਲੇ ਕੋਈ ਉਪ-ਸ਼੍ਰੇਣੀ ਨਹੀਂ</string>
+    <string name="save_expense">ਖਰਚਾ ਸੰਭਾਲੋ</string>
+    <string name="update_expense">ਖਰਚਾ ਅੱਪਡੇਟ ਕਰੋ</string>
+    <string name="delete_expense_title">ਖਰਚਾ ਮਿਟਾਉਣਾ ਹੈ?</string>
+    <string name="delete_expense_message">ਇਸ ਕਾਰਵਾਈ ਨੂੰ ਵਾਪਸ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।</string>
+    <string name="over_budget_title">ਬਜਟ ਤੋਂ ਵੱਧ</string>
+    <string name="budget_warn_monthly">ਇਹ ਖਰਚਾ ਤੁਹਾਡੇ ਮਾਸਿਕ ਖਰਚ ਨੂੰ %1$s ਕਰ ਦੇਵੇਗਾ, ਜੋ ਤੁਹਾਡੇ %2$s ਬਜਟ ਤੋਂ ਵੱਧ ਹੈ।</string>
+    <string name="budget_warn_category">ਇਹ ਖਰਚਾ %1$s ਦੇ ਖਰਚ ਨੂੰ %2$s ਕਰ ਦੇਵੇਗਾ, ਜੋ ਇਸਦੇ %3$s ਬਜਟ ਤੋਂ ਵੱਧ ਹੈ।</string>
+    <string name="pick_time">ਇੱਕ ਸਮਾਂ ਚੁਣੋ</string>
+
+    <!-- Analytics -->
+    <string name="analytics_top_category">ਸਿਖਰਲੀ ਸ਼੍ਰੇਣੀ</string>
+    <string name="analytics_avg_day">ਔਸਤ / ਦਿਨ</string>
+    <string name="analytics_breakdown">ਵੇਰਵਾ</string>
+    <string name="analytics_spending_trend">ਖਰਚ ਰੁਝਾਨ</string>
+    <string name="analytics_spending_trend_sub">ਕੁੱਲ ਵੇਖਣ ਲਈ ਇੱਕ ਦਿਨ ਟੈਪ ਕਰੋ</string>
+    <string name="analytics_empty_title">ਇਸ ਮਿਆਦ ਲਈ ਕੋਈ ਡਾਟਾ ਨਹੀਂ</string>
+    <string name="analytics_empty_message">ਉੱਪਰ ਕੋਈ ਹੋਰ ਮਿਆਦ ਅਜ਼ਮਾਓ, ਜਾਂ ਕੁਝ ਖਰਚੇ ਸ਼ਾਮਲ ਕਰੋ</string>
+
+    <!-- Settings -->
+    <string name="settings_section_preferences">ਤਰਜੀਹਾਂ</string>
+    <string name="settings_section_budget">ਬਜਟ</string>
+    <string name="settings_section_data">ਡਾਟਾ ਪ੍ਰਬੰਧਨ</string>
+    <string name="settings_section_app_info">ਐਪ ਜਾਣਕਾਰੀ</string>
+    <string name="settings_theme">ਥੀਮ</string>
+    <string name="settings_theme_system">ਸਿਸਟਮ ਡਿਫਾਲਟ</string>
+    <string name="settings_theme_light">ਹਲਕਾ</string>
+    <string name="settings_theme_dark">ਗੂੜ੍ਹਾ</string>
+    <string name="settings_app_lock">ਐਪ ਲਾਕ</string>
+    <string name="settings_notifications">ਸੂਚਨਾਵਾਂ</string>
+    <string name="settings_notifications_on">ਯਾਦ-ਦਹਾਨੀਆਂ ਚਾਲੂ</string>
+    <string name="settings_notifications_off">ਯਾਦ-ਦਹਾਨੀਆਂ ਬੰਦ</string>
+    <string name="settings_budget_mgmt">ਬਜਟ ਪ੍ਰਬੰਧਨ</string>
+    <string name="settings_budget_value">%1$s/ਮਹੀਨਾ</string>
+    <string name="settings_manage_categories">ਸ਼੍ਰੇਣੀਆਂ ਪ੍ਰਬੰਧਿਤ ਕਰੋ</string>
+    <string name="settings_manage_subcategories">ਉਪ-ਸ਼੍ਰੇਣੀਆਂ ਪ੍ਰਬੰਧਿਤ ਕਰੋ</string>
+    <string name="settings_about">ਬਾਰੇ</string>
+    <string name="settings_privacy">ਗੋਪਨੀਯਤਾ ਨੀਤੀ</string>
+    <string name="settings_terms">ਸੇਵਾ ਦੀਆਂ ਸ਼ਰਤਾਂ</string>
+    <string name="settings_language">ਭਾਸ਼ਾ</string>
+    <string name="language_system_default">ਸਿਸਟਮ ਡਿਫਾਲਟ</string>
+
+    <!-- Onboarding language picker (first page) -->
+    <string name="onboarding_language_title">ਆਪਣੀ ਭਾਸ਼ਾ ਚੁਣੋ</string>
+    <string name="onboarding_language_desc">ਤੁਸੀਂ ਇਸਨੂੰ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਕਦੇ ਵੀ ਬਦਲ ਸਕਦੇ ਹੋ</string>
+
+    <!-- Budget -->
+    <string name="budget_title">ਬਜਟ ਪ੍ਰਬੰਧਨ</string>
+    <string name="budget_monthly">ਮਾਸਿਕ ਬਜਟ</string>
+    <string name="budget_amount">ਰਕਮ (₹)</string>
+    <string name="budget_allow_over_title">ਬਜਟ ਤੋਂ ਵੱਧ ਖਰਚ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ</string>
+    <string name="budget_allow_over_on">ਤੁਹਾਡੇ ਬਜਟ ਤੋਂ ਵੱਧ ਖਰਚਿਆਂ ਦੀ ਇਜਾਜ਼ਤ ਹੈ</string>
+    <string name="budget_allow_over_off">ਤੁਹਾਨੂੰ ਅਜਿਹੇ ਖਰਚੇ ਸ਼ਾਮਲ ਕਰਨ ਤੋਂ ਰੋਕਿਆ ਜਾਵੇਗਾ ਜੋ ਤੁਹਾਡੇ ਮਾਸਿਕ ਜਾਂ ਸ਼੍ਰੇਣੀ ਬਜਟ ਤੋਂ ਵੱਧ ਹਨ</string>
+    <string name="budget_per_category">ਪ੍ਰਤੀ-ਸ਼੍ਰੇਣੀ ਬਜਟ</string>
+    <string name="budget_reset_all">ਸਭ ਰੀਸੈੱਟ ਕਰੋ</string>
+
+    <!-- Categories -->
+    <string name="categories_title">ਸ਼੍ਰੇਣੀਆਂ ਪ੍ਰਬੰਧਿਤ ਕਰੋ</string>
+    <string name="categories_new">ਨਵੀਂ ਸ਼੍ਰੇਣੀ</string>
+    <string name="categories_edit">ਸ਼੍ਰੇਣੀ ਸੋਧੋ</string>
+    <string name="field_name">ਨਾਮ</string>
+    <string name="field_icon_emoji">ਆਈਕਨ (ਇਮੋਜੀ)</string>
+    <string name="category_default_badge">ਡਿਫਾਲਟ</string>
+    <string name="cannot_delete_title">ਮਿਟਾਇਆ ਨਹੀਂ ਜਾ ਸਕਦਾ</string>
+    <string name="cannot_delete_message">\'%1$s\' ਨੂੰ ਮਿਟਾਇਆ ਨਹੀਂ ਜਾ ਸਕਦਾ — ਇਸ ਨਾਲ ਜੁੜੇ ਖਰਚੇ ਹਨ।</string>
+    <string name="categories_empty_title">ਕੋਈ ਸ਼੍ਰੇਣੀ ਨਹੀਂ</string>
+    <string name="categories_empty_message">ਆਪਣੀ ਪਹਿਲੀ ਸ਼੍ਰੇਣੀ ਬਣਾਉਣ ਲਈ ਨਵਾਂ ਟੈਪ ਕਰੋ</string>
+
+    <!-- Sub-categories -->
+    <string name="subcategories_title">ਉਪ-ਸ਼੍ਰੇਣੀਆਂ ਪ੍ਰਬੰਧਿਤ ਕਰੋ</string>
+    <string name="subcategory_new">ਨਵੀਂ ਉਪ-ਸ਼੍ਰੇਣੀ</string>
+    <string name="subcategory_edit">ਉਪ-ਸ਼੍ਰੇਣੀ ਸੋਧੋ</string>
+    <string name="field_parent_category">ਮੂਲ ਸ਼੍ਰੇਣੀ</string>
+    <string name="select_category">ਸ਼੍ਰੇਣੀ ਚੁਣੋ</string>
+    <string name="subcategory_has_expenses_title">ਉਪ-ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਖਰਚੇ ਹਨ</string>
+    <string name="subcategory_has_expenses_message">\'%1$s\' ਨਾਲ ਜੁੜੇ ਖਰਚੇ ਹਨ। ਇਸਨੂੰ ਮਿਟਾਉਣ ਨਾਲ ਉਹਨਾਂ ਖਰਚਿਆਂ ਵਿੱਚੋਂ ਉਪ-ਸ਼੍ਰੇਣੀ ਹਟਾ ਦਿੱਤੀ ਜਾਵੇਗੀ। ਜਾਰੀ ਰੱਖਣਾ ਹੈ?</string>
+    <string name="action_delete_detach">ਮਿਟਾਓ ਅਤੇ ਵੱਖ ਕਰੋ</string>
+    <string name="subcategories_empty_title">ਹਾਲੇ ਕੋਈ ਉਪ-ਸ਼੍ਰੇਣੀ ਨਹੀਂ</string>
+    <string name="subcategories_empty_message">ਇੱਕ ਬਣਾਉਣ ਲਈ ਨਵਾਂ ਟੈਪ ਕਰੋ</string>
+
+    <!-- App lock (unlock) -->
+    <string name="applock_enter_pin">ਪਿੰਨ ਦਰਜ ਕਰੋ</string>
+    <string name="applock_enter_pin_sub">ਅਨਲਾਕ ਕਰਨ ਲਈ ਆਪਣਾ 6-ਅੰਕੀ ਪਿੰਨ ਦਰਜ ਕਰੋ</string>
+    <string name="applock_incorrect">ਗਲਤ ਪਿੰਨ। ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+    <string name="applock_unlock_title">ExpenseTrackr ਅਨਲਾਕ ਕਰੋ</string>
+    <string name="applock_unlock_sub">ਜਾਰੀ ਰੱਖਣ ਲਈ ਆਪਣੀ ਪਛਾਣ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ</string>
+
+    <!-- App lock setup -->
+    <string name="applock_setup_title">ਐਪ ਲਾਕ</string>
+    <string name="applock_on">ਐਪ ਲਾਕ ਚਾਲੂ ਹੈ</string>
+    <string name="applock_off">ਐਪ ਲਾਕ ਬੰਦ ਹੈ</string>
+    <string name="applock_status_pin">ਪਿੰਨ ਅਨਲਾਕ</string>
+    <string name="applock_status_both">ਪਿੰਨ + ਬਾਇਓਮੈਟ੍ਰਿਕ ਅਨਲਾਕ</string>
+    <string name="applock_status_none">ਤੁਹਾਡੀ ਐਪ ਲਾਕ ਤੋਂ ਬਿਨਾਂ ਖੁੱਲ੍ਹਦੀ ਹੈ</string>
+    <string name="applock_set_pin">ਪਿੰਨ ਸੈੱਟ ਕਰੋ</string>
+    <string name="applock_change_pin">ਪਿੰਨ ਬਦਲੋ</string>
+    <string name="applock_biometric_title">ਬਾਇਓਮੈਟ੍ਰਿਕ ਨਾਲ ਅਨਲਾਕ ਕਰੋ</string>
+    <string name="applock_biometric_none">ਇਸ ਡਿਵਾਈਸ 'ਤੇ ਕੋਈ ਬਾਇਓਮੈਟ੍ਰਿਕ ਰਜਿਸਟਰ ਨਹੀਂ</string>
+    <string name="applock_biometric_need_pin">ਪਹਿਲਾਂ ਇੱਕ ਪਿੰਨ ਸੈੱਟ ਕਰੋ</string>
+    <string name="applock_biometric_use">ਅਨਲਾਕ ਕਰਨ ਲਈ ਫਿੰਗਰਪ੍ਰਿੰਟ / ਚਿਹਰਾ ਵਰਤੋ</string>
+    <string name="applock_remove">ਐਪ ਲਾਕ ਹਟਾਓ</string>
+    <string name="applock_forgot">⚠ ਜੇ ਤੁਸੀਂ ਆਪਣਾ ਪਿੰਨ ਭੁੱਲ ਜਾਂਦੇ ਹੋ, ਤਾਂ ਇਸਨੂੰ ਰੀਸੈੱਟ ਕਰਨ ਲਈ ਤੁਹਾਨੂੰ ਐਪ ਡਾਟਾ ਸਾਫ਼ ਕਰਨਾ ਪਵੇਗਾ।</string>
+
+    <!-- PIN setup flow -->
+    <string name="pin_set_title">ਪਿੰਨ ਸੈੱਟ ਕਰੋ</string>
+    <string name="pin_confirm_title">ਪਿੰਨ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ</string>
+    <string name="pin_create">ਇੱਕ ਪਿੰਨ ਬਣਾਓ</string>
+    <string name="pin_reenter">ਆਪਣਾ ਪਿੰਨ ਦੁਬਾਰਾ ਦਰਜ ਕਰੋ</string>
+    <string name="pin_choose_sub">ਇੱਕ 6-ਅੰਕੀ ਪਿੰਨ ਚੁਣੋ</string>
+    <string name="pin_confirm_sub">ਆਪਣੇ 6-ਅੰਕੀ ਪਿੰਨ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ</string>
+    <string name="pin_mismatch">ਪਿੰਨ ਮੇਲ ਨਹੀਂ ਖਾਂਦੇ। ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+
+    <!-- Notification settings -->
+    <string name="notif_title">ਸੂਚਨਾ ਸੈਟਿੰਗਾਂ</string>
+    <string name="notif_daily_title">ਰੋਜ਼ਾਨਾ ਖਰਚ ਯਾਦ-ਦਹਾਨੀ</string>
+    <string name="notif_daily_sub">%1$s ਵਜੇ ਅੱਜ ਦੇ ਖਰਚੇ ਦਰਜ ਕਰਨ ਦੀ ਯਾਦ ਦਿਵਾਏਗਾ</string>
+    <string name="notif_budget_title">ਬਜਟ ਚੇਤਾਵਨੀਆਂ</string>
+    <string name="notif_budget_sub">ਜਦੋਂ ਖਰਚ ਬਜਟ ਦੇ 80%% ਤੋਂ ਵੱਧ ਜਾਵੇ ਤਾਂ ਚੇਤਾਵਨੀ ਦਿਓ</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">ਛੱਡੋ</string>
+    <string name="onboarding_next">ਅੱਗੇ</string>
+    <string name="onboarding_get_started">ਸ਼ੁਰੂ ਕਰੋ</string>
+    <string name="onboarding_welcome_title">ExpenseTrackr ਵਿੱਚ ਸੁਆਗਤ ਹੈ</string>
+    <string name="onboarding_welcome_desc">ਹਰ ਰੁਪਏ ਨੂੰ ਟ੍ਰੈਕ ਕਰੋ। ਨਿੱਜੀ, ਆਫਲਾਈਨ ਅਤੇ ਖੂਬਸੂਰਤੀ ਨਾਲ ਸਧਾਰਨ।</string>
+    <string name="onboarding_track_title">ਆਪਣੇ ਖਰਚ ਨੂੰ ਟ੍ਰੈਕ ਕਰੋ</string>
+    <string name="onboarding_track_desc">ਖਰਚਿਆਂ ਨੂੰ ਸ਼੍ਰੇਣੀਆਂ ਅਤੇ ਉਪ-ਸ਼੍ਰੇਣੀਆਂ ਵਿੱਚ ਵਿਵਸਥਿਤ ਕਰੋ। ਵੇਖੋ ਕਿ ਤੁਹਾਡਾ ਪੈਸਾ ਬਿਲਕੁਲ ਕਿੱਥੇ ਜਾਂਦਾ ਹੈ।</string>
+    <string name="onboarding_analytics_title">ਸਮਾਰਟ ਵਿਸ਼ਲੇਸ਼ਣ</string>
+    <string name="onboarding_analytics_desc">ਸੁੰਦਰ ਪਾਈ ਚਾਰਟ ਅਤੇ ਬਜਟ ਟ੍ਰੈਕਿੰਗ ਤੁਹਾਨੂੰ ਆਪਣੇ ਵਿੱਤ 'ਤੇ ਕਾਬੂ ਰੱਖਣ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ।</string>
+    <string name="onboarding_privacy_title">ਤੁਹਾਡਾ ਡਾਟਾ, ਤੁਹਾਡਾ ਡਿਵਾਈਸ</string>
+    <string name="onboarding_privacy_desc">ਕੋਈ ਇੰਟਰਨੈੱਟ ਨਹੀਂ। ਕੋਈ ਕਲਾਊਡ ਨਹੀਂ। ਕੋਈ ਖਾਤੇ ਨਹੀਂ। ਤੁਹਾਡਾ ਸਾਰਾ ਡਾਟਾ ਹਮੇਸ਼ਾ ਤੁਹਾਡੇ ਡਿਵਾਈਸ 'ਤੇ ਹੀ ਰਹਿੰਦਾ ਹੈ।</string>
+
+    <!-- Transactions (expense / income) -->
+    <string name="type_expense">ਖਰਚਾ</string>
+    <string name="type_income">ਆਮਦਨ</string>
+    <string name="filter_all">ਸਭ</string>
+    <string name="add_transaction_title">ਲੈਣ-ਦੇਣ ਸ਼ਾਮਲ ਕਰੋ</string>
+    <string name="edit_transaction_title">ਲੈਣ-ਦੇਣ ਸੋਧੋ</string>
+    <string name="save_transaction">ਸੰਭਾਲੋ</string>
+    <string name="update_transaction">ਅੱਪਡੇਟ ਕਰੋ</string>
+    <string name="dashboard_income_remaining">ਬਾਕੀ ਆਮਦਨ</string>
+    <string name="dashboard_income_overspent">ਆਮਦਨ ਤੋਂ ਵੱਧ</string>
+    <string name="dashboard_income_of">%2$s ਵਿੱਚੋਂ %1$s ਖਰਚ ਹੋਏ</string>
+    <string name="analytics_spent_vs_saved">ਖਰਚ vs ਬੱਚਤ</string>
+    <string name="analytics_income">ਆਮਦਨ</string>
+    <string name="analytics_spent">ਖਰਚ</string>
+    <string name="analytics_saved">ਬੱਚਤ</string>
+    <string name="analytics_savings_rate">ਬੱਚਤ ਦਰ</string>
 </resources>

@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,6 +17,7 @@ import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -31,6 +34,7 @@ import com.revanthdev.expensetrackr.core.designsystem.component.DateFilterRow
 import com.revanthdev.expensetrackr.core.designsystem.component.EmptyState
 import com.revanthdev.expensetrackr.core.designsystem.component.ExpenseItemCard
 import com.revanthdev.expensetrackr.core.designsystem.theme.hexToColor
+import com.revanthdev.expensetrackr.core.domain.model.TransactionType
 import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
 import com.revanthdev.expensetrackr.core.presentation.util.toDisplayTime
 import expensetrackr.core.presentation.generated.resources.Res
@@ -40,6 +44,9 @@ import expensetrackr.core.presentation.generated.resources.app_logo
 import expensetrackr.core.presentation.generated.resources.expenses_empty_message
 import expensetrackr.core.presentation.generated.resources.expenses_empty_title
 import expensetrackr.core.presentation.generated.resources.expenses_title
+import expensetrackr.core.presentation.generated.resources.filter_all
+import expensetrackr.core.presentation.generated.resources.type_expense
+import expensetrackr.core.presentation.generated.resources.type_income
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -75,6 +82,28 @@ fun AllExpensesScreen(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             )
 
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                FilterChip(
+                    selected = state.typeFilter == null,
+                    onClick = { onAction(ExpensesAction.OnTypeFilterChange(null)) },
+                    label = { Text(stringResource(Res.string.filter_all)) }
+                )
+                FilterChip(
+                    selected = state.typeFilter == TransactionType.EXPENSE,
+                    onClick = { onAction(ExpensesAction.OnTypeFilterChange(TransactionType.EXPENSE)) },
+                    label = { Text(stringResource(Res.string.type_expense)) }
+                )
+                FilterChip(
+                    selected = state.typeFilter == TransactionType.INCOME,
+                    onClick = { onAction(ExpensesAction.OnTypeFilterChange(TransactionType.INCOME)) },
+                    label = { Text(stringResource(Res.string.type_income)) }
+                )
+            }
+            Spacer(Modifier.height(4.dp))
+
             if (state.isLoading) {
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     CircularProgressIndicator()
@@ -108,7 +137,8 @@ fun AllExpensesScreen(
                                 subCategoryName = expense.subCategory?.name,
                                 time = expense.expenseDate.toDisplayTime(),
                                 onClick = { onAction(ExpensesAction.OnExpenseClick(expense.id)) },
-                                modifier = Modifier.animateItem()
+                                modifier = Modifier.animateItem(),
+                                isIncome = expense.type == TransactionType.INCOME
                             )
                         }
                         item {

@@ -11,5 +11,7 @@ data class CategoryEntity(
     val colorHex: String,
     val isDefault: Boolean,
     val budgetAmount: Double?,
+    // "EXPENSE" or "INCOME" (name of domain TransactionType). Defaults to EXPENSE for legacy rows.
+    val type: String = "EXPENSE",
     val createdAt: Long
 )

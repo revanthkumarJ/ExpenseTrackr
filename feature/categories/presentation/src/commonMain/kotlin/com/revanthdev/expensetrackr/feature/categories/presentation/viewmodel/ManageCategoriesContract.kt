@@ -1,9 +1,12 @@
 package com.revanthdev.expensetrackr.feature.categories.presentation
 
 import com.revanthdev.expensetrackr.core.domain.model.Category
+import com.revanthdev.expensetrackr.core.domain.model.TransactionType
 
 data class ManageCategoriesState(
+    // Categories of the currently selected [selectedType] only.
     val categories: List<Category> = emptyList(),
+    val selectedType: TransactionType = TransactionType.EXPENSE,
     val showAddDialog: Boolean = false,
     val showEditDialog: Category? = null,
     val newName: String = "",
@@ -12,6 +15,7 @@ data class ManageCategoriesState(
 )
 
 sealed interface ManageCategoriesAction {
+    data class OnTypeTabChange(val type: TransactionType) : ManageCategoriesAction
     data object OnAddClick : ManageCategoriesAction
     data class OnEditClick(val category: Category) : ManageCategoriesAction
     data class OnDeleteClick(val category: Category) : ManageCategoriesAction

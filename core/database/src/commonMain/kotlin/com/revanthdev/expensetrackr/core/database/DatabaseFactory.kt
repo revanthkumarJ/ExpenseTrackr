@@ -7,5 +7,6 @@ expect fun getDatabaseBuilder(context: Any?): RoomDatabase.Builder<ExpenseTracke
 
 fun createDatabase(context: Any? = null): ExpenseTrackerDatabase =
     getDatabaseBuilder(context)
+        .addMigrations(*ALL_MIGRATIONS)
         .setDriver(BundledSQLiteDriver())
         .build()

@@ -1,7 +1,11 @@
 package com.revanthdev.expensetrackr.core.data.mapper
 
 import com.revanthdev.expensetrackr.core.database.entity.ExpenseEntity
+import com.revanthdev.expensetrackr.core.domain.model.Category
 import com.revanthdev.expensetrackr.core.domain.model.Expense
+import com.revanthdev.expensetrackr.core.domain.model.ExpenseWithDetails
+import com.revanthdev.expensetrackr.core.domain.model.SubCategory
+import com.revanthdev.expensetrackr.core.domain.model.TransactionType
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
@@ -14,6 +18,7 @@ fun ExpenseEntity.toExpense(): Expense = Expense(
     categoryId = categoryId,
     subCategoryId = subCategoryId,
     notes = notes,
+    type = TransactionType.fromName(type),
     expenseDate = Instant.fromEpochMilliseconds(expenseDate).toLocalDateTime(TimeZone.currentSystemDefault()),
     createdAt = Instant.fromEpochMilliseconds(createdAt).toLocalDateTime(TimeZone.currentSystemDefault())
 )
@@ -25,6 +30,23 @@ fun Expense.toExpenseEntity(): ExpenseEntity = ExpenseEntity(
     categoryId = categoryId,
     subCategoryId = subCategoryId,
     notes = notes,
+    type = type.name,
     expenseDate = expenseDate.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds(),
     createdAt = kotlin.time.Clock.System.now().toEpochMilliseconds()
+)
+
+/** Combine a stored expense row with its resolved [category]/[subCategory] into a display model. */
+fun ExpenseEntity.toExpenseWithDetails(
+    category: Category,
+    subCategory: SubCategory?
+): ExpenseWithDetails = ExpenseWithDetails(
+    id = id,
+    name = name,
+    amount = amount,
+    category = category,
+    subCategory = subCategory,
+    notes = notes,
+    type = TransactionType.fromName(type),
+    expenseDate = Instant.fromEpochMilliseconds(expenseDate).toLocalDateTime(TimeZone.currentSystemDefault()),
+    createdAt = Instant.fromEpochMilliseconds(createdAt).toLocalDateTime(TimeZone.currentSystemDefault())
 )

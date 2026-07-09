@@ -9,7 +9,10 @@ import com.revanthdev.expensetrackr.core.domain.util.Result
 import kotlinx.coroutines.flow.Flow
 
 interface ExpenseRepository {
+    /** Expense rows only (income excluded) — for spend lists, drilldowns and analytics. */
     fun getExpensesWithDetails(filter: DateFilter): Flow<List<ExpenseWithDetails>>
+    /** All transactions (expense + income) in the period — for the combined transactions list. */
+    fun getTransactionsWithDetails(filter: DateFilter): Flow<List<ExpenseWithDetails>>
     fun getExpensesForCategory(categoryId: Long, filter: DateFilter): Flow<List<ExpenseWithDetails>>
     fun getExpensesForCategoryAndSubCategory(
         categoryId: Long,
@@ -21,5 +24,7 @@ interface ExpenseRepository {
     suspend fun updateExpense(expense: Expense): EmptyResult<DataError.Local>
     suspend fun deleteExpense(id: Long): EmptyResult<DataError.Local>
     fun getTotalSpend(filter: DateFilter): Flow<Double>
+    /** Total income recorded in the period (0.0 if none). */
+    fun getTotalIncome(filter: DateFilter): Flow<Double>
     fun getSpendByCategory(filter: DateFilter): Flow<Map<Long, Double>>
 }

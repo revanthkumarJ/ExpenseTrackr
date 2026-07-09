@@ -6,10 +6,8 @@ import com.revanthdev.expensetrackr.core.designsystem.theme.categoryColorPalette
 import com.revanthdev.expensetrackr.core.designsystem.theme.hexToColor
 import com.revanthdev.expensetrackr.core.domain.model.DateFilter
 import com.revanthdev.expensetrackr.core.domain.model.ExpenseWithDetails
-import com.revanthdev.expensetrackr.core.domain.model.SalaryCalculator
 import com.revanthdev.expensetrackr.core.domain.repository.CategoryRepository
 import com.revanthdev.expensetrackr.core.domain.repository.ExpenseRepository
-import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
 import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -26,8 +24,7 @@ import kotlinx.datetime.toLocalDateTime
 
 class AnalyticsViewModel(
     private val expenseRepository: ExpenseRepository,
-    private val categoryRepository: CategoryRepository,
-    private val settingsRepository: SettingsRepository
+    private val categoryRepository: CategoryRepository
 ) : ViewModel() {
     private val _state = MutableStateFlow(AnalyticsState())
     val state = _state.asStateFlow()
@@ -47,9 +44,9 @@ class AnalyticsViewModel(
                 categoryRepository.getAllCategories(),
                 expenseRepository.getSpendByCategory(filter),
                 expenseRepository.getTotalSpend(filter),
-                settingsRepository.getSettings(),
-                expenseRepository.getExpensesWithDetails(filter)
-            ) { categories, spendMap, total, settings, expenses ->
+                expenseRepository.getExpensesWithDetails(filter),
+                expenseRepository.getTotalIncome(filter)
+            ) { categories, spendMap, total, expenses, income ->
                 val stats = categories.mapIndexed { idx, cat ->
                     val t = spendMap[cat.id] ?: 0.0
                     CategoryStat(
@@ -69,7 +66,6 @@ class AnalyticsViewModel(
                     .toLocalDateTime(TimeZone.currentSystemDefault()).date
                 val elapsedDays = maxOf(1, start.daysUntil(minOf(end, today)) + 1)
                 val avg = if (total > 0) (total / elapsedDays).toCurrencyString() else "-"
-                val income = SalaryCalculator.salaryForRange(settings.salaryHistory, start, end)
                 AnalyticsState(
                     filter = filter,
                     totalSpend = total,

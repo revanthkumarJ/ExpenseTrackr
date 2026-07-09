@@ -4,10 +4,12 @@ import com.revanthdev.expensetrackr.core.data.datasource.toDateRange
 import com.revanthdev.expensetrackr.core.data.mapper.toCategory
 import com.revanthdev.expensetrackr.core.data.mapper.toExpense
 import com.revanthdev.expensetrackr.core.data.mapper.toExpenseEntity
+import com.revanthdev.expensetrackr.core.data.mapper.toExpenseWithDetails
 import com.revanthdev.expensetrackr.core.data.mapper.toSubCategory
 import com.revanthdev.expensetrackr.core.database.dao.CategoryDao
 import com.revanthdev.expensetrackr.core.database.dao.ExpenseDao
 import com.revanthdev.expensetrackr.core.database.dao.SubCategoryDao
+import com.revanthdev.expensetrackr.core.database.entity.ExpenseEntity
 import com.revanthdev.expensetrackr.core.domain.model.DateFilter
 import com.revanthdev.expensetrackr.core.domain.model.Expense
 import com.revanthdev.expensetrackr.core.domain.model.ExpenseWithDetails
@@ -18,7 +20,6 @@ import com.revanthdev.expensetrackr.core.domain.util.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
-import kotlinx.datetime.toLocalDateTime
 
 class RoomExpenseRepository(
     private val expenseDao: ExpenseDao,
@@ -26,32 +27,29 @@ class RoomExpenseRepository(
     private val subCategoryDao: SubCategoryDao
 ) : ExpenseRepository {
 
-    override fun getExpensesWithDetails(filter: DateFilter): Flow<List<ExpenseWithDetails>> {
-        val range = filter.toDateRange()
-        val expensesFlow = expenseDao.getExpensesByDateRange(range.startMs, range.endMs)
+    /** Joins a stream of expense rows with categories/sub-categories into display models. */
+    private fun Flow<List<ExpenseEntity>>.withDetails(): Flow<List<ExpenseWithDetails>> {
         val categoriesFlow = categoryDao.getAllCategories()
         val subCategoriesFlow = subCategoryDao.getAllSubCategories()
-
-        return combine(expensesFlow, categoriesFlow, subCategoriesFlow) { expenses, categories, subCategories ->
+        return combine(this, categoriesFlow, subCategoriesFlow) { expenses, categories, subCategories ->
             val categoryMap = categories.associateBy { it.id }
             val subCategoryMap = subCategories.associateBy { it.id }
             expenses.mapNotNull { entity ->
                 val category = categoryMap[entity.categoryId]?.toCategory() ?: return@mapNotNull null
                 val subCategory = entity.subCategoryId?.let { subCategoryMap[it]?.toSubCategory() }
-                ExpenseWithDetails(
-                    id = entity.id,
-                    name = entity.name,
-                    amount = entity.amount,
-                    category = category,
-                    subCategory = subCategory,
-                    notes = entity.notes,
-                    expenseDate = kotlinx.datetime.Instant.fromEpochMilliseconds(entity.expenseDate)
-                        .toLocalDateTime(kotlinx.datetime.TimeZone.currentSystemDefault()),
-                    createdAt = kotlinx.datetime.Instant.fromEpochMilliseconds(entity.createdAt)
-                        .toLocalDateTime(kotlinx.datetime.TimeZone.currentSystemDefault())
-                )
+                entity.toExpenseWithDetails(category, subCategory)
             }
         }
+    }
+
+    override fun getExpensesWithDetails(filter: DateFilter): Flow<List<ExpenseWithDetails>> {
+        val range = filter.toDateRange()
+        return expenseDao.getExpensesByDateRange(range.startMs, range.endMs).withDetails()
+    }
+
+    override fun getTransactionsWithDetails(filter: DateFilter): Flow<List<ExpenseWithDetails>> {
+        val range = filter.toDateRange()
+        return expenseDao.getTransactionsByDateRange(range.startMs, range.endMs).withDetails()
     }
 
     override fun getExpensesForCategory(
@@ -59,30 +57,7 @@ class RoomExpenseRepository(
         filter: DateFilter
     ): Flow<List<ExpenseWithDetails>> {
         val range = filter.toDateRange()
-        val expensesFlow = expenseDao.getExpensesByCategory(categoryId, range.startMs, range.endMs)
-        val categoriesFlow = categoryDao.getAllCategories()
-        val subCategoriesFlow = subCategoryDao.getAllSubCategories()
-
-        return combine(expensesFlow, categoriesFlow, subCategoriesFlow) { expenses, categories, subCategories ->
-            val categoryMap = categories.associateBy { it.id }
-            val subCategoryMap = subCategories.associateBy { it.id }
-            expenses.mapNotNull { entity ->
-                val category = categoryMap[entity.categoryId]?.toCategory() ?: return@mapNotNull null
-                val subCategory = entity.subCategoryId?.let { subCategoryMap[it]?.toSubCategory() }
-                ExpenseWithDetails(
-                    id = entity.id,
-                    name = entity.name,
-                    amount = entity.amount,
-                    category = category,
-                    subCategory = subCategory,
-                    notes = entity.notes,
-                    expenseDate = kotlinx.datetime.Instant.fromEpochMilliseconds(entity.expenseDate)
-                        .toLocalDateTime(kotlinx.datetime.TimeZone.currentSystemDefault()),
-                    createdAt = kotlinx.datetime.Instant.fromEpochMilliseconds(entity.createdAt)
-                        .toLocalDateTime(kotlinx.datetime.TimeZone.currentSystemDefault())
-                )
-            }
-        }
+        return expenseDao.getExpensesByCategory(categoryId, range.startMs, range.endMs).withDetails()
     }
 
     override fun getExpensesForCategoryAndSubCategory(
@@ -96,29 +71,7 @@ class RoomExpenseRepository(
         } else {
             expenseDao.getExpensesByCategoryNoSubCategory(categoryId, range.startMs, range.endMs)
         }
-        val categoriesFlow = categoryDao.getAllCategories()
-        val subCategoriesFlow = subCategoryDao.getAllSubCategories()
-
-        return combine(expensesFlow, categoriesFlow, subCategoriesFlow) { expenses, categories, subCategories ->
-            val categoryMap = categories.associateBy { it.id }
-            val subCategoryMap = subCategories.associateBy { it.id }
-            expenses.mapNotNull { entity ->
-                val category = categoryMap[entity.categoryId]?.toCategory() ?: return@mapNotNull null
-                val subCat = entity.subCategoryId?.let { subCategoryMap[it]?.toSubCategory() }
-                ExpenseWithDetails(
-                    id = entity.id,
-                    name = entity.name,
-                    amount = entity.amount,
-                    category = category,
-                    subCategory = subCat,
-                    notes = entity.notes,
-                    expenseDate = kotlinx.datetime.Instant.fromEpochMilliseconds(entity.expenseDate)
-                        .toLocalDateTime(kotlinx.datetime.TimeZone.currentSystemDefault()),
-                    createdAt = kotlinx.datetime.Instant.fromEpochMilliseconds(entity.createdAt)
-                        .toLocalDateTime(kotlinx.datetime.TimeZone.currentSystemDefault())
-                )
-            }
-        }
+        return expensesFlow.withDetails()
     }
 
     override suspend fun getExpenseById(id: Long): Result<Expense, DataError.Local> = try {
@@ -155,6 +108,11 @@ class RoomExpenseRepository(
     override fun getTotalSpend(filter: DateFilter): Flow<Double> {
         val range = filter.toDateRange()
         return expenseDao.getTotalSpend(range.startMs, range.endMs)
+    }
+
+    override fun getTotalIncome(filter: DateFilter): Flow<Double> {
+        val range = filter.toDateRange()
+        return expenseDao.getTotalIncome(range.startMs, range.endMs)
     }
 
     override fun getSpendByCategory(filter: DateFilter): Flow<Map<Long, Double>> {

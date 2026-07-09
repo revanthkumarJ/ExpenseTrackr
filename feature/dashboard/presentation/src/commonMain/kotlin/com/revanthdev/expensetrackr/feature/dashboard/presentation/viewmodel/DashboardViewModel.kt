@@ -3,7 +3,6 @@ package com.revanthdev.expensetrackr.feature.dashboard.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.revanthdev.expensetrackr.core.domain.model.DateFilter
-import com.revanthdev.expensetrackr.core.domain.model.SalaryCalculator
 import com.revanthdev.expensetrackr.core.domain.repository.CategoryRepository
 import com.revanthdev.expensetrackr.core.domain.repository.ExpenseRepository
 import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
@@ -51,8 +50,9 @@ class DashboardViewModel(
                 categoryRepository.getAllCategories(),
                 expenseRepository.getSpendByCategory(filter),
                 expenseRepository.getTotalSpend(filter),
+                expenseRepository.getTotalIncome(filter),
                 settingsRepository.getSettings()
-            ) { categories, spendMap, total, settings ->
+            ) { categories, spendMap, total, income, settings ->
                 val now = kotlin.time.Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
                 // Budgets are monthly, so they only make sense while viewing the current month.
                 // For any other period (this week, last month, this year, custom) we hide them.
@@ -65,12 +65,9 @@ class DashboardViewModel(
                     is DateFilter.CustomRange -> "Custom Range"
                 }
                 val overallBudget = if (isThisMonth) settings.overallMonthlyBudget else null
-                val monthlySalary = if (isThisMonth) {
-                    SalaryCalculator.salaryForMonth(
-                        settings.salaryHistory,
-                        SalaryCalculator.monthIndexOf(now.year, now.monthNumber)
-                    ).takeIf { it > 0.0 }
-                } else null
+                // Income actually recorded in the selected period (null when none) → drives the
+                // "income remaining" card. Replaces the old projected-salary feature.
+                val periodIncome = income.takeIf { it > 0.0 }
                 val categoryUis = categories.map { cat ->
                     val catTotal = spendMap[cat.id] ?: 0.0
                     val percent = if (total > 0) (catTotal / total) * 100 else 0.0
@@ -87,7 +84,7 @@ class DashboardViewModel(
                     totalSpend = total,
                     overallBudget = overallBudget,
                     overallProgress = overallBudget?.let { if (it > 0) (total / it).toFloat() else null },
-                    monthlySalary = monthlySalary,
+                    income = periodIncome,
                     categories = categoryUis,
                     filter = filter,
                     isLoading = false

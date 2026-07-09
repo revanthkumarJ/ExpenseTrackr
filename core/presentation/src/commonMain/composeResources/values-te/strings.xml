@@ -178,16 +178,16 @@
     <string name="onboarding_privacy_desc">ఇంటర్నెట్ లేదు. క్లౌడ్ లేదు. ఖాతాలు లేవు. మీ డేటా అంతా ఎల్లప్పుడూ మీ పరికరంలోనే ఉంటుంది.</string>
 
     <!-- Salary / income -->
-    <string name="settings_salary">జీతం / ఆదాయం</string>
-    <string name="salary_dialog_hint">మీరు ఎంత ఆదా చేస్తారో తెలుసుకోవడానికి మీ నెలవారీ ఆదాయాన్ని సెట్ చేయండి.</string>
-    <string name="salary_amount">నెలవారీ జీతం (₹)</string>
-    <string name="salary_apply_scope">వర్తింపజేయి</string>
-    <string name="salary_apply_all">అన్ని నెలలకు</string>
-    <string name="salary_apply_from_current">ఈ నెల నుండి</string>
-    <string name="salary_remove">తీసివేయి</string>
-    <string name="dashboard_salary_remaining">మిగిలిన జీతం</string>
-    <string name="dashboard_salary_overspent">జీతం దాటింది</string>
-    <string name="dashboard_salary_of">%2$s లో %1$s ఖర్చు</string>
+    <string name="type_expense">ఖర్చు</string>
+    <string name="type_income">ఆదాయం</string>
+    <string name="filter_all">అన్నీ</string>
+    <string name="add_transaction_title">లావాదేవీ జోడించు</string>
+    <string name="edit_transaction_title">లావాదేవీ సవరించు</string>
+    <string name="save_transaction">సేవ్ చేయి</string>
+    <string name="update_transaction">నవీకరించు</string>
+    <string name="dashboard_income_remaining">మిగిలిన ఆదాయం</string>
+    <string name="dashboard_income_overspent">ఆదాయం దాటింది</string>
+    <string name="dashboard_income_of">%2$s లో %1$s ఖర్చు</string>
     <string name="analytics_spent_vs_saved">ఖర్చు vs ఆదా</string>
     <string name="analytics_income">ఆదాయం</string>
     <string name="analytics_spent">ఖర్చు</string>

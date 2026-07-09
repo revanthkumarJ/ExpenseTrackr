@@ -15,8 +15,8 @@ data class DashboardState(
     val totalSpend: Double = 0.0,
     val overallBudget: Double? = null,
     val overallProgress: Float? = null,
-    // Salary for the current month (only populated when viewing ThisMonth). null = no salary set.
-    val monthlySalary: Double? = null,
+    // Income recorded in the selected period (null when none) → drives the income-remaining card.
+    val income: Double? = null,
     val categories: List<CategoryUi> = emptyList(),
     val filter: DateFilter = DateFilter.ThisMonth,
     val isLoading: Boolean = true

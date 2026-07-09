@@ -13,7 +13,7 @@ import com.revanthdev.expensetrackr.core.database.entity.SubCategoryEntity
 
 @Database(
     entities = [CategoryEntity::class, SubCategoryEntity::class, ExpenseEntity::class],
-    version = 1
+    version = 2
 )
 @ConstructedBy(ExpenseTrackerDatabaseConstructor::class)
 abstract class ExpenseTrackerDatabase : RoomDatabase() {

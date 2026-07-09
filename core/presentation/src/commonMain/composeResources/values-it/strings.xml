@@ -1,8 +1,11 @@
 <resources>
+    <!-- Bottom navigation -->
     <string name="nav_dashboard">Dashboard</string>
     <string name="nav_expenses">Spese</string>
     <string name="nav_analytics">Analisi</string>
     <string name="nav_settings">Impostazioni</string>
+
+    <!-- Common actions -->
     <string name="action_save">Salva</string>
     <string name="action_cancel">Annulla</string>
     <string name="action_delete">Elimina</string>
@@ -11,9 +14,202 @@
     <string name="action_add">Aggiungi</string>
     <string name="action_apply">Applica</string>
     <string name="action_back">Indietro</string>
+    <string name="action_edit">Modifica</string>
+    <string name="action_new">Nuovo</string>
+
+    <!-- Common values -->
+    <string name="common_none">Nessuno</string>
+    <string name="common_default">Predefinito</string>
+    <string name="common_not_set">Non impostato</string>
+    <string name="common_uncategorized">Senza categoria</string>
+    <string name="common_total">Totale</string>
+    <string name="action_add_expense">Aggiungi spesa</string>
+
+    <!-- Date filter chips -->
     <string name="filter_this_month">Questo mese</string>
     <string name="filter_this_week">Questa settimana</string>
     <string name="filter_last_month">Mese scorso</string>
-    <string name="filter_this_year">Quest'anno</string>
+    <string name="filter_this_year">Quest\'anno</string>
     <string name="filter_custom">Personalizzato</string>
+    <string name="period_custom_range">Intervallo personalizzato</string>
+
+    <!-- Cards (design-system) -->
+    <string name="card_percent_of_spend">%1$s della spesa</string>
+    <string name="card_budget">Budget: %1$s</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_budget_monthly">Budget mensile</string>
+    <string name="dashboard_empty_title">Ancora nessuna spesa</string>
+    <string name="dashboard_empty_message">Tocca il pulsante + per aggiungere la tua prima spesa</string>
+    <string name="drilldown_percent_of_total">%1$s del totale</string>
+    <string name="drilldown_empty_title">Nessuna spesa</string>
+    <string name="drilldown_empty_message">Nessuna spesa in questa categoria per il periodo selezionato</string>
+    <string name="filtered_empty_title">Nessuna spesa</string>
+    <string name="filtered_empty_message">Nessuna spesa trovata per questa selezione</string>
+
+    <!-- Expenses list -->
+    <string name="expenses_title">Tutte le spese</string>
+    <string name="expenses_search_hint">Cerca spese...</string>
+    <string name="expenses_empty_title">Nessuna spesa</string>
+    <string name="expenses_empty_message">Tocca + per aggiungere la tua prima spesa</string>
+    <string name="expense_deleted">Spesa eliminata</string>
+
+    <!-- Add / Edit expense -->
+    <string name="add_expense_title">Aggiungi spesa</string>
+    <string name="edit_expense_title">Modifica spesa</string>
+    <string name="field_expense_name">Nome della spesa *</string>
+    <string name="field_amount">Importo (₹) *</string>
+    <string name="field_category">Categoria *</string>
+    <string name="field_subcategory">Sottocategoria (facoltativa)</string>
+    <string name="field_date">Data *</string>
+    <string name="field_time">Ora</string>
+    <string name="field_notes">Note (facoltative)</string>
+    <string name="subcategory_none_hint">Ancora nessuna sottocategoria per questa categoria</string>
+    <string name="save_expense">Salva spesa</string>
+    <string name="update_expense">Aggiorna spesa</string>
+    <string name="delete_expense_title">Eliminare la spesa?</string>
+    <string name="delete_expense_message">Questa azione non può essere annullata.</string>
+    <string name="over_budget_title">Oltre il budget</string>
+    <string name="budget_warn_monthly">Questa spesa porterebbe la tua spesa mensile a %1$s, oltre il tuo budget di %2$s.</string>
+    <string name="budget_warn_category">Questa spesa porterebbe la spesa di %1$s a %2$s, oltre il suo budget di %3$s.</string>
+    <string name="pick_time">Scegli un orario</string>
+
+    <!-- Analytics -->
+    <string name="analytics_top_category">Categoria principale</string>
+    <string name="analytics_avg_day">Media / giorno</string>
+    <string name="analytics_breakdown">Ripartizione</string>
+    <string name="analytics_spending_trend">Andamento della spesa</string>
+    <string name="analytics_spending_trend_sub">Tocca un giorno per vedere il totale</string>
+    <string name="analytics_empty_title">Nessun dato per questo periodo</string>
+    <string name="analytics_empty_message">Prova un altro periodo sopra o aggiungi alcune spese</string>
+
+    <!-- Settings -->
+    <string name="settings_section_preferences">Preferenze</string>
+    <string name="settings_section_budget">Budget</string>
+    <string name="settings_section_data">Gestione dati</string>
+    <string name="settings_section_app_info">Info app</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_theme_system">Predefinito di sistema</string>
+    <string name="settings_theme_light">Chiaro</string>
+    <string name="settings_theme_dark">Scuro</string>
+    <string name="settings_app_lock">Blocco app</string>
+    <string name="settings_notifications">Notifiche</string>
+    <string name="settings_notifications_on">Promemoria attivati</string>
+    <string name="settings_notifications_off">Promemoria disattivati</string>
+    <string name="settings_budget_mgmt">Gestione del budget</string>
+    <string name="settings_budget_value">%1$s/mese</string>
+    <string name="settings_manage_categories">Gestisci categorie</string>
+    <string name="settings_manage_subcategories">Gestisci sottocategorie</string>
+    <string name="settings_about">Informazioni</string>
+    <string name="settings_privacy">Informativa sulla privacy</string>
+    <string name="settings_terms">Termini di servizio</string>
+    <string name="settings_language">Lingua</string>
+    <string name="language_system_default">Predefinito di sistema</string>
+
+    <!-- Onboarding language picker (first page) -->
+    <string name="onboarding_language_title">Scegli la tua lingua</string>
+    <string name="onboarding_language_desc">Puoi cambiarla in qualsiasi momento nelle Impostazioni</string>
+
+    <!-- Budget -->
+    <string name="budget_title">Gestione del budget</string>
+    <string name="budget_monthly">Budget mensile</string>
+    <string name="budget_amount">Importo (₹)</string>
+    <string name="budget_allow_over_title">Consenti spese oltre il budget</string>
+    <string name="budget_allow_over_on">Le spese oltre il tuo budget sono consentite</string>
+    <string name="budget_allow_over_off">Non potrai aggiungere spese che superano il budget mensile o di categoria</string>
+    <string name="budget_per_category">Budget per categoria</string>
+    <string name="budget_reset_all">Reimposta tutto</string>
+
+    <!-- Categories -->
+    <string name="categories_title">Gestisci categorie</string>
+    <string name="categories_new">Nuova categoria</string>
+    <string name="categories_edit">Modifica categoria</string>
+    <string name="field_name">Nome</string>
+    <string name="field_icon_emoji">Icona (emoji)</string>
+    <string name="category_default_badge">Predefinita</string>
+    <string name="cannot_delete_title">Impossibile eliminare</string>
+    <string name="cannot_delete_message">Impossibile eliminare \'%1$s\': ha spese collegate.</string>
+    <string name="categories_empty_title">Nessuna categoria</string>
+    <string name="categories_empty_message">Tocca Nuovo per creare la tua prima categoria</string>
+
+    <!-- Sub-categories -->
+    <string name="subcategories_title">Gestisci sottocategorie</string>
+    <string name="subcategory_new">Nuova sottocategoria</string>
+    <string name="subcategory_edit">Modifica sottocategoria</string>
+    <string name="field_parent_category">Categoria principale</string>
+    <string name="select_category">Seleziona categoria</string>
+    <string name="subcategory_has_expenses_title">La sottocategoria ha spese</string>
+    <string name="subcategory_has_expenses_message">\'%1$s\' ha spese collegate. Eliminandola verrà rimossa la sottocategoria da quelle spese. Continuare?</string>
+    <string name="action_delete_detach">Elimina e scollega</string>
+    <string name="subcategories_empty_title">Ancora nessuna sottocategoria</string>
+    <string name="subcategories_empty_message">Tocca Nuovo per crearne una</string>
+
+    <!-- App lock (unlock) -->
+    <string name="applock_enter_pin">Inserisci il PIN</string>
+    <string name="applock_enter_pin_sub">Inserisci il tuo PIN a 6 cifre per sbloccare</string>
+    <string name="applock_incorrect">PIN errato. Riprova.</string>
+    <string name="applock_unlock_title">Sblocca ExpenseTrackr</string>
+    <string name="applock_unlock_sub">Conferma la tua identità per continuare</string>
+
+    <!-- App lock setup -->
+    <string name="applock_setup_title">Blocco app</string>
+    <string name="applock_on">Il blocco app è attivo</string>
+    <string name="applock_off">Il blocco app è disattivato</string>
+    <string name="applock_status_pin">Sblocco con PIN</string>
+    <string name="applock_status_both">Sblocco con PIN + biometria</string>
+    <string name="applock_status_none">La tua app si apre senza blocco</string>
+    <string name="applock_set_pin">Configura il PIN</string>
+    <string name="applock_change_pin">Cambia PIN</string>
+    <string name="applock_biometric_title">Sblocca con biometria</string>
+    <string name="applock_biometric_none">Nessun dato biometrico registrato su questo dispositivo</string>
+    <string name="applock_biometric_need_pin">Configura prima un PIN</string>
+    <string name="applock_biometric_use">Usa impronta / volto per sbloccare</string>
+    <string name="applock_remove">Rimuovi blocco app</string>
+    <string name="applock_forgot">⚠ Se dimentichi il PIN, dovrai cancellare i dati dell\'app per reimpostarlo.</string>
+
+    <!-- PIN setup flow -->
+    <string name="pin_set_title">Imposta PIN</string>
+    <string name="pin_confirm_title">Conferma PIN</string>
+    <string name="pin_create">Crea un PIN</string>
+    <string name="pin_reenter">Reinserisci il tuo PIN</string>
+    <string name="pin_choose_sub">Scegli un PIN a 6 cifre</string>
+    <string name="pin_confirm_sub">Conferma il tuo PIN a 6 cifre</string>
+    <string name="pin_mismatch">I PIN non corrispondono. Riprova.</string>
+
+    <!-- Notification settings -->
+    <string name="notif_title">Impostazioni notifiche</string>
+    <string name="notif_daily_title">Promemoria spese giornaliero</string>
+    <string name="notif_daily_sub">Ti ricorda di registrare le spese di oggi alle %1$s</string>
+    <string name="notif_budget_title">Avvisi di budget</string>
+    <string name="notif_budget_sub">Avvisa quando la spesa supera l\'80%% del budget</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">Salta</string>
+    <string name="onboarding_next">Avanti</string>
+    <string name="onboarding_get_started">Inizia</string>
+    <string name="onboarding_welcome_title">Benvenuto in ExpenseTrackr</string>
+    <string name="onboarding_welcome_desc">Tieni traccia di ogni rupia. Privato, offline e splendidamente semplice.</string>
+    <string name="onboarding_track_title">Tieni traccia delle tue spese</string>
+    <string name="onboarding_track_desc">Organizza le spese in categorie e sottocategorie. Vedi esattamente dove vanno i tuoi soldi.</string>
+    <string name="onboarding_analytics_title">Analisi intelligenti</string>
+    <string name="onboarding_analytics_desc">Bellissimi grafici a torta e il monitoraggio del budget ti aiutano a gestire le tue finanze.</string>
+    <string name="onboarding_privacy_title">I tuoi dati, il tuo dispositivo</string>
+    <string name="onboarding_privacy_desc">Niente internet. Niente cloud. Niente account. Tutti i tuoi dati restano sul tuo dispositivo, sempre.</string>
+
+    <!-- Transactions (expense / income) -->
+    <string name="type_expense">Spesa</string>
+    <string name="type_income">Entrata</string>
+    <string name="filter_all">Tutti</string>
+    <string name="add_transaction_title">Aggiungi transazione</string>
+    <string name="edit_transaction_title">Modifica transazione</string>
+    <string name="save_transaction">Salva</string>
+    <string name="update_transaction">Aggiorna</string>
+    <string name="dashboard_income_remaining">Entrate rimanenti</string>
+    <string name="dashboard_income_overspent">Oltre le entrate</string>
+    <string name="dashboard_income_of">%1$s spesi su %2$s</string>
+    <string name="analytics_spent_vs_saved">Speso vs Risparmiato</string>
+    <string name="analytics_income">Entrate</string>
+    <string name="analytics_spent">Speso</string>
+    <string name="analytics_saved">Risparmiato</string>
+    <string name="analytics_savings_rate">Tasso di risparmio</string>
 </resources>

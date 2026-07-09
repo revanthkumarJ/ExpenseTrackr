@@ -1,19 +1,215 @@
 <resources>
+    <!-- Bottom navigation -->
     <string name="nav_dashboard">டாஷ்போர்டு</string>
     <string name="nav_expenses">செலவுகள்</string>
     <string name="nav_analytics">பகுப்பாய்வு</string>
     <string name="nav_settings">அமைப்புகள்</string>
+
+    <!-- Common actions -->
     <string name="action_save">சேமி</string>
-    <string name="action_cancel">ரத்து செய்</string>
+    <string name="action_cancel">ரத்து</string>
     <string name="action_delete">நீக்கு</string>
     <string name="action_ok">சரி</string>
     <string name="action_close">மூடு</string>
     <string name="action_add">சேர்</string>
     <string name="action_apply">பயன்படுத்து</string>
-    <string name="action_back">பின்செல்</string>
+    <string name="action_back">பின்</string>
+    <string name="action_edit">திருத்து</string>
+    <string name="action_new">புதியது</string>
+
+    <!-- Common values -->
+    <string name="common_none">எதுவுமில்லை</string>
+    <string name="common_default">இயல்புநிலை</string>
+    <string name="common_not_set">அமைக்கப்படவில்லை</string>
+    <string name="common_uncategorized">வகைப்படுத்தப்படாதது</string>
+    <string name="common_total">மொத்தம்</string>
+    <string name="action_add_expense">செலவைச் சேர்</string>
+
+    <!-- Date filter chips -->
     <string name="filter_this_month">இந்த மாதம்</string>
     <string name="filter_this_week">இந்த வாரம்</string>
     <string name="filter_last_month">கடந்த மாதம்</string>
     <string name="filter_this_year">இந்த ஆண்டு</string>
     <string name="filter_custom">தனிப்பயன்</string>
+    <string name="period_custom_range">தனிப்பயன் வரம்பு</string>
+
+    <!-- Cards (design-system) -->
+    <string name="card_percent_of_spend">செலவில் %1$s</string>
+    <string name="card_budget">பட்ஜெட்: %1$s</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_budget_monthly">மாதாந்திர பட்ஜெட்</string>
+    <string name="dashboard_empty_title">இதுவரை செலவுகள் இல்லை</string>
+    <string name="dashboard_empty_message">உங்கள் முதல் செலவைச் சேர்க்க + பொத்தானைத் தட்டவும்</string>
+    <string name="drilldown_percent_of_total">மொத்தத்தில் %1$s</string>
+    <string name="drilldown_empty_title">செலவுகள் இல்லை</string>
+    <string name="drilldown_empty_message">தேர்ந்தெடுத்த காலத்திற்கு இந்த வகையில் செலவுகள் இல்லை</string>
+    <string name="filtered_empty_title">செலவுகள் இல்லை</string>
+    <string name="filtered_empty_message">இந்தத் தேர்வுக்கு செலவுகள் எதுவும் இல்லை</string>
+
+    <!-- Expenses list -->
+    <string name="expenses_title">அனைத்து செலவுகள்</string>
+    <string name="expenses_search_hint">செலவுகளைத் தேடு...</string>
+    <string name="expenses_empty_title">செலவுகள் இல்லை</string>
+    <string name="expenses_empty_message">உங்கள் முதல் செலவைச் சேர்க்க + தட்டவும்</string>
+    <string name="expense_deleted">செலவு நீக்கப்பட்டது</string>
+
+    <!-- Add / Edit expense -->
+    <string name="add_expense_title">செலவைச் சேர்</string>
+    <string name="edit_expense_title">செலவைத் திருத்து</string>
+    <string name="field_expense_name">செலவின் பெயர் *</string>
+    <string name="field_amount">தொகை (₹) *</string>
+    <string name="field_category">வகை *</string>
+    <string name="field_subcategory">துணை வகை (விருப்பம்)</string>
+    <string name="field_date">தேதி *</string>
+    <string name="field_time">நேரம்</string>
+    <string name="field_notes">குறிப்புகள் (விருப்பம்)</string>
+    <string name="subcategory_none_hint">இந்த வகைக்கு இதுவரை துணை வகைகள் இல்லை</string>
+    <string name="save_expense">செலவைச் சேமி</string>
+    <string name="update_expense">செலவைப் புதுப்பி</string>
+    <string name="delete_expense_title">செலவை நீக்கவா?</string>
+    <string name="delete_expense_message">இந்தச் செயலை மீட்டமைக்க முடியாது.</string>
+    <string name="over_budget_title">பட்ஜெட்டைத் தாண்டியது</string>
+    <string name="budget_warn_monthly">இந்தச் செலவு உங்கள் மாதாந்திர செலவை %1$s ஆக உயர்த்தும், இது உங்கள் %2$s பட்ஜெட்டைத் தாண்டும்.</string>
+    <string name="budget_warn_category">இந்தச் செலவு %1$s செலவை %2$s ஆக உயர்த்தும், இது அதன் %3$s பட்ஜெட்டைத் தாண்டும்.</string>
+    <string name="pick_time">ஒரு நேரத்தைத் தேர்ந்தெடு</string>
+
+    <!-- Analytics -->
+    <string name="analytics_top_category">முதன்மை வகை</string>
+    <string name="analytics_avg_day">சராசரி / நாள்</string>
+    <string name="analytics_breakdown">விவரம்</string>
+    <string name="analytics_spending_trend">செலவுப் போக்கு</string>
+    <string name="analytics_spending_trend_sub">மொத்தத்தைப் பார்க்க ஒரு நாளைத் தட்டவும்</string>
+    <string name="analytics_empty_title">இந்தக் காலத்திற்கு தரவு இல்லை</string>
+    <string name="analytics_empty_message">மேலே வேறு காலத்தை முயற்சிக்கவும், அல்லது சில செலவுகளைச் சேர்க்கவும்</string>
+
+    <!-- Settings -->
+    <string name="settings_section_preferences">விருப்பங்கள்</string>
+    <string name="settings_section_budget">பட்ஜெட்</string>
+    <string name="settings_section_data">தரவு மேலாண்மை</string>
+    <string name="settings_section_app_info">பயன்பாட்டுத் தகவல்</string>
+    <string name="settings_theme">தீம்</string>
+    <string name="settings_theme_system">சிஸ்டம் இயல்புநிலை</string>
+    <string name="settings_theme_light">வெளிர்</string>
+    <string name="settings_theme_dark">இருள்</string>
+    <string name="settings_app_lock">பயன்பாட்டுப் பூட்டு</string>
+    <string name="settings_notifications">அறிவிப்புகள்</string>
+    <string name="settings_notifications_on">நினைவூட்டல்கள் இயக்கத்தில்</string>
+    <string name="settings_notifications_off">நினைவூட்டல்கள் முடக்கத்தில்</string>
+    <string name="settings_budget_mgmt">பட்ஜெட் மேலாண்மை</string>
+    <string name="settings_budget_value">%1$s/மாதம்</string>
+    <string name="settings_manage_categories">வகைகளை நிர்வகி</string>
+    <string name="settings_manage_subcategories">துணை வகைகளை நிர்வகி</string>
+    <string name="settings_about">பற்றி</string>
+    <string name="settings_privacy">தனியுரிமைக் கொள்கை</string>
+    <string name="settings_terms">சேவை விதிமுறைகள்</string>
+    <string name="settings_language">மொழி</string>
+    <string name="language_system_default">சிஸ்டம் இயல்புநிலை</string>
+
+    <!-- Onboarding language picker (first page) -->
+    <string name="onboarding_language_title">உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="onboarding_language_desc">இதை நீங்கள் அமைப்புகளில் எப்போது வேண்டுமானாலும் மாற்றலாம்</string>
+
+    <!-- Budget -->
+    <string name="budget_title">பட்ஜெட் மேலாண்மை</string>
+    <string name="budget_monthly">மாதாந்திர பட்ஜெட்</string>
+    <string name="budget_amount">தொகை (₹)</string>
+    <string name="budget_allow_over_title">பட்ஜெட்டைத் தாண்டி செலவிட அனுமதி</string>
+    <string name="budget_allow_over_on">உங்கள் பட்ஜெட்டைத் தாண்டிய செலவுகள் அனுமதிக்கப்படுகின்றன</string>
+    <string name="budget_allow_over_off">உங்கள் மாதாந்திர அல்லது வகை பட்ஜெட்டைத் தாண்டும் செலவுகளைச் சேர்ப்பது தடுக்கப்படும்</string>
+    <string name="budget_per_category">வகை வாரியான பட்ஜெட்கள்</string>
+    <string name="budget_reset_all">அனைத்தையும் மீட்டமை</string>
+
+    <!-- Categories -->
+    <string name="categories_title">வகைகளை நிர்வகி</string>
+    <string name="categories_new">புதிய வகை</string>
+    <string name="categories_edit">வகையைத் திருத்து</string>
+    <string name="field_name">பெயர்</string>
+    <string name="field_icon_emoji">சின்னம் (எமோஜி)</string>
+    <string name="category_default_badge">இயல்புநிலை</string>
+    <string name="cannot_delete_title">நீக்க முடியாது</string>
+    <string name="cannot_delete_message">\'%1$s\' ஐ நீக்க முடியாது — இதற்கு இணைக்கப்பட்ட செலவுகள் உள்ளன.</string>
+    <string name="categories_empty_title">வகைகள் இல்லை</string>
+    <string name="categories_empty_message">உங்கள் முதல் வகையை உருவாக்க புதியது ஐத் தட்டவும்</string>
+
+    <!-- Sub-categories -->
+    <string name="subcategories_title">துணை வகைகளை நிர்வகி</string>
+    <string name="subcategory_new">புதிய துணை வகை</string>
+    <string name="subcategory_edit">துணை வகையைத் திருத்து</string>
+    <string name="field_parent_category">பெற்றோர் வகை</string>
+    <string name="select_category">வகையைத் தேர்ந்தெடு</string>
+    <string name="subcategory_has_expenses_title">துணை வகையில் செலவுகள் உள்ளன</string>
+    <string name="subcategory_has_expenses_message">\'%1$s\' இல் இணைக்கப்பட்ட செலவுகள் உள்ளன. இதை நீக்கினால் அந்தச் செலவுகளிலிருந்து துணை வகை அகற்றப்படும். தொடரவா?</string>
+    <string name="action_delete_detach">நீக்கி பிரி</string>
+    <string name="subcategories_empty_title">இதுவரை துணை வகைகள் இல்லை</string>
+    <string name="subcategories_empty_message">ஒன்றை உருவாக்க புதியது ஐத் தட்டவும்</string>
+
+    <!-- App lock (unlock) -->
+    <string name="applock_enter_pin">பின்னை உள்ளிடவும்</string>
+    <string name="applock_enter_pin_sub">திறக்க உங்கள் 6-இலக்க பின்னை உள்ளிடவும்</string>
+    <string name="applock_incorrect">தவறான பின். மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="applock_unlock_title">ExpenseTrackr ஐத் திற</string>
+    <string name="applock_unlock_sub">தொடர உங்கள் அடையாளத்தை உறுதிப்படுத்தவும்</string>
+
+    <!-- App lock setup -->
+    <string name="applock_setup_title">பயன்பாட்டுப் பூட்டு</string>
+    <string name="applock_on">பயன்பாட்டுப் பூட்டு இயக்கத்தில் உள்ளது</string>
+    <string name="applock_off">பயன்பாட்டுப் பூட்டு முடக்கத்தில் உள்ளது</string>
+    <string name="applock_status_pin">பின் திறப்பு</string>
+    <string name="applock_status_both">பின் + உயிரியல் திறப்பு</string>
+    <string name="applock_status_none">உங்கள் பயன்பாடு பூட்டு இல்லாமல் திறக்கிறது</string>
+    <string name="applock_set_pin">பின்னை அமை</string>
+    <string name="applock_change_pin">பின்னை மாற்று</string>
+    <string name="applock_biometric_title">உயிரியல் மூலம் திற</string>
+    <string name="applock_biometric_none">இந்தச் சாதனத்தில் உயிரியல் பதிவு இல்லை</string>
+    <string name="applock_biometric_need_pin">முதலில் ஒரு பின்னை அமைக்கவும்</string>
+    <string name="applock_biometric_use">திறக்க கைரேகை / முகத்தைப் பயன்படுத்தவும்</string>
+    <string name="applock_remove">பயன்பாட்டுப் பூட்டை அகற்று</string>
+    <string name="applock_forgot">⚠ உங்கள் பின்னை மறந்தால், அதை மீட்டமைக்க பயன்பாட்டுத் தரவை அழிக்க வேண்டும்.</string>
+
+    <!-- PIN setup flow -->
+    <string name="pin_set_title">பின்னை அமை</string>
+    <string name="pin_confirm_title">பின்னை உறுதிப்படுத்து</string>
+    <string name="pin_create">ஒரு பின்னை உருவாக்கு</string>
+    <string name="pin_reenter">உங்கள் பின்னை மீண்டும் உள்ளிடவும்</string>
+    <string name="pin_choose_sub">6-இலக்க பின்னைத் தேர்ந்தெடு</string>
+    <string name="pin_confirm_sub">உங்கள் 6-இலக்க பின்னை உறுதிப்படுத்து</string>
+    <string name="pin_mismatch">பின்கள் பொருந்தவில்லை. மீண்டும் முயற்சிக்கவும்.</string>
+
+    <!-- Notification settings -->
+    <string name="notif_title">அறிவிப்பு அமைப்புகள்</string>
+    <string name="notif_daily_title">தினசரி செலவு நினைவூட்டல்</string>
+    <string name="notif_daily_sub">%1$s மணிக்கு இன்றைய செலவுகளைப் பதிவு செய்ய உங்களுக்கு நினைவூட்டும்</string>
+    <string name="notif_budget_title">பட்ஜெட் எச்சரிக்கைகள்</string>
+    <string name="notif_budget_sub">செலவு பட்ஜெட்டின் 80%% ஐத் தாண்டும்போது எச்சரிக்கவும்</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">தவிர்</string>
+    <string name="onboarding_next">அடுத்து</string>
+    <string name="onboarding_get_started">தொடங்கு</string>
+    <string name="onboarding_welcome_title">ExpenseTrackr க்கு வரவேற்கிறோம்</string>
+    <string name="onboarding_welcome_desc">ஒவ்வொரு ரூபாயையும் கண்காணி. தனிப்பட்டது, ஆஃப்லைன், மற்றும் அழகாக எளிமையானது.</string>
+    <string name="onboarding_track_title">உங்கள் செலவைக் கண்காணி</string>
+    <string name="onboarding_track_desc">செலவுகளை வகைகள் மற்றும் துணை வகைகளாக ஒழுங்கமை. உங்கள் பணம் எங்கே செல்கிறது என்பதை சரியாகப் பார்.</string>
+    <string name="onboarding_analytics_title">ஸ்மார்ட் பகுப்பாய்வு</string>
+    <string name="onboarding_analytics_desc">அழகான வட்ட வரைபடங்கள் மற்றும் பட்ஜெட் கண்காணிப்பு உங்கள் நிதியைக் கட்டுப்படுத்த உதவுகின்றன.</string>
+    <string name="onboarding_privacy_title">உங்கள் தரவு, உங்கள் சாதனம்</string>
+    <string name="onboarding_privacy_desc">இணையம் இல்லை. கிளவுட் இல்லை. கணக்குகள் இல்லை. உங்கள் அனைத்து தரவும் எப்போதும் உங்கள் சாதனத்திலேயே இருக்கும்.</string>
+
+    <!-- Transactions (expense / income) -->
+    <string name="type_expense">செலவு</string>
+    <string name="type_income">வருமானம்</string>
+    <string name="filter_all">அனைத்தும்</string>
+    <string name="add_transaction_title">பரிவர்த்தனையைச் சேர்</string>
+    <string name="edit_transaction_title">பரிவர்த்தனையைத் திருத்து</string>
+    <string name="save_transaction">சேமி</string>
+    <string name="update_transaction">புதுப்பி</string>
+    <string name="dashboard_income_remaining">மீதமுள்ள வருமானம்</string>
+    <string name="dashboard_income_overspent">வருமானத்தைத் தாண்டியது</string>
+    <string name="dashboard_income_of">%2$s இல் %1$s செலவழிக்கப்பட்டது</string>
+    <string name="analytics_spent_vs_saved">செலவு vs சேமிப்பு</string>
+    <string name="analytics_income">வருமானம்</string>
+    <string name="analytics_spent">செலவு</string>
+    <string name="analytics_saved">சேமிப்பு</string>
+    <string name="analytics_savings_rate">சேமிப்பு விகிதம்</string>
 </resources>

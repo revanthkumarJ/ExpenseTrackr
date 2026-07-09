@@ -24,8 +24,8 @@ data class AnalyticsState(
     val spendByTime: List<TimeBucket> = emptyList(),
     val highestCategory: String = "",
     val avgDailySpend: String = "",
-    // Income (salary) applicable to the selected period, and savings (income - spend).
-    // income == 0.0 means no salary is set → the savings section is hidden.
+    // Income recorded in the selected period, and savings (income - spend).
+    // income == 0.0 means no income recorded → the savings section is hidden.
     val income: Double = 0.0,
     val saved: Double = 0.0,
     val isLoading: Boolean = true

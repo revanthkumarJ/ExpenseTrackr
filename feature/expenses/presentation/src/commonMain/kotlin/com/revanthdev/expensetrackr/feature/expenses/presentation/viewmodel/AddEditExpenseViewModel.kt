@@ -7,6 +7,7 @@ import com.revanthdev.expensetrackr.core.domain.model.AppSettings
 import com.revanthdev.expensetrackr.core.domain.model.Category
 import com.revanthdev.expensetrackr.core.domain.model.DateFilter
 import com.revanthdev.expensetrackr.core.domain.model.Expense
+import com.revanthdev.expensetrackr.core.domain.model.TransactionType
 import com.revanthdev.expensetrackr.core.domain.repository.CategoryRepository
 import com.revanthdev.expensetrackr.core.domain.repository.ExpenseRepository
 import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
@@ -33,10 +34,15 @@ class AddEditExpenseViewModel(
     private val _events = Channel<AddEditExpenseEvent>()
     val events = _events.receiveAsFlow()
 
+    // Full category list (both types); the visible [AddEditExpenseState.categories] is this
+    // filtered to the currently selected transaction type.
+    private var allCategories: List<Category> = emptyList()
+
     init {
         viewModelScope.launch {
             categoryRepository.getAllCategories().collect { cats ->
-                _state.update { it.copy(categories = cats) }
+                allCategories = cats
+                _state.update { state -> state.copy(categories = cats.filter { it.type == state.type }) }
             }
         }
         if (expenseId != -1L) loadExpense(expenseId)
@@ -54,6 +60,8 @@ class AddEditExpenseViewModel(
                 val subCat = subCats.find { it.id == expense.subCategoryId }
                 _state.update { state ->
                     state.copy(
+                        type = expense.type,
+                        categories = cats.filter { it.type == expense.type },
                         name = expense.name,
                         amountText = expense.amount.toString(),
                         selectedCategory = cat,
@@ -73,6 +81,20 @@ class AddEditExpenseViewModel(
 
     fun onAction(action: AddEditExpenseAction) {
         when (action) {
+            is AddEditExpenseAction.OnTypeChange -> {
+                if (action.type == _state.value.type) return
+                _state.update { state ->
+                    state.copy(
+                        type = action.type,
+                        categories = allCategories.filter { it.type == action.type },
+                        selectedCategory = null,
+                        selectedSubCategory = null,
+                        subCategories = emptyList(),
+                        categoryError = null
+                    )
+                }
+            }
+
             is AddEditExpenseAction.OnNameChange -> {
                 savedStateHandle["name"] = action.name
                 _state.update { it.copy(name = action.name, nameError = null) }
@@ -123,7 +145,8 @@ class AddEditExpenseViewModel(
             _state.update { it.copy(isSaving = true) }
 
             val settings = settingsRepository.getSettingsOnce()
-            if (!settings.allowExceedBudget) {
+            // Budgets apply to spending only — income is never blocked by a budget.
+            if (s.type == TransactionType.EXPENSE && !settings.allowExceedBudget) {
                 val warning = checkBudget(amount, category, settings)
                 if (warning != null) {
                     _state.update { it.copy(isSaving = false, budgetWarning = warning) }
@@ -139,6 +162,7 @@ class AddEditExpenseViewModel(
                 categoryId = category.id,
                 subCategoryId = s.selectedSubCategory?.id,
                 notes = s.notes.trim().ifBlank { null },
+                type = s.type,
                 expenseDate = s.dateTime,
                 createdAt = if (expenseId == -1L) now else (s.originalCreatedAt ?: now)
             )

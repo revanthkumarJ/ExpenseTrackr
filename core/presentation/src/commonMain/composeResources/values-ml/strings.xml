@@ -1,8 +1,11 @@
 <resources>
+    <!-- Bottom navigation -->
     <string name="nav_dashboard">ഡാഷ്‌ബോർഡ്</string>
     <string name="nav_expenses">ചെലവുകൾ</string>
     <string name="nav_analytics">വിശകലനം</string>
     <string name="nav_settings">ക്രമീകരണങ്ങൾ</string>
+
+    <!-- Common actions -->
     <string name="action_save">സംരക്ഷിക്കുക</string>
     <string name="action_cancel">റദ്ദാക്കുക</string>
     <string name="action_delete">ഇല്ലാതാക്കുക</string>
@@ -10,10 +13,203 @@
     <string name="action_close">അടയ്ക്കുക</string>
     <string name="action_add">ചേർക്കുക</string>
     <string name="action_apply">പ്രയോഗിക്കുക</string>
-    <string name="action_back">തിരികെ</string>
+    <string name="action_back">പിന്നോട്ട്</string>
+    <string name="action_edit">തിരുത്തുക</string>
+    <string name="action_new">പുതിയത്</string>
+
+    <!-- Common values -->
+    <string name="common_none">ഒന്നുമില്ല</string>
+    <string name="common_default">സ്ഥിരസ്ഥിതി</string>
+    <string name="common_not_set">സജ്ജീകരിച്ചിട്ടില്ല</string>
+    <string name="common_uncategorized">വർഗ്ഗീകരിക്കാത്തത്</string>
+    <string name="common_total">ആകെ</string>
+    <string name="action_add_expense">ചെലവ് ചേർക്കുക</string>
+
+    <!-- Date filter chips -->
     <string name="filter_this_month">ഈ മാസം</string>
     <string name="filter_this_week">ഈ ആഴ്ച</string>
     <string name="filter_last_month">കഴിഞ്ഞ മാസം</string>
     <string name="filter_this_year">ഈ വർഷം</string>
-    <string name="filter_custom">ഇഷ്‌ടാനുസൃതം</string>
+    <string name="filter_custom">ഇഷ്ടാനുസൃതം</string>
+    <string name="period_custom_range">ഇഷ്ടാനുസൃത പരിധി</string>
+
+    <!-- Cards (design-system) -->
+    <string name="card_percent_of_spend">ചെലവിന്റെ %1$s</string>
+    <string name="card_budget">ബജറ്റ്: %1$s</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_budget_monthly">പ്രതിമാസ ബജറ്റ്</string>
+    <string name="dashboard_empty_title">ഇതുവരെ ചെലവുകളൊന്നുമില്ല</string>
+    <string name="dashboard_empty_message">നിങ്ങളുടെ ആദ്യ ചെലവ് ചേർക്കാൻ + ബട്ടൺ ടാപ്പ് ചെയ്യുക</string>
+    <string name="drilldown_percent_of_total">ആകെയുടെ %1$s</string>
+    <string name="drilldown_empty_title">ചെലവുകളില്ല</string>
+    <string name="drilldown_empty_message">തിരഞ്ഞെടുത്ത കാലയളവിൽ ഈ വിഭാഗത്തിൽ ചെലവുകളില്ല</string>
+    <string name="filtered_empty_title">ചെലവുകളില്ല</string>
+    <string name="filtered_empty_message">ഈ തിരഞ്ഞെടുപ്പിന് ചെലവുകളൊന്നും കണ്ടെത്തിയില്ല</string>
+
+    <!-- Expenses list -->
+    <string name="expenses_title">എല്ലാ ചെലവുകളും</string>
+    <string name="expenses_search_hint">ചെലവുകൾ തിരയുക...</string>
+    <string name="expenses_empty_title">ചെലവുകളില്ല</string>
+    <string name="expenses_empty_message">നിങ്ങളുടെ ആദ്യ ചെലവ് ചേർക്കാൻ + ടാപ്പ് ചെയ്യുക</string>
+    <string name="expense_deleted">ചെലവ് ഇല്ലാതാക്കി</string>
+
+    <!-- Add / Edit expense -->
+    <string name="add_expense_title">ചെലവ് ചേർക്കുക</string>
+    <string name="edit_expense_title">ചെലവ് തിരുത്തുക</string>
+    <string name="field_expense_name">ചെലവിന്റെ പേര് *</string>
+    <string name="field_amount">തുക (₹) *</string>
+    <string name="field_category">വിഭാഗം *</string>
+    <string name="field_subcategory">ഉപവിഭാഗം (ഓപ്ഷണൽ)</string>
+    <string name="field_date">തീയതി *</string>
+    <string name="field_time">സമയം</string>
+    <string name="field_notes">കുറിപ്പുകൾ (ഓപ്ഷണൽ)</string>
+    <string name="subcategory_none_hint">ഈ വിഭാഗത്തിന് ഇതുവരെ ഉപവിഭാഗങ്ങളില്ല</string>
+    <string name="save_expense">ചെലവ് സംരക്ഷിക്കുക</string>
+    <string name="update_expense">ചെലവ് അപ്‌ഡേറ്റ് ചെയ്യുക</string>
+    <string name="delete_expense_title">ചെലവ് ഇല്ലാതാക്കണോ?</string>
+    <string name="delete_expense_message">ഈ പ്രവർത്തനം പഴയപടിയാക്കാൻ കഴിയില്ല.</string>
+    <string name="over_budget_title">ബജറ്റിന് മുകളിൽ</string>
+    <string name="budget_warn_monthly">ഈ ചെലവ് നിങ്ങളുടെ പ്രതിമാസ ചെലവ് %1$s ആക്കും, ഇത് നിങ്ങളുടെ %2$s ബജറ്റിനേക്കാൾ കൂടുതലാണ്.</string>
+    <string name="budget_warn_category">ഈ ചെലവ് %1$s ന്റെ ചെലവ് %2$s ആക്കും, ഇത് അതിന്റെ %3$s ബജറ്റിനേക്കാൾ കൂടുതലാണ്.</string>
+    <string name="pick_time">ഒരു സമയം തിരഞ്ഞെടുക്കുക</string>
+
+    <!-- Analytics -->
+    <string name="analytics_top_category">മുൻനിര വിഭാഗം</string>
+    <string name="analytics_avg_day">ശരാശരി / ദിവസം</string>
+    <string name="analytics_breakdown">വിശദാംശം</string>
+    <string name="analytics_spending_trend">ചെലവ് പ്രവണത</string>
+    <string name="analytics_spending_trend_sub">ആകെ കാണാൻ ഒരു ദിവസം ടാപ്പ് ചെയ്യുക</string>
+    <string name="analytics_empty_title">ഈ കാലയളവിന് ഡാറ്റയില്ല</string>
+    <string name="analytics_empty_message">മുകളിൽ മറ്റൊരു കാലയളവ് പരീക്ഷിക്കുക, അല്ലെങ്കിൽ കുറച്ച് ചെലവുകൾ ചേർക്കുക</string>
+
+    <!-- Settings -->
+    <string name="settings_section_preferences">മുൻഗണനകൾ</string>
+    <string name="settings_section_budget">ബജറ്റ്</string>
+    <string name="settings_section_data">ഡാറ്റ മാനേജ്‌മെന്റ്</string>
+    <string name="settings_section_app_info">ആപ്പ് വിവരം</string>
+    <string name="settings_theme">തീം</string>
+    <string name="settings_theme_system">സിസ്റ്റം സ്ഥിരസ്ഥിതി</string>
+    <string name="settings_theme_light">ഇളം</string>
+    <string name="settings_theme_dark">ഇരുണ്ട</string>
+    <string name="settings_app_lock">ആപ്പ് ലോക്ക്</string>
+    <string name="settings_notifications">അറിയിപ്പുകൾ</string>
+    <string name="settings_notifications_on">ഓർമ്മപ്പെടുത്തലുകൾ പ്രവർത്തനക്ഷമം</string>
+    <string name="settings_notifications_off">ഓർമ്മപ്പെടുത്തലുകൾ പ്രവർത്തനരഹിതം</string>
+    <string name="settings_budget_mgmt">ബജറ്റ് മാനേജ്‌മെന്റ്</string>
+    <string name="settings_budget_value">%1$s/മാസം</string>
+    <string name="settings_manage_categories">വിഭാഗങ്ങൾ കൈകാര്യം ചെയ്യുക</string>
+    <string name="settings_manage_subcategories">ഉപവിഭാഗങ്ങൾ കൈകാര്യം ചെയ്യുക</string>
+    <string name="settings_about">കുറിച്ച്</string>
+    <string name="settings_privacy">സ്വകാര്യതാ നയം</string>
+    <string name="settings_terms">സേവന നിബന്ധനകൾ</string>
+    <string name="settings_language">ഭാഷ</string>
+    <string name="language_system_default">സിസ്റ്റം സ്ഥിരസ്ഥിതി</string>
+
+    <!-- Onboarding language picker (first page) -->
+    <string name="onboarding_language_title">നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക</string>
+    <string name="onboarding_language_desc">ക്രമീകരണങ്ങളിൽ എപ്പോൾ വേണമെങ്കിലും ഇത് മാറ്റാം</string>
+
+    <!-- Budget -->
+    <string name="budget_title">ബജറ്റ് മാനേജ്‌മെന്റ്</string>
+    <string name="budget_monthly">പ്രതിമാസ ബജറ്റ്</string>
+    <string name="budget_amount">തുക (₹)</string>
+    <string name="budget_allow_over_title">ബജറ്റിന് മുകളിലുള്ള ചെലവ് അനുവദിക്കുക</string>
+    <string name="budget_allow_over_on">നിങ്ങളുടെ ബജറ്റിന് മുകളിലുള്ള ചെലവുകൾ അനുവദനീയമാണ്</string>
+    <string name="budget_allow_over_off">നിങ്ങളുടെ പ്രതിമാസ അല്ലെങ്കിൽ വിഭാഗ ബജറ്റ് കവിയുന്ന ചെലവുകൾ ചേർക്കുന്നതിൽ നിന്ന് നിങ്ങളെ തടയും</string>
+    <string name="budget_per_category">വിഭാഗം തിരിച്ചുള്ള ബജറ്റുകൾ</string>
+    <string name="budget_reset_all">എല്ലാം പുനഃസജ്ജമാക്കുക</string>
+
+    <!-- Categories -->
+    <string name="categories_title">വിഭാഗങ്ങൾ കൈകാര്യം ചെയ്യുക</string>
+    <string name="categories_new">പുതിയ വിഭാഗം</string>
+    <string name="categories_edit">വിഭാഗം തിരുത്തുക</string>
+    <string name="field_name">പേര്</string>
+    <string name="field_icon_emoji">ഐക്കൺ (ഇമോജി)</string>
+    <string name="category_default_badge">സ്ഥിരസ്ഥിതി</string>
+    <string name="cannot_delete_title">ഇല്ലാതാക്കാൻ കഴിയില്ല</string>
+    <string name="cannot_delete_message">\'%1$s\' ഇല്ലാതാക്കാൻ കഴിയില്ല — ഇതിന് ബന്ധപ്പെട്ട ചെലവുകളുണ്ട്.</string>
+    <string name="categories_empty_title">വിഭാഗങ്ങളില്ല</string>
+    <string name="categories_empty_message">നിങ്ങളുടെ ആദ്യ വിഭാഗം സൃഷ്ടിക്കാൻ പുതിയത് ടാപ്പ് ചെയ്യുക</string>
+
+    <!-- Sub-categories -->
+    <string name="subcategories_title">ഉപവിഭാഗങ്ങൾ കൈകാര്യം ചെയ്യുക</string>
+    <string name="subcategory_new">പുതിയ ഉപവിഭാഗം</string>
+    <string name="subcategory_edit">ഉപവിഭാഗം തിരുത്തുക</string>
+    <string name="field_parent_category">മാതൃ വിഭാഗം</string>
+    <string name="select_category">വിഭാഗം തിരഞ്ഞെടുക്കുക</string>
+    <string name="subcategory_has_expenses_title">ഉപവിഭാഗത്തിന് ചെലവുകളുണ്ട്</string>
+    <string name="subcategory_has_expenses_message">\'%1$s\' ന് ബന്ധപ്പെട്ട ചെലവുകളുണ്ട്. ഇത് ഇല്ലാതാക്കിയാൽ ആ ചെലവുകളിൽ നിന്ന് ഉപവിഭാഗം നീക്കും. തുടരണോ?</string>
+    <string name="action_delete_detach">ഇല്ലാതാക്കി വേർപെടുത്തുക</string>
+    <string name="subcategories_empty_title">ഇതുവരെ ഉപവിഭാഗങ്ങളില്ല</string>
+    <string name="subcategories_empty_message">ഒന്ന് സൃഷ്ടിക്കാൻ പുതിയത് ടാപ്പ് ചെയ്യുക</string>
+
+    <!-- App lock (unlock) -->
+    <string name="applock_enter_pin">പിൻ നൽകുക</string>
+    <string name="applock_enter_pin_sub">അൺലോക്ക് ചെയ്യാൻ നിങ്ങളുടെ 6-അക്ക പിൻ നൽകുക</string>
+    <string name="applock_incorrect">തെറ്റായ പിൻ. വീണ്ടും ശ്രമിക്കുക.</string>
+    <string name="applock_unlock_title">ExpenseTrackr അൺലോക്ക് ചെയ്യുക</string>
+    <string name="applock_unlock_sub">തുടരാൻ നിങ്ങളുടെ ഐഡന്റിറ്റി സ്ഥിരീകരിക്കുക</string>
+
+    <!-- App lock setup -->
+    <string name="applock_setup_title">ആപ്പ് ലോക്ക്</string>
+    <string name="applock_on">ആപ്പ് ലോക്ക് ഓണാണ്</string>
+    <string name="applock_off">ആപ്പ് ലോക്ക് ഓഫാണ്</string>
+    <string name="applock_status_pin">പിൻ അൺലോക്ക്</string>
+    <string name="applock_status_both">പിൻ + ബയോമെട്രിക് അൺലോക്ക്</string>
+    <string name="applock_status_none">നിങ്ങളുടെ ആപ്പ് ലോക്ക് ഇല്ലാതെ തുറക്കുന്നു</string>
+    <string name="applock_set_pin">പിൻ സജ്ജീകരിക്കുക</string>
+    <string name="applock_change_pin">പിൻ മാറ്റുക</string>
+    <string name="applock_biometric_title">ബയോമെട്രിക് ഉപയോഗിച്ച് അൺലോക്ക് ചെയ്യുക</string>
+    <string name="applock_biometric_none">ഈ ഉപകരണത്തിൽ ബയോമെട്രിക് രജിസ്റ്റർ ചെയ്തിട്ടില്ല</string>
+    <string name="applock_biometric_need_pin">ആദ്യം ഒരു പിൻ സജ്ജീകരിക്കുക</string>
+    <string name="applock_biometric_use">അൺലോക്ക് ചെയ്യാൻ വിരലടയാളം / മുഖം ഉപയോഗിക്കുക</string>
+    <string name="applock_remove">ആപ്പ് ലോക്ക് നീക്കുക</string>
+    <string name="applock_forgot">⚠ നിങ്ങളുടെ പിൻ മറന്നാൽ, അത് പുനഃസജ്ജമാക്കാൻ ആപ്പ് ഡാറ്റ മായ്ക്കേണ്ടിവരും.</string>
+
+    <!-- PIN setup flow -->
+    <string name="pin_set_title">പിൻ സജ്ജീകരിക്കുക</string>
+    <string name="pin_confirm_title">പിൻ സ്ഥിരീകരിക്കുക</string>
+    <string name="pin_create">ഒരു പിൻ സൃഷ്ടിക്കുക</string>
+    <string name="pin_reenter">നിങ്ങളുടെ പിൻ വീണ്ടും നൽകുക</string>
+    <string name="pin_choose_sub">ഒരു 6-അക്ക പിൻ തിരഞ്ഞെടുക്കുക</string>
+    <string name="pin_confirm_sub">നിങ്ങളുടെ 6-അക്ക പിൻ സ്ഥിരീകരിക്കുക</string>
+    <string name="pin_mismatch">പിന്നുകൾ പൊരുത്തപ്പെടുന്നില്ല. വീണ്ടും ശ്രമിക്കുക.</string>
+
+    <!-- Notification settings -->
+    <string name="notif_title">അറിയിപ്പ് ക്രമീകരണങ്ങൾ</string>
+    <string name="notif_daily_title">ദൈനംദിന ചെലവ് ഓർമ്മപ്പെടുത്തൽ</string>
+    <string name="notif_daily_sub">%1$s ന് ഇന്നത്തെ ചെലവുകൾ രേഖപ്പെടുത്താൻ നിങ്ങളെ ഓർമ്മിപ്പിക്കും</string>
+    <string name="notif_budget_title">ബജറ്റ് അലേർട്ടുകൾ</string>
+    <string name="notif_budget_sub">ചെലവ് ബജറ്റിന്റെ 80%% കവിയുമ്പോൾ അലേർട്ട് ചെയ്യുക</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">ഒഴിവാക്കുക</string>
+    <string name="onboarding_next">അടുത്തത്</string>
+    <string name="onboarding_get_started">ആരംഭിക്കുക</string>
+    <string name="onboarding_welcome_title">ExpenseTrackr ലേക്ക് സ്വാഗതം</string>
+    <string name="onboarding_welcome_desc">ഓരോ രൂപയും ട്രാക്ക് ചെയ്യുക. സ്വകാര്യം, ഓഫ്‌ലൈൻ, മനോഹരമായി ലളിതം.</string>
+    <string name="onboarding_track_title">നിങ്ങളുടെ ചെലവ് ട്രാക്ക് ചെയ്യുക</string>
+    <string name="onboarding_track_desc">ചെലവുകൾ വിഭാഗങ്ങളിലും ഉപവിഭാഗങ്ങളിലും ക്രമീകരിക്കുക. നിങ്ങളുടെ പണം എവിടേക്ക് പോകുന്നുവെന്ന് കൃത്യമായി കാണുക.</string>
+    <string name="onboarding_analytics_title">സ്മാർട്ട് വിശകലനം</string>
+    <string name="onboarding_analytics_desc">മനോഹരമായ പൈ ചാർട്ടുകളും ബജറ്റ് ട്രാക്കിംഗും നിങ്ങളുടെ സാമ്പത്തിക കാര്യങ്ങൾ നിയന്ത്രിക്കാൻ സഹായിക്കുന്നു.</string>
+    <string name="onboarding_privacy_title">നിങ്ങളുടെ ഡാറ്റ, നിങ്ങളുടെ ഉപകരണം</string>
+    <string name="onboarding_privacy_desc">ഇന്റർനെറ്റ് ഇല്ല. ക്ലൗഡ് ഇല്ല. അക്കൗണ്ടുകൾ ഇല്ല. നിങ്ങളുടെ എല്ലാ ഡാറ്റയും എപ്പോഴും നിങ്ങളുടെ ഉപകരണത്തിൽ തന്നെ തുടരും.</string>
+
+    <!-- Transactions (expense / income) -->
+    <string name="type_expense">ചെലവ്</string>
+    <string name="type_income">വരുമാനം</string>
+    <string name="filter_all">എല്ലാം</string>
+    <string name="add_transaction_title">ഇടപാട് ചേർക്കുക</string>
+    <string name="edit_transaction_title">ഇടപാട് തിരുത്തുക</string>
+    <string name="save_transaction">സംരക്ഷിക്കുക</string>
+    <string name="update_transaction">അപ്‌ഡേറ്റ് ചെയ്യുക</string>
+    <string name="dashboard_income_remaining">ബാക്കി വരുമാനം</string>
+    <string name="dashboard_income_overspent">വരുമാനത്തിന് മുകളിൽ</string>
+    <string name="dashboard_income_of">%2$s ൽ %1$s ചെലവഴിച്ചു</string>
+    <string name="analytics_spent_vs_saved">ചെലവ് vs സമ്പാദ്യം</string>
+    <string name="analytics_income">വരുമാനം</string>
+    <string name="analytics_spent">ചെലവ്</string>
+    <string name="analytics_saved">സമ്പാദ്യം</string>
+    <string name="analytics_savings_rate">സമ്പാദ്യ നിരക്ക്</string>
 </resources>

@@ -1,19 +1,215 @@
 <resources>
+    <!-- Bottom navigation -->
     <string name="nav_dashboard">لوحة التحكم</string>
     <string name="nav_expenses">المصروفات</string>
     <string name="nav_analytics">التحليلات</string>
     <string name="nav_settings">الإعدادات</string>
+
+    <!-- Common actions -->
     <string name="action_save">حفظ</string>
     <string name="action_cancel">إلغاء</string>
     <string name="action_delete">حذف</string>
-    <string name="action_ok">موافق</string>
+    <string name="action_ok">حسنًا</string>
     <string name="action_close">إغلاق</string>
     <string name="action_add">إضافة</string>
     <string name="action_apply">تطبيق</string>
     <string name="action_back">رجوع</string>
+    <string name="action_edit">تعديل</string>
+    <string name="action_new">جديد</string>
+
+    <!-- Common values -->
+    <string name="common_none">لا شيء</string>
+    <string name="common_default">افتراضي</string>
+    <string name="common_not_set">غير محدد</string>
+    <string name="common_uncategorized">غير مصنف</string>
+    <string name="common_total">الإجمالي</string>
+    <string name="action_add_expense">إضافة مصروف</string>
+
+    <!-- Date filter chips -->
     <string name="filter_this_month">هذا الشهر</string>
     <string name="filter_this_week">هذا الأسبوع</string>
     <string name="filter_last_month">الشهر الماضي</string>
     <string name="filter_this_year">هذا العام</string>
     <string name="filter_custom">مخصص</string>
+    <string name="period_custom_range">نطاق مخصص</string>
+
+    <!-- Cards (design-system) -->
+    <string name="card_percent_of_spend">%1$s من الإنفاق</string>
+    <string name="card_budget">الميزانية: %1$s</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_budget_monthly">الميزانية الشهرية</string>
+    <string name="dashboard_empty_title">لا مصروفات بعد</string>
+    <string name="dashboard_empty_message">اضغط على زر + لإضافة أول مصروف لك</string>
+    <string name="drilldown_percent_of_total">%1$s من الإجمالي</string>
+    <string name="drilldown_empty_title">لا مصروفات</string>
+    <string name="drilldown_empty_message">لا توجد مصروفات في هذه الفئة للفترة المحددة</string>
+    <string name="filtered_empty_title">لا مصروفات</string>
+    <string name="filtered_empty_message">لم يتم العثور على مصروفات لهذا التحديد</string>
+
+    <!-- Expenses list -->
+    <string name="expenses_title">كل المصروفات</string>
+    <string name="expenses_search_hint">البحث في المصروفات...</string>
+    <string name="expenses_empty_title">لا مصروفات</string>
+    <string name="expenses_empty_message">اضغط + لإضافة أول مصروف لك</string>
+    <string name="expense_deleted">تم حذف المصروف</string>
+
+    <!-- Add / Edit expense -->
+    <string name="add_expense_title">إضافة مصروف</string>
+    <string name="edit_expense_title">تعديل المصروف</string>
+    <string name="field_expense_name">اسم المصروف *</string>
+    <string name="field_amount">المبلغ (₹) *</string>
+    <string name="field_category">الفئة *</string>
+    <string name="field_subcategory">الفئة الفرعية (اختياري)</string>
+    <string name="field_date">التاريخ *</string>
+    <string name="field_time">الوقت</string>
+    <string name="field_notes">ملاحظات (اختياري)</string>
+    <string name="subcategory_none_hint">لا توجد فئات فرعية لهذه الفئة بعد</string>
+    <string name="save_expense">حفظ المصروف</string>
+    <string name="update_expense">تحديث المصروف</string>
+    <string name="delete_expense_title">حذف المصروف؟</string>
+    <string name="delete_expense_message">لا يمكن التراجع عن هذا الإجراء.</string>
+    <string name="over_budget_title">تجاوز الميزانية</string>
+    <string name="budget_warn_monthly">سيرفع هذا المصروف إنفاقك الشهري إلى %1$s، أي أكثر من ميزانيتك %2$s.</string>
+    <string name="budget_warn_category">سيرفع هذا المصروف إنفاق %1$s إلى %2$s، أي أكثر من ميزانيتها %3$s.</string>
+    <string name="pick_time">اختر وقتًا</string>
+
+    <!-- Analytics -->
+    <string name="analytics_top_category">أعلى فئة</string>
+    <string name="analytics_avg_day">المتوسط / يوم</string>
+    <string name="analytics_breakdown">التفصيل</string>
+    <string name="analytics_spending_trend">اتجاه الإنفاق</string>
+    <string name="analytics_spending_trend_sub">اضغط على يوم لعرض الإجمالي</string>
+    <string name="analytics_empty_title">لا بيانات لهذه الفترة</string>
+    <string name="analytics_empty_message">جرب فترة أخرى بالأعلى أو أضف بعض المصروفات</string>
+
+    <!-- Settings -->
+    <string name="settings_section_preferences">التفضيلات</string>
+    <string name="settings_section_budget">الميزانية</string>
+    <string name="settings_section_data">إدارة البيانات</string>
+    <string name="settings_section_app_info">معلومات التطبيق</string>
+    <string name="settings_theme">المظهر</string>
+    <string name="settings_theme_system">افتراضي النظام</string>
+    <string name="settings_theme_light">فاتح</string>
+    <string name="settings_theme_dark">داكن</string>
+    <string name="settings_app_lock">قفل التطبيق</string>
+    <string name="settings_notifications">الإشعارات</string>
+    <string name="settings_notifications_on">التذكيرات مفعّلة</string>
+    <string name="settings_notifications_off">التذكيرات معطّلة</string>
+    <string name="settings_budget_mgmt">إدارة الميزانية</string>
+    <string name="settings_budget_value">%1$s/شهر</string>
+    <string name="settings_manage_categories">إدارة الفئات</string>
+    <string name="settings_manage_subcategories">إدارة الفئات الفرعية</string>
+    <string name="settings_about">حول</string>
+    <string name="settings_privacy">سياسة الخصوصية</string>
+    <string name="settings_terms">شروط الخدمة</string>
+    <string name="settings_language">اللغة</string>
+    <string name="language_system_default">افتراضي النظام</string>
+
+    <!-- Onboarding language picker (first page) -->
+    <string name="onboarding_language_title">اختر لغتك</string>
+    <string name="onboarding_language_desc">يمكنك تغييرها في أي وقت من الإعدادات</string>
+
+    <!-- Budget -->
+    <string name="budget_title">إدارة الميزانية</string>
+    <string name="budget_monthly">الميزانية الشهرية</string>
+    <string name="budget_amount">المبلغ (₹)</string>
+    <string name="budget_allow_over_title">السماح بالإنفاق فوق الميزانية</string>
+    <string name="budget_allow_over_on">يُسمح بالمصروفات التي تتجاوز ميزانيتك</string>
+    <string name="budget_allow_over_off">سيتم منعك من إضافة مصروفات تتجاوز ميزانيتك الشهرية أو ميزانية الفئة</string>
+    <string name="budget_per_category">ميزانيات لكل فئة</string>
+    <string name="budget_reset_all">إعادة تعيين الكل</string>
+
+    <!-- Categories -->
+    <string name="categories_title">إدارة الفئات</string>
+    <string name="categories_new">فئة جديدة</string>
+    <string name="categories_edit">تعديل الفئة</string>
+    <string name="field_name">الاسم</string>
+    <string name="field_icon_emoji">أيقونة (رمز تعبيري)</string>
+    <string name="category_default_badge">افتراضية</string>
+    <string name="cannot_delete_title">تعذر الحذف</string>
+    <string name="cannot_delete_message">تعذر حذف \'%1$s\' — لديها مصروفات مرتبطة.</string>
+    <string name="categories_empty_title">لا فئات</string>
+    <string name="categories_empty_message">اضغط "جديد" لإنشاء أول فئة لك</string>
+
+    <!-- Sub-categories -->
+    <string name="subcategories_title">إدارة الفئات الفرعية</string>
+    <string name="subcategory_new">فئة فرعية جديدة</string>
+    <string name="subcategory_edit">تعديل الفئة الفرعية</string>
+    <string name="field_parent_category">الفئة الرئيسية</string>
+    <string name="select_category">اختر فئة</string>
+    <string name="subcategory_has_expenses_title">للفئة الفرعية مصروفات</string>
+    <string name="subcategory_has_expenses_message">\'%1$s\' لديها مصروفات مرتبطة. سيؤدي حذفها إلى إزالة الفئة الفرعية من تلك المصروفات. متابعة؟</string>
+    <string name="action_delete_detach">حذف وفصل</string>
+    <string name="subcategories_empty_title">لا فئات فرعية بعد</string>
+    <string name="subcategories_empty_message">اضغط "جديد" لإنشاء واحدة</string>
+
+    <!-- App lock (unlock) -->
+    <string name="applock_enter_pin">أدخل رمز PIN</string>
+    <string name="applock_enter_pin_sub">أدخل رمز PIN المكوّن من 6 أرقام لإلغاء القفل</string>
+    <string name="applock_incorrect">رمز PIN غير صحيح. حاول مرة أخرى.</string>
+    <string name="applock_unlock_title">إلغاء قفل ExpenseTrackr</string>
+    <string name="applock_unlock_sub">أكّد هويتك للمتابعة</string>
+
+    <!-- App lock setup -->
+    <string name="applock_setup_title">قفل التطبيق</string>
+    <string name="applock_on">قفل التطبيق مفعّل</string>
+    <string name="applock_off">قفل التطبيق معطّل</string>
+    <string name="applock_status_pin">إلغاء القفل برمز PIN</string>
+    <string name="applock_status_both">إلغاء القفل برمز PIN + القياسات الحيوية</string>
+    <string name="applock_status_none">يفتح تطبيقك بدون قفل</string>
+    <string name="applock_set_pin">إعداد رمز PIN</string>
+    <string name="applock_change_pin">تغيير رمز PIN</string>
+    <string name="applock_biometric_title">إلغاء القفل بالقياسات الحيوية</string>
+    <string name="applock_biometric_none">لا توجد قياسات حيوية مسجّلة على هذا الجهاز</string>
+    <string name="applock_biometric_need_pin">أعدّ رمز PIN أولًا</string>
+    <string name="applock_biometric_use">استخدم البصمة / الوجه لإلغاء القفل</string>
+    <string name="applock_remove">إزالة قفل التطبيق</string>
+    <string name="applock_forgot">⚠ إذا نسيت رمز PIN، فيجب مسح بيانات التطبيق لإعادة تعيينه.</string>
+
+    <!-- PIN setup flow -->
+    <string name="pin_set_title">تعيين رمز PIN</string>
+    <string name="pin_confirm_title">تأكيد رمز PIN</string>
+    <string name="pin_create">إنشاء رمز PIN</string>
+    <string name="pin_reenter">أعد إدخال رمز PIN</string>
+    <string name="pin_choose_sub">اختر رمز PIN مكوّنًا من 6 أرقام</string>
+    <string name="pin_confirm_sub">أكّد رمز PIN المكوّن من 6 أرقام</string>
+    <string name="pin_mismatch">رمزا PIN غير متطابقين. حاول مرة أخرى.</string>
+
+    <!-- Notification settings -->
+    <string name="notif_title">إعدادات الإشعارات</string>
+    <string name="notif_daily_title">تذكير يومي بالمصروفات</string>
+    <string name="notif_daily_sub">تذكيرك بتسجيل مصروفات اليوم في %1$s</string>
+    <string name="notif_budget_title">تنبيهات الميزانية</string>
+    <string name="notif_budget_sub">التنبيه عند تجاوز الإنفاق 80%% من الميزانية</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">تخطي</string>
+    <string name="onboarding_next">التالي</string>
+    <string name="onboarding_get_started">ابدأ الآن</string>
+    <string name="onboarding_welcome_title">مرحبًا بك في ExpenseTrackr</string>
+    <string name="onboarding_welcome_desc">تتبّع كل روبية. خاص، دون اتصال، وبسيط بشكل جميل.</string>
+    <string name="onboarding_track_title">تتبّع إنفاقك</string>
+    <string name="onboarding_track_desc">نظّم المصروفات في فئات وفئات فرعية. اعرف بالضبط أين تذهب أموالك.</string>
+    <string name="onboarding_analytics_title">تحليلات ذكية</string>
+    <string name="onboarding_analytics_desc">رسوم بيانية دائرية جميلة وتتبّع للميزانية يساعدانك على التحكم في أموالك.</string>
+    <string name="onboarding_privacy_title">بياناتك، جهازك</string>
+    <string name="onboarding_privacy_desc">لا إنترنت. لا سحابة. لا حسابات. تبقى كل بياناتك على جهازك — دائمًا.</string>
+
+    <!-- Transactions (expense / income) -->
+    <string name="type_expense">مصروف</string>
+    <string name="type_income">دخل</string>
+    <string name="filter_all">الكل</string>
+    <string name="add_transaction_title">إضافة معاملة</string>
+    <string name="edit_transaction_title">تعديل المعاملة</string>
+    <string name="save_transaction">حفظ</string>
+    <string name="update_transaction">تحديث</string>
+    <string name="dashboard_income_remaining">الدخل المتبقي</string>
+    <string name="dashboard_income_overspent">تجاوز الدخل</string>
+    <string name="dashboard_income_of">تم إنفاق %1$s من %2$s</string>
+    <string name="analytics_spent_vs_saved">المنفَق مقابل المدَّخر</string>
+    <string name="analytics_income">الدخل</string>
+    <string name="analytics_spent">المنفَق</string>
+    <string name="analytics_saved">المدَّخر</string>
+    <string name="analytics_savings_rate">معدل الادخار</string>
 </resources>

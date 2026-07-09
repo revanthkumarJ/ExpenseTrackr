@@ -178,16 +178,16 @@
     <string name="onboarding_privacy_desc">कोई इंटरनेट नहीं। कोई क्लाउड नहीं। कोई खाता नहीं। आपका सारा डेटा हमेशा आपके डिवाइस पर रहता है।</string>
 
     <!-- Salary / income -->
-    <string name="settings_salary">वेतन / आय</string>
-    <string name="salary_dialog_hint">यह जानने के लिए कि आप कितना बचाते हैं, अपनी मासिक आय निर्धारित करें।</string>
-    <string name="salary_amount">मासिक वेतन (₹)</string>
-    <string name="salary_apply_scope">लागू करें</string>
-    <string name="salary_apply_all">सभी महीनों में</string>
-    <string name="salary_apply_from_current">इस महीने से आगे</string>
-    <string name="salary_remove">हटाएँ</string>
-    <string name="dashboard_salary_remaining">शेष वेतन</string>
-    <string name="dashboard_salary_overspent">वेतन से अधिक</string>
-    <string name="dashboard_salary_of">%2$s में से %1$s खर्च</string>
+    <string name="type_expense">व्यय</string>
+    <string name="type_income">आय</string>
+    <string name="filter_all">सभी</string>
+    <string name="add_transaction_title">लेन-देन जोड़ें</string>
+    <string name="edit_transaction_title">लेन-देन संपादित करें</string>
+    <string name="save_transaction">सहेजें</string>
+    <string name="update_transaction">अपडेट करें</string>
+    <string name="dashboard_income_remaining">शेष आय</string>
+    <string name="dashboard_income_overspent">आय से अधिक</string>
+    <string name="dashboard_income_of">%2$s में से %1$s खर्च</string>
     <string name="analytics_spent_vs_saved">खर्च बनाम बचत</string>
     <string name="analytics_income">आय</string>
     <string name="analytics_spent">खर्च</string>

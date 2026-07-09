@@ -36,6 +36,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -46,6 +49,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.revanthdev.expensetrackr.core.domain.model.TransactionType
 import com.revanthdev.expensetrackr.core.presentation.util.DecimalFormatter
 import com.revanthdev.expensetrackr.core.presentation.util.DecimalInputVisualTransformation
 import com.revanthdev.expensetrackr.core.presentation.util.toDisplayDate
@@ -53,9 +57,9 @@ import com.revanthdev.expensetrackr.core.presentation.util.toDisplayTime
 import expensetrackr.core.presentation.generated.resources.Res
 import expensetrackr.core.presentation.generated.resources.action_back
 import expensetrackr.core.presentation.generated.resources.action_delete
-import expensetrackr.core.presentation.generated.resources.add_expense_title
+import expensetrackr.core.presentation.generated.resources.add_transaction_title
 import expensetrackr.core.presentation.generated.resources.common_none
-import expensetrackr.core.presentation.generated.resources.edit_expense_title
+import expensetrackr.core.presentation.generated.resources.edit_transaction_title
 import expensetrackr.core.presentation.generated.resources.field_amount
 import expensetrackr.core.presentation.generated.resources.field_category
 import expensetrackr.core.presentation.generated.resources.field_date
@@ -63,9 +67,11 @@ import expensetrackr.core.presentation.generated.resources.field_expense_name
 import expensetrackr.core.presentation.generated.resources.field_notes
 import expensetrackr.core.presentation.generated.resources.field_subcategory
 import expensetrackr.core.presentation.generated.resources.field_time
-import expensetrackr.core.presentation.generated.resources.save_expense
+import expensetrackr.core.presentation.generated.resources.save_transaction
 import expensetrackr.core.presentation.generated.resources.subcategory_none_hint
-import expensetrackr.core.presentation.generated.resources.update_expense
+import expensetrackr.core.presentation.generated.resources.type_expense
+import expensetrackr.core.presentation.generated.resources.type_income
+import expensetrackr.core.presentation.generated.resources.update_transaction
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -110,7 +116,7 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(if (isEdit) Res.string.edit_expense_title else Res.string.add_expense_title)) },
+                title = { Text(stringResource(if (isEdit) Res.string.edit_transaction_title else Res.string.add_transaction_title)) },
                 navigationIcon = {
                     IconButton(onClick = { onAction(AddEditExpenseAction.OnBack) }) {
                         Icon(Icons.Rounded.ArrowBack, stringResource(Res.string.action_back))
@@ -141,6 +147,19 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
                 Modifier.weight(1f).verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
+                val typeOptions = listOf(TransactionType.EXPENSE, TransactionType.INCOME)
+                SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
+                    typeOptions.forEachIndexed { index, type ->
+                        SegmentedButton(
+                            selected = state.type == type,
+                            onClick = { onAction(AddEditExpenseAction.OnTypeChange(type)) },
+                            shape = SegmentedButtonDefaults.itemShape(index, typeOptions.size)
+                        ) {
+                            Text(stringResource(if (type == TransactionType.INCOME) Res.string.type_income else Res.string.type_expense))
+                        }
+                    }
+                }
+
                 OutlinedTextField(
                     value = state.name,
                     onValueChange = { onAction(AddEditExpenseAction.OnNameChange(it.take(100))) },
@@ -294,7 +313,7 @@ fun AddEditExpenseScreen(state: AddEditExpenseState, onAction: (AddEditExpenseAc
                     color = MaterialTheme.colorScheme.onPrimary
                 )
                 else Text(
-                    stringResource(if (isEdit) Res.string.update_expense else Res.string.save_expense),
+                    stringResource(if (isEdit) Res.string.update_transaction else Res.string.save_transaction),
                     style = MaterialTheme.typography.titleMedium
                 )
             }

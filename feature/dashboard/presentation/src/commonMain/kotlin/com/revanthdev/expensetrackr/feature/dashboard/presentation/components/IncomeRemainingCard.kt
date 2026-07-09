@@ -21,15 +21,16 @@ import com.revanthdev.expensetrackr.core.designsystem.theme.BudgetYellow
 import com.revanthdev.expensetrackr.core.designsystem.theme.ExpenseTrackerTheme
 import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
 import expensetrackr.core.presentation.generated.resources.Res
-import expensetrackr.core.presentation.generated.resources.dashboard_salary_of
-import expensetrackr.core.presentation.generated.resources.dashboard_salary_overspent
-import expensetrackr.core.presentation.generated.resources.dashboard_salary_remaining
+import expensetrackr.core.presentation.generated.resources.dashboard_income_of
+import expensetrackr.core.presentation.generated.resources.dashboard_income_overspent
+import expensetrackr.core.presentation.generated.resources.dashboard_income_remaining
 import org.jetbrains.compose.resources.stringResource
 
+/** Shows how much of the period's recorded income is left after expenses (income − spent). */
 @Composable
-internal fun SalaryRemainingCard(salary: Double, spent: Double, modifier: Modifier = Modifier) {
-    val remaining = salary - spent
-    val progress = if (salary > 0) (spent / salary).toFloat() else 0f
+internal fun IncomeRemainingCard(income: Double, spent: Double, modifier: Modifier = Modifier) {
+    val remaining = income - spent
+    val progress = if (income > 0) (spent / income).toFloat() else 0f
     val overspent = remaining < 0
     val accent = when {
         overspent -> BudgetRed
@@ -46,14 +47,14 @@ internal fun SalaryRemainingCard(salary: Double, spent: Double, modifier: Modifi
         Column(modifier = Modifier.padding(16.dp)) {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                 Text(
-                    stringResource(if (overspent) Res.string.dashboard_salary_overspent else Res.string.dashboard_salary_remaining),
+                    stringResource(if (overspent) Res.string.dashboard_income_overspent else Res.string.dashboard_income_remaining),
                     style = MaterialTheme.typography.titleSmall
                 )
                 Text(remaining.toCurrencyString(), style = MaterialTheme.typography.titleSmall, color = accent)
             }
             Spacer(Modifier.height(4.dp))
             Text(
-                stringResource(Res.string.dashboard_salary_of, spent.toCurrencyString(), salary.toCurrencyString()),
+                stringResource(Res.string.dashboard_income_of, spent.toCurrencyString(), income.toCurrencyString()),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -65,8 +66,8 @@ internal fun SalaryRemainingCard(salary: Double, spent: Double, modifier: Modifi
 
 @Preview
 @Composable
-private fun SalaryRemainingCardPreview() {
+private fun IncomeRemainingCardPreview() {
     ExpenseTrackerTheme {
-        SalaryRemainingCard(salary = 50000.0, spent = 32000.0)
+        IncomeRemainingCard(income = 50000.0, spent = 32000.0)
     }
 }

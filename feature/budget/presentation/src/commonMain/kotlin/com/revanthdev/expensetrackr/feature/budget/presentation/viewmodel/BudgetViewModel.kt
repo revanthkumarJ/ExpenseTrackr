@@ -2,6 +2,7 @@ package com.revanthdev.expensetrackr.feature.budget.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.revanthdev.expensetrackr.core.domain.model.TransactionType
 import com.revanthdev.expensetrackr.core.domain.repository.CategoryRepository
 import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
 import com.revanthdev.expensetrackr.core.presentation.util.toAmountString
@@ -27,7 +28,9 @@ class BudgetViewModel(
             combine(
                 settingsRepository.getSettings(),
                 categoryRepository.getAllCategories()
-            ) { settings, cats ->
+            ) { settings, allCats ->
+                // Budgets are for spending only — income categories never carry a budget.
+                val cats = allCats.filter { it.type == TransactionType.EXPENSE }
                 BudgetState(
                     overallBudgetEnabled = settings.overallMonthlyBudget != null,
                     overallBudgetText = settings.overallMonthlyBudget?.let { it.toAmountString() } ?: "",

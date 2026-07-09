@@ -13,7 +13,6 @@ import androidx.compose.material.icons.rounded.Gavel
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material.icons.rounded.Lock
-import androidx.compose.material.icons.rounded.Payments
 import androidx.compose.material.icons.rounded.Security
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -40,7 +39,6 @@ import expensetrackr.core.presentation.generated.resources.settings_language
 import expensetrackr.core.presentation.generated.resources.settings_manage_categories
 import expensetrackr.core.presentation.generated.resources.settings_manage_subcategories
 import expensetrackr.core.presentation.generated.resources.settings_privacy
-import expensetrackr.core.presentation.generated.resources.settings_salary
 import expensetrackr.core.presentation.generated.resources.settings_section_app_info
 import expensetrackr.core.presentation.generated.resources.settings_section_budget
 import expensetrackr.core.presentation.generated.resources.settings_section_data
@@ -57,18 +55,6 @@ import org.jetbrains.compose.resources.stringResource
 fun SettingsScreen(state: SettingsState, onAction: (SettingsAction) -> Unit) {
     var showThemeDialog by remember { mutableStateOf(false) }
     var showLanguageDialog by remember { mutableStateOf(false) }
-    var showSalaryDialog by remember { mutableStateOf(false) }
-
-    if (showSalaryDialog) {
-        SalaryDialog(
-            settings = state.settings,
-            onDismiss = { showSalaryDialog = false },
-            onSave = { amount, applyToAll ->
-                onAction(SettingsAction.OnSalaryUpdate(amount, applyToAll))
-                showSalaryDialog = false
-            }
-        )
-    }
 
     if (showLanguageDialog) {
         LanguageDialog(
@@ -125,17 +111,6 @@ fun SettingsScreen(state: SettingsState, onAction: (SettingsAction) -> Unit) {
                     title = stringResource(Res.string.settings_budget_mgmt),
                     subtitle = state.settings.overallMonthlyBudget?.let { stringResource(Res.string.settings_budget_value, it.toCurrencyString()) } ?: stringResource(Res.string.common_not_set),
                     onClick = { onAction(SettingsAction.OnBudgetClick) }
-                )
-            }
-            item {
-                val currentSalary = currentMonthSalary(state.settings.salaryHistory)
-                SettingsItem(
-                    icon = Icons.Rounded.Payments,
-                    title = stringResource(Res.string.settings_salary),
-                    subtitle = if (currentSalary > 0.0)
-                        stringResource(Res.string.settings_budget_value, currentSalary.toCurrencyString())
-                    else stringResource(Res.string.common_not_set),
-                    onClick = { showSalaryDialog = true }
                 )
             }
             item { SettingsSectionHeader(stringResource(Res.string.settings_section_data)) }

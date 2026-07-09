@@ -9,6 +9,7 @@ data class ExpenseWithDetails(
     val category: Category,
     val subCategory: SubCategory?,
     val notes: String?,
+    val type: TransactionType = TransactionType.EXPENSE,
     val expenseDate: LocalDateTime,
     val createdAt: LocalDateTime
 )

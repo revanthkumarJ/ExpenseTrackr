@@ -2,6 +2,7 @@ package com.revanthdev.expensetrackr.feature.expenses.presentation
 
 import com.revanthdev.expensetrackr.core.domain.model.Category
 import com.revanthdev.expensetrackr.core.domain.model.SubCategory
+import com.revanthdev.expensetrackr.core.domain.model.TransactionType
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -12,6 +13,7 @@ internal fun nowDateTime(): LocalDateTime =
 
 data class AddEditExpenseState(
     val expenseId: Long = -1L,
+    val type: TransactionType = TransactionType.EXPENSE,
     val name: String = "",
     val amountText: String = "",
     val selectedCategory: Category? = null,
@@ -44,6 +46,7 @@ val AddEditExpenseState.isValid: Boolean
         ?.let { it > 0 } == true && selectedCategory != null
 
 sealed interface AddEditExpenseAction {
+    data class OnTypeChange(val type: TransactionType) : AddEditExpenseAction
     data class OnNameChange(val name: String) : AddEditExpenseAction
     data class OnAmountChange(val amount: String) : AddEditExpenseAction
     data class OnCategorySelect(val category: Category) : AddEditExpenseAction

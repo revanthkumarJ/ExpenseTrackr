@@ -1,8 +1,11 @@
 <resources>
+    <!-- Bottom navigation -->
     <string name="nav_dashboard">ダッシュボード</string>
     <string name="nav_expenses">支出</string>
     <string name="nav_analytics">分析</string>
     <string name="nav_settings">設定</string>
+
+    <!-- Common actions -->
     <string name="action_save">保存</string>
     <string name="action_cancel">キャンセル</string>
     <string name="action_delete">削除</string>
@@ -11,9 +14,202 @@
     <string name="action_add">追加</string>
     <string name="action_apply">適用</string>
     <string name="action_back">戻る</string>
+    <string name="action_edit">編集</string>
+    <string name="action_new">新規</string>
+
+    <!-- Common values -->
+    <string name="common_none">なし</string>
+    <string name="common_default">デフォルト</string>
+    <string name="common_not_set">未設定</string>
+    <string name="common_uncategorized">未分類</string>
+    <string name="common_total">合計</string>
+    <string name="action_add_expense">支出を追加</string>
+
+    <!-- Date filter chips -->
     <string name="filter_this_month">今月</string>
     <string name="filter_this_week">今週</string>
     <string name="filter_last_month">先月</string>
     <string name="filter_this_year">今年</string>
     <string name="filter_custom">カスタム</string>
+    <string name="period_custom_range">カスタム範囲</string>
+
+    <!-- Cards (design-system) -->
+    <string name="card_percent_of_spend">支出の %1$s</string>
+    <string name="card_budget">予算: %1$s</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_budget_monthly">月間予算</string>
+    <string name="dashboard_empty_title">まだ支出がありません</string>
+    <string name="dashboard_empty_message">+ ボタンをタップして最初の支出を追加</string>
+    <string name="drilldown_percent_of_total">合計の %1$s</string>
+    <string name="drilldown_empty_title">支出なし</string>
+    <string name="drilldown_empty_message">選択した期間にこのカテゴリの支出はありません</string>
+    <string name="filtered_empty_title">支出なし</string>
+    <string name="filtered_empty_message">この条件に一致する支出は見つかりませんでした</string>
+
+    <!-- Expenses list -->
+    <string name="expenses_title">すべての支出</string>
+    <string name="expenses_search_hint">支出を検索...</string>
+    <string name="expenses_empty_title">支出なし</string>
+    <string name="expenses_empty_message">+ をタップして最初の支出を追加</string>
+    <string name="expense_deleted">支出を削除しました</string>
+
+    <!-- Add / Edit expense -->
+    <string name="add_expense_title">支出を追加</string>
+    <string name="edit_expense_title">支出を編集</string>
+    <string name="field_expense_name">支出名 *</string>
+    <string name="field_amount">金額 (₹) *</string>
+    <string name="field_category">カテゴリ *</string>
+    <string name="field_subcategory">サブカテゴリ（任意）</string>
+    <string name="field_date">日付 *</string>
+    <string name="field_time">時刻</string>
+    <string name="field_notes">メモ（任意）</string>
+    <string name="subcategory_none_hint">このカテゴリにはまだサブカテゴリがありません</string>
+    <string name="save_expense">支出を保存</string>
+    <string name="update_expense">支出を更新</string>
+    <string name="delete_expense_title">支出を削除しますか？</string>
+    <string name="delete_expense_message">この操作は取り消せません。</string>
+    <string name="over_budget_title">予算超過</string>
+    <string name="budget_warn_monthly">この支出で今月の支出が %1$s になり、予算 %2$s を超えます。</string>
+    <string name="budget_warn_category">この支出で %1$s の支出が %2$s になり、その予算 %3$s を超えます。</string>
+    <string name="pick_time">時刻を選択</string>
+
+    <!-- Analytics -->
+    <string name="analytics_top_category">最多カテゴリ</string>
+    <string name="analytics_avg_day">1日平均</string>
+    <string name="analytics_breakdown">内訳</string>
+    <string name="analytics_spending_trend">支出の推移</string>
+    <string name="analytics_spending_trend_sub">日をタップして合計を表示</string>
+    <string name="analytics_empty_title">この期間のデータはありません</string>
+    <string name="analytics_empty_message">上で別の期間を選ぶか、支出を追加してください</string>
+
+    <!-- Settings -->
+    <string name="settings_section_preferences">環境設定</string>
+    <string name="settings_section_budget">予算</string>
+    <string name="settings_section_data">データ管理</string>
+    <string name="settings_section_app_info">アプリ情報</string>
+    <string name="settings_theme">テーマ</string>
+    <string name="settings_theme_system">システムのデフォルト</string>
+    <string name="settings_theme_light">ライト</string>
+    <string name="settings_theme_dark">ダーク</string>
+    <string name="settings_app_lock">アプリロック</string>
+    <string name="settings_notifications">通知</string>
+    <string name="settings_notifications_on">リマインダー有効</string>
+    <string name="settings_notifications_off">リマインダー無効</string>
+    <string name="settings_budget_mgmt">予算管理</string>
+    <string name="settings_budget_value">%1$s/月</string>
+    <string name="settings_manage_categories">カテゴリを管理</string>
+    <string name="settings_manage_subcategories">サブカテゴリを管理</string>
+    <string name="settings_about">アプリについて</string>
+    <string name="settings_privacy">プライバシーポリシー</string>
+    <string name="settings_terms">利用規約</string>
+    <string name="settings_language">言語</string>
+    <string name="language_system_default">システムのデフォルト</string>
+
+    <!-- Onboarding language picker (first page) -->
+    <string name="onboarding_language_title">言語を選択</string>
+    <string name="onboarding_language_desc">設定でいつでも変更できます</string>
+
+    <!-- Budget -->
+    <string name="budget_title">予算管理</string>
+    <string name="budget_monthly">月間予算</string>
+    <string name="budget_amount">金額 (₹)</string>
+    <string name="budget_allow_over_title">予算を超える支出を許可</string>
+    <string name="budget_allow_over_on">予算を超える支出が許可されています</string>
+    <string name="budget_allow_over_off">月間またはカテゴリの予算を超える支出は追加できなくなります</string>
+    <string name="budget_per_category">カテゴリ別予算</string>
+    <string name="budget_reset_all">すべてリセット</string>
+
+    <!-- Categories -->
+    <string name="categories_title">カテゴリを管理</string>
+    <string name="categories_new">新しいカテゴリ</string>
+    <string name="categories_edit">カテゴリを編集</string>
+    <string name="field_name">名前</string>
+    <string name="field_icon_emoji">アイコン（絵文字）</string>
+    <string name="category_default_badge">デフォルト</string>
+    <string name="cannot_delete_title">削除できません</string>
+    <string name="cannot_delete_message">\'%1$s\' は削除できません — 関連する支出があります。</string>
+    <string name="categories_empty_title">カテゴリなし</string>
+    <string name="categories_empty_message">「新規」をタップして最初のカテゴリを作成</string>
+
+    <!-- Sub-categories -->
+    <string name="subcategories_title">サブカテゴリを管理</string>
+    <string name="subcategory_new">新しいサブカテゴリ</string>
+    <string name="subcategory_edit">サブカテゴリを編集</string>
+    <string name="field_parent_category">親カテゴリ</string>
+    <string name="select_category">カテゴリを選択</string>
+    <string name="subcategory_has_expenses_title">サブカテゴリに支出があります</string>
+    <string name="subcategory_has_expenses_message">\'%1$s\' には関連する支出があります。削除するとそれらの支出からこのサブカテゴリが外れます。続行しますか？</string>
+    <string name="action_delete_detach">削除して切り離す</string>
+    <string name="subcategories_empty_title">まだサブカテゴリがありません</string>
+    <string name="subcategories_empty_message">「新規」をタップして作成</string>
+
+    <!-- App lock (unlock) -->
+    <string name="applock_enter_pin">PINを入力</string>
+    <string name="applock_enter_pin_sub">ロック解除するには6桁のPINを入力</string>
+    <string name="applock_incorrect">PINが違います。もう一度お試しください。</string>
+    <string name="applock_unlock_title">ExpenseTrackrのロックを解除</string>
+    <string name="applock_unlock_sub">続行するには本人確認をしてください</string>
+
+    <!-- App lock setup -->
+    <string name="applock_setup_title">アプリロック</string>
+    <string name="applock_on">アプリロックはオンです</string>
+    <string name="applock_off">アプリロックはオフです</string>
+    <string name="applock_status_pin">PINで解除</string>
+    <string name="applock_status_both">PIN + 生体認証で解除</string>
+    <string name="applock_status_none">アプリはロックなしで開きます</string>
+    <string name="applock_set_pin">PINを設定</string>
+    <string name="applock_change_pin">PINを変更</string>
+    <string name="applock_biometric_title">生体認証で解除</string>
+    <string name="applock_biometric_none">この端末には生体認証が登録されていません</string>
+    <string name="applock_biometric_need_pin">先にPINを設定してください</string>
+    <string name="applock_biometric_use">指紋 / 顔でロックを解除</string>
+    <string name="applock_remove">アプリロックを解除</string>
+    <string name="applock_forgot">⚠ PINを忘れた場合、リセットするにはアプリのデータを消去する必要があります。</string>
+
+    <!-- PIN setup flow -->
+    <string name="pin_set_title">PINを設定</string>
+    <string name="pin_confirm_title">PINを確認</string>
+    <string name="pin_create">PINを作成</string>
+    <string name="pin_reenter">PINを再入力</string>
+    <string name="pin_choose_sub">6桁のPINを選択</string>
+    <string name="pin_confirm_sub">6桁のPINを確認</string>
+    <string name="pin_mismatch">PINが一致しません。もう一度お試しください。</string>
+
+    <!-- Notification settings -->
+    <string name="notif_title">通知設定</string>
+    <string name="notif_daily_title">毎日の支出リマインダー</string>
+    <string name="notif_daily_sub">%1$s に今日の支出を記録するよう通知します</string>
+    <string name="notif_budget_title">予算アラート</string>
+    <string name="notif_budget_sub">支出が予算の80%%を超えたときに通知</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">スキップ</string>
+    <string name="onboarding_next">次へ</string>
+    <string name="onboarding_get_started">始める</string>
+    <string name="onboarding_welcome_title">ExpenseTrackrへようこそ</string>
+    <string name="onboarding_welcome_desc">1ルピーまで記録。プライベート、オフライン、そして美しくシンプル。</string>
+    <string name="onboarding_track_title">支出を記録</string>
+    <string name="onboarding_track_desc">支出をカテゴリとサブカテゴリに整理。お金の使い道を正確に把握できます。</string>
+    <string name="onboarding_analytics_title">スマートな分析</string>
+    <string name="onboarding_analytics_desc">美しい円グラフと予算追跡で、家計をしっかり管理できます。</string>
+    <string name="onboarding_privacy_title">あなたのデータ、あなたの端末</string>
+    <string name="onboarding_privacy_desc">インターネット不要。クラウドなし。アカウントなし。すべてのデータは常に端末内に留まります。</string>
+
+    <!-- Transactions (expense / income) -->
+    <string name="type_expense">支出</string>
+    <string name="type_income">収入</string>
+    <string name="filter_all">すべて</string>
+    <string name="add_transaction_title">取引を追加</string>
+    <string name="edit_transaction_title">取引を編集</string>
+    <string name="save_transaction">保存</string>
+    <string name="update_transaction">更新</string>
+    <string name="dashboard_income_remaining">収入の残り</string>
+    <string name="dashboard_income_overspent">収入超過</string>
+    <string name="dashboard_income_of">%2$s のうち %1$s を支出</string>
+    <string name="analytics_spent_vs_saved">支出と貯蓄</string>
+    <string name="analytics_income">収入</string>
+    <string name="analytics_spent">支出</string>
+    <string name="analytics_saved">貯蓄</string>
+    <string name="analytics_savings_rate">貯蓄率</string>
 </resources>

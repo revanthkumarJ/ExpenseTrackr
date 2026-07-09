@@ -196,17 +196,17 @@
     <string name="onboarding_privacy_title">Your Data, Your Device</string>
     <string name="onboarding_privacy_desc">No internet. No cloud. No accounts. All your data stays on your device — always.</string>
 
-    <!-- Salary / income -->
-    <string name="settings_salary">Salary / Income</string>
-    <string name="salary_dialog_hint">Set your monthly take-home income to track how much you save.</string>
-    <string name="salary_amount">Monthly salary (₹)</string>
-    <string name="salary_apply_scope">Apply to</string>
-    <string name="salary_apply_all">All months</string>
-    <string name="salary_apply_from_current">From this month onward</string>
-    <string name="salary_remove">Remove</string>
-    <string name="dashboard_salary_remaining">Salary remaining</string>
-    <string name="dashboard_salary_overspent">Over salary</string>
-    <string name="dashboard_salary_of">%1$s spent of %2$s</string>
+    <!-- Transactions (expense / income) -->
+    <string name="type_expense">Expense</string>
+    <string name="type_income">Income</string>
+    <string name="filter_all">All</string>
+    <string name="add_transaction_title">Add Transaction</string>
+    <string name="edit_transaction_title">Edit Transaction</string>
+    <string name="save_transaction">Save</string>
+    <string name="update_transaction">Update</string>
+    <string name="dashboard_income_remaining">Income remaining</string>
+    <string name="dashboard_income_overspent">Over income</string>
+    <string name="dashboard_income_of">%1$s spent of %2$s</string>
     <string name="analytics_spent_vs_saved">Spent vs Saved</string>
     <string name="analytics_income">Income</string>
     <string name="analytics_spent">Spent</string>

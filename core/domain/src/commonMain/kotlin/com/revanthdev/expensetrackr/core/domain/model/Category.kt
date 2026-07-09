@@ -9,5 +9,8 @@ data class Category(
     val colorHex: String,
     val isDefault: Boolean = false,
     val budgetAmount: Double? = null,
+    // Whether this category is used for expense or income transactions. Income categories never
+    // carry a budget and never appear in expense/budget/analytics screens.
+    val type: TransactionType = TransactionType.EXPENSE,
     val createdAt: LocalDateTime
 )

@@ -7,8 +7,6 @@ data class SettingsState(val settings: AppSettings = AppSettings(), val isLoadin
 sealed interface SettingsAction {
     data class OnThemeChange(val isDark: Boolean?) : SettingsAction
     data class OnLanguageChange(val tag: String?) : SettingsAction
-    /** amount == null clears the salary; applyToAll controls retroactive vs from-this-month scope. */
-    data class OnSalaryUpdate(val amount: Double?, val applyToAll: Boolean) : SettingsAction
     data object OnBudgetClick : SettingsAction
     data object OnManageCategoriesClick : SettingsAction
     data object OnManageSubCategoriesClick : SettingsAction

@@ -3,6 +3,7 @@ package com.revanthdev.expensetrackr.feature.categories.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.revanthdev.expensetrackr.core.domain.model.Category
+import com.revanthdev.expensetrackr.core.domain.model.TransactionType
 import com.revanthdev.expensetrackr.core.domain.repository.CategoryRepository
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,16 +20,22 @@ class ManageCategoriesViewModel(private val categoryRepository: CategoryReposito
     private val _events = Channel<ManageCategoriesEvent>()
     val events = _events.receiveAsFlow()
 
+    private var allCategories: List<Category> = emptyList()
+
     init {
         viewModelScope.launch {
             categoryRepository.getAllCategories().collect { cats ->
-                _state.update { it.copy(categories = cats) }
+                allCategories = cats
+                _state.update { state -> state.copy(categories = cats.filter { it.type == state.selectedType }) }
             }
         }
     }
 
     fun onAction(action: ManageCategoriesAction) {
         when (action) {
+            is ManageCategoriesAction.OnTypeTabChange -> _state.update { state ->
+                state.copy(selectedType = action.type, categories = allCategories.filter { it.type == action.type })
+            }
             ManageCategoriesAction.OnAddClick -> _state.update { it.copy(showAddDialog = true, newName = "", newIcon = "📦") }
             is ManageCategoriesAction.OnEditClick -> _state.update { it.copy(showEditDialog = action.category, newName = action.category.name, newIcon = action.category.icon) }
             is ManageCategoriesAction.OnDeleteClick -> deleteCategory(action.category)
@@ -46,7 +53,15 @@ class ManageCategoriesViewModel(private val categoryRepository: CategoryReposito
         if (s.newName.isBlank()) return
         viewModelScope.launch {
             val now = kotlin.time.Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-            categoryRepository.insertCategory(Category(name = s.newName.trim(), icon = s.newIcon, colorHex = "#616161", createdAt = now))
+            categoryRepository.insertCategory(
+                Category(
+                    name = s.newName.trim(),
+                    icon = s.newIcon,
+                    colorHex = "#616161",
+                    type = s.selectedType,
+                    createdAt = now
+                )
+            )
             _state.update { it.copy(showAddDialog = false) }
         }
     }

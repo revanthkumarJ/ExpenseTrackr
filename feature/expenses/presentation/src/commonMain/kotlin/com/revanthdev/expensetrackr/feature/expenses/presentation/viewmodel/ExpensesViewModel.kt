@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.revanthdev.expensetrackr.core.domain.model.DateFilter
 import com.revanthdev.expensetrackr.core.domain.model.ExpenseWithDetails
+import com.revanthdev.expensetrackr.core.domain.model.TransactionType
 import com.revanthdev.expensetrackr.core.domain.repository.ExpenseRepository
 import com.revanthdev.expensetrackr.core.presentation.UiText
 import com.revanthdev.expensetrackr.core.presentation.util.toDisplayDate
@@ -27,9 +28,13 @@ class ExpensesViewModel(private val expenseRepository: ExpenseRepository) : View
     fun onAction(action: ExpensesAction) {
         when (action) {
             is ExpensesAction.OnFilterChange -> loadExpenses(action.filter)
+            is ExpensesAction.OnTypeFilterChange -> {
+                _state.update { it.copy(typeFilter = action.type) }
+                applyFilters()
+            }
             is ExpensesAction.OnSearchChange -> {
                 _state.update { it.copy(searchQuery = action.query) }
-                applySearch(action.query)
+                applyFilters()
             }
             is ExpensesAction.OnExpenseClick -> viewModelScope.launch {
                 _events.send(ExpensesEvent.NavigateToEdit(action.id))
@@ -45,23 +50,25 @@ class ExpensesViewModel(private val expenseRepository: ExpenseRepository) : View
     private fun loadExpenses(filter: DateFilter) {
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true, filter = filter) }
-            expenseRepository.getExpensesWithDetails(filter).collect { expenses ->
-                allExpenses = expenses
-                val query = _state.value.searchQuery
-                val filtered = if (query.isBlank()) expenses else filterExpenses(expenses, query)
-                _state.update { it.copy(grouped = groupByDate(filtered), isLoading = false) }
+            expenseRepository.getTransactionsWithDetails(filter).collect { transactions ->
+                allExpenses = transactions
+                _state.update { it.copy(grouped = groupByDate(applyFiltersTo(transactions)), isLoading = false) }
             }
         }
     }
 
-    private fun applySearch(query: String) {
-        val filtered = if (query.isBlank()) allExpenses else filterExpenses(allExpenses, query)
-        _state.update { it.copy(grouped = groupByDate(filtered)) }
+    private fun applyFilters() {
+        _state.update { it.copy(grouped = groupByDate(applyFiltersTo(allExpenses))) }
     }
 
-    private fun filterExpenses(expenses: List<ExpenseWithDetails>, query: String): List<ExpenseWithDetails> {
+    /** Apply the active type filter and search query to the loaded transactions. */
+    private fun applyFiltersTo(transactions: List<ExpenseWithDetails>): List<ExpenseWithDetails> {
+        val s = _state.value
+        val byType = s.typeFilter?.let { type -> transactions.filter { it.type == type } } ?: transactions
+        val query = s.searchQuery
+        if (query.isBlank()) return byType
         val q = query.lowercase()
-        return expenses.filter {
+        return byType.filter {
             it.name.lowercase().contains(q) ||
             it.category.name.lowercase().contains(q) ||
             it.amount.toString().contains(q)
@@ -74,7 +81,7 @@ class ExpensesViewModel(private val expenseRepository: ExpenseRepository) : View
     private fun deleteExpense(id: Long) {
         viewModelScope.launch {
             expenseRepository.deleteExpense(id)
-            _events.send(ExpensesEvent.ShowSnackbar(UiText.DynamicString("Expense deleted")))
+            _events.send(ExpensesEvent.ShowSnackbar(UiText.DynamicString("Transaction deleted")))
         }
     }
 }

@@ -9,6 +9,7 @@ data class Expense(
     val categoryId: Long,
     val subCategoryId: Long? = null,
     val notes: String? = null,
+    val type: TransactionType = TransactionType.EXPENSE,
     val expenseDate: LocalDateTime,
     val createdAt: LocalDateTime
 )

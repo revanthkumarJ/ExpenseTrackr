@@ -22,7 +22,8 @@ import androidx.room.PrimaryKey
     indices = [
         Index("categoryId"),
         Index("subCategoryId"),
-        Index("expenseDate")
+        Index("expenseDate"),
+        Index("type")
     ]
 )
 data class ExpenseEntity(
@@ -32,6 +33,8 @@ data class ExpenseEntity(
     val categoryId: Long,
     val subCategoryId: Long?,
     val notes: String?,
+    // "EXPENSE" or "INCOME" (name of domain TransactionType). Defaults to EXPENSE for legacy rows.
+    val type: String = "EXPENSE",
     val expenseDate: Long,
     val createdAt: Long
 )
