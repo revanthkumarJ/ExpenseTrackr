@@ -47,7 +47,14 @@ android {
     }
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            // Shrink + obfuscate to reduce app size. Keep rules live in proguard-rules.pro
+            // (critical for kotlinx.serialization-based navigation routes).
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
             // Use the real release key when keystore.properties is present; otherwise fall back
             // to debug signing so the project still builds (that build is NOT uploadable to Play).
             signingConfig = if (keystorePropsFile.exists())
