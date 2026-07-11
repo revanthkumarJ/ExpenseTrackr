@@ -30,6 +30,10 @@ androidx-biometric = "1.1.0"
 androidx-securityCrypto = "1.1.0"
 androidx-work = "2.11.2"
 androidx-splashscreen = "1.2.0"
+# Firebase (Android-only: Crashlytics + Analytics)
+googleServices = "4.4.2"
+firebaseCrashlyticsPlugin = "3.0.2"
+firebaseBom = "33.7.0"
 # Testing
 turbine = "1.2.1"
 assertk = "0.28.1"
@@ -89,6 +93,11 @@ androidx-securityCrypto = { module = "androidx.security:security-crypto", versio
 androidx-work-runtime = { module = "androidx.work:work-runtime-ktx", version.ref = "androidx-work" }
 androidx-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "androidx-splashscreen" }
 
+# Firebase (Android-only). Versions come from the BOM.
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+
 # Testing
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 assertk = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertk" }
@@ -120,6 +129,8 @@ kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+googleServices = { id = "com.google.gms.google-services", version.ref = "googleServices" }
+firebaseCrashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
 
 # Convention plugins (defined in :build-logic)
 expensetrackr-kmpLibrary = { id = "expensetrackr.kmp.library" }

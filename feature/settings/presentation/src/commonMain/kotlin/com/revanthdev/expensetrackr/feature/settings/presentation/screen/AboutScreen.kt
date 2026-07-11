@@ -41,7 +41,7 @@ fun AboutScreen(onBack: () -> Unit) {
             Text("Developer", style = MaterialTheme.typography.titleSmall)
             Text("RevanthDev", style = MaterialTheme.typography.bodyMedium)
             HorizontalDivider()
-            Text("This app is completely offline — no internet connection required. Your financial data never leaves your device.", style = MaterialTheme.typography.bodyMedium)
+            Text("Your financial data stays on your device — expenses, income, and budgets are never uploaded. To improve reliability, the app sends anonymous crash reports and usage analytics via Google Firebase. See the Privacy Policy for details.", style = MaterialTheme.typography.bodyMedium)
         }
     }
 }

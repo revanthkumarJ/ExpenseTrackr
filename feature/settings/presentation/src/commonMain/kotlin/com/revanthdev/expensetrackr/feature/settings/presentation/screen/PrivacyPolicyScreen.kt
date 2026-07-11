@@ -34,12 +34,13 @@ fun PrivacyPolicyScreen(onBack: () -> Unit) {
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(stringResource(Res.string.settings_privacy), style = MaterialTheme.typography.headlineMedium)
-            Text("Last updated: June 2026", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text("Last updated: July 2026", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
 
-            PolicySection("Data Collection", "ExpenseTrackr collects no data. We have no servers, no analytics, no crash reporting, and no advertising SDKs.")
-            PolicySection("Data Storage", "All your expense data is stored exclusively on your device in a local Room database. It is never transmitted anywhere.")
-            PolicySection("Third Parties", "This app contains no third-party SDKs that collect data. There are no analytics tools, advertising networks, or social media integrations.")
-            PolicySection("Your Rights", "You own your data completely. You can delete all your data at any time by clearing the app's storage in your device settings.")
+            PolicySection("Your Financial Data", "All of your expenses, income, budgets, and categories are stored exclusively on your device in a local database. This financial data is never uploaded, transmitted, or shared with anyone.")
+            PolicySection("Crash Reporting", "To help us find and fix bugs, the app uses Google Firebase Crashlytics. When the app crashes, an anonymous crash report is sent to Google. It may include your device model, operating system version, app version, and the technical stack trace of the crash. It does NOT include your expenses, income, or any amounts you have entered.")
+            PolicySection("Usage Analytics", "The app uses Google Firebase Analytics to understand how the app is used in aggregate (for example, which screens are opened and how often the app is launched). This data is anonymous and cannot be used to identify you personally. It does NOT include the content of your financial records.")
+            PolicySection("Third Parties", "Crash and analytics data is processed by Google as part of Firebase. Google's handling of this data is governed by the Google Privacy Policy (policies.google.com/privacy). We do not use any advertising networks or sell your data.")
+            PolicySection("Your Choices", "Your financial data stays on your device and you can delete it at any time by clearing the app's storage in your device settings. Crash and analytics reporting only collect anonymous diagnostic information and never your financial records.")
             PolicySection("Contact", "Questions? Email: support@revanthdev.com")
         }
     }

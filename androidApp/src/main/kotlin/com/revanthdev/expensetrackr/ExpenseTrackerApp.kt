@@ -1,6 +1,7 @@
 package com.revanthdev.expensetrackr
 
 import android.app.Application
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.revanthdev.expensetrackr.core.data.di.coreDataModule
 import com.revanthdev.expensetrackr.core.data.di.dataStoreContext
 import com.revanthdev.expensetrackr.core.database.DefaultCategorySeeder
@@ -30,6 +31,11 @@ class ExpenseTrackerApp : Application() {
 
         databaseContext = applicationContext
         dataStoreContext = applicationContext
+
+        // Firebase Analytics auto-initializes via its ContentProvider (before this runs).
+        // Enable Crashlytics crash collection explicitly — this is the hook to gate on a
+        // future user opt-out setting if we add one.
+        FirebaseCrashlytics.getInstance().isCrashlyticsCollectionEnabled = true
 
         startKoin {
             androidLogger()

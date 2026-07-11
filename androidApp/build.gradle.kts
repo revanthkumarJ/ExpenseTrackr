@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.googleServices)
+    alias(libs.plugins.firebaseCrashlytics)
 }
 
 kotlin {
@@ -40,6 +42,12 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.androidx.biometric)
     implementation(libs.kotlinx.coroutinesAndroid)
+
+    // Firebase (Android-only): Crashlytics + Analytics. Versions managed by the BOM.
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
+
     implementation(libs.compose.uiToolingPreview)
     debugImplementation(libs.compose.uiTooling)
     implementation(project(":core:domain"))
