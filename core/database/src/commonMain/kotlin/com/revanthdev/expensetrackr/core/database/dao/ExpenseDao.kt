@@ -39,6 +39,10 @@ interface ExpenseDao {
     @Query("SELECT * FROM expenses WHERE id = :id")
     suspend fun getExpenseById(id: Long): ExpenseEntity?
 
+    /** Every transaction (expense + income), all dates — used to export a full backup. */
+    @Query("SELECT * FROM expenses ORDER BY expenseDate DESC")
+    suspend fun getAllTransactions(): List<ExpenseEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertExpense(expense: ExpenseEntity): Long
 

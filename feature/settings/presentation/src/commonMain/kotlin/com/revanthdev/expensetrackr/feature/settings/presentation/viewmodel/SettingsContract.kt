@@ -15,6 +15,7 @@ sealed interface SettingsAction {
     data object OnAboutClick : SettingsAction
     data object OnPrivacyPolicyClick : SettingsAction
     data object OnTermsClick : SettingsAction
+    data object OnSyncClick : SettingsAction
 }
 
 sealed interface SettingsEvent {
@@ -26,4 +27,5 @@ sealed interface SettingsEvent {
     data object NavigateToAbout : SettingsEvent
     data object NavigateToPrivacyPolicy : SettingsEvent
     data object NavigateToTerms : SettingsEvent
+    data object NavigateToSync : SettingsEvent
 }

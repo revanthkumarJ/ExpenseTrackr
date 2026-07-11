@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- Backup CSVs to public Downloads on Android 9 and below (API 29+ uses MediaStore, no permission). -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
 
     <!-- Firebase Analytics adds AD_ID automatically. We don't use advertising, so remove it
          so we can truthfully declare "no advertising ID" on the Play Data safety form. -->

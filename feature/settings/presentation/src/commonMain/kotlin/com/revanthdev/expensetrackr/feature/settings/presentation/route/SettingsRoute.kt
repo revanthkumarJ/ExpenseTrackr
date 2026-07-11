@@ -29,6 +29,7 @@ fun SettingsRoot(
     onNavigateToAbout: () -> Unit,
     onNavigateToPrivacyPolicy: () -> Unit,
     onNavigateToTerms: () -> Unit,
+    onNavigateToSync: () -> Unit,
     viewModel: SettingsViewModel = koinViewModel()
 ) {
     ObserveAsEvents(viewModel.events) { event ->
@@ -41,6 +42,7 @@ fun SettingsRoot(
             SettingsEvent.NavigateToAbout -> onNavigateToAbout()
             SettingsEvent.NavigateToPrivacyPolicy -> onNavigateToPrivacyPolicy()
             SettingsEvent.NavigateToTerms -> onNavigateToTerms()
+            SettingsEvent.NavigateToSync -> onNavigateToSync()
         }
     }
     val state by viewModel.state.collectAsState()

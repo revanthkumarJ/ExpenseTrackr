@@ -93,6 +93,18 @@
     <string name="settings_about">परिचय</string>
     <string name="settings_privacy">गोपनीयता नीति</string>
     <string name="settings_terms">सेवा की शर्तें</string>
+    <string name="settings_share">ऐप शेयर करें</string>
+    <string name="share_app_message">ExpenseTrackr आज़माएँ — एक सरल, निजी खर्च ट्रैकर: %1$s</string>
+    <string name="settings_sync">बैकअप और सिंक</string>
+    <string name="sync_title">बैकअप और सिंक</string>
+    <string name="sync_description">आपका डेटा केवल इसी डिवाइस पर संग्रहीत है। अगर ऐप का डेटा साफ़ हो जाए तो सब कुछ खो जाएगा। इसे अपने डिवाइस पर सहेजी गई CSV फ़ाइलों में बैकअप करें — एक खर्च के लिए, एक आय के लिए — ताकि फिर से इंस्टॉल करने के बाद भी आप इसे कभी भी पुनर्स्थापित कर सकें।</string>
+    <string name="sync_location">फ़ाइलें यहाँ सहेजी जाती हैं: %1$s</string>
+    <string name="sync_button">अभी सिंक करें</string>
+    <string name="sync_upload_button">बैकअप से पुनर्स्थापित करें</string>
+    <string name="sync_exported">%3$s में %1$d खर्च और %2$d आय का बैकअप लिया गया</string>
+    <string name="sync_restored">%1$d लेनदेन पुनर्स्थापित किए गए</string>
+    <string name="sync_no_backup">कोई बैकअप फ़ाइल नहीं मिली। पहले \'अभी सिंक करें\' दबाएँ।</string>
+    <string name="sync_failed">कुछ गड़बड़ हो गई। कृपया फिर से प्रयास करें।</string>
     <string name="settings_language">भाषा</string>
     <string name="language_system_default">सिस्टम डिफ़ॉल्ट</string>
 

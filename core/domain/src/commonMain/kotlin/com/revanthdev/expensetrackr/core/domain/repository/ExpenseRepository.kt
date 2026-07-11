@@ -20,6 +20,8 @@ interface ExpenseRepository {
         filter: DateFilter
     ): Flow<List<ExpenseWithDetails>>
     suspend fun getExpenseById(id: Long): Result<Expense, DataError.Local>
+    /** Every transaction (expense + income), all dates — for exporting a full backup. */
+    suspend fun getAllTransactions(): Result<List<Expense>, DataError.Local>
     suspend fun insertExpense(expense: Expense): Result<Long, DataError.Local>
     suspend fun updateExpense(expense: Expense): EmptyResult<DataError.Local>
     suspend fun deleteExpense(id: Long): EmptyResult<DataError.Local>

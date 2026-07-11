@@ -2,6 +2,7 @@ package com.revanthdev.expensetrackr
 
 import android.app.Application
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.revanthdev.expensetrackr.core.domain.repository.BackupFileStore
 import com.revanthdev.expensetrackr.core.data.di.coreDataModule
 import com.revanthdev.expensetrackr.core.data.di.dataStoreContext
 import com.revanthdev.expensetrackr.core.database.DefaultCategorySeeder
@@ -23,6 +24,7 @@ import org.koin.android.ext.android.get
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import org.koin.dsl.module
 import kotlin.coroutines.EmptyCoroutineContext.get
 
 class ExpenseTrackerApp : Application() {
@@ -41,6 +43,7 @@ class ExpenseTrackerApp : Application() {
             androidLogger()
             androidContext(this@ExpenseTrackerApp)
             modules(
+                module { single<BackupFileStore> { AndroidBackupFileStore(androidContext()) } },
                 coreDatabaseModule,
                 coreDataModule,
                 onboardingModule,

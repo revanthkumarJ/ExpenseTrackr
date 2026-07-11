@@ -56,6 +56,8 @@ import com.revanthdev.expensetrackr.feature.expenses.presentation.AllExpensesRou
 import com.revanthdev.expensetrackr.feature.onboarding.presentation.OnboardingRoot
 import com.revanthdev.expensetrackr.feature.onboarding.presentation.OnboardingRoute
 import com.revanthdev.expensetrackr.feature.settings.presentation.*
+import com.revanthdev.expensetrackr.feature.settings.presentation.sync.SyncRoot
+import com.revanthdev.expensetrackr.feature.settings.presentation.sync.SyncRoute
 import kotlinx.coroutines.flow.first
 import kotlinx.serialization.Serializable
 import org.koin.compose.koinInject
@@ -211,6 +213,10 @@ private fun AppNavHost(startDestination: Any) {
         composable<TermsOfServiceRoute> {
             TermsOfServiceScreen(onBack = { rootNavController.popBackStack() })
         }
+
+        composable<SyncRoute> {
+            SyncRoot(onBack = { rootNavController.popBackStack() })
+        }
     }
 }
 
@@ -281,7 +287,8 @@ private fun MainScaffold(rootNavController: androidx.navigation.NavController) {
                     onNavigateToNotificationSettings = { rootNavController.navigate(NotificationSettingsRoute) },
                     onNavigateToAbout = { rootNavController.navigate(AboutRoute) },
                     onNavigateToPrivacyPolicy = { rootNavController.navigate(PrivacyPolicyRoute) },
-                    onNavigateToTerms = { rootNavController.navigate(TermsOfServiceRoute) }
+                    onNavigateToTerms = { rootNavController.navigate(TermsOfServiceRoute) },
+                    onNavigateToSync = { rootNavController.navigate(SyncRoute) }
                 )
             }
         }

@@ -35,6 +35,26 @@ explicitly chose this over a pure-Swift rewrite.
 
 ## 3. Current state (what's DONE)
 
+### Update (2026-07-12): iOS now runs the shared Compose app ✅
+Per an explicit user request, the iOS app currently **hosts the shared Compose `App()`** (rather
+than waiting for the screen-by-screen SwiftUI rebuild), so iOS is fully functional with the same
+features as Android. This does **not** cancel the SwiftUI learning goal — individual screens can
+still be re-implemented natively later; this just gives a working app now.
+
+Wiring added:
+- `shared/iosMain/KoinIos.kt` — `startKoinIos()` starts Koin with all modules (called from Swift
+  `iOSApp.init()`), and seeds default categories. Parity with Android's `ExpenseTrackerApp`.
+- `shared/iosMain/MainViewController.kt` — wraps `App()` and provides `LocalShareHandler`.
+- `shared/iosMain/IosShareHandler.kt` — share sheet via `UIActivityViewController`.
+- `shared/iosMain/IosBackupFileStore.kt` — Backup & Sync CSVs to `Documents/ExpenseTrackr`.
+- Swift `iosApp/iosApp/{iOSApp,ContentView}.swift` — `ComposeView: UIViewControllerRepresentable`
+  hosts `MainViewControllerKt.MainViewController()`; `App.init()` calls `KoinIosKt.startKoinIos()`.
+- Teaching note: `swift_learn/01_hosting_compose_in_swiftui.md`.
+- Verified: `./gradlew :shared:linkDebugFrameworkIosSimulatorArm64` → BUILD SUCCESSFUL. (Full run
+  still needs an Xcode build on a Mac/simulator.)
+
+
+
 ### iOS environment is unblocked ✅
 The `Shared` framework now compiles & links for iOS. It had never fully built before (Android/JVM
 hid native-only errors). Verified with:

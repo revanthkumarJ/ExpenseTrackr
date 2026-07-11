@@ -103,6 +103,18 @@
     <string name="settings_about">About</string>
     <string name="settings_privacy">Privacy Policy</string>
     <string name="settings_terms">Terms of Service</string>
+    <string name="settings_share">Share App</string>
+    <string name="share_app_message">Check out ExpenseTrackr — a simple, private expense tracker: %1$s</string>
+    <string name="settings_sync">Backup &amp; Sync</string>
+    <string name="sync_title">Backup &amp; Sync</string>
+    <string name="sync_description">Your data is stored only on this device. If the app\'s data is cleared, everything is lost. Back it up to CSV files on your device — one for expenses, one for income — so you can restore it anytime, even after reinstalling.</string>
+    <string name="sync_location">Files are saved to: %1$s</string>
+    <string name="sync_button">Sync now</string>
+    <string name="sync_upload_button">Restore from backup</string>
+    <string name="sync_exported">Backed up %1$d expenses and %2$d incomes to %3$s</string>
+    <string name="sync_restored">Restored %1$d transactions</string>
+    <string name="sync_no_backup">No backup files found. Tap \'Sync now\' first.</string>
+    <string name="sync_failed">Something went wrong. Please try again.</string>
     <string name="settings_language">Language</string>
     <string name="language_system_default">System default</string>
 

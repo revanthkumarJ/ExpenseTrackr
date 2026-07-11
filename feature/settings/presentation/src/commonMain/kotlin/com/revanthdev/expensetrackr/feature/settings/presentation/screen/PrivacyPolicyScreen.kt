@@ -41,7 +41,7 @@ fun PrivacyPolicyScreen(onBack: () -> Unit) {
             PolicySection("Usage Analytics", "The app uses Google Firebase Analytics to understand how the app is used in aggregate (for example, which screens are opened and how often the app is launched). This data is anonymous and cannot be used to identify you personally. It does NOT include the content of your financial records.")
             PolicySection("Third Parties", "Crash and analytics data is processed by Google as part of Firebase. Google's handling of this data is governed by the Google Privacy Policy (policies.google.com/privacy). We do not use any advertising networks or sell your data.")
             PolicySection("Your Choices", "Your financial data stays on your device and you can delete it at any time by clearing the app's storage in your device settings. Crash and analytics reporting only collect anonymous diagnostic information and never your financial records.")
-            PolicySection("Contact", "Questions? Email: support@revanthdev.com")
+            PolicySection("Contact", "Questions? Email: jrevanth101@gmail.com")
         }
     }
 }

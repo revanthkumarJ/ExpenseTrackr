@@ -93,6 +93,18 @@
     <string name="settings_about">గురించి</string>
     <string name="settings_privacy">గోప్యతా విధానం</string>
     <string name="settings_terms">సేవా నిబంధనలు</string>
+    <string name="settings_share">యాప్‌ను షేర్ చేయండి</string>
+    <string name="share_app_message">ExpenseTrackr చూడండి — సరళమైన, ప్రైవేట్ ఖర్చు ట్రాకర్: %1$s</string>
+    <string name="settings_sync">బ్యాకప్ &amp; సింక్</string>
+    <string name="sync_title">బ్యాకప్ &amp; సింక్</string>
+    <string name="sync_description">మీ డేటా ఈ పరికరంలో మాత్రమే నిల్వ చేయబడుతుంది. యాప్ డేటా క్లియర్ అయితే అంతా పోతుంది. దీన్ని మీ పరికరంలోని CSV ఫైళ్లలో బ్యాకప్ చేయండి — ఒకటి ఖర్చులకు, ఒకటి ఆదాయానికి — తద్వారా మళ్లీ ఇన్‌స్టాల్ చేసిన తర్వాత కూడా ఎప్పుడైనా పునరుద్ధరించవచ్చు.</string>
+    <string name="sync_location">ఫైళ్లు ఇక్కడ సేవ్ చేయబడతాయి: %1$s</string>
+    <string name="sync_button">ఇప్పుడు సింక్ చేయండి</string>
+    <string name="sync_upload_button">బ్యాకప్ నుండి పునరుద్ధరించండి</string>
+    <string name="sync_exported">%3$s కు %1$d ఖర్చులు మరియు %2$d ఆదాయాలు బ్యాకప్ చేయబడ్డాయి</string>
+    <string name="sync_restored">%1$d లావాదేవీలు పునరుద్ధరించబడ్డాయి</string>
+    <string name="sync_no_backup">బ్యాకప్ ఫైళ్లు కనుగొనబడలేదు. ముందుగా \'ఇప్పుడు సింక్ చేయండి\' నొక్కండి.</string>
+    <string name="sync_failed">ఏదో తప్పు జరిగింది. దయచేసి మళ్లీ ప్రయత్నించండి.</string>
     <string name="settings_language">భాష</string>
     <string name="language_system_default">సిస్టమ్ డిఫాల్ట్</string>
 

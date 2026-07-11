@@ -85,6 +85,12 @@ class RoomExpenseRepository(
         Result.Error(DataError.Local.UNKNOWN)
     }
 
+    override suspend fun getAllTransactions(): Result<List<Expense>, DataError.Local> = try {
+        Result.Success(expenseDao.getAllTransactions().map { it.toExpense() })
+    } catch (e: Exception) {
+        Result.Error(DataError.Local.UNKNOWN)
+    }
+
     override suspend fun insertExpense(expense: Expense): Result<Long, DataError.Local> = try {
         Result.Success(expenseDao.insertExpense(expense.toExpenseEntity()))
     } catch (e: Exception) {

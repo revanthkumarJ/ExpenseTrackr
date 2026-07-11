@@ -17,5 +17,6 @@ One concept per file, named after the component (e.g. `navigation_bottom_bar.md`
 | File | Concept covered |
 |------|-----------------|
 | [00_swiftui_basics_hello.md](00_swiftui_basics_hello.md) | SwiftUI fundamentals: `View`, `body`, `some View`, stacks vs Compose layouts, modifiers, `#Preview` |
+| [01_hosting_compose_in_swiftui.md](01_hosting_compose_in_swiftui.md) | Hosting the shared Compose app in SwiftUI: `UIViewControllerRepresentable`, `ComposeUIViewController`, Kotlin→Swift name mapping, starting Koin from `App.init()` |
 
 _(New rows are added as we build each component.)_
