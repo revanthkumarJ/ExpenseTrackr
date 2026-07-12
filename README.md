@@ -35,7 +35,8 @@
 <!-- 📌 APP BANNER GOES HERE -->
 <!-- Replace the line below with your banner image, e.g. ![ExpenseTrackr Banner](docs/banner.png) -->
 
-**_[ App banner will be placed here ]_**
+<img width="1794" height="876" alt="ChatGPT Image Jul 11, 2026, 02_46_25 PM" src="https://github.com/user-attachments/assets/af685a9c-4e5f-4070-8227-11013b7a5620" />
+
 
 </div>
 
