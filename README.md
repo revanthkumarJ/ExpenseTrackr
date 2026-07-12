@@ -1,535 +1,245 @@
-# Product Requirements Document (PRD)
-## Expense Tracker — KMP Application (Android,IOS, Desktop)
+<div align="center">
 
-**Version:** 1.0.0  
-**Status:** Draft  
-**Last Updated:** 2026-06-04  
-**Platform:** KMP (Android,Ios,Desktop)  
-**Currency:** INR (₹)  
-**Data Storage:** Fully Offline — Room Database (Local)
+# 💰 ExpenseTrackr
 
----
+### A privacy-first, offline personal finance tracker built with Kotlin Multiplatform & Compose Multiplatform
 
-## 1. Product Overview
+**One codebase → Android, iOS, and Desktop.**
 
-### 1.1 Product Summary
+![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS%20%7C%20Desktop-3D52A0)
+![Kotlin](https://img.shields.io/badge/Kotlin-Multiplatform-7F52FF?logo=kotlin&logoColor=white)
+![Compose](https://img.shields.io/badge/UI-Compose%20Multiplatform-4285F4)
+![Architecture](https://img.shields.io/badge/Architecture-Clean%20MVI-00897B)
+![Languages](https://img.shields.io/badge/Localized-24%20languages-FF7043)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-Expense Tracker is a fully offline, privacy-first Android application that empowers users to record, categorize, analyze, and manage their personal expenses — entirely on-device. No internet connection is required, no data is ever transmitted to any server, and users retain complete ownership of their financial data.
-
-### 1.2 Problem Statement
-
-Most expense tracking apps either require cloud accounts (privacy concern), are too complex for daily use, or lack meaningful analytics. Users need a simple, beautiful, and trustworthy tool that works without internet, respects their privacy, and provides clear financial insights.
-
-### 1.3 Target Audience
-
-- Individuals tracking personal daily expenses
-- People mindful of data privacy
-- Users who want offline-first financial tools
-- Anyone managing household or personal budgets in India
-
-### 1.4 Key Value Propositions
-
-- **100% Offline** — No internet, no cloud, no accounts required
-- **Privacy First** — All data stays on-device, always
-- **Beautiful UI** — Stunning, modern design with dark/light mode
-- **Smart Analytics** — Pie charts, category breakdowns, budget tracking
-- **Flexible Structure** — Customizable categories and sub-categories
+</div>
 
 ---
 
-## 2. App Screens & Navigation
+## 🚦 Platform Status
 
-### 2.1 Navigation Structure
+| Platform | Status | Notes |
+|----------|--------|-------|
+| 🤖 **Android** | ✅ **Complete** | In **Google Play closed testing** — public release coming soon |
+| 🍎 **iOS** | 🚧 **In progress** | Runs the shared Compose app; native SwiftUI port underway |
+| 🖥️ **Desktop (JVM)** | 🚧 **In progress** | Compose desktop target wired; polishing in progress |
 
-The app uses a **Bottom Navigation Bar** with 4 main tabs:
-
-| Tab | Icon | Screen Name |
-|-----|------|-------------|
-| 1 | 📊 | Dashboard (Category View) |
-| 2 | 📋 | All Expenses |
-| 3 | 📈 | Analytics |
-| 4 | ⚙️ | Settings & More |
-
-A **Floating Action Button (FAB)** is globally accessible on tabs 1 and 2 to quickly add an expense.
+> 📱 **Android is feature-complete and going live on the Play Store shortly.** iOS and Desktop share the
+> same business logic and are being finished next.
 
 ---
 
-## 3. Functional Requirements
+<div align="center">
 
-### 3.1 Onboarding (First Launch Only)
+<!-- 📌 APP BANNER GOES HERE -->
+<!-- Replace the line below with your banner image, e.g. ![ExpenseTrackr Banner](docs/banner.png) -->
 
-**Trigger:** Shown only on first app launch. Never shown again after completion.
+**_[ App banner will be placed here ]_**
 
-**Screens:**
-
-| Slide | Title | Description |
-|-------|-------|-------------|
-| 1 | Welcome to Expense Tracker | Brief intro — offline, private, beautiful |
-| 2 | Track Your Spending | Explain categories and expense logging |
-| 3 | Smart Analytics | Explain pie charts and budget alerts |
-| 4 | Your Data, Your Device | Emphasize privacy — no cloud, no accounts |
-
-**Controls:** Skip button (top right), Next button, dot indicators, and a Get Started button on the last slide.
+</div>
 
 ---
 
-### 3.2 App Lock (Security)
+## 📖 Overview
 
-**Options available to user (configurable in Settings):**
+**ExpenseTrackr** helps you record, categorize, budget, and analyze your personal finances — with your
+data staying **on your device**. There are no accounts and no cloud sync of your financial records: every
+expense, income, budget, and category lives in a local database you fully own.
 
-- **PIN Lock** — 4–6 digit numeric PIN set by the user
-- **Biometric Lock** — Fingerprint / Face Unlock using Android BiometricPrompt API
-- **Both** — Biometric with PIN fallback
-- **None** — No lock (default)
+It's built as a **single Kotlin Multiplatform codebase** that renders a native UI on Android, iOS, and
+Desktop via **Compose Multiplatform**, following a **clean, modular MVI architecture**.
 
-**Behavior:**
-
-- Lock screen appears when app is reopened after being backgrounded for more than 1 minute (configurable)
-- Forgot PIN → user must clear app data (stated clearly in UI)
-- Biometric failure falls back to PIN
-
----
-
-### 3.3 Categories
-
-#### 3.3.1 Default Categories (Pre-loaded)
-
-| # | Category Name | Icon | Color |
-|---|---------------|------|-------|
-| 1 | Food & Dining | 🍔 | Orange |
-| 2 | Rent & Housing | 🏠 | Blue |
-| 3 | Travel | ✈️ | Teal |
-| 4 | Medicines & Health | 💊 | Red |
-| 5 | Entertainment | 🎬 | Purple |
-| 6 | Shopping | 🛍️ | Pink |
-| 7 | Education | 📚 | Indigo |
-| 8 | Utilities | ⚡ | Yellow |
-| 9 | Others | 📦 | Grey |
-
-#### 3.3.2 Custom Categories
-
-- User can **create** new categories with: Name + Icon (emoji picker) + Color
-- User can **edit** existing custom categories
-- User can **delete** custom categories (only if no expenses are linked; else warn user)
-- Default categories cannot be deleted but can be renamed
-
-#### 3.3.3 Sub-Categories
-
-- No default sub-categories (user-defined only)
-- Each sub-category **must belong to one parent category**
-- Examples: Food → Tea, Breakfast, Biryani | Rent → PG, Flat
-- User can **create, edit, and delete** sub-categories
-- Deleting a sub-category with linked expenses: prompt user — detach or cancel
+### Why it stands out
+- **True multiplatform** — domain, data, and UI shared across 3 platforms from one codebase (~10k lines of Kotlin, 16 Gradle modules).
+- **Offline-first & private** — financial data never leaves the device; only anonymous crash/usage diagnostics are collected (opt-in-friendly, no ads, no data selling).
+- **Production-grade engineering** — clean architecture, MVI, dependency injection, custom Gradle convention plugins, R8 minification, and a real Play Store release pipeline.
+- **Fully localized** — 24 languages with an in-app language switcher (no app restart required).
 
 ---
 
-### 3.4 Add / Edit Expense
+## ✨ Features
 
-#### 3.4.1 Add Expense Screen (Bottom Sheet or Full Screen)
+### 💸 Track money in & out
+- Log **expenses and income** with name, amount (₹), category, sub-category, date/time, and notes.
+- **Income & salary tracking** kept separate from spend math, so budgets/analytics stay accurate.
+- Add an expense in **3 taps or fewer** from anywhere.
 
-**Fields:**
+### 🗂️ Flexible organization
+- **9 pre-seeded categories** + unlimited custom categories (emoji icon + color).
+- **Sub-categories** under any category (e.g. Food → Tea, Breakfast).
+- Safe deletes: warns when a category/sub-category still has linked transactions.
 
-| Field | Type | Required | Notes |
-|-------|------|----------|-------|
-| Expense Name | Text input | Yes | Max 100 characters |
-| Amount (₹) | Numeric input | Yes | Decimal supported, 2 decimal places |
-| Category | Dropdown / Picker | Yes | Shows all categories |
-| Sub-Category | Dropdown / Picker | No | Filtered by selected category; auto-selects category if sub-category chosen first |
-| Date & Time | Date-Time Picker | Yes | Defaults to current date & time; fully editable |
-| Notes | Text area | No | Optional notes, max 300 characters |
+### 📊 Insightful analytics
+- **Interactive donut chart** — tap a slice to highlight the category and see its amount & share.
+- **Spent-vs-Saved** breakdown and **spending-over-time** bar chart.
+- Stat cards: top category, average daily spend, income, savings rate.
 
-**Behavior:**
+### 🎯 Budgeting
+- **Overall monthly budget** + optional **per-category budgets**.
+- Color-coded progress (green / yellow / red) and pre-overspend warnings.
+- "Allow over budget" option for flexibility.
 
-- If sub-category is selected first, parent category auto-populates and locks
-- Amount field shows ₹ prefix
-- Validation: Amount must be > 0, Category must be selected
-- Save button disabled until required fields are filled
+### 🔍 Powerful filtering
+- This Week · This Month · Last Month · This Year · **Custom range**.
+- Filter state persists per screen.
 
-#### 3.4.2 Edit Expense
+### 💾 Backup & Sync _(new)_
+- Export everything to **CSV** — `expenses.csv` + `incomes.csv` — into an **ExpenseTrackr** folder in
+  shared storage that **survives clearing app data / reinstalling**.
+- **Restore/merge** from those files, de-duplicated by database ID. Categories are stored as text and
+  recreated on import, so a backup is fully self-sufficient and readable in Excel/Sheets.
 
-- All fields editable
-- Shows original creation timestamp as reference
-- Delete option available (with confirmation dialog)
+### 🔐 Security
+- **App lock** with a 6-digit PIN and optional **biometric** (fingerprint/face) unlock with PIN fallback.
+- PIN stored as a **SHA-256 hash**; biometrics handled by the OS (no biometric data stored).
 
----
+### 🌐 Localization
+- **24 languages** (Indian + world), including English, Hindi, Telugu, Tamil, Bengali, Marathi, Gujarati,
+  Kannada, Malayalam, Punjabi, Urdu, Chinese, Spanish, Arabic, and more.
+- **In-app language switcher** that overrides the system locale (RTL supported).
 
-### 3.5 Screen 1 — Dashboard (Category View)
+### 🎨 Experience
+- **Material 3 (Material You)** design, light/dark/system themes, dynamic color on Android 12+.
+- Smooth transitions, bounce-tap feedback, and thoughtful empty states.
+- **Share App** action and a guided **onboarding** flow.
 
-**Purpose:** This month's expenses, organized by category.
-
-**Default View:** Current month
-
-**Header:**
-- Month/filter label (e.g., "June 2026")
-- Total spend amount (prominent)
-- Filter button (top right)
-
-**Content:**
-
-- List of **Category Cards**, each showing:
-    - Category icon + name
-    - Total amount spent in that category
-    - Progress bar relative to budget (if budget is set)
-    - Percentage of total spend
-
-**On Category Card Tap:**
-
-→ Opens **Sub-Category View** for that category:
-- Lists all sub-categories with their totals
-- A row for "Uncategorized" (expenses with no sub-category)
-
-**On Sub-Category Tap:**
-
-→ Opens **Expense List View** filtered by that category + sub-category
-
-**On "Uncategorized" row tap:**
-
-→ Opens **Expense List View** showing expenses in that category with no sub-category
+### 📈 Reliability
+- **Firebase Crashlytics + Analytics** (Android) for anonymous crash reports and aggregate usage — used
+  only to improve stability, never your financial data.
 
 ---
 
-### 3.6 Screen 2 — All Expenses
+## 🛠️ Tech Stack
 
-**Purpose:** Flat list of all expenses, most recent first.
-
-**Features:**
-
-- Grouped by date (e.g., "Today", "Yesterday", "June 3")
-- Each expense row shows: Name, Category chip, Sub-category chip (if any), Amount, Time
-- Swipe left on expense → Delete (with undo snackbar)
-- Tap on expense → Edit Expense screen
-- Search bar at top (search by name, category, or amount)
-- Filter button (top right)
-
----
-
-### 3.7 Filter System (Shared across Screens 1 & 2)
-
-**Available Filters:**
-
-| Filter | Description |
-|--------|-------------|
-| This Week | Current week (Mon–Sun) |
-| This Month | Current calendar month |
-| Last Month | Previous calendar month |
-| This Year | Current calendar year |
-| Custom Range | User picks start and end date via date picker |
-
-- Filter state persists per screen separately
-- Chip/badge shown on screen indicating active filter
-- "Clear Filter" option resets to "This Month" (default)
+| Layer | Technology |
+|-------|-----------|
+| **Language** | Kotlin (Multiplatform), Swift (iOS host) |
+| **UI** | Compose Multiplatform, Material 3, Material Icons Extended |
+| **Architecture** | Clean Architecture + MVI (State / Action / Event), unidirectional data flow |
+| **DI** | Koin (core + compose-viewmodel) |
+| **Navigation** | Compose Navigation with type-safe, `@Serializable` routes |
+| **Persistence** | Room (KMP) + `androidx.sqlite` bundled driver; DataStore (preferences) |
+| **Async** | Kotlinx Coroutines & Flow |
+| **Serialization / Time** | kotlinx.serialization, kotlinx.datetime |
+| **Logging** | Kermit |
+| **Diagnostics (Android)** | Firebase Crashlytics & Analytics |
+| **Build** | Gradle (Kotlin DSL), version catalog, **custom convention plugins** (`build-logic`), R8 minify + resource shrinking |
 
 ---
 
-### 3.8 Screen 3 — Analytics
+## 🏗️ Architecture
 
-**Purpose:** Visual breakdown of spending.
+A **clean, modular MVI** design with a strict one-way dependency direction:
 
-#### 3.8.1 Analytics Header
+```
+androidApp / iosApp / desktopApp
+        │  (host + platform bridges)
+shared (App.kt — Compose nav host)
+        │
+feature/* (presentation only — one screen module each)
+        │
+core:design-system → core:presentation → core:domain
+core:data → core:database, core:domain
+```
 
-- Filter selector (same options as Filter System above)
-- Total spend for selected period (prominent)
+- **`core:domain`** — pure Kotlin: models, repository interfaces, `Result`/`DataError`, `DateFilter`, `AppSettings`.
+- **`core:data`** — Room + DataStore implementations; `PinHasher` (expect/actual SHA-256), Koin modules.
+- **`core:presentation`** — shared UI utilities, the **string-resource catalog**, `BiometricAuthenticator` & `ShareHandler` platform bridges.
+- **`core:design-system`** — theme + reusable components (cards, charts helpers, PIN pad, motion).
+- **`shared`** — root Compose `App()` + navigation; hosts the app on all platforms.
+- **`feature/*`** — 8 feature modules, each a self-contained MVI screen set.
 
-#### 3.8.2 Category Pie Chart
+**Every screen follows the same MVI contract:** `XxxState` · `XxxAction` · `XxxEvent` · `XxxViewModel` (exposes `StateFlow` + event `Channel`, single `onAction`) · a stateless `XxxScreen` · a `XxxRoot` that wires DI + navigation.
 
-- Interactive pie chart showing spend by category
-- Tap on a slice → highlights that category and shows detail below
-- Legend below chart with category name, amount, and percentage
+**Multiplatform abstractions** are handled cleanly via `expect`/`actual` (DB builder, DataStore, PIN hashing, locale) and Compose `CompositionLocal` bridges (biometrics, sharing) with per-platform implementations.
 
-#### 3.8.3 Sub-Category Breakdown (Per Category)
+### Feature modules
 
-- Below the main pie chart, a **horizontal scrollable row of category tabs**
-- Selecting a category tab shows a secondary pie chart for its sub-categories
-- Sub-categories with no spend are excluded
+| Module | Screens |
+|--------|---------|
+| `dashboard` | Category dashboard, sub-category drilldown, filtered expenses |
+| `expenses` | Expense list + search, add/edit with date-time picker & budget guard |
+| `analytics` | Donut chart, spent-vs-saved, spending-over-time, stat cards |
+| `budget` | Monthly + per-category budgets, allow-over-budget |
+| `categories` | Manage categories & sub-categories |
+| `settings` | Settings, About/Privacy/Terms, notifications, app-lock, language, **Backup & Sync**, **Share** |
+| `applock` | PIN / biometric unlock |
+| `onboarding` | Language picker + intro pager |
 
-#### 3.8.4 Summary Stats
-
-- Highest spending category
-- Average daily spend
-- Most frequent expense name
-
----
-
-### 3.9 Budget Management
-
-#### 3.9.1 Overall Monthly Budget
-
-- User sets a single monthly total budget (₹)
-- Dashboard header shows: Spent / Total Budget with a progress bar
-- Color coding: Green (< 70%), Yellow (70–90%), Red (> 90%)
-
-#### 3.9.2 Per-Category Budget
-
-- User can set a monthly budget per category (optional)
-- Shown on each category card as a progress bar
-- Same color-coded thresholds as above
-
-#### 3.9.3 Budget Settings Screen
-
-- Accessible from Settings or directly from Dashboard
-- Toggle to enable/disable overall budget
-- List of categories with optional budget amount fields
-- Reset all budgets option
+**At a glance:** 16 Gradle modules · 18 screens · 15 ViewModels · 24 languages.
 
 ---
 
-### 3.10 Notifications (Local Only)
+## 📦 Data Model
 
-#### 3.10.1 Daily Expense Reminder
+- **Category** — `id`, name, icon (emoji), colorHex, isDefault, budgetAmount?, type (EXPENSE/INCOME), createdAt
+- **SubCategory** — `id`, name, categoryId (FK), createdAt
+- **Expense** — `id`, name, amount, categoryId (FK), subCategoryId? (FK), notes?, **type (EXPENSE/INCOME)**, expenseDate, createdAt
+- **AppSettings** (DataStore) — theme, language, app-lock type & PIN hash, lock timeout, reminders, budgets, onboarding flag
 
-- Configurable daily reminder: "Don't forget to log today's expenses!"
-- User sets preferred time (default: 9:00 PM)
-- Toggle to enable/disable in Settings
-
-#### 3.10.2 Budget Alert Notification
-
-- Triggered when spending crosses 80% of either:
-    - Overall monthly budget, OR
-    - Any per-category budget
-- Notification body: "You've used 80% of your [Category] budget for [Month]."
-- Not repeated until next threshold (100%) is crossed
-- Requires notification permission (Android 13+)
+> Income and expenses share one table, discriminated by `type`, keeping the schema simple while separating the two in all spend/budget/analytics math.
 
 ---
 
-### 3.11 Screen 4 — Settings & More
+## 🔒 Privacy
 
-**Sections:**
-
-#### Preferences
-- Dark Mode toggle (Light / Dark / System Default)
-- App Lock settings (PIN / Biometric / None)
-- Auto-lock timeout (1 min / 5 min / 10 min)
-- Notification settings (Daily reminder toggle + time picker, Budget alerts toggle)
-
-#### Budget
-- Shortcut to Budget Management screen
-
-#### Data Management
-- Manage Categories (create, edit, delete)
-- Manage Sub-Categories (create, edit, delete)
-
-#### App Info
-- About screen
-- Privacy Policy
-- Terms of Service
-- Open Source Licenses
-- App Version
-- Rate the App (links to Play Store)
-- Contact / Support (email link)
+- **Your money data stays on your device** — expenses, income, and budgets are never uploaded or shared.
+- The only data leaving the device is **anonymous crash reports and aggregate usage analytics** (Firebase),
+  used solely to improve reliability — never the content of your financial records. No ads, no data selling.
+- Full policy: [`docs/privacy-policy.html`](docs/privacy-policy.html).
 
 ---
 
-### 3.12 About / Privacy / Legal Screens
+## ▶️ Build & Run
 
-These are required for Play Store publication:
+**Requirements:** JDK 11+, Android Studio (latest), Xcode (for iOS), and a `google-services.json` in
+`androidApp/` (from your own Firebase project) for the Android build.
 
-#### About
-- App name, version, tagline
-- Developer/company name
-- Brief description
+```bash
+# Fast common-code check (compiles all shared/feature code)
+./gradlew :shared:compileKotlinJvm
 
-#### Privacy Policy
-- Data collection: None (fully offline)
-- No third-party SDKs that collect data
-- No analytics, no crash reporting sent externally
-- Statement that all data is stored locally on device
+# Android debug APK
+./gradlew :androidApp:assembleDebug
 
-#### Terms of Service
-- Standard ToS for a free app
-- Disclaimer of liability for financial decisions
+# Android release bundle (signed — see keystore.properties)
+./gradlew :androidApp:bundleRelease
 
-All screens accessible from Settings and from Play Store listing URL.
+# iOS framework link check
+./gradlew :shared:linkDebugFrameworkIosSimulatorArm64
 
----
+# Desktop app
+./gradlew :desktopApp:run
+```
 
-## 4. Non-Functional Requirements
-
-### 4.1 Performance
-
-- App cold start: < 2 seconds on mid-range device
-- Expense list with 1,000+ entries: scroll at 60fps
-- Database queries: < 100ms for all filtered reads
-- Chart rendering: < 500ms
-
-### 4.2 Offline
-
-- 100% functionality without internet
-- No network calls of any kind (except optional Play Store rate link)
-- No Firebase, no analytics SDKs, no crash reporting
-
-### 4.3 Storage
-
-- Room database stored in internal app storage (not accessible without root)
-- Database size estimate: < 5MB for 10,000 expenses
-
-### 4.4 Security
-
-- PIN stored as SHA-256 hash in EncryptedSharedPreferences
-- Room database optionally encrypted with SQLCipher (if app lock is enabled)
-- Biometric uses Android BiometricPrompt — no biometric data stored by the app
-
-### 4.5 Compatibility
-
-- Minimum SDK: Android 8.0 (API 26)
-- Target SDK: Android 15 (API 35)
-- Screen sizes: Phones (compact + medium); Tablets supported but not primary
-
-### 4.6 Accessibility
-
-- All interactive elements have content descriptions
-- Minimum touch target: 48×48dp
-- Text scales with system font size settings
-- Color choices pass WCAG AA contrast ratio
+**iOS:** open `iosApp/iosApp.xcodeproj` in Xcode, pick a simulator, and Run. The shared `Shared`
+framework builds via a Gradle build phase, Koin starts from `App.init()`, and the shared Compose UI loads.
 
 ---
 
-## 5. UI / UX Requirements
+## 🗺️ Roadmap
 
-### 5.1 Design Language
-
-- **Design System:** Material Design 3 (Material You)
-- **Typography:** Clean, readable sans-serif (Nunito or Inter)
-- **Iconography:** Material Symbols Rounded
-- **Animations:** Subtle, meaningful transitions (shared element transitions, fade-ins)
-- **Elevation:** Card-based layout with soft shadows
-
-### 5.2 Theming
-
-| Mode | Trigger |
-|------|---------|
-| Light Mode | Manual toggle or system default |
-| Dark Mode | Manual toggle or system default |
-| System Default | Follows Android system theme |
-
-- Theme preference saved in SharedPreferences
-- Dynamic Color (Material You wallpaper-based theming) supported on Android 12+
-
-### 5.3 Color Palette (Base)
-
-| Role | Light | Dark |
-|------|-------|------|
-| Primary | Deep Indigo #3D52A0 | Soft Indigo #7091E6 |
-| Secondary | Teal #00897B | Light Teal #4DB6AC |
-| Background | #F8F9FA | #121212 |
-| Surface | #FFFFFF | #1E1E1E |
-| Error | #D32F2F | #EF9A9A |
-
-### 5.4 Key UX Principles
-
-- **Thumb-friendly:** Primary actions reachable with one thumb (FAB, bottom nav)
-- **Minimal taps:** Add expense in 3 taps or fewer from any screen
-- **Forgiving:** Delete with undo, confirmations for destructive actions
-- **Informative empty states:** Helpful illustrations and CTAs when no data exists
+- ✅ Android feature-complete → Play Store closed testing → **public release (soon)**
+- 🚧 iOS: native SwiftUI screen-by-screen port (currently hosting the shared Compose app)
+- 🚧 Desktop (JVM) polish
+- 🔜 Recurring transactions, home-screen widgets, richer charts
 
 ---
 
-## 6. Data Model (High Level)
+## 👤 Author
 
-### 6.1 Entities
-
-**Category**
-- id (PK)
-- name
-- icon (emoji string)
-- colorHex
-- isDefault (Boolean)
-- budgetAmount (nullable ₹)
-- createdAt
-
-**SubCategory**
-- id (PK)
-- name
-- categoryId (FK → Category)
-- createdAt
-
-**Expense**
-- id (PK)
-- name
-- amount (Double)
-- categoryId (FK → Category)
-- subCategoryId (nullable FK → SubCategory)
-- notes (nullable)
-- expenseDate (DateTime — user-selected)
-- createdAt (DateTime — system-generated)
-
-**AppSettings**
-- id (PK, always 1)
-- isDarkMode (nullable — null = system)
-- appLockType (NONE / PIN / BIOMETRIC / BOTH)
-- pinHash (nullable)
-- lockTimeoutMinutes
-- dailyReminderEnabled
-- dailyReminderTime
-- budgetAlertEnabled
-- overallMonthlyBudget (nullable)
-- isOnboardingDone
+**Revanth Kumar Jilakara**
+📧 jrevanth101@gmail.com · 🐙 [github.com/revanthkumarJ](https://github.com/revanthkumarJ)
 
 ---
 
-## 7. Screens Summary Table
+## 📄 License
 
-| # | Screen | Accessible From |
-|---|--------|----------------|
-| 1 | Splash Screen | App launch |
-| 2 | Onboarding (4 slides) | First launch only |
-| 3 | App Lock / PIN Entry | Every launch (if enabled) |
-| 4 | Dashboard (Category View) | Bottom Nav Tab 1 |
-| 5 | Sub-Category View | Tap category on Dashboard |
-| 6 | Expense List (filtered) | Tap sub-category |
-| 7 | All Expenses | Bottom Nav Tab 2 |
-| 8 | Add Expense | FAB (global) |
-| 9 | Edit / Delete Expense | Tap expense row |
-| 10 | Analytics | Bottom Nav Tab 3 |
-| 11 | Settings & More | Bottom Nav Tab 4 |
-| 12 | Manage Categories | Settings |
-| 13 | Manage Sub-Categories | Settings |
-| 14 | Budget Management | Settings / Dashboard |
-| 15 | Notification Settings | Settings |
-| 16 | App Lock Setup | Settings |
-| 17 | About | Settings |
-| 18 | Privacy Policy | Settings / Play Store |
-| 19 | Terms of Service | Settings |
+Released under the **MIT License**.
 
----
+<div align="center">
 
-## 8. Out of Scope (v1.0)
+_Built with ❤️ using Kotlin Multiplatform & Compose Multiplatform._
 
-The following features are explicitly excluded from v1.0:
-
-- Data export (CSV / PDF)
-- Cloud backup or sync
-- Multiple currencies
-- Recurring / scheduled expenses
-- Home screen widgets
-- Income tracking
-- Loan or debt tracking
-- Multiple user profiles
-- Web or iOS version
-
----
-
-## 9. Success Metrics (Post-Launch)
-
-| Metric | Target |
-|--------|--------|
-| Play Store Rating | ≥ 4.5 stars |
-| Day-7 Retention | ≥ 40% |
-| Crash-free rate | ≥ 99.5% |
-| ANR rate | < 0.1% |
-| Average session length | ≥ 2 minutes |
-
----
-
-## 10. Risks & Mitigations
-
-| Risk | Mitigation |
-|------|-----------|
-| User loses PIN, cannot access data | Clear warning in UI that PIN recovery requires app data reset |
-| Room DB corruption on low-end devices | WAL mode enabled; periodic integrity checks |
-| Notification permission denied (Android 13+) | Graceful fallback; prompt user with rationale |
-| App killed by aggressive battery optimization | Document workaround in onboarding/FAQ |
-
----
-
-*End of PRD v1.0 — Next document: Architecture & Technology Stack (ARCHITECTURE.md)*
+</div>
