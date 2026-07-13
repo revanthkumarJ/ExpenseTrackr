@@ -131,6 +131,8 @@ class AddEditExpenseViewModel(
             AddEditExpenseAction.OnDeleteConfirm -> deleteExpense()
             AddEditExpenseAction.OnDeleteDismiss -> _state.update { it.copy(showDeleteDialog = false) }
             AddEditExpenseAction.OnBudgetWarningDismiss -> _state.update { it.copy(budgetWarning = null) }
+            AddEditExpenseAction.OnAddCategoryClick -> viewModelScope.launch { _events.send(AddEditExpenseEvent.NavigateToAddCategory) }
+            AddEditExpenseAction.OnAddSubCategoryClick -> viewModelScope.launch { _events.send(AddEditExpenseEvent.NavigateToAddSubCategory) }
             AddEditExpenseAction.OnBack -> viewModelScope.launch { _events.send(AddEditExpenseEvent.NavigateBack) }
         }
     }

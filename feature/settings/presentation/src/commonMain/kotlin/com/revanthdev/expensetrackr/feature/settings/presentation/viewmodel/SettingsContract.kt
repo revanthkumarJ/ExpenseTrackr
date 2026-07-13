@@ -7,6 +7,8 @@ data class SettingsState(val settings: AppSettings = AppSettings(), val isLoadin
 sealed interface SettingsAction {
     data class OnThemeChange(val isDark: Boolean?) : SettingsAction
     data class OnLanguageChange(val tag: String?) : SettingsAction
+    data object OnThemeClick : SettingsAction
+    data object OnLanguageClick : SettingsAction
     data object OnBudgetClick : SettingsAction
     data object OnManageCategoriesClick : SettingsAction
     data object OnManageSubCategoriesClick : SettingsAction
@@ -19,6 +21,8 @@ sealed interface SettingsAction {
 }
 
 sealed interface SettingsEvent {
+    data object NavigateToTheme : SettingsEvent
+    data object NavigateToLanguage : SettingsEvent
     data object NavigateToBudget : SettingsEvent
     data object NavigateToManageCategories : SettingsEvent
     data object NavigateToManageSubCategories : SettingsEvent

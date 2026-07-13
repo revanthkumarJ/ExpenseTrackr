@@ -162,7 +162,11 @@ private fun AppNavHost(startDestination: Any) {
         composable<MainRoute> { MainScaffold(rootNavController = rootNavController) }
 
         composable<AddEditExpenseRoute> {
-            AddEditExpenseRoot(onNavigateBack = { rootNavController.popBackStack() })
+            AddEditExpenseRoot(
+                onNavigateBack = { rootNavController.popBackStack() },
+                onNavigateToAddCategory = { rootNavController.navigate(ManageCategoriesRoute) },
+                onNavigateToAddSubCategory = { rootNavController.navigate(ManageSubCategoriesRoute) }
+            )
         }
 
         composable<BudgetRoute> {
@@ -216,6 +220,14 @@ private fun AppNavHost(startDestination: Any) {
 
         composable<SyncRoute> {
             SyncRoot(onBack = { rootNavController.popBackStack() })
+        }
+
+        composable<ThemeSettingsRoute> {
+            ThemeSettingsRoot(onBack = { rootNavController.popBackStack() })
+        }
+
+        composable<LanguageSettingsRoute> {
+            LanguageSettingsRoot(onBack = { rootNavController.popBackStack() })
         }
     }
 }
@@ -288,7 +300,9 @@ private fun MainScaffold(rootNavController: androidx.navigation.NavController) {
                     onNavigateToAbout = { rootNavController.navigate(AboutRoute) },
                     onNavigateToPrivacyPolicy = { rootNavController.navigate(PrivacyPolicyRoute) },
                     onNavigateToTerms = { rootNavController.navigate(TermsOfServiceRoute) },
-                    onNavigateToSync = { rootNavController.navigate(SyncRoute) }
+                    onNavigateToSync = { rootNavController.navigate(SyncRoute) },
+                    onNavigateToTheme = { rootNavController.navigate(ThemeSettingsRoute) },
+                    onNavigateToLanguage = { rootNavController.navigate(LanguageSettingsRoute) }
                 )
             }
         }

@@ -58,9 +58,13 @@ sealed interface AddEditExpenseAction {
     data object OnDeleteConfirm : AddEditExpenseAction
     data object OnDeleteDismiss : AddEditExpenseAction
     data object OnBudgetWarningDismiss : AddEditExpenseAction
+    data object OnAddCategoryClick : AddEditExpenseAction
+    data object OnAddSubCategoryClick : AddEditExpenseAction
     data object OnBack : AddEditExpenseAction
 }
 
 sealed interface AddEditExpenseEvent {
     data object NavigateBack : AddEditExpenseEvent
+    data object NavigateToAddCategory : AddEditExpenseEvent
+    data object NavigateToAddSubCategory : AddEditExpenseEvent
 }

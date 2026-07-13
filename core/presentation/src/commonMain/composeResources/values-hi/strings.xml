@@ -50,9 +50,13 @@
     <string name="add_expense_title">खर्च जोड़ें</string>
     <string name="edit_expense_title">खर्च संपादित करें</string>
     <string name="field_expense_name">खर्च का नाम *</string>
+    <string name="field_income_name">आय का नाम *</string>
     <string name="field_amount">राशि (₹) *</string>
     <string name="field_category">श्रेणी *</string>
     <string name="field_subcategory">उप-श्रेणी (वैकल्पिक)</string>
+    <string name="select_subcategory">उप-श्रेणी चुनें</string>
+    <string name="add_new_category">श्रेणी जोड़ें</string>
+    <string name="add_new_subcategory">उप-श्रेणी जोड़ें</string>
     <string name="field_date">तारीख *</string>
     <string name="field_time">समय</string>
     <string name="field_notes">नोट्स (वैकल्पिक)</string>
@@ -79,9 +83,13 @@
     <string name="settings_section_data">डेटा प्रबंधन</string>
     <string name="settings_section_app_info">ऐप जानकारी</string>
     <string name="settings_theme">थीम</string>
+    <string name="settings_theme_desc">चुनें कि ऐप कैसा दिखे</string>
     <string name="settings_theme_system">सिस्टम डिफ़ॉल्ट</string>
+    <string name="settings_theme_system_desc">आपके डिवाइस की सेटिंग के अनुसार</string>
     <string name="settings_theme_light">लाइट</string>
+    <string name="settings_theme_light_desc">हमेशा लाइट रूप का उपयोग करें</string>
     <string name="settings_theme_dark">डार्क</string>
+    <string name="settings_theme_dark_desc">हमेशा डार्क रूप का उपयोग करें</string>
     <string name="settings_app_lock">ऐप लॉक</string>
     <string name="settings_notifications">सूचनाएं</string>
     <string name="settings_notifications_on">रिमाइंडर चालू</string>
@@ -106,6 +114,7 @@
     <string name="sync_no_backup">कोई बैकअप फ़ाइल नहीं मिली। पहले \'अभी सिंक करें\' दबाएँ।</string>
     <string name="sync_failed">कुछ गड़बड़ हो गई। कृपया फिर से प्रयास करें।</string>
     <string name="settings_language">भाषा</string>
+    <string name="settings_language_desc">ऐप के लिए अपनी पसंदीदा भाषा चुनें</string>
     <string name="language_system_default">सिस्टम डिफ़ॉल्ट</string>
 
     <string name="onboarding_language_title">अपनी भाषा चुनें</string>
