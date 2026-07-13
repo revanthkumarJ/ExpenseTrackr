@@ -13,11 +13,15 @@ data class AddEditExpenseRoute(val expenseId: Long = -1L)
 @Composable
 fun AddEditExpenseRoot(
     onNavigateBack: () -> Unit,
+    onNavigateToAddCategory: () -> Unit,
+    onNavigateToAddSubCategory: () -> Unit,
     viewModel: AddEditExpenseViewModel = koinViewModel()
 ) {
     ObserveAsEvents(viewModel.events) { event ->
         when (event) {
             AddEditExpenseEvent.NavigateBack -> onNavigateBack()
+            AddEditExpenseEvent.NavigateToAddCategory -> onNavigateToAddCategory()
+            AddEditExpenseEvent.NavigateToAddSubCategory -> onNavigateToAddSubCategory()
         }
     }
     val state by viewModel.state.collectAsState()

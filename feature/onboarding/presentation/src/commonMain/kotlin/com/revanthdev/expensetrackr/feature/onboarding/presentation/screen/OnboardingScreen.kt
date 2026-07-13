@@ -16,6 +16,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -56,50 +57,60 @@ fun OnboardingScreen(
     val pagerState = rememberPagerState(pageCount = { pageCount })
     val scope = rememberCoroutineScope()
 
-    Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
-        Box(modifier = Modifier.fillMaxWidth().padding(16.dp), contentAlignment = Alignment.CenterEnd) {
-            if (pagerState.currentPage < pageCount - 1) {
-                TextButton(onClick = onGetStarted) { Text(stringResource(Res.string.onboarding_skip)) }
-            }
-        }
+    Scaffold {
 
-        HorizontalPager(state = pagerState, modifier = Modifier.weight(1f)) { page ->
-            if (page == 0) {
-                LanguageSelectionPage(currentLanguage, onSelectLanguage)
-            } else {
-                val pageOffset = (pagerState.currentPage - page) + pagerState.currentPageOffsetFraction
-                OnboardingPageContent(infoPages[page - 1], pageOffset)
-            }
-        }
-
-        Column(
-            modifier = Modifier.fillMaxWidth().padding(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                repeat(pageCount) { index ->
-                    Box(
-                        modifier = Modifier
-                            .size(if (pagerState.currentPage == index) 24.dp else 8.dp, 8.dp)
-                            .clip(CircleShape)
-                            .background(
-                                if (pagerState.currentPage == index) MaterialTheme.colorScheme.primary
-                                else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
-                            )
-                    )
+        Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
+            Box(
+                modifier = Modifier.fillMaxWidth().padding(16.dp),
+                contentAlignment = Alignment.CenterEnd
+            ) {
+                if (pagerState.currentPage < pageCount - 1) {
+                    TextButton(onClick = onGetStarted) { Text(stringResource(Res.string.onboarding_skip)) }
                 }
             }
-            Spacer(Modifier.height(24.dp))
-            val isLast = pagerState.currentPage == pageCount - 1
-            Button(
-                onClick = {
-                    if (isLast) onGetStarted()
-                    else scope.launch { pagerState.animateScrollToPage(pagerState.currentPage + 1) }
-                },
-                modifier = Modifier.fillMaxWidth().height(56.dp),
-                shape = MaterialTheme.shapes.large
+
+            HorizontalPager(state = pagerState, modifier = Modifier.weight(1f)) { page ->
+                if (page == 0) {
+                    LanguageSelectionPage(currentLanguage, onSelectLanguage)
+                } else {
+                    val pageOffset =
+                        (pagerState.currentPage - page) + pagerState.currentPageOffsetFraction
+                    OnboardingPageContent(infoPages[page - 1], pageOffset)
+                }
+            }
+
+            Column(
+                modifier = Modifier.fillMaxWidth().padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(stringResource(if (isLast) Res.string.onboarding_get_started else Res.string.onboarding_next), style = MaterialTheme.typography.titleMedium)
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    repeat(pageCount) { index ->
+                        Box(
+                            modifier = Modifier
+                                .size(if (pagerState.currentPage == index) 24.dp else 8.dp, 8.dp)
+                                .clip(CircleShape)
+                                .background(
+                                    if (pagerState.currentPage == index) MaterialTheme.colorScheme.primary
+                                    else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
+                                )
+                        )
+                    }
+                }
+                Spacer(Modifier.height(24.dp))
+                val isLast = pagerState.currentPage == pageCount - 1
+                Button(
+                    onClick = {
+                        if (isLast) onGetStarted()
+                        else scope.launch { pagerState.animateScrollToPage(pagerState.currentPage + 1) }
+                    },
+                    modifier = Modifier.fillMaxWidth().height(56.dp),
+                    shape = MaterialTheme.shapes.large
+                ) {
+                    Text(
+                        stringResource(if (isLast) Res.string.onboarding_get_started else Res.string.onboarding_next),
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                }
             }
         }
     }

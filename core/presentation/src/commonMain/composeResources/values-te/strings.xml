@@ -50,9 +50,13 @@
     <string name="add_expense_title">ఖర్చు జోడించు</string>
     <string name="edit_expense_title">ఖర్చును సవరించు</string>
     <string name="field_expense_name">ఖర్చు పేరు *</string>
+    <string name="field_income_name">ఆదాయం పేరు *</string>
     <string name="field_amount">మొత్తం (₹) *</string>
     <string name="field_category">వర్గం *</string>
     <string name="field_subcategory">ఉప-వర్గం (ఐచ్ఛికం)</string>
+    <string name="select_subcategory">ఉప-వర్గాన్ని ఎంచుకోండి</string>
+    <string name="add_new_category">వర్గాన్ని జోడించండి</string>
+    <string name="add_new_subcategory">ఉప-వర్గాన్ని జోడించండి</string>
     <string name="field_date">తేదీ *</string>
     <string name="field_time">సమయం</string>
     <string name="field_notes">గమనికలు (ఐచ్ఛికం)</string>
@@ -79,9 +83,13 @@
     <string name="settings_section_data">డేటా నిర్వహణ</string>
     <string name="settings_section_app_info">యాప్ సమాచారం</string>
     <string name="settings_theme">థీమ్</string>
+    <string name="settings_theme_desc">యాప్ ఎలా కనిపించాలో ఎంచుకోండి</string>
     <string name="settings_theme_system">సిస్టమ్ డిఫాల్ట్</string>
+    <string name="settings_theme_system_desc">మీ పరికర సెట్టింగ్‌లకు అనుగుణంగా</string>
     <string name="settings_theme_light">లైట్</string>
+    <string name="settings_theme_light_desc">ఎల్లప్పుడూ లైట్ రూపాన్ని ఉపయోగించండి</string>
     <string name="settings_theme_dark">డార్క్</string>
+    <string name="settings_theme_dark_desc">ఎల్లప్పుడూ డార్క్ రూపాన్ని ఉపయోగించండి</string>
     <string name="settings_app_lock">యాప్ లాక్</string>
     <string name="settings_notifications">నోటిఫికేషన్‌లు</string>
     <string name="settings_notifications_on">రిమైండర్‌లు ఆన్</string>
@@ -106,6 +114,7 @@
     <string name="sync_no_backup">బ్యాకప్ ఫైళ్లు కనుగొనబడలేదు. ముందుగా \'ఇప్పుడు సింక్ చేయండి\' నొక్కండి.</string>
     <string name="sync_failed">ఏదో తప్పు జరిగింది. దయచేసి మళ్లీ ప్రయత్నించండి.</string>
     <string name="settings_language">భాష</string>
+    <string name="settings_language_desc">యాప్ కోసం మీకు నచ్చిన భాషను ఎంచుకోండి</string>
     <string name="language_system_default">సిస్టమ్ డిఫాల్ట్</string>
 
     <string name="onboarding_language_title">మీ భాషను ఎంచుకోండి</string>

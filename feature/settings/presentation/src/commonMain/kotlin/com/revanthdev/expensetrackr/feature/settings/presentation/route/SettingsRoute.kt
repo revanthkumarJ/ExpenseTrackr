@@ -11,6 +11,12 @@ import org.koin.compose.viewmodel.koinViewModel
 data object SettingsRoute
 
 @Serializable
+data object ThemeSettingsRoute
+
+@Serializable
+data object LanguageSettingsRoute
+
+@Serializable
 data object AboutRoute
 
 @Serializable
@@ -30,10 +36,14 @@ fun SettingsRoot(
     onNavigateToPrivacyPolicy: () -> Unit,
     onNavigateToTerms: () -> Unit,
     onNavigateToSync: () -> Unit,
+    onNavigateToTheme: () -> Unit,
+    onNavigateToLanguage: () -> Unit,
     viewModel: SettingsViewModel = koinViewModel()
 ) {
     ObserveAsEvents(viewModel.events) { event ->
         when (event) {
+            SettingsEvent.NavigateToTheme -> onNavigateToTheme()
+            SettingsEvent.NavigateToLanguage -> onNavigateToLanguage()
             SettingsEvent.NavigateToBudget -> onNavigateToBudget()
             SettingsEvent.NavigateToManageCategories -> onNavigateToManageCategories()
             SettingsEvent.NavigateToManageSubCategories -> onNavigateToManageSubCategories()

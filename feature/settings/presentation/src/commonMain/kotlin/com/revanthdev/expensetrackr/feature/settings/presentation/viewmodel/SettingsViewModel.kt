@@ -34,6 +34,8 @@ class SettingsViewModel(private val settingsRepository: SettingsRepository) : Vi
                 val s = _state.value.settings
                 settingsRepository.updateSettings(s.copy(language = action.tag))
             }
+            SettingsAction.OnThemeClick -> viewModelScope.launch { _events.send(SettingsEvent.NavigateToTheme) }
+            SettingsAction.OnLanguageClick -> viewModelScope.launch { _events.send(SettingsEvent.NavigateToLanguage) }
             SettingsAction.OnBudgetClick -> viewModelScope.launch { _events.send(SettingsEvent.NavigateToBudget) }
             SettingsAction.OnManageCategoriesClick -> viewModelScope.launch { _events.send(SettingsEvent.NavigateToManageCategories) }
             SettingsAction.OnManageSubCategoriesClick -> viewModelScope.launch { _events.send(SettingsEvent.NavigateToManageSubCategories) }

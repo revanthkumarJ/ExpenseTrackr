@@ -58,9 +58,13 @@
     <string name="add_expense_title">Add Expense</string>
     <string name="edit_expense_title">Edit Expense</string>
     <string name="field_expense_name">Expense Name *</string>
+    <string name="field_income_name">Income Name *</string>
     <string name="field_amount">Amount (₹) *</string>
     <string name="field_category">Category *</string>
     <string name="field_subcategory">Sub-Category (optional)</string>
+    <string name="select_subcategory">Select Sub-Category</string>
+    <string name="add_new_category">Add Category</string>
+    <string name="add_new_subcategory">Add Sub-Category</string>
     <string name="field_date">Date *</string>
     <string name="field_time">Time</string>
     <string name="field_notes">Notes (optional)</string>
@@ -89,9 +93,13 @@
     <string name="settings_section_data">Data Management</string>
     <string name="settings_section_app_info">App Info</string>
     <string name="settings_theme">Theme</string>
+    <string name="settings_theme_desc">Choose how the app looks</string>
     <string name="settings_theme_system">System Default</string>
+    <string name="settings_theme_system_desc">Match your device settings</string>
     <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_light_desc">Always use a light appearance</string>
     <string name="settings_theme_dark">Dark</string>
+    <string name="settings_theme_dark_desc">Always use a dark appearance</string>
     <string name="settings_app_lock">App Lock</string>
     <string name="settings_notifications">Notifications</string>
     <string name="settings_notifications_on">Reminders enabled</string>
@@ -116,6 +124,7 @@
     <string name="sync_no_backup">No backup files found. Tap \'Sync now\' first.</string>
     <string name="sync_failed">Something went wrong. Please try again.</string>
     <string name="settings_language">Language</string>
+    <string name="settings_language_desc">Choose your preferred language for the app</string>
     <string name="language_system_default">System default</string>
 
     <!-- Onboarding language picker (first page) -->

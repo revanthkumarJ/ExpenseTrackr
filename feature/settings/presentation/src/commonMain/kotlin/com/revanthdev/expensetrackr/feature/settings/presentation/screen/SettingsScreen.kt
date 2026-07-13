@@ -21,10 +21,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.revanthdev.expensetrackr.core.presentation.LocalShareHandler
@@ -62,26 +58,8 @@ private const val PLAY_STORE_URL =
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(state: SettingsState, onAction: (SettingsAction) -> Unit) {
-    var showThemeDialog by remember { mutableStateOf(false) }
-    var showLanguageDialog by remember { mutableStateOf(false) }
     val shareHandler = LocalShareHandler.current
     val shareMessage = stringResource(Res.string.share_app_message, PLAY_STORE_URL)
-
-    if (showLanguageDialog) {
-        LanguageDialog(
-            currentLanguage = state.settings.language,
-            onSelect = { onAction(SettingsAction.OnLanguageChange(it)) },
-            onDismiss = { showLanguageDialog = false }
-        )
-    }
-
-    if (showThemeDialog) {
-        ThemeDialog(
-            current = state.settings.isDarkMode,
-            onSelect = { onAction(SettingsAction.OnThemeChange(it)) },
-            onDismiss = { showThemeDialog = false }
-        )
-    }
 
     Scaffold(topBar = { TopAppBar(title = { Text(stringResource(Res.string.nav_settings)) }) }) { padding ->
         LazyColumn(modifier = Modifier.padding(padding).fillMaxSize(), contentPadding = PaddingValues(bottom = 16.dp)) {
@@ -95,7 +73,7 @@ fun SettingsScreen(state: SettingsState, onAction: (SettingsAction) -> Unit) {
                         true -> stringResource(Res.string.settings_theme_dark)
                         false -> stringResource(Res.string.settings_theme_light)
                     },
-                    onClick = { showThemeDialog = true }
+                    onClick = { onAction(SettingsAction.OnThemeClick) }
                 )
             }
             item {
@@ -104,7 +82,7 @@ fun SettingsScreen(state: SettingsState, onAction: (SettingsAction) -> Unit) {
                     title = stringResource(Res.string.settings_language),
                     subtitle = appLanguages.find { it.tag == state.settings.language }?.nativeName
                         ?: stringResource(Res.string.language_system_default),
-                    onClick = { showLanguageDialog = true }
+                    onClick = { onAction(SettingsAction.OnLanguageClick) }
                 )
             }
             item {
