@@ -6,7 +6,7 @@
 # for humans; `name:` below is what shows up in the Actions tab.
 # ─────────────────────────────────────────────────────────────────────────────
 
-name: Firebase App Distribution   # Display name in the GitHub "Actions" tab.
+name: Firebase Distribution — Debug   # Display name in the GitHub "Actions" tab.
 
 # ── TRIGGER ──────────────────────────────────────────────────────────────────
 # `on:` answers "WHEN does this run?". We chose `workflow_dispatch`, which means
