@@ -13,8 +13,6 @@
 
 name: Firebase Distribution — Release   # Display name in the GitHub "Actions" tab.
 
-# Manual button only, same as debug. A signed release is something you deliberately
-# push out, so an automatic trigger would be risky here.
 #
 # `inputs:` adds form fields to the "Run workflow" dialog. Here we ask you to type
 # the release notes each run. You read the typed value later via
