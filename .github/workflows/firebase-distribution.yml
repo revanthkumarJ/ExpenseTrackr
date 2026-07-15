@@ -1,0 +1,87 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Workflow: Build the Android app and ship it to Firebase App Distribution.
+#
+# A "workflow" is this whole file. GitHub finds it because it lives in the magic
+# folder `.github/workflows/`. The file name (firebase-distribution.yml) is just
+# for humans; `name:` below is what shows up in the Actions tab.
+# ─────────────────────────────────────────────────────────────────────────────
+
+name: Firebase App Distribution   # Display name in the GitHub "Actions" tab.
+
+# ── TRIGGER ──────────────────────────────────────────────────────────────────
+# `on:` answers "WHEN does this run?". We chose `workflow_dispatch`, which means
+# "only when a human clicks the 'Run workflow' button in the Actions tab."
+# Nothing runs automatically — you are in full control while learning.
+on:
+  workflow_dispatch:            # Manual button. (Later we can add `push:` here.)
+
+# ── JOBS ─────────────────────────────────────────────────────────────────────
+# A workflow has one or more `jobs`. Each job runs on its OWN fresh machine.
+# We only need one job. `distribute` is an id we invented; name it anything.
+jobs:
+  distribute:
+    name: Build & distribute debug APK
+    runs-on: ubuntu-latest      # The "runner": a blank Ubuntu VM GitHub gives us.
+
+    # ── STEPS ────────────────────────────────────────────────────────────────
+    # Steps run top-to-bottom on that one machine. A step is EITHER:
+    #   • `uses:` → run a prebuilt action (owner/name@version), or
+    #   • `run:`  → run shell commands yourself.
+    steps:
+
+      # STEP 1 — Get your code onto the blank runner.
+      # The runner starts empty. This official action does `git clone` of your
+      # repo at the exact commit that triggered the run.
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # STEP 2 — Install Java. AGP 9.0.1 + Gradle 9.1 need JDK 17 to RUN the
+      # build (separate from your app's JVM_11 *target*). The runner has no JDK
+      # we can rely on, so we install Temurin 17 and cache Gradle's files.
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin  # A popular, free OpenJDK build.
+          java-version: '17'
+
+      # STEP 3 — Install Gradle and enable caching. Your project pins Gradle 9.1
+      # via the wrapper (gradlew), so this action mainly gives us dependency
+      # CACHING: the first run downloads everything; later runs reuse it → faster.
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      # STEP 4 — Recreate google-services.json from a Secret.
+      # This file is gitignored, so it's NOT on the runner. Firebase's Gradle
+      # plugin REQUIRES it or the build fails. We stored the file base64-encoded
+      # in the secret GOOGLE_SERVICES_JSON, then decode it back into place.
+      #   `${{ secrets.NAME }}` is how you read a repository secret.
+      #   We pass it through `env:` (safer than inlining) then decode it.
+      - name: Create google-services.json
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: echo "$GOOGLE_SERVICES_JSON" | base64 --decode > androidApp/google-services.json
+
+      # STEP 5 — Build the debug APK.
+      # `./gradlew` is the Gradle wrapper checked into your repo (pins Gradle 9.1).
+      # `:androidApp:assembleDebug` builds ONLY the androidApp module's debug
+      # variant. Debug uses auto-generated debug signing → no keystore needed yet.
+      # Output lands at: androidApp/build/outputs/apk/debug/androidApp-debug.apk
+      - name: Build debug APK
+        run: ./gradlew :androidApp:assembleDebug --stacktrace
+
+      # STEP 6 — Upload the APK to Firebase App Distribution.
+      # This is a community action that wraps the Firebase CLI so we don't have
+      # to install it by hand. `with:` passes it inputs:
+      #   appId        → your Firebase App ID (from the Firebase console).
+      #   serviceCredentialsFileContent → a Google service-account JSON that
+      #                  grants permission to upload. Stored as a secret.
+      #   groups       → the Firebase "tester group" alias to notify.
+      #   file         → path to the APK we just built.
+      - name: Upload to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          groups: revanthTesters
+          file: androidApp/build/outputs/apk/debug/androidApp-debug.apk
+          releaseNotes: "Automated debug build from GitHub Actions (${{ github.sha }})"
