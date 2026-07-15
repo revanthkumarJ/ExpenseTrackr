@@ -15,8 +15,18 @@ name: Firebase Distribution — Release   # Display name in the GitHub "Actions"
 
 # Manual button only, same as debug. A signed release is something you deliberately
 # push out, so an automatic trigger would be risky here.
+#
+# `inputs:` adds form fields to the "Run workflow" dialog. Here we ask you to type
+# the release notes each run. You read the typed value later via
+# `${{ inputs.<id> }}` (or the older `${{ github.event.inputs.<id> }}`).
 on:
   workflow_dispatch:
+    inputs:
+      releaseNotes:
+        description: "Release notes for testers (shown in Firebase)"
+        required: true          # you must type something before it will run
+        type: string            # a single-line text box
+        default: "Bug fixes and improvements"
 
 jobs:
   distribute:
@@ -86,4 +96,4 @@ jobs:
           serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           groups: revanthTesters
           file: androidApp/build/outputs/apk/release/androidApp-release.apk
-          releaseNotes: "Automated SIGNED RELEASE build from GitHub Actions (${{ github.sha }})"
+          releaseNotes: ${{ inputs.releaseNotes }}   # whatever you typed in the Run dialog
