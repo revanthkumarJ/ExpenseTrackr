@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pocket Tunes — Privacy Policy</title>
+  <meta name="description" content="Privacy Policy for the Pocket Tunes Android music player." />
+  <style>
+    :root {
+      --ink: #0a0f0c;
+      --emerald: #1fdf64;
+      --emerald-dark: #12a34a;
+      --text: #1c2320;
+      --muted: #5c665f;
+      --border: #e2e8e4;
+      --bg: #ffffff;
+      --bg-soft: #f5f8f6;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg-soft);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 24px; }
+    header {
+      background: var(--ink);
+      color: #fff;
+      border-radius: 16px;
+      padding: 32px 28px;
+      margin-top: 24px;
+      background-image: radial-gradient(120% 90% at 20% 0%, rgba(31, 223, 100, 0.28), transparent 60%);
+    }
+    header h1 { margin: 0 0 6px; font-size: 1.7rem; }
+    header .sub { color: #b9c6bf; font-size: 0.95rem; }
+    .badge {
+      display: inline-block; margin-bottom: 14px; padding: 4px 12px;
+      border: 1px solid rgba(31,223,100,0.5); border-radius: 999px;
+      color: var(--emerald); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.02em;
+    }
+    main {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px; margin: 16px 0 40px;
+    }
+    h2 { font-size: 1.15rem; margin: 28px 0 8px; color: var(--ink); }
+    h2:first-of-type { margin-top: 4px; }
+    p, li { color: var(--text); }
+    a { color: var(--emerald-dark); }
+    .tldr {
+      background: var(--bg-soft); border-left: 3px solid var(--emerald);
+      border-radius: 8px; padding: 14px 18px; margin: 18px 0;
+    }
+    .tldr strong { color: var(--ink); }
+    ul { padding-left: 20px; }
+    li { margin: 6px 0; }
+    code {
+      background: var(--bg-soft); padding: 1px 6px; border-radius: 5px;
+      font-size: 0.9em; border: 1px solid var(--border);
+    }
+    footer { color: var(--muted); font-size: 0.85rem; text-align: center; padding-bottom: 40px; }
+    .muted { color: var(--muted); font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="badge">PRIVACY FIRST</span>
+      <h1>Pocket Tunes — Privacy Policy</h1>
+      <div class="sub">Last updated: 22 July 2026</div>
+    </header>
+
+    <main>
+      <div class="tldr">
+        <strong>In short:</strong> Pocket Tunes has no accounts, no ads, and no user
+        tracking. Your music, playlists, and trimmed clips never leave your device.
+        The only data we receive is <em>anonymous crash reports</em> that help us fix
+        bugs.
+      </div>
+
+      <p>
+        This Privacy Policy explains how the Pocket Tunes Android application
+        ("Pocket Tunes", "the app", "we", "us") handles your information. By using
+        the app, you agree to the practices described here.
+      </p>
+
+      <h2>1. Information we do not collect</h2>
+      <p>
+        Pocket Tunes has no user accounts and shows no advertising. We do not
+        collect, store, or transmit your name, email, contacts, location, browsing
+        activity, or any advertising identifiers. We never access, upload, or share
+        your music files or playlists.
+      </p>
+
+      <h2>2. Crash reporting (the only data collected)</h2>
+      <p>
+        To keep the app stable, Pocket Tunes uses <strong>Firebase Crashlytics</strong>,
+        a crash-reporting service provided by Google. When the app crashes or hits a
+        serious error, Crashlytics automatically sends an anonymous report. A report
+        may include:
+      </p>
+      <ul>
+        <li>the error type and stack trace;</li>
+        <li>your device model, manufacturer, and Android version;</li>
+        <li>the app version and build;</li>
+        <li>the state of the app at the time of the crash (e.g. available memory);</li>
+        <li>a randomly generated Crashlytics installation identifier and timestamps.</li>
+      </ul>
+      <p>
+        These reports <strong>do not</strong> contain your name, your music, your
+        playlists, or any other personal content. This is the only reason the app
+        connects to the internet, and the data is used solely to diagnose and fix
+        problems. The information is processed by Google on our behalf; see Google's
+        <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">
+        Firebase Privacy and Security</a> documentation and the
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">
+        Google Privacy Policy</a>.
+      </p>
+
+      <h2>3. Permissions we request and why</h2>
+      <ul>
+        <li><strong>Audio / media access</strong> (<code>READ_MEDIA_AUDIO</code>): to find and play the music already on your device.</li>
+        <li><strong>Notifications</strong> (<code>POST_NOTIFICATIONS</code>): to show playback controls in the notification shade and on the lock screen.</li>
+        <li><strong>Modify system settings</strong> (<code>WRITE_SETTINGS</code>): only when you choose to set a song as your ringtone, notification, or alarm sound.</li>
+        <li><strong>Internet / network state</strong> (<code>INTERNET</code>, <code>ACCESS_NETWORK_STATE</code>): only to send the anonymous crash reports described above.</li>
+      </ul>
+      <p class="muted">These permissions are used solely to make the app work and for no other purpose.</p>
+
+      <h2>4. Where your content is stored</h2>
+      <p>
+        Everything you create stays on your device. Playlists are saved in the app's
+        local database, and trimmed audio clips are saved into your device's standard
+        Ringtones, Notifications, and Alarms folders. Uninstalling the app removes its
+        local data (clips you have exported into your sound folders remain, as they
+        become part of your device's media).
+      </p>
+
+      <h2>5. Data sharing and selling</h2>
+      <p>
+        We do not sell your data and do not share it with third parties, except for
+        the anonymous crash diagnostics processed by Google (Firebase Crashlytics) as
+        described in Section 2.
+      </p>
+
+      <h2>6. Data retention</h2>
+      <p>
+        Crash reports are retained by Firebase Crashlytics for a limited period (by
+        default up to 90 days) and are then automatically deleted. Content stored on
+        your device is retained until you delete it or uninstall the app.
+      </p>
+
+      <h2>7. Children's privacy</h2>
+      <p>
+        Pocket Tunes is a general-audience music player and is not directed at
+        children under 13. We do not knowingly collect personal information from
+        children.
+      </p>
+
+      <h2>8. Security</h2>
+      <p>
+        Because the app keeps your content on your device and collects no personal
+        information, there is very little data to expose. Crash reports are transmitted
+        to Google over encrypted connections.
+      </p>
+
+      <h2>9. Changes to this policy</h2>
+      <p>
+        We may update this policy as the app evolves. Material changes will be
+        reflected here with a new "Last updated" date, and, where appropriate, noted
+        in the app.
+      </p>
+
+      <h2>10. Contact</h2>
+      <p>
+        Questions about this policy? Email
+        <a href="mailto:jrevanth101@gmail.com">jrevanth101@gmail.com</a>.
+      </p>
+    </main>
+
+    <footer>
+      &copy; 2026 Pocket Tunes. All rights reserved.
+    </footer>
+  </div>
+</body>
+</html>
