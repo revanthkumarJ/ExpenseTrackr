@@ -45,6 +45,7 @@ class SettingsViewModel(private val settingsRepository: SettingsRepository) : Vi
             SettingsAction.OnPrivacyPolicyClick -> viewModelScope.launch { _events.send(SettingsEvent.NavigateToPrivacyPolicy) }
             SettingsAction.OnTermsClick -> viewModelScope.launch { _events.send(SettingsEvent.NavigateToTerms) }
             SettingsAction.OnSyncClick -> viewModelScope.launch { _events.send(SettingsEvent.NavigateToSync) }
+            SettingsAction.OnDownloadsClick -> viewModelScope.launch { _events.send(SettingsEvent.NavigateToDownloads) }
         }
     }
 }

@@ -212,4 +212,23 @@
     <string name="analytics_spent">Потрачено</string>
     <string name="analytics_saved">Сэкономлено</string>
     <string name="analytics_savings_rate">Норма сбережений</string>
+
+    <!-- Downloads: export a PDF / Excel expense report -->
+    <string name="settings_downloads">Загрузки</string>
+    <string name="downloads_title">Загрузки</string>
+    <string name="downloads_description">Экспортируйте свои операции в виде отчёта, который можно сохранить, распечатать или отправить. Оба формата включают полную таблицу операций, а также итоги по категориям и подкатегориям.</string>
+    <string name="downloads_pdf_title">Скачать PDF</string>
+    <string name="downloads_pdf_subtitle">Оформленный отчёт, готовый к печати или отправке</string>
+    <string name="downloads_excel_title">Скачать Excel</string>
+    <string name="downloads_excel_subtitle">Таблица с сортируемыми столбцами и сводными листами</string>
+    <string name="downloads_period_title">Выберите период</string>
+    <string name="downloads_period_last_3_months">Последние 3 месяца</string>
+    <string name="downloads_period_last_1_year">Последний 1 год</string>
+    <string name="downloads_generating">Готовим ваш отчёт…</string>
+    <string name="downloads_saved">%1$s (%2$d операций) сохранено в %3$s</string>
+    <string name="downloads_no_data">За выбранный период нет операций.</string>
+    <string name="downloads_failed">Не удалось создать файл. Попробуйте ещё раз.</string>
+    <string name="downloads_saved_no_app">%1$s сохранено в %2$s. Не найдено приложение для открытия.</string>
+    <string name="downloads_saved_open_failed">%1$s сохранено в %2$s, но открыть его не удалось.</string>
+    <string name="error_no_app_found">Не найдено приложение для открытия.</string>
 </resources>

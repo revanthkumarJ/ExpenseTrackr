@@ -214,4 +214,23 @@
     <string name="analytics_spent">खर्च</string>
     <string name="analytics_saved">बचत</string>
     <string name="analytics_savings_rate">बचत दर</string>
+
+    <!-- Downloads: export a PDF / Excel expense report -->
+    <string name="settings_downloads">डाउनलोड</string>
+    <string name="downloads_title">डाउनलोड</string>
+    <string name="downloads_description">अपने लेनदेन को एक रिपोर्ट के रूप में निर्यात करें जिसे आप सहेज सकते हैं, प्रिंट कर सकते हैं या साझा कर सकते हैं। दोनों प्रारूपों में पूरी लेनदेन तालिका के साथ श्रेणी-वार और उप-श्रेणी-वार कुल शामिल हैं।</string>
+    <string name="downloads_pdf_title">PDF डाउनलोड करें</string>
+    <string name="downloads_pdf_subtitle">व्यवस्थित रिपोर्ट, प्रिंट या साझा करने के लिए तैयार</string>
+    <string name="downloads_excel_title">Excel डाउनलोड करें</string>
+    <string name="downloads_excel_subtitle">क्रमबद्ध किए जा सकने वाले कॉलम और सारांश शीट वाली स्प्रेडशीट</string>
+    <string name="downloads_period_title">अवधि चुनें</string>
+    <string name="downloads_period_last_3_months">पिछले 3 महीने</string>
+    <string name="downloads_period_last_1_year">पिछला 1 वर्ष</string>
+    <string name="downloads_generating">आपकी रिपोर्ट तैयार की जा रही है…</string>
+    <string name="downloads_saved">%1$s (%2$d लेनदेन) %3$s में सहेजा गया</string>
+    <string name="downloads_no_data">चयनित अवधि में कोई लेनदेन नहीं है।</string>
+    <string name="downloads_failed">फ़ाइल नहीं बन सकी। कृपया फिर से प्रयास करें।</string>
+    <string name="downloads_saved_no_app">%1$s को %2$s में सहेजा गया। इसे खोलने के लिए कोई ऐप नहीं मिला।</string>
+    <string name="downloads_saved_open_failed">%1$s को %2$s में सहेजा गया, लेकिन इसे खोला नहीं जा सका।</string>
+    <string name="error_no_app_found">इसे खोलने के लिए कोई ऐप नहीं मिला।</string>
 </resources>

@@ -212,4 +212,23 @@
     <string name="analytics_spent">ખર્ચ</string>
     <string name="analytics_saved">બચત</string>
     <string name="analytics_savings_rate">બચત દર</string>
+
+    <!-- Downloads: export a PDF / Excel expense report -->
+    <string name="settings_downloads">ડાઉનલોડ</string>
+    <string name="downloads_title">ડાઉનલોડ</string>
+    <string name="downloads_description">તમારા વ્યવહારોને અહેવાલ તરીકે નિકાસ કરો — સાચવવા, છાપવા કે શેર કરવા માટે. બંને ફોર્મેટમાં સંપૂર્ણ વ્યવહાર કોષ્ટક તથા શ્રેણી અને ઉપ-શ્રેણી પ્રમાણે કુલ સામેલ છે.</string>
+    <string name="downloads_pdf_title">PDF ડાઉનલોડ કરો</string>
+    <string name="downloads_pdf_subtitle">છાપવા કે શેર કરવા માટે તૈયાર અહેવાલ</string>
+    <string name="downloads_excel_title">Excel ડાઉનલોડ કરો</string>
+    <string name="downloads_excel_subtitle">ક્રમબદ્ધ કરી શકાય તેવા કૉલમ અને સારાંશ શીટ સાથે સ્પ્રેડશીટ</string>
+    <string name="downloads_period_title">સમયગાળો પસંદ કરો</string>
+    <string name="downloads_period_last_3_months">છેલ્લા 3 મહિના</string>
+    <string name="downloads_period_last_1_year">છેલ્લું 1 વર્ષ</string>
+    <string name="downloads_generating">તમારો અહેવાલ તૈયાર થઈ રહ્યો છે…</string>
+    <string name="downloads_saved">%1$s (%2$d વ્યવહારો) %3$s માં સાચવ્યું</string>
+    <string name="downloads_no_data">પસંદ કરેલા સમયગાળામાં કોઈ વ્યવહાર નથી.</string>
+    <string name="downloads_failed">ફાઇલ બનાવી શકાઈ નથી. કૃપા કરીને ફરી પ્રયાસ કરો.</string>
+    <string name="downloads_saved_no_app">%1$s %2$s માં સાચવ્યું. તેને ખોલવા માટે કોઈ એપ મળી નથી.</string>
+    <string name="downloads_saved_open_failed">%1$s %2$s માં સાચવ્યું, પણ તેને ખોલી શકાયું નથી.</string>
+    <string name="error_no_app_found">આને ખોલવા માટે કોઈ એપ મળી નથી.</string>
 </resources>

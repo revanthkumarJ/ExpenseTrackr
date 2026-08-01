@@ -36,6 +36,7 @@ fun SettingsRoot(
     onNavigateToPrivacyPolicy: () -> Unit,
     onNavigateToTerms: () -> Unit,
     onNavigateToSync: () -> Unit,
+    onNavigateToDownloads: () -> Unit,
     onNavigateToTheme: () -> Unit,
     onNavigateToLanguage: () -> Unit,
     viewModel: SettingsViewModel = koinViewModel()
@@ -53,6 +54,7 @@ fun SettingsRoot(
             SettingsEvent.NavigateToPrivacyPolicy -> onNavigateToPrivacyPolicy()
             SettingsEvent.NavigateToTerms -> onNavigateToTerms()
             SettingsEvent.NavigateToSync -> onNavigateToSync()
+            SettingsEvent.NavigateToDownloads -> onNavigateToDownloads()
         }
     }
     val state by viewModel.state.collectAsState()

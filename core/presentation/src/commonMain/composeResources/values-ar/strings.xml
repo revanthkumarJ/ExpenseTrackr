@@ -212,4 +212,23 @@
     <string name="analytics_spent">المنفَق</string>
     <string name="analytics_saved">المدَّخر</string>
     <string name="analytics_savings_rate">معدل الادخار</string>
+
+    <!-- Downloads: export a PDF / Excel expense report -->
+    <string name="settings_downloads">التنزيلات</string>
+    <string name="downloads_title">التنزيلات</string>
+    <string name="downloads_description">صدِّر معاملاتك كتقرير يمكنك حفظه أو طباعته أو مشاركته. يتضمن كلا التنسيقين جدول المعاملات الكامل بالإضافة إلى الإجماليات حسب الفئة والفئة الفرعية.</string>
+    <string name="downloads_pdf_title">تنزيل PDF</string>
+    <string name="downloads_pdf_subtitle">تقرير منسّق وجاهز للطباعة أو المشاركة</string>
+    <string name="downloads_excel_title">تنزيل Excel</string>
+    <string name="downloads_excel_subtitle">جدول بيانات بأعمدة قابلة للفرز وأوراق ملخّص</string>
+    <string name="downloads_period_title">اختر الفترة</string>
+    <string name="downloads_period_last_3_months">آخر 3 أشهر</string>
+    <string name="downloads_period_last_1_year">آخر سنة</string>
+    <string name="downloads_generating">جارٍ إعداد تقريرك…</string>
+    <string name="downloads_saved">تم حفظ %1$s (%2$d معاملة) في %3$s</string>
+    <string name="downloads_no_data">لا توجد معاملات في الفترة المحددة.</string>
+    <string name="downloads_failed">تعذّر إنشاء الملف. يرجى المحاولة مرة أخرى.</string>
+    <string name="downloads_saved_no_app">تم حفظ %1$s في %2$s. لم يتم العثور على تطبيق لفتحه.</string>
+    <string name="downloads_saved_open_failed">تم حفظ %1$s في %2$s، لكن تعذّر فتحه.</string>
+    <string name="error_no_app_found">لم يتم العثور على تطبيق لفتح هذا.</string>
 </resources>

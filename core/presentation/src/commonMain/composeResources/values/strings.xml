@@ -123,6 +123,28 @@
     <string name="sync_restored">Restored %1$d transactions</string>
     <string name="sync_no_backup">No backup files found. Tap \'Sync now\' first.</string>
     <string name="sync_failed">Something went wrong. Please try again.</string>
+
+    <!-- Downloads: export a PDF / Excel expense report -->
+    <string name="settings_downloads">Downloads</string>
+    <string name="downloads_title">Downloads</string>
+    <string name="downloads_description">Export your transactions as a report you can keep, print or share. Both formats include the full transaction table plus category-wise and sub-category-wise totals.</string>
+    <string name="downloads_pdf_title">Download PDF</string>
+    <string name="downloads_pdf_subtitle">Formatted report, ready to print or share</string>
+    <string name="downloads_excel_title">Download Excel</string>
+    <string name="downloads_excel_subtitle">Spreadsheet with sortable columns and summary sheets</string>
+    <string name="downloads_period_title">Select period</string>
+    <string name="downloads_period_last_3_months">Last 3 Months</string>
+    <string name="downloads_period_last_1_year">Last 1 Year</string>
+    <string name="downloads_generating">Preparing your report…</string>
+    <string name="downloads_saved">Saved %1$s (%2$d transactions) to %3$s</string>
+    <string name="downloads_saved_no_app">Saved %1$s to %2$s. No app found to open it.</string>
+    <string name="downloads_saved_open_failed">Saved %1$s to %2$s, but it couldn\'t be opened.</string>
+    <string name="downloads_no_data">No transactions in the selected period.</string>
+    <string name="downloads_failed">Couldn\'t create the file. Please try again.</string>
+
+    <!-- Shown when the device has no app that can handle an action we hand off to the system -->
+    <string name="error_no_app_found">No app found to open this.</string>
+
     <string name="settings_language">Language</string>
     <string name="settings_language_desc">Choose your preferred language for the app</string>
     <string name="language_system_default">System default</string>

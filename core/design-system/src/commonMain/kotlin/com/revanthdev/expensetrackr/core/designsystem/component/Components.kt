@@ -336,9 +336,13 @@ fun DateFilterRow(
 private fun DateFilter.CustomRange.label(): String =
     "${start.monthNumber}/${start.dayOfMonth} – ${end.monthNumber}/${end.dayOfMonth}"
 
+/**
+ * Material date-range picker in a dialog. Shared by [DateFilterRow]'s "Custom" chip and by the
+ * report downloads screen's custom-period option.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun DateRangePickerDialog(
+fun DateRangePickerDialog(
     onDismiss: () -> Unit,
     onConfirm: (LocalDate, LocalDate) -> Unit,
 ) {

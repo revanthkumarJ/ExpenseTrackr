@@ -212,4 +212,23 @@
     <string name="analytics_spent">已花费</string>
     <string name="analytics_saved">结余</string>
     <string name="analytics_savings_rate">储蓄率</string>
+
+    <!-- Downloads: export a PDF / Excel expense report -->
+    <string name="settings_downloads">下载</string>
+    <string name="downloads_title">下载</string>
+    <string name="downloads_description">将您的交易导出为可保存、打印或分享的报表。两种格式均包含完整的交易明细表，以及按类别和子类别汇总的金额。</string>
+    <string name="downloads_pdf_title">下载 PDF</string>
+    <string name="downloads_pdf_subtitle">排版精美的报表，可直接打印或分享</string>
+    <string name="downloads_excel_title">下载 Excel</string>
+    <string name="downloads_excel_subtitle">含可排序列和汇总工作表的电子表格</string>
+    <string name="downloads_period_title">选择时间段</string>
+    <string name="downloads_period_last_3_months">最近 3 个月</string>
+    <string name="downloads_period_last_1_year">最近 1 年</string>
+    <string name="downloads_generating">正在生成报表…</string>
+    <string name="downloads_saved">已将 %1$s（%2$d 笔交易）保存到 %3$s</string>
+    <string name="downloads_no_data">所选时间段内没有交易。</string>
+    <string name="downloads_failed">无法创建文件，请重试。</string>
+    <string name="downloads_saved_no_app">已将 %1$s 保存到 %2$s。未找到可打开它的应用。</string>
+    <string name="downloads_saved_open_failed">已将 %1$s 保存到 %2$s，但无法打开。</string>
+    <string name="error_no_app_found">未找到可打开的应用。</string>
 </resources>

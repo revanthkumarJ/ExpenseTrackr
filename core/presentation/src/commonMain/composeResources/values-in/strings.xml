@@ -212,4 +212,23 @@
     <string name="analytics_spent">Dibelanjakan</string>
     <string name="analytics_saved">Ditabung</string>
     <string name="analytics_savings_rate">Tingkat tabungan</string>
+
+    <!-- Downloads: export a PDF / Excel expense report -->
+    <string name="settings_downloads">Unduhan</string>
+    <string name="downloads_title">Unduhan</string>
+    <string name="downloads_description">Ekspor transaksi Anda sebagai laporan untuk disimpan, dicetak, atau dibagikan. Kedua format menyertakan tabel transaksi lengkap serta total per kategori dan subkategori.</string>
+    <string name="downloads_pdf_title">Unduh PDF</string>
+    <string name="downloads_pdf_subtitle">Laporan terformat, siap dicetak atau dibagikan</string>
+    <string name="downloads_excel_title">Unduh Excel</string>
+    <string name="downloads_excel_subtitle">Lembar kerja dengan kolom yang dapat diurutkan dan lembar ringkasan</string>
+    <string name="downloads_period_title">Pilih periode</string>
+    <string name="downloads_period_last_3_months">3 Bulan Terakhir</string>
+    <string name="downloads_period_last_1_year">1 Tahun Terakhir</string>
+    <string name="downloads_generating">Menyiapkan laporan Anda…</string>
+    <string name="downloads_saved">%1$s (%2$d transaksi) disimpan ke %3$s</string>
+    <string name="downloads_no_data">Tidak ada transaksi pada periode yang dipilih.</string>
+    <string name="downloads_failed">Tidak dapat membuat file. Silakan coba lagi.</string>
+    <string name="downloads_saved_no_app">%1$s disimpan ke %2$s. Tidak ada aplikasi untuk membukanya.</string>
+    <string name="downloads_saved_open_failed">%1$s disimpan ke %2$s, tetapi tidak dapat dibuka.</string>
+    <string name="error_no_app_found">Tidak ada aplikasi untuk membuka ini.</string>
 </resources>

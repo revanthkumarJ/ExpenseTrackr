@@ -1,12 +1,16 @@
 package com.revanthdev.expensetrackr
 
+import android.content.ActivityNotFoundException
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import androidx.core.content.FileProvider
 import com.revanthdev.expensetrackr.core.domain.repository.BackupFileStore
+import com.revanthdev.expensetrackr.core.domain.repository.FileOpenResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -20,19 +24,22 @@ import java.io.File
  * manifest with maxSdkVersion=28).
  */
 private const val FOLDER = "ExpenseTrackr"
-private const val MIME = "text/csv"
+private const val CSV_MIME = "text/csv"
 
 class AndroidBackupFileStore(private val context: Context) : BackupFileStore {
 
     override val locationLabel: String = "Downloads/$FOLDER"
 
     override suspend fun writeText(fileName: String, content: String): Boolean =
+        writeBytes(fileName, content.toByteArray(), CSV_MIME)
+
+    override suspend fun writeBytes(fileName: String, bytes: ByteArray, mimeType: String): Boolean =
         withContext(Dispatchers.IO) {
             runCatching {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    writeViaMediaStore(fileName, content)
+                    writeViaMediaStore(fileName, bytes, mimeType)
                 } else {
-                    writeLegacy(fileName, content)
+                    writeLegacy(fileName, bytes)
                 }
             }.getOrDefault(false)
         }
@@ -48,6 +55,44 @@ class AndroidBackupFileStore(private val context: Context) : BackupFileStore {
             }.getOrNull()
         }
 
+    /**
+     * Launches a viewer for a file we previously wrote.
+     *
+     * `startActivity` is deliberately used without a `resolveActivity` pre-check: from Android 11
+     * package-visibility filtering makes that check report "nothing found" even when a viewer
+     * exists, so the reliable signal is [ActivityNotFoundException]. Every other failure is caught
+     * too — no path out of here may crash the app.
+     */
+    override suspend fun openFile(fileName: String, mimeType: String): FileOpenResult =
+        withContext(Dispatchers.IO) {
+            val uri = runCatching { contentUriFor(fileName) }.getOrNull()
+                ?: return@withContext FileOpenResult.Failed
+
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                setDataAndType(uri, mimeType)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                // Required because this runs with the application context, not an Activity.
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            try {
+                context.startActivity(intent)
+                FileOpenResult.Opened
+            } catch (_: ActivityNotFoundException) {
+                FileOpenResult.NoAppFound
+            } catch (_: Exception) {
+                FileOpenResult.Failed
+            }
+        }
+
+    /** A shareable URI for [fileName]: MediaStore on API 29+, FileProvider on older releases. */
+    private fun contentUriFor(fileName: String): Uri? =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            findExisting(fileName)
+        } else {
+            val file = File(legacyDir(), fileName).takeIf { it.exists() } ?: return null
+            FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", file)
+        }
+
     // ---- API 29+ : MediaStore ----
 
     private val downloadsUri: Uri
@@ -55,19 +100,19 @@ class AndroidBackupFileStore(private val context: Context) : BackupFileStore {
 
     private val relativePath = "${Environment.DIRECTORY_DOWNLOADS}/$FOLDER"
 
-    private fun writeViaMediaStore(fileName: String, content: String): Boolean {
+    private fun writeViaMediaStore(fileName: String, bytes: ByteArray, mimeType: String): Boolean {
         val resolver = context.contentResolver
         // Reuse an existing file (overwrite) or create a new one.
         val uri = findExisting(fileName) ?: resolver.insert(
             downloadsUri,
             ContentValues().apply {
                 put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
-                put(MediaStore.MediaColumns.MIME_TYPE, MIME)
+                put(MediaStore.MediaColumns.MIME_TYPE, mimeType)
                 put(MediaStore.MediaColumns.RELATIVE_PATH, relativePath)
             },
         ) ?: return false
         // "wt" truncates any previous content before writing.
-        resolver.openOutputStream(uri, "wt")?.use { it.write(content.toByteArray()) } ?: return false
+        resolver.openOutputStream(uri, "wt")?.use { it.write(bytes) } ?: return false
         return true
     }
 
@@ -96,10 +141,10 @@ class AndroidBackupFileStore(private val context: Context) : BackupFileStore {
     private fun legacyDir(): File =
         File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), FOLDER)
 
-    private fun writeLegacy(fileName: String, content: String): Boolean {
+    private fun writeLegacy(fileName: String, bytes: ByteArray): Boolean {
         val dir = legacyDir()
         if (!dir.exists() && !dir.mkdirs()) return false
-        File(dir, fileName).writeText(content)
+        File(dir, fileName).writeBytes(bytes)
         return true
     }
 

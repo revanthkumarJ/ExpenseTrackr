@@ -212,4 +212,23 @@
     <string name="analytics_spent">খরচ</string>
     <string name="analytics_saved">সঞ্চয়</string>
     <string name="analytics_savings_rate">সঞ্চয়ের হার</string>
+
+    <!-- Downloads: export a PDF / Excel expense report -->
+    <string name="settings_downloads">ডাউনলোড</string>
+    <string name="downloads_title">ডাউনলোড</string>
+    <string name="downloads_description">আপনার লেনদেনগুলি একটি রিপোর্ট হিসেবে রপ্তানি করুন — সংরক্ষণ, মুদ্রণ বা শেয়ার করার জন্য। উভয় ফরম্যাটে সম্পূর্ণ লেনদেনের তালিকা এবং বিভাগ ও উপ-বিভাগ অনুযায়ী মোট অন্তর্ভুক্ত থাকে।</string>
+    <string name="downloads_pdf_title">PDF ডাউনলোড করুন</string>
+    <string name="downloads_pdf_subtitle">মুদ্রণ বা শেয়ার করার জন্য প্রস্তুত রিপোর্ট</string>
+    <string name="downloads_excel_title">Excel ডাউনলোড করুন</string>
+    <string name="downloads_excel_subtitle">সাজানোযোগ্য কলাম ও সারসংক্ষেপ শিট সহ স্প্রেডশিট</string>
+    <string name="downloads_period_title">সময়কাল নির্বাচন করুন</string>
+    <string name="downloads_period_last_3_months">গত 3 মাস</string>
+    <string name="downloads_period_last_1_year">গত 1 বছর</string>
+    <string name="downloads_generating">আপনার রিপোর্ট প্রস্তুত করা হচ্ছে…</string>
+    <string name="downloads_saved">%1$s (%2$d লেনদেন) %3$s-এ সংরক্ষিত হয়েছে</string>
+    <string name="downloads_no_data">নির্বাচিত সময়কালে কোনো লেনদেন নেই।</string>
+    <string name="downloads_failed">ফাইল তৈরি করা যায়নি। আবার চেষ্টা করুন।</string>
+    <string name="downloads_saved_no_app">%1$s %2$s-এ সংরক্ষিত হয়েছে। এটি খোলার মতো কোনো অ্যাপ পাওয়া যায়নি।</string>
+    <string name="downloads_saved_open_failed">%1$s %2$s-এ সংরক্ষিত হয়েছে, কিন্তু এটি খোলা যায়নি।</string>
+    <string name="error_no_app_found">এটি খোলার মতো কোনো অ্যাপ পাওয়া যায়নি।</string>
 </resources>

@@ -56,6 +56,8 @@ import com.revanthdev.expensetrackr.feature.expenses.presentation.AllExpensesRou
 import com.revanthdev.expensetrackr.feature.onboarding.presentation.OnboardingRoot
 import com.revanthdev.expensetrackr.feature.onboarding.presentation.OnboardingRoute
 import com.revanthdev.expensetrackr.feature.settings.presentation.*
+import com.revanthdev.expensetrackr.feature.settings.presentation.downloads.DownloadsRoot
+import com.revanthdev.expensetrackr.feature.settings.presentation.downloads.DownloadsRoute
 import com.revanthdev.expensetrackr.feature.settings.presentation.sync.SyncRoot
 import com.revanthdev.expensetrackr.feature.settings.presentation.sync.SyncRoute
 import kotlinx.coroutines.flow.first
@@ -222,6 +224,10 @@ private fun AppNavHost(startDestination: Any) {
             SyncRoot(onBack = { rootNavController.popBackStack() })
         }
 
+        composable<DownloadsRoute> {
+            DownloadsRoot(onBack = { rootNavController.popBackStack() })
+        }
+
         composable<ThemeSettingsRoute> {
             ThemeSettingsRoot(onBack = { rootNavController.popBackStack() })
         }
@@ -301,6 +307,7 @@ private fun MainScaffold(rootNavController: androidx.navigation.NavController) {
                     onNavigateToPrivacyPolicy = { rootNavController.navigate(PrivacyPolicyRoute) },
                     onNavigateToTerms = { rootNavController.navigate(TermsOfServiceRoute) },
                     onNavigateToSync = { rootNavController.navigate(SyncRoute) },
+                    onNavigateToDownloads = { rootNavController.navigate(DownloadsRoute) },
                     onNavigateToTheme = { rootNavController.navigate(ThemeSettingsRoute) },
                     onNavigateToLanguage = { rootNavController.navigate(LanguageSettingsRoute) }
                 )

@@ -212,4 +212,23 @@
     <string name="analytics_spent">ചെലവ്</string>
     <string name="analytics_saved">സമ്പാദ്യം</string>
     <string name="analytics_savings_rate">സമ്പാദ്യ നിരക്ക്</string>
+
+    <!-- Downloads: export a PDF / Excel expense report -->
+    <string name="settings_downloads">ഡൗൺലോഡുകൾ</string>
+    <string name="downloads_title">ഡൗൺലോഡുകൾ</string>
+    <string name="downloads_description">നിങ്ങളുടെ ഇടപാടുകൾ ഒരു റിപ്പോർട്ടായി കയറ്റുമതി ചെയ്യുക — സൂക്ഷിക്കാനും പ്രിന്റ് ചെയ്യാനും പങ്കിടാനും. രണ്ട് ഫോർമാറ്റുകളിലും പൂർണ്ണ ഇടപാട് പട്ടികയ്ക്കൊപ്പം വിഭാഗം തിരിച്ചും ഉപവിഭാഗം തിരിച്ചുമുള്ള ആകെത്തുകകൾ ഉൾപ്പെടുന്നു.</string>
+    <string name="downloads_pdf_title">PDF ഡൗൺലോഡ് ചെയ്യുക</string>
+    <string name="downloads_pdf_subtitle">പ്രിന്റ് ചെയ്യാനോ പങ്കിടാനോ തയ്യാറായ റിപ്പോർട്ട്</string>
+    <string name="downloads_excel_title">Excel ഡൗൺലോഡ് ചെയ്യുക</string>
+    <string name="downloads_excel_subtitle">ക്രമീകരിക്കാവുന്ന കോളങ്ങളും സംഗ്രഹ ഷീറ്റുകളുമുള്ള സ്പ്രെഡ്‌ഷീറ്റ്</string>
+    <string name="downloads_period_title">കാലയളവ് തിരഞ്ഞെടുക്കുക</string>
+    <string name="downloads_period_last_3_months">കഴിഞ്ഞ 3 മാസം</string>
+    <string name="downloads_period_last_1_year">കഴിഞ്ഞ 1 വർഷം</string>
+    <string name="downloads_generating">നിങ്ങളുടെ റിപ്പോർട്ട് തയ്യാറാക്കുന്നു…</string>
+    <string name="downloads_saved">%1$s (%2$d ഇടപാടുകൾ) %3$s ൽ സംരക്ഷിച്ചു</string>
+    <string name="downloads_no_data">തിരഞ്ഞെടുത്ത കാലയളവിൽ ഇടപാടുകളൊന്നുമില്ല.</string>
+    <string name="downloads_failed">ഫയൽ സൃഷ്ടിക്കാനായില്ല. വീണ്ടും ശ്രമിക്കുക.</string>
+    <string name="downloads_saved_no_app">%1$s %2$s ൽ സംരക്ഷിച്ചു. അത് തുറക്കാൻ ആപ്പൊന്നും കണ്ടെത്തിയില്ല.</string>
+    <string name="downloads_saved_open_failed">%1$s %2$s ൽ സംരക്ഷിച്ചു, പക്ഷേ അത് തുറക്കാനായില്ല.</string>
+    <string name="error_no_app_found">ഇത് തുറക്കാൻ ആപ്പൊന്നും കണ്ടെത്തിയില്ല.</string>
 </resources>

@@ -212,4 +212,23 @@
     <string name="analytics_spent">ਖਰਚ</string>
     <string name="analytics_saved">ਬੱਚਤ</string>
     <string name="analytics_savings_rate">ਬੱਚਤ ਦਰ</string>
+
+    <!-- Downloads: export a PDF / Excel expense report -->
+    <string name="settings_downloads">ਡਾਊਨਲੋਡ</string>
+    <string name="downloads_title">ਡਾਊਨਲੋਡ</string>
+    <string name="downloads_description">ਆਪਣੇ ਲੈਣ-ਦੇਣ ਨੂੰ ਰਿਪੋਰਟ ਵਜੋਂ ਨਿਰਯਾਤ ਕਰੋ — ਸੰਭਾਲਣ, ਛਾਪਣ ਜਾਂ ਸਾਂਝਾ ਕਰਨ ਲਈ। ਦੋਵਾਂ ਫਾਰਮੈਟਾਂ ਵਿੱਚ ਪੂਰੀ ਲੈਣ-ਦੇਣ ਸਾਰਣੀ ਸਮੇਤ ਸ਼੍ਰੇਣੀ-ਵਾਰ ਅਤੇ ਉਪ-ਸ਼੍ਰੇਣੀ-ਵਾਰ ਕੁੱਲ ਸ਼ਾਮਲ ਹਨ।</string>
+    <string name="downloads_pdf_title">PDF ਡਾਊਨਲੋਡ ਕਰੋ</string>
+    <string name="downloads_pdf_subtitle">ਛਾਪਣ ਜਾਂ ਸਾਂਝਾ ਕਰਨ ਲਈ ਤਿਆਰ ਰਿਪੋਰਟ</string>
+    <string name="downloads_excel_title">Excel ਡਾਊਨਲੋਡ ਕਰੋ</string>
+    <string name="downloads_excel_subtitle">ਕ੍ਰਮਬੱਧ ਕਾਲਮਾਂ ਅਤੇ ਸੰਖੇਪ ਸ਼ੀਟਾਂ ਵਾਲੀ ਸਪਰੈੱਡਸ਼ੀਟ</string>
+    <string name="downloads_period_title">ਮਿਆਦ ਚੁਣੋ</string>
+    <string name="downloads_period_last_3_months">ਪਿਛਲੇ 3 ਮਹੀਨੇ</string>
+    <string name="downloads_period_last_1_year">ਪਿਛਲਾ 1 ਸਾਲ</string>
+    <string name="downloads_generating">ਤੁਹਾਡੀ ਰਿਪੋਰਟ ਤਿਆਰ ਹੋ ਰਹੀ ਹੈ…</string>
+    <string name="downloads_saved">%1$s (%2$d ਲੈਣ-ਦੇਣ) %3$s ਵਿੱਚ ਸੰਭਾਲੀ ਗਈ</string>
+    <string name="downloads_no_data">ਚੁਣੀ ਮਿਆਦ ਵਿੱਚ ਕੋਈ ਲੈਣ-ਦੇਣ ਨਹੀਂ ਹੈ।</string>
+    <string name="downloads_failed">ਫਾਈਲ ਨਹੀਂ ਬਣ ਸਕੀ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+    <string name="downloads_saved_no_app">%1$s %2$s ਵਿੱਚ ਸੰਭਾਲੀ ਗਈ। ਇਸਨੂੰ ਖੋਲ੍ਹਣ ਲਈ ਕੋਈ ਐਪ ਨਹੀਂ ਮਿਲੀ।</string>
+    <string name="downloads_saved_open_failed">%1$s %2$s ਵਿੱਚ ਸੰਭਾਲੀ ਗਈ, ਪਰ ਇਸਨੂੰ ਖੋਲ੍ਹਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ।</string>
+    <string name="error_no_app_found">ਇਸਨੂੰ ਖੋਲ੍ਹਣ ਲਈ ਕੋਈ ਐਪ ਨਹੀਂ ਮਿਲੀ।</string>
 </resources>

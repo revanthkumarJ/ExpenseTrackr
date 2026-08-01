@@ -212,4 +212,23 @@
     <string name="analytics_spent">खर्च</string>
     <string name="analytics_saved">बचत</string>
     <string name="analytics_savings_rate">बचत दर</string>
+
+    <!-- Downloads: export a PDF / Excel expense report -->
+    <string name="settings_downloads">डाउनलोडहरू</string>
+    <string name="downloads_title">डाउनलोडहरू</string>
+    <string name="downloads_description">आफ्ना कारोबारहरू प्रतिवेदनको रूपमा निर्यात गर्नुहोस् — सुरक्षित गर्न, छाप्न वा साझा गर्न। दुवै ढाँचामा पूर्ण कारोबार तालिकासँगै श्रेणी अनुसार र उप-श्रेणी अनुसारको कुल समावेश छ।</string>
+    <string name="downloads_pdf_title">PDF डाउनलोड गर्नुहोस्</string>
+    <string name="downloads_pdf_subtitle">छाप्न वा साझा गर्न तयार प्रतिवेदन</string>
+    <string name="downloads_excel_title">Excel डाउनलोड गर्नुहोस्</string>
+    <string name="downloads_excel_subtitle">क्रमबद्ध गर्न मिल्ने स्तम्भ र सारांश पानासहितको स्प्रेडसिट</string>
+    <string name="downloads_period_title">अवधि छान्नुहोस्</string>
+    <string name="downloads_period_last_3_months">विगत 3 महिना</string>
+    <string name="downloads_period_last_1_year">विगत 1 वर्ष</string>
+    <string name="downloads_generating">तपाईंको प्रतिवेदन तयार हुँदैछ…</string>
+    <string name="downloads_saved">%1$s (%2$d कारोबार) %3$s मा सुरक्षित गरियो</string>
+    <string name="downloads_no_data">छानिएको अवधिमा कुनै कारोबार छैन।</string>
+    <string name="downloads_failed">फाइल बनाउन सकिएन। कृपया फेरि प्रयास गर्नुहोस्।</string>
+    <string name="downloads_saved_no_app">%1$s %2$s मा सुरक्षित गरियो। यसलाई खोल्ने कुनै एप भेटिएन।</string>
+    <string name="downloads_saved_open_failed">%1$s %2$s मा सुरक्षित गरियो, तर यसलाई खोल्न सकिएन।</string>
+    <string name="error_no_app_found">यसलाई खोल्ने कुनै एप भेटिएन।</string>
 </resources>

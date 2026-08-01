@@ -212,4 +212,23 @@
     <string name="analytics_spent">খৰচ</string>
     <string name="analytics_saved">সঞ্চয়</string>
     <string name="analytics_savings_rate">সঞ্চয়ৰ হাৰ</string>
+
+    <!-- Downloads: export a PDF / Excel expense report -->
+    <string name="settings_downloads">ডাউনল’ড</string>
+    <string name="downloads_title">ডাউনল’ড</string>
+    <string name="downloads_description">আপোনাৰ লেনদেনসমূহ প্ৰতিবেদন হিচাপে ৰপ্তানি কৰক — সংৰক্ষণ, মুদ্ৰণ বা ভাগ-বতৰা কৰিবলৈ। দুয়োটা ফৰ্মেটত সম্পূৰ্ণ লেনদেন তালিকাৰ লগতে শ্ৰেণী আৰু উপ-শ্ৰেণী অনুসৰি মুঠ অন্তৰ্ভুক্ত।</string>
+    <string name="downloads_pdf_title">PDF ডাউনল’ড কৰক</string>
+    <string name="downloads_pdf_subtitle">মুদ্ৰণ বা ভাগ-বতৰাৰ বাবে সাজু প্ৰতিবেদন</string>
+    <string name="downloads_excel_title">Excel ডাউনল’ড কৰক</string>
+    <string name="downloads_excel_subtitle">সজাব পৰা স্তম্ভ আৰু সাৰাংশ শ্বীটৰ সৈতে স্প্ৰেডশ্বীট</string>
+    <string name="downloads_period_title">সময়সীমা বাছনি কৰক</string>
+    <string name="downloads_period_last_3_months">বিগত 3 মাহ</string>
+    <string name="downloads_period_last_1_year">বিগত 1 বছৰ</string>
+    <string name="downloads_generating">আপোনাৰ প্ৰতিবেদন প্ৰস্তুত হৈ আছে…</string>
+    <string name="downloads_saved">%1$s (%2$d লেনদেন) %3$s ত সংৰক্ষিত হ’ল</string>
+    <string name="downloads_no_data">বাছনি কৰা সময়সীমাত কোনো লেনদেন নাই।</string>
+    <string name="downloads_failed">ফাইল সৃষ্টি কৰিব পৰা নগ’ল। অনুগ্ৰহ কৰি পুনৰ চেষ্টা কৰক।</string>
+    <string name="downloads_saved_no_app">%1$s %2$s ত সংৰক্ষিত হ’ল। ইয়াক খুলিবলৈ কোনো এপ পোৱা নগ’ল।</string>
+    <string name="downloads_saved_open_failed">%1$s %2$s ত সংৰক্ষিত হ’ল, কিন্তু ইয়াক খুলিব পৰা নগ’ল।</string>
+    <string name="error_no_app_found">ইয়াক খুলিবলৈ কোনো এপ পোৱা নগ’ল।</string>
 </resources>

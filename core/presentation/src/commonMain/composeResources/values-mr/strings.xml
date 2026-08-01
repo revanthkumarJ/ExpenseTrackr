@@ -212,4 +212,23 @@
     <string name="analytics_spent">खर्च</string>
     <string name="analytics_saved">बचत</string>
     <string name="analytics_savings_rate">बचत दर</string>
+
+    <!-- Downloads: export a PDF / Excel expense report -->
+    <string name="settings_downloads">डाउनलोड</string>
+    <string name="downloads_title">डाउनलोड</string>
+    <string name="downloads_description">तुमचे व्यवहार अहवाल म्हणून निर्यात करा — जतन करा, छापा किंवा शेअर करा. दोन्ही स्वरूपांमध्ये संपूर्ण व्यवहार तक्ता तसेच श्रेणीनिहाय आणि उप-श्रेणीनिहाय एकूण रक्कम असते.</string>
+    <string name="downloads_pdf_title">PDF डाउनलोड करा</string>
+    <string name="downloads_pdf_subtitle">छापण्यासाठी किंवा शेअर करण्यासाठी तयार अहवाल</string>
+    <string name="downloads_excel_title">Excel डाउनलोड करा</string>
+    <string name="downloads_excel_subtitle">क्रमवारी लावता येणारे स्तंभ आणि सारांश शीटसह स्प्रेडशीट</string>
+    <string name="downloads_period_title">कालावधी निवडा</string>
+    <string name="downloads_period_last_3_months">मागील 3 महिने</string>
+    <string name="downloads_period_last_1_year">मागील 1 वर्ष</string>
+    <string name="downloads_generating">तुमचा अहवाल तयार होत आहे…</string>
+    <string name="downloads_saved">%1$s (%2$d व्यवहार) %3$s मध्ये जतन केले</string>
+    <string name="downloads_no_data">निवडलेल्या कालावधीत कोणतेही व्यवहार नाहीत.</string>
+    <string name="downloads_failed">फाइल तयार करता आली नाही. कृपया पुन्हा प्रयत्न करा.</string>
+    <string name="downloads_saved_no_app">%1$s %2$s मध्ये जतन केले. ते उघडण्यासाठी कोणतेही अ‍ॅप सापडले नाही.</string>
+    <string name="downloads_saved_open_failed">%1$s %2$s मध्ये जतन केले, पण ते उघडता आले नाही.</string>
+    <string name="error_no_app_found">हे उघडण्यासाठी कोणतेही अ‍ॅप सापडले नाही.</string>
 </resources>

@@ -212,4 +212,23 @@
     <string name="analytics_spent">व्ययः</string>
     <string name="analytics_saved">सञ्चयः</string>
     <string name="analytics_savings_rate">सञ्चयदरः</string>
+
+    <!-- Downloads: export a PDF / Excel expense report -->
+    <string name="settings_downloads">अवतरणानि</string>
+    <string name="downloads_title">अवतरणानि</string>
+    <string name="downloads_description">भवतः व्यवहारान् प्रतिवेदनरूपेण निर्यातयतु — रक्षणाय, मुद्रणाय वा विनिमयाय। उभयोः प्रारूपयोः सम्पूर्णा व्यवहारसारणी तथा वर्गानुसारं उपवर्गानुसारं च योगः अस्ति।</string>
+    <string name="downloads_pdf_title">PDF अवतारयतु</string>
+    <string name="downloads_pdf_subtitle">मुद्रणाय विनिमयाय वा सज्जं प्रतिवेदनम्</string>
+    <string name="downloads_excel_title">Excel अवतारयतु</string>
+    <string name="downloads_excel_subtitle">क्रमीकरणयोग्यस्तम्भैः सारपत्रैश्च युक्तं विस्तारपत्रम्</string>
+    <string name="downloads_period_title">कालावधिं चिनोतु</string>
+    <string name="downloads_period_last_3_months">गताः 3 मासाः</string>
+    <string name="downloads_period_last_1_year">गतम् 1 वर्षम्</string>
+    <string name="downloads_generating">भवतः प्रतिवेदनं सज्जीक्रियते…</string>
+    <string name="downloads_saved">%1$s (%2$d व्यवहाराः) %3$s इत्यत्र रक्षितम्</string>
+    <string name="downloads_no_data">चयनितकालावधौ व्यवहाराः न सन्ति।</string>
+    <string name="downloads_failed">सञ्चिका न निर्मिता। कृपया पुनः प्रयत्नं करोतु।</string>
+    <string name="downloads_saved_no_app">%1$s %2$s इत्यत्र रक्षितम्। तस्य उद्घाटनाय किमपि अनुप्रयोगः न प्राप्तः।</string>
+    <string name="downloads_saved_open_failed">%1$s %2$s इत्यत्र रक्षितम्, परन्तु तत् उद्घाटयितुं न शक्तम्।</string>
+    <string name="error_no_app_found">एतस्य उद्घाटनाय किमपि अनुप्रयोगः न प्राप्तः।</string>
 </resources>

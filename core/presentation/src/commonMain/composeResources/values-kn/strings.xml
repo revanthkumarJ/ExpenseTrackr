@@ -212,4 +212,23 @@
     <string name="analytics_spent">ಖರ್ಚು</string>
     <string name="analytics_saved">ಉಳಿತಾಯ</string>
     <string name="analytics_savings_rate">ಉಳಿತಾಯ ದರ</string>
+
+    <!-- Downloads: export a PDF / Excel expense report -->
+    <string name="settings_downloads">ಡೌನ್‌ಲೋಡ್‌ಗಳು</string>
+    <string name="downloads_title">ಡೌನ್‌ಲೋಡ್‌ಗಳು</string>
+    <string name="downloads_description">ನಿಮ್ಮ ವಹಿವಾಟುಗಳನ್ನು ವರದಿಯಾಗಿ ರಫ್ತು ಮಾಡಿ — ಉಳಿಸಲು, ಮುದ್ರಿಸಲು ಅಥವಾ ಹಂಚಿಕೊಳ್ಳಲು. ಎರಡೂ ಸ್ವರೂಪಗಳಲ್ಲಿ ಸಂಪೂರ್ಣ ವಹಿವಾಟು ಕೋಷ್ಟಕದೊಂದಿಗೆ ವರ್ಗವಾರು ಮತ್ತು ಉಪ-ವರ್ಗವಾರು ಒಟ್ಟುಗಳಿವೆ.</string>
+    <string name="downloads_pdf_title">PDF ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ</string>
+    <string name="downloads_pdf_subtitle">ಮುದ್ರಿಸಲು ಅಥವಾ ಹಂಚಿಕೊಳ್ಳಲು ಸಿದ್ಧವಾದ ವರದಿ</string>
+    <string name="downloads_excel_title">Excel ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ</string>
+    <string name="downloads_excel_subtitle">ವಿಂಗಡಿಸಬಹುದಾದ ಕಾಲಂಗಳು ಮತ್ತು ಸಾರಾಂಶ ಶೀಟ್‌ಗಳಿರುವ ಸ್ಪ್ರೆಡ್‌ಶೀಟ್</string>
+    <string name="downloads_period_title">ಅವಧಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="downloads_period_last_3_months">ಕಳೆದ 3 ತಿಂಗಳು</string>
+    <string name="downloads_period_last_1_year">ಕಳೆದ 1 ವರ್ಷ</string>
+    <string name="downloads_generating">ನಿಮ್ಮ ವರದಿ ಸಿದ್ಧವಾಗುತ್ತಿದೆ…</string>
+    <string name="downloads_saved">%1$s (%2$d ವಹಿವಾಟುಗಳು) %3$s ನಲ್ಲಿ ಉಳಿಸಲಾಗಿದೆ</string>
+    <string name="downloads_no_data">ಆಯ್ಕೆಮಾಡಿದ ಅವಧಿಯಲ್ಲಿ ವಹಿವಾಟುಗಳಿಲ್ಲ.</string>
+    <string name="downloads_failed">ಫೈಲ್ ರಚಿಸಲಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+    <string name="downloads_saved_no_app">%1$s %2$s ನಲ್ಲಿ ಉಳಿಸಲಾಗಿದೆ. ಅದನ್ನು ತೆರೆಯಲು ಯಾವುದೇ ಆ್ಯಪ್ ಸಿಗಲಿಲ್ಲ.</string>
+    <string name="downloads_saved_open_failed">%1$s %2$s ನಲ್ಲಿ ಉಳಿಸಲಾಗಿದೆ, ಆದರೆ ಅದನ್ನು ತೆರೆಯಲಾಗಲಿಲ್ಲ.</string>
+    <string name="error_no_app_found">ಇದನ್ನು ತೆರೆಯಲು ಯಾವುದೇ ಆ್ಯಪ್ ಸಿಗಲಿಲ್ಲ.</string>
 </resources>

@@ -212,4 +212,23 @@
     <string name="analytics_spent">செலவு</string>
     <string name="analytics_saved">சேமிப்பு</string>
     <string name="analytics_savings_rate">சேமிப்பு விகிதம்</string>
+
+    <!-- Downloads: export a PDF / Excel expense report -->
+    <string name="settings_downloads">பதிவிறக்கங்கள்</string>
+    <string name="downloads_title">பதிவிறக்கங்கள்</string>
+    <string name="downloads_description">உங்கள் பரிவர்த்தனைகளை அறிக்கையாக ஏற்றுமதி செய்யுங்கள் — சேமிக்க, அச்சிட அல்லது பகிர. இரண்டு வடிவங்களிலும் முழு பரிவர்த்தனை அட்டவணையுடன் வகை வாரியான மற்றும் துணை வகை வாரியான மொத்தங்கள் அடங்கும்.</string>
+    <string name="downloads_pdf_title">PDF பதிவிறக்கவும்</string>
+    <string name="downloads_pdf_subtitle">அச்சிட அல்லது பகிரத் தயாராக உள்ள அறிக்கை</string>
+    <string name="downloads_excel_title">Excel பதிவிறக்கவும்</string>
+    <string name="downloads_excel_subtitle">வரிசைப்படுத்தக்கூடிய நெடுவரிசைகள் மற்றும் சுருக்கத் தாள்களுடன் விரிதாள்</string>
+    <string name="downloads_period_title">காலத்தைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="downloads_period_last_3_months">கடந்த 3 மாதங்கள்</string>
+    <string name="downloads_period_last_1_year">கடந்த 1 ஆண்டு</string>
+    <string name="downloads_generating">உங்கள் அறிக்கை தயாராகிறது…</string>
+    <string name="downloads_saved">%1$s (%2$d பரிவர்த்தனைகள்) %3$s இல் சேமிக்கப்பட்டது</string>
+    <string name="downloads_no_data">தேர்ந்தெடுத்த காலத்தில் பரிவர்த்தனைகள் இல்லை.</string>
+    <string name="downloads_failed">கோப்பை உருவாக்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="downloads_saved_no_app">%1$s %2$s இல் சேமிக்கப்பட்டது. அதைத் திறக்க எந்த ஆப்ஸும் இல்லை.</string>
+    <string name="downloads_saved_open_failed">%1$s %2$s இல் சேமிக்கப்பட்டது, ஆனால் அதைத் திறக்க முடியவில்லை.</string>
+    <string name="error_no_app_found">இதைத் திறக்க எந்த ஆப்ஸும் இல்லை.</string>
 </resources>

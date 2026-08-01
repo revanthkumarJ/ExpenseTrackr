@@ -214,4 +214,23 @@
     <string name="analytics_spent">ఖర్చు</string>
     <string name="analytics_saved">ఆదా</string>
     <string name="analytics_savings_rate">ఆదా రేటు</string>
+
+    <!-- Downloads: export a PDF / Excel expense report -->
+    <string name="settings_downloads">డౌన్‌లోడ్‌లు</string>
+    <string name="downloads_title">డౌన్‌లోడ్‌లు</string>
+    <string name="downloads_description">మీ లావాదేవీలను నివేదికగా ఎగుమతి చేయండి — దాచుకోవచ్చు, ముద్రించవచ్చు లేదా పంచుకోవచ్చు. రెండు ఫార్మాట్‌లలోనూ పూర్తి లావాదేవీల పట్టికతో పాటు వర్గం వారీ మరియు ఉప-వర్గం వారీ మొత్తాలు ఉంటాయి.</string>
+    <string name="downloads_pdf_title">PDF డౌన్‌లోడ్ చేయండి</string>
+    <string name="downloads_pdf_subtitle">ముద్రించడానికి లేదా పంచుకోవడానికి సిద్ధమైన నివేదిక</string>
+    <string name="downloads_excel_title">Excel డౌన్‌లోడ్ చేయండి</string>
+    <string name="downloads_excel_subtitle">క్రమబద్ధీకరించదగిన నిలువు వరుసలు, సారాంశ షీట్‌లతో స్ప్రెడ్‌షీట్</string>
+    <string name="downloads_period_title">కాలాన్ని ఎంచుకోండి</string>
+    <string name="downloads_period_last_3_months">గత 3 నెలలు</string>
+    <string name="downloads_period_last_1_year">గత 1 సంవత్సరం</string>
+    <string name="downloads_generating">మీ నివేదిక సిద్ధమవుతోంది…</string>
+    <string name="downloads_saved">%1$s (%2$d లావాదేవీలు) %3$s లో సేవ్ చేయబడింది</string>
+    <string name="downloads_no_data">ఎంచుకున్న కాలంలో లావాదేవీలు లేవు.</string>
+    <string name="downloads_failed">ఫైల్‌ను సృష్టించలేకపోయాము. దయచేసి మళ్లీ ప్రయత్నించండి.</string>
+    <string name="downloads_saved_no_app">%1$s %2$s లో సేవ్ చేయబడింది. దీన్ని తెరవడానికి యాప్ ఏదీ కనబడలేదు.</string>
+    <string name="downloads_saved_open_failed">%1$s %2$s లో సేవ్ చేయబడింది, కానీ దీన్ని తెరవలేకపోయాము.</string>
+    <string name="error_no_app_found">దీన్ని తెరవడానికి యాప్ ఏదీ కనబడలేదు.</string>
 </resources>

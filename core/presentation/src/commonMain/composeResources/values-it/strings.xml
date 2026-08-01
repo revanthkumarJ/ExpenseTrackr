@@ -212,4 +212,23 @@
     <string name="analytics_spent">Speso</string>
     <string name="analytics_saved">Risparmiato</string>
     <string name="analytics_savings_rate">Tasso di risparmio</string>
+
+    <!-- Downloads: export a PDF / Excel expense report -->
+    <string name="settings_downloads">Download</string>
+    <string name="downloads_title">Download</string>
+    <string name="downloads_description">Esporta le tue transazioni come report da conservare, stampare o condividere. Entrambi i formati includono la tabella completa delle transazioni e i totali per categoria e sottocategoria.</string>
+    <string name="downloads_pdf_title">Scarica PDF</string>
+    <string name="downloads_pdf_subtitle">Report formattato, pronto da stampare o condividere</string>
+    <string name="downloads_excel_title">Scarica Excel</string>
+    <string name="downloads_excel_subtitle">Foglio di calcolo con colonne ordinabili e fogli di riepilogo</string>
+    <string name="downloads_period_title">Seleziona periodo</string>
+    <string name="downloads_period_last_3_months">Ultimi 3 mesi</string>
+    <string name="downloads_period_last_1_year">Ultimo anno</string>
+    <string name="downloads_generating">Preparazione del report…</string>
+    <string name="downloads_saved">%1$s (%2$d transazioni) salvato in %3$s</string>
+    <string name="downloads_no_data">Nessuna transazione nel periodo selezionato.</string>
+    <string name="downloads_failed">Impossibile creare il file. Riprova.</string>
+    <string name="downloads_saved_no_app">%1$s salvato in %2$s. Nessuna app trovata per aprirlo.</string>
+    <string name="downloads_saved_open_failed">%1$s salvato in %2$s, ma non è stato possibile aprirlo.</string>
+    <string name="error_no_app_found">Nessuna app trovata per aprire questo.</string>
 </resources>

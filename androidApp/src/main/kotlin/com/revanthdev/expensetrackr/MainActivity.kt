@@ -1,6 +1,7 @@
 package com.revanthdev.expensetrackr
 
 import android.Manifest
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -29,12 +30,21 @@ class MainActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         requestLegacyStoragePermissionIfNeeded()
         val biometricAuthenticator = AndroidBiometricAuthenticator(this)
+        // Returns false (rather than crashing) on the rare device with no app able to receive a
+        // share — the caller turns that into a "no app found" message.
         val shareHandler = ShareHandler { text ->
             val sendIntent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
                 putExtra(Intent.EXTRA_TEXT, text)
             }
-            startActivity(Intent.createChooser(sendIntent, null))
+            try {
+                startActivity(Intent.createChooser(sendIntent, null))
+                true
+            } catch (_: ActivityNotFoundException) {
+                false
+            } catch (_: Exception) {
+                false
+            }
         }
         setContent {
             CompositionLocalProvider(

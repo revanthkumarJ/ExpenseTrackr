@@ -39,6 +39,11 @@ kotlin {
             implementation(libs.androidx.work.runtime)
             implementation(libs.kotlinx.coroutinesAndroid)
         }
+        // Report generation (PDF/XLSX byte writers) is pure common code — exercised on the JVM.
+        jvmTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutinesTest)
+        }
     }
 }
 

@@ -212,4 +212,23 @@
     <string name="analytics_spent">支出</string>
     <string name="analytics_saved">貯蓄</string>
     <string name="analytics_savings_rate">貯蓄率</string>
+
+    <!-- Downloads: export a PDF / Excel expense report -->
+    <string name="settings_downloads">ダウンロード</string>
+    <string name="downloads_title">ダウンロード</string>
+    <string name="downloads_description">取引データをレポートとして書き出し、保存・印刷・共有できます。どちらの形式にも取引一覧の全体に加えて、カテゴリ別・サブカテゴリ別の合計が含まれます。</string>
+    <string name="downloads_pdf_title">PDF をダウンロード</string>
+    <string name="downloads_pdf_subtitle">印刷や共有にそのまま使えるレポート</string>
+    <string name="downloads_excel_title">Excel をダウンロード</string>
+    <string name="downloads_excel_subtitle">並べ替え可能な列と集計シート付きのスプレッドシート</string>
+    <string name="downloads_period_title">期間を選択</string>
+    <string name="downloads_period_last_3_months">過去 3 か月</string>
+    <string name="downloads_period_last_1_year">過去 1 年</string>
+    <string name="downloads_generating">レポートを作成しています…</string>
+    <string name="downloads_saved">%1$s（%2$d 件の取引）を %3$s に保存しました</string>
+    <string name="downloads_no_data">選択した期間に取引はありません。</string>
+    <string name="downloads_failed">ファイルを作成できませんでした。もう一度お試しください。</string>
+    <string name="downloads_saved_no_app">%1$s を %2$s に保存しました。開けるアプリが見つかりません。</string>
+    <string name="downloads_saved_open_failed">%1$s を %2$s に保存しましたが、開けませんでした。</string>
+    <string name="error_no_app_found">開けるアプリが見つかりません。</string>
 </resources>

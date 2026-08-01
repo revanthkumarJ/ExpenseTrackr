@@ -82,6 +82,9 @@ Indian: `en hi te bn mr ta gu ur kn or ml pa as ne sa` · World: `zh es ar pt ru
 Long legal/marketing bodies in `feature/settings/.../SubScreens.kt` — About blurb, Privacy Policy
 and Terms of Service paragraph bodies (`PolicySection(...)`), "Version 1.0.0", "Last updated…".
 Month names come from `core/presentation/.../util/DateFormatter.kt` (English abbreviations) — not localized.
+**The generated PDF/Excel reports** (`feature/settings/.../downloads/`) are English by design: they are
+documents meant to be printed and shared with third parties, and the base-14 PDF fonts have no glyphs
+for non-Latin scripts anyway. Only the Downloads *UI* is localized.
 
 Full detail: **`docs/LOCALIZATION.md`**.
 
@@ -139,7 +142,7 @@ core:data → core:database, core:domain
 | `analytics` | `AnalyticsScreen.kt` | Donut chart, stat cards, breakdown |
 | `budget` | `BudgetScreen.kt` | Monthly + per-category budgets, allow-over-budget switch |
 | `categories` | `CategoriesScreen.kt` | Manage categories + sub-categories (2 VMs) |
-| `settings` | `SettingsScreen.kt`, `SubScreens.kt` | Settings list; About/Privacy/Terms, Notifications, App-lock setup, PIN setup flow |
+| `settings` | `SettingsScreen.kt`, `SubScreens.kt` | Settings list; About/Privacy/Terms, Notifications, App-lock setup, PIN setup flow, Backup & Sync (`sync/`), Downloads (`downloads/`) |
 | `applock` | `AppLockScreen.kt` | PIN/biometric unlock |
 | `onboarding` | `OnboardingScreen.kt` | Pager intro |
 

@@ -212,4 +212,23 @@
     <string name="analytics_spent">خرچ</string>
     <string name="analytics_saved">بچت</string>
     <string name="analytics_savings_rate">بچت کی شرح</string>
+
+    <!-- Downloads: export a PDF / Excel expense report -->
+    <string name="settings_downloads">ڈاؤن لوڈز</string>
+    <string name="downloads_title">ڈاؤن لوڈز</string>
+    <string name="downloads_description">اپنی لین دین کو رپورٹ کے طور پر برآمد کریں — محفوظ کریں، پرنٹ کریں یا شیئر کریں۔ دونوں فارمیٹس میں مکمل لین دین کا جدول اور زمرہ وار اور ذیلی زمرہ وار میزان شامل ہیں۔</string>
+    <string name="downloads_pdf_title">PDF ڈاؤن لوڈ کریں</string>
+    <string name="downloads_pdf_subtitle">پرنٹ یا شیئر کرنے کے لیے تیار رپورٹ</string>
+    <string name="downloads_excel_title">Excel ڈاؤن لوڈ کریں</string>
+    <string name="downloads_excel_subtitle">ترتیب دینے کے قابل کالم اور خلاصہ شیٹس والی اسپریڈشیٹ</string>
+    <string name="downloads_period_title">مدت منتخب کریں</string>
+    <string name="downloads_period_last_3_months">پچھلے 3 ماہ</string>
+    <string name="downloads_period_last_1_year">پچھلا 1 سال</string>
+    <string name="downloads_generating">آپ کی رپورٹ تیار کی جا رہی ہے…</string>
+    <string name="downloads_saved">%1$s (%2$d لین دین) %3$s میں محفوظ ہو گئی</string>
+    <string name="downloads_no_data">منتخب مدت میں کوئی لین دین نہیں ہے۔</string>
+    <string name="downloads_failed">فائل نہیں بن سکی۔ براہ کرم دوبارہ کوشش کریں۔</string>
+    <string name="downloads_saved_no_app">%1$s کو %2$s میں محفوظ کر لیا گیا۔ اسے کھولنے کے لیے کوئی ایپ نہیں ملی۔</string>
+    <string name="downloads_saved_open_failed">%1$s کو %2$s میں محفوظ کر لیا گیا، لیکن اسے کھولا نہیں جا سکا۔</string>
+    <string name="error_no_app_found">اسے کھولنے کے لیے کوئی ایپ نہیں ملی۔</string>
 </resources>

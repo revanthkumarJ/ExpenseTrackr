@@ -35,7 +35,8 @@ fun AboutScreen(onBack: () -> Unit) {
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text("💰 ExpenseTrackr", style = MaterialTheme.typography.headlineMedium)
-            Text("Version 1.0.0", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            // Keep in step with versionName in androidApp/build.gradle.kts.
+            Text("Version 1.0.6", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Text("Track every rupee. Stay in control.", style = MaterialTheme.typography.bodyLarge)
             HorizontalDivider()
             Text("Developer", style = MaterialTheme.typography.titleSmall)
