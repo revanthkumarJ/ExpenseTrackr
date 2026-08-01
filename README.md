@@ -55,6 +55,7 @@ Desktop via **Compose Multiplatform**, following a **clean, modular MVI architec
 - **True multiplatform** — domain, data, and UI shared across 3 platforms from one codebase (~10k lines of Kotlin, 16 Gradle modules).
 - **Offline-first & private** — financial data never leaves the device; only anonymous crash/usage diagnostics are collected (opt-in-friendly, no ads, no data selling).
 - **Production-grade engineering** — clean architecture, MVI, dependency injection, custom Gradle convention plugins, R8 minification, and a real Play Store release pipeline.
+- **Zero-dependency document generation** — PDF and `.xlsx` reports are written byte-by-byte in shared Kotlin, so exports look the same on every platform without pulling in a native reporting library.
 - **Fully localized** — 24 languages with an in-app language switcher (no app restart required).
 
 ---
@@ -85,11 +86,25 @@ Desktop via **Compose Multiplatform**, following a **clean, modular MVI architec
 - This Week · This Month · Last Month · This Year · **Custom range**.
 - Filter state persists per screen.
 
-### 💾 Backup & Sync _(new)_
+### 💾 Backup & Sync
 - Export everything to **CSV** — `expenses.csv` + `incomes.csv` — into an **ExpenseTrackr** folder in
   shared storage that **survives clearing app data / reinstalling**.
 - **Restore/merge** from those files, de-duplicated by database ID. Categories are stored as text and
   recreated on import, so a backup is fully self-sufficient and readable in Excel/Sheets.
+
+### 📄 Reports & Downloads _(new)_
+- Download your transactions as a **formatted PDF report** or an **Excel workbook**, for **This Month ·
+  Last Month · Last 3 Months · Last 1 Year · Custom range**.
+- Both formats carry the full transaction table — date, name, type, amount, category, sub-category —
+  with **income in green and expenses in black**, plus an income / expense / net summary.
+- Every report ends with **category-wise** and **sub-category-wise** spending breakdowns (amount,
+  transaction count, % of spend) and an income-by-category summary.
+- The **PDF** paginates with repeated column headers and `Page x of y` footers; the **Excel** file stores
+  real numbers and dates with frozen panes and auto-filters, so it sorts, sums and pivots properly.
+- Written by **hand-rolled, dependency-free generators in shared Kotlin** (a PDF 1.4 writer and a
+  SpreadsheetML + ZIP/CRC32 writer) — one implementation, so reports render identically on every platform.
+- The saved file is **opened automatically**; if the device has no viewer app, you get a
+  _"No app found to open it"_ message and the report stays safely in your downloads folder.
 
 ### 🔐 Security
 - **App lock** with a 6-digit PIN and optional **biometric** (fingerprint/face) unlock with PIN fallback.
@@ -123,6 +138,7 @@ Desktop via **Compose Multiplatform**, following a **clean, modular MVI architec
 | **Persistence** | Room (KMP) + `androidx.sqlite` bundled driver; DataStore (preferences) |
 | **Async** | Kotlinx Coroutines & Flow |
 | **Serialization / Time** | kotlinx.serialization, kotlinx.datetime |
+| **Reporting** | In-house PDF 1.4 and SpreadsheetML (`.xlsx`) writers in shared Kotlin — no third-party reporting library |
 | **Logging** | Kermit |
 | **Diagnostics (Android)** | Firebase Crashlytics & Analytics |
 | **Build** | Gradle (Kotlin DSL), version catalog, **custom convention plugins** (`build-logic`), R8 minify + resource shrinking |
@@ -164,11 +180,11 @@ core:data → core:database, core:domain
 | `analytics` | Donut chart, spent-vs-saved, spending-over-time, stat cards |
 | `budget` | Monthly + per-category budgets, allow-over-budget |
 | `categories` | Manage categories & sub-categories |
-| `settings` | Settings, About/Privacy/Terms, notifications, app-lock, language, **Backup & Sync**, **Share** |
+| `settings` | Settings, About/Privacy/Terms, notifications, app-lock, language, **Backup & Sync**, **Downloads (PDF/Excel reports)**, **Share** |
 | `applock` | PIN / biometric unlock |
 | `onboarding` | Language picker + intro pager |
 
-**At a glance:** 16 Gradle modules · 18 screens · 15 ViewModels · 24 languages.
+**At a glance:** 16 Gradle modules · 19 screens · 16 ViewModels · 24 languages.
 
 ---
 
@@ -200,6 +216,9 @@ core:data → core:database, core:domain
 ```bash
 # Fast common-code check (compiles all shared/feature code)
 ./gradlew :shared:compileKotlinJvm
+
+# Unit tests (report generation + downloads ViewModel)
+./gradlew :feature:settings:presentation:jvmTest
 
 # Android debug APK
 ./gradlew :androidApp:assembleDebug
