@@ -138,7 +138,8 @@ core:data → core:database, core:domain
   (`PinEntryScreen` — shared by app-lock unlock & PIN setup).
 - **`shared/App.kt`** — root + tab `NavHost`s, screen transitions, bottom navigation.
 - **`androidApp`** — `MainActivity` (FragmentActivity; provides `AndroidBiometricAuthenticator`,
-  the share/store launchers, `AppInfo` from `BuildConfig`, and `PlayAppUpdateManager`).
+  the share/store launchers, `AppInfo` from `BuildConfig`, and `PlayAppUpdateManager`), plus the
+  **home-screen widget** in `widget/` (see below).
 
 ### Feature modules (each `feature/<name>/presentation`, commonMain, one main screen file)
 | Module | Main file | Screens / contents |
@@ -183,6 +184,32 @@ core:data → core:database, core:domain
   ⚠️ Play only reports updates for builds **installed from Play**; a debug/sideloaded APK stays
   `Unknown` forever. Test from an internal-test-track install with a *lower* versionCode than the
   one live on the track.
+
+### Home-screen widget (Android only)
+`androidApp/.../widget/` — `ExpenseWidget` (Glance) shows income vs expense for **this month** and
+for **today** as four tiles, plus an Add Transaction button; `ExpenseWidgetReceiver` is its
+manifest entry point.
+- **Glance is not Compose Multiplatform.** It renders to RemoteViews, so it can use *neither* the
+  `core:design-system` components *nor* the CMP string catalog. Widget strings are plain Android
+  resources in `androidApp/src/main/res/values*/strings.xml` and must be translated separately
+  (currently en/hi/te only). They also follow the **system** locale — a widget never sees
+  `ProvideAppLocale`, so the in-app language setting doesn't apply to it.
+- Colours are the same story: Glance 1.1.x has no day/night `ColorProvider` factory, so light/dark
+  live in `res/values{,-night}/colors.xml` and are referenced as `ColorProvider(R.color.…)`. A name
+  present in one file but missing from the other silently stays light in dark mode.
+- **Sizing:** widget cell heights are quantised, so the host rarely gives exactly the content
+  height. Keep `minHeight` near the real content height and let the *tiles* absorb the remainder
+  (`defaultWeight()` on the period sections). Parking the slack in a spacer instead turns it into
+  one visible gap; over-sizing the widget makes the tiles stretch into empty boxes.
+- Data comes straight from `ExpenseRepository` via Koin's `GlobalContext` (no Activity needed).
+  Collecting those Flows inside `provideContent` keeps the widget live while it's on screen;
+  `MainActivity.onStop` also calls `refreshExpenseWidgets` to cover edits made while the host
+  wasn't listening. `updatePeriodMillis` is deliberately `0` — polling would only cost battery.
+- **Quick-add** is a deep link, not a separate form: the + fires `MainActivity.ACTION_QUICK_ADD`,
+  and `App(quickAddRequest = …)` navigates to `AddEditExpenseRoute()`. It's an **Int counter, not a
+  Boolean**, so a second tap while the app is open is still observable. A request that arrives
+  during onboarding or app lock is held in `quickAddPending` and replayed after the user gets
+  through — the widget must never be a way around the PIN screen.
 
 ## Build & verify
 ```bash

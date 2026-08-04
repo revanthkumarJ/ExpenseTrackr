@@ -11,10 +11,16 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.lifecycleScope
+import com.revanthdev.expensetrackr.widget.refreshExpenseWidgets
+import kotlinx.coroutines.launch
 import com.revanthdev.expensetrackr.core.presentation.AppInfo
 import com.revanthdev.expensetrackr.core.presentation.LocalAppInfo
 import com.revanthdev.expensetrackr.core.presentation.LocalAppUpdateManager
@@ -65,6 +71,7 @@ class MainActivity : FragmentActivity() {
             versionName = BuildConfig.VERSION_NAME,
             versionCode = BuildConfig.VERSION_CODE.toLong(),
         )
+        quickAddRequests = if (intent.isQuickAdd()) 1 else 0
         setContent {
             CompositionLocalProvider(
                 LocalBiometricAuthenticator provides biometricAuthenticator,
@@ -73,16 +80,39 @@ class MainActivity : FragmentActivity() {
                 LocalAppInfo provides appInfo,
                 LocalAppUpdateManager provides appUpdateManager,
             ) {
-                App()
+                App(quickAddRequest = quickAddRequests)
             }
         }
     }
+
+    /**
+     * Counter rather than a flag: tapping the widget's + while the app is already open must
+     * re-open the Add Transaction form, and a `Boolean` that is already `true` wouldn't change,
+     * so the composition would never notice the second request.
+     */
+    private var quickAddRequests by mutableIntStateOf(0)
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        // Keep it as the Activity's current intent, matching the platform contract.
+        setIntent(intent)
+        if (intent.isQuickAdd()) quickAddRequests++
+    }
+
+    private fun Intent.isQuickAdd(): Boolean = action == ACTION_QUICK_ADD
 
     override fun onResume() {
         super.onResume()
         // Re-checked on every resume so an update published while the app sat in the background
         // is picked up, and so a download that completed off-screen surfaces its install prompt.
         appUpdateManager.refresh()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        // The user is heading back to the launcher, where the widget is about to be visible —
+        // redraw it so any expense added in this session is reflected immediately.
+        lifecycleScope.launch { refreshExpenseWidgets(this@MainActivity) }
     }
 
     override fun onDestroy() {
@@ -108,6 +138,11 @@ class MainActivity : FragmentActivity() {
         false
     } catch (_: Exception) {
         false
+    }
+
+    companion object {
+        /** Set by the home-screen widget's + button; opens the app on the Add Transaction form. */
+        const val ACTION_QUICK_ADD = "com.revanthdev.expensetrackr.action.QUICK_ADD"
     }
 
     private fun requestLegacyStoragePermissionIfNeeded() {

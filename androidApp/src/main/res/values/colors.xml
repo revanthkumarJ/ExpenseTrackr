@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Widget palette, mirrored by hand from core:design-system Color.kt.
+
+  Glance 1.1.x has no day/night ColorProvider factory — only ColorProvider(@ColorRes) — so light
+  and dark values are expressed the standard Android way: this file plus values-night/colors.xml.
+  Keep the two in step; a colour defined here but missing there silently stays light in dark mode.
+
+  Deliberately NOT GlanceTheme's dynamic colours: the income-vs-expense split has to stay
+  green-vs-red to be readable at a glance, and Material You would recolour it to match the
+  user's wallpaper.
+-->
+<resources>
+    <color name="widget_surface">#FFFFFFFF</color>
+    <color name="widget_on_surface">#FF1A1C22</color>
+    <color name="widget_on_surface_muted">#FF6B7280</color>
+    <color name="widget_primary">#FF3D52A0</color>
+    <color name="widget_on_primary">#FFFFFFFF</color>
+    <color name="widget_income_tint">#FFE3F1E4</color>
+    <color name="widget_income_text">#FF2E7D32</color>
+    <color name="widget_expense_tint">#FFFBE4E4</color>
+    <color name="widget_expense_text">#FFC62828</color>
+</resources>

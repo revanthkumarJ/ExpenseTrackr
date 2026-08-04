@@ -1,0 +1,10 @@
+<resources>
+    <!-- Widget-only strings; see values/strings.xml for why these are separate from the CMP catalog. -->
+    <string name="widget_title">ExpenseTrackr</string>
+    <string name="widget_this_month">इस महीने</string>
+    <string name="widget_income">आय</string>
+    <string name="widget_expense">खर्च</string>
+    <string name="widget_today">आज</string>
+    <string name="widget_add_transaction">+  लेन-देन जोड़ें</string>
+    <string name="widget_description">इस महीने की आय और खर्च, एक टैप में जोड़ने की सुविधा के साथ।</string>
+</resources>

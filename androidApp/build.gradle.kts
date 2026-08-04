@@ -84,6 +84,12 @@ dependencies {
     // Play In-App Updates — backs PlayAppUpdateManager.
     implementation(libs.play.appUpdate)
 
+    // Home-screen widget (Glance). Android-only by nature — widgets are a platform feature.
+    implementation(libs.glance.appwidget)
+    implementation(libs.glance.material3)
+    // The widget reads spend totals directly, so it needs LocalDate/Clock for "today".
+    implementation(libs.kotlinx.datetime)
+
     // Firebase (Android-only): Crashlytics + Analytics. Versions managed by the BOM.
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.crashlytics)

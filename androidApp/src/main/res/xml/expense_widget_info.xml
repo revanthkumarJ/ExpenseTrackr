@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Sizing for the ExpenseTrackr home-screen widget.
+
+  targetCellWidth/Height are the Android 12+ way of asking for a 4x2 tile; minWidth/minHeight are
+  the pre-12 fallback and must stay set, or the widget can't be placed on older launchers.
+
+  updatePeriodMillis is 0 on purpose: Glance keeps the widget live from the repository Flows while
+  it's on screen, and MainActivity refreshes it on the way out, so the system's polling (which is
+  clamped to 30 minutes anyway) would only cost battery.
+-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/widget_description"
+    android:minWidth="250dp"
+    android:minHeight="210dp"
+    android:minResizeWidth="220dp"
+    android:minResizeHeight="210dp"
+    android:targetCellWidth="4"
+    android:targetCellHeight="3"
+    android:previewImage="@mipmap/ic_launcher"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="home_screen" />

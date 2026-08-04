@@ -110,8 +110,13 @@ private val tabExit: AnimatedContentTransitionScope<NavBackStackEntry>.() -> Exi
     fadeOut(tween(200))
 }
 
+/**
+ * @param quickAddRequest incremented by the host each time the user asks to jump straight to the
+ *   Add Transaction form (Android's home-screen widget). A counter, not a flag, so a second
+ *   request while the app is already open is still observable. `0` means "no request".
+ */
 @Composable
-fun App() {
+fun App(quickAddRequest: Int = 0) {
     val settingsRepository = koinInject<SettingsRepository>()
     var startDestination by remember { mutableStateOf<Any?>(null) }
     val settingsState by settingsRepository.getSettings().collectAsState(initial = null)
@@ -133,7 +138,7 @@ fun App() {
                 }
                 return@ExpenseTrackerTheme
             }
-            AppNavHost(startDestination = startDestination!!)
+            AppNavHost(startDestination = startDestination!!, quickAddRequest = quickAddRequest)
             AppUpdatePrompt()
         }
     }
@@ -181,9 +186,34 @@ private fun AppUpdatePrompt() {
     }
 }
 
+/** Replays a quick-add that was requested before the user had cleared onboarding / app lock. */
+private fun consumeQuickAdd(
+    navController: androidx.navigation.NavController,
+    pending: Boolean,
+    onConsumed: () -> Unit,
+) {
+    if (!pending) return
+    onConsumed()
+    navController.navigate(AddEditExpenseRoute())
+}
+
 @Composable
-private fun AppNavHost(startDestination: Any) {
+private fun AppNavHost(startDestination: Any, quickAddRequest: Int = 0) {
     val rootNavController = rememberNavController()
+
+    // A quick-add asked for while the app is locked (or still onboarding) can't be honoured yet —
+    // it's held here and replayed once the user reaches the main app, so the widget never becomes
+    // a way past the PIN screen.
+    var quickAddPending by remember { mutableStateOf(false) }
+
+    LaunchedEffect(quickAddRequest) {
+        if (quickAddRequest == 0) return@LaunchedEffect
+        if (startDestination === MainRoute) {
+            rootNavController.navigate(AddEditExpenseRoute())
+        } else {
+            quickAddPending = true
+        }
+    }
 
     NavHost(
         navController = rootNavController,
@@ -198,6 +228,7 @@ private fun AppNavHost(startDestination: Any) {
                 rootNavController.navigate(MainRoute) {
                     popUpTo(OnboardingRoute) { inclusive = true }
                 }
+                consumeQuickAdd(rootNavController, quickAddPending) { quickAddPending = false }
             })
         }
 
@@ -207,6 +238,7 @@ private fun AppNavHost(startDestination: Any) {
                     rootNavController.navigate(MainRoute) {
                         popUpTo(AppLockRoute) { inclusive = true }
                     }
+                    consumeQuickAdd(rootNavController, quickAddPending) { quickAddPending = false }
                 }
             )
         }

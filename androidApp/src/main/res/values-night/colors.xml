@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dark-mode widget palette. Every name in values/colors.xml must also appear here. -->
+<resources>
+    <color name="widget_surface">#FF1A1C22</color>
+    <color name="widget_on_surface">#FFECEEF6</color>
+    <color name="widget_on_surface_muted">#FF9AA0AC</color>
+    <color name="widget_primary">#FF7091E6</color>
+    <color name="widget_on_primary">#FF0C1565</color>
+    <color name="widget_income_tint">#FF17301B</color>
+    <color name="widget_income_text">#FF81C995</color>
+    <color name="widget_expense_tint">#FF33191A</color>
+    <color name="widget_expense_text">#FFEF9A9A</color>
+</resources>

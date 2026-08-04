@@ -1,0 +1,10 @@
+<resources>
+    <!-- Widget-only strings; see values/strings.xml for why these are separate from the CMP catalog. -->
+    <string name="widget_title">ExpenseTrackr</string>
+    <string name="widget_this_month">ఈ నెల</string>
+    <string name="widget_income">ఆదాయం</string>
+    <string name="widget_expense">ఖర్చు</string>
+    <string name="widget_today">ఈ రోజు</string>
+    <string name="widget_add_transaction">+  లావాదేవీ జోడించండి</string>
+    <string name="widget_description">ఈ నెల ఆదాయం మరియు ఖర్చు, ఒక్క ట్యాప్‌తో నమోదు చేసే సౌకర్యంతో.</string>
+</resources>

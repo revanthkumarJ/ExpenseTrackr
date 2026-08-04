@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">ExpenseTrackr</string>
+
+    <!--
+      Widget strings live here, not in the Compose Multiplatform catalog under
+      core/presentation/src/commonMain/composeResources/. Glance renders RemoteViews and can only
+      read Android resources, so these are a separate (small) set that has to be translated on its
+      own — see values-hi/ and values-te/. They also follow the *system* locale, not the app's
+      in-app language setting, because a widget never sees ProvideAppLocale.
+    -->
+    <string name="widget_title">ExpenseTrackr</string>
+    <string name="widget_this_month">THIS MONTH</string>
+    <string name="widget_income">Income</string>
+    <string name="widget_expense">Expense</string>
+    <string name="widget_today">TODAY</string>
+    <string name="widget_add_transaction">+  Add Transaction</string>
+    <string name="widget_description">Income and spending for today and this month, with one-tap entry.</string>
 </resources>
