@@ -113,6 +113,21 @@
     <string name="settings_terms">Terms of Service</string>
     <string name="settings_share">Share App</string>
     <string name="share_app_message">Check out ExpenseTrackr — a simple, private expense tracker: %1$s</string>
+
+    <!-- Rate us + in-app updates -->
+    <string name="settings_rate_us">Rate us</string>
+    <string name="settings_rate_us_desc">Enjoying the app? Leave a rating on the Play Store</string>
+    <string name="settings_app_update">App update</string>
+    <string name="settings_app_update_available">Update available — tap to install</string>
+    <string name="settings_app_update_downloading">Downloading update…</string>
+    <string name="settings_app_update_ready">Update downloaded — tap to restart</string>
+    <string name="settings_app_update_up_to_date">You\'re on the latest version</string>
+    <string name="settings_app_update_unknown">Tap to check for updates</string>
+    <string name="settings_version">Version %1$s</string>
+    <string name="update_ready_title">Update ready</string>
+    <string name="update_ready_message">The new version has been downloaded. Restart the app to finish installing it.</string>
+    <string name="action_restart">Restart</string>
+    <string name="action_later">Later</string>
     <string name="settings_sync">Backup &amp; Sync</string>
     <string name="sync_title">Backup &amp; Sync</string>
     <string name="sync_description">Your data is stored only on this device. If the app\'s data is cleared, everything is lost. Back it up to CSV files on your device — one for expenses, one for income — so you can restore it anytime, even after reinstalling.</string>

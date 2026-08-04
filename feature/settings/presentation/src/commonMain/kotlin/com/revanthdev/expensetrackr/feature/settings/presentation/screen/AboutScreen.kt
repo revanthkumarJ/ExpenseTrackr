@@ -19,9 +19,11 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.revanthdev.expensetrackr.core.presentation.LocalAppInfo
 import expensetrackr.core.presentation.generated.resources.Res
 import expensetrackr.core.presentation.generated.resources.action_back
 import expensetrackr.core.presentation.generated.resources.settings_about
+import expensetrackr.core.presentation.generated.resources.settings_version
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,8 +37,15 @@ fun AboutScreen(onBack: () -> Unit) {
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text("💰 ExpenseTrackr", style = MaterialTheme.typography.headlineMedium)
-            // Keep in step with versionName in androidApp/build.gradle.kts.
-            Text("Version 1.0.6", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            // Comes from the host app's build metadata (BuildConfig.VERSION_NAME on Android), so
+            // it can never drift from the shipped build. Hosts that supply none omit the line.
+            LocalAppInfo.current.versionName?.let { versionName ->
+                Text(
+                    stringResource(Res.string.settings_version, versionName),
+                    style = MaterialTheme.typography.titleSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
             Text("Track every rupee. Stay in control.", style = MaterialTheme.typography.bodyLarge)
             HorizontalDivider()
             Text("Developer", style = MaterialTheme.typography.titleSmall)

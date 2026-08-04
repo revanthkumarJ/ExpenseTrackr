@@ -80,7 +80,9 @@ Indian: `en hi te bn mr ta gu ur kn or ml pa as ne sa` · World: `zh es ar pt ru
 
 ### Intentionally English-only (don't worry about translating)
 Long legal/marketing bodies in `feature/settings/.../SubScreens.kt` — About blurb, Privacy Policy
-and Terms of Service paragraph bodies (`PolicySection(...)`), "Version 1.0.0", "Last updated…".
+and Terms of Service paragraph bodies (`PolicySection(...)`), "Last updated…".
+(The About screen's version line *is* localized — `settings_version` — and its number comes from
+`LocalAppInfo`, never a literal; see "Version, rating & in-app updates" below.)
 Month names come from `core/presentation/.../util/DateFormatter.kt` (English abbreviations) — not localized.
 **The generated PDF/Excel reports** (`feature/settings/.../downloads/`) are English by design: they are
 documents meant to be printed and shared with third parties, and the base-14 PDF fonts have no glyphs
@@ -126,13 +128,17 @@ core:data → core:database, core:domain
   `DateFilterHelper`, `PinHasher` (expect/actual SHA-256), Koin `CoreDataModule`.
 - **`core:presentation`** — shared presentation utilities **and the string resource catalog**;
   `ObserveAsEvents`, `UiText`, `DateFormatter` (`toCurrencyString`, `toDisplayDate`…),
-  `BiometricAuthenticator` interface + `LocalBiometricAuthenticator`.
+  and the **platform bridges** — each an interface plus a `staticCompositionLocalOf` whose default
+  is an inert no-op, so a platform that provides nothing still runs:
+  `BiometricAuthenticator`/`LocalBiometricAuthenticator`, `ShareHandler`/`LocalShareHandler`,
+  `StoreLauncher`/`LocalStoreLauncher`, `AppUpdateManager`/`LocalAppUpdateManager`, `AppInfo`/`LocalAppInfo`.
 - **`core:design-system`** — theme (`Color`, `Theme`, `Shape`, `Type`), and reusable components in
   `component/`: `Components.kt` (`ExpenseItemCard`, `CategoryCard`, `EmptyState`, `DateFilterRow`,
   `GradientIconTile`, `AnimatedProgressBar`), `Motion.kt` (`Modifier.bounceClick`), `PinPad.kt`
   (`PinEntryScreen` — shared by app-lock unlock & PIN setup).
 - **`shared/App.kt`** — root + tab `NavHost`s, screen transitions, bottom navigation.
-- **`androidApp`** — `MainActivity` (FragmentActivity; provides `AndroidBiometricAuthenticator`).
+- **`androidApp`** — `MainActivity` (FragmentActivity; provides `AndroidBiometricAuthenticator`,
+  the share/store launchers, `AppInfo` from `BuildConfig`, and `PlayAppUpdateManager`).
 
 ### Feature modules (each `feature/<name>/presentation`, commonMain, one main screen file)
 | Module | Main file | Screens / contents |
@@ -160,6 +166,23 @@ core:data → core:database, core:domain
   picker live in `DateFilterRow` (design-system). Keep `DateFilterHelper.toDateRange` exhaustive.
 - App lock: PIN always 6 digits; biometric is additive (stored as `BOTH`) with PIN fallback.
 - Budgets are monthly → Dashboard only shows budget UI when `filter == ThisMonth`.
+
+### Version, rating & in-app updates
+- **Never hardcode the version anywhere in UI.** `androidApp/build.gradle.kts` `versionName`/
+  `versionCode` are the single source of truth; AGP exposes them via `BuildConfig` (which needs
+  `buildFeatures { buildConfig = true }`), `MainActivity` wraps them in `AppInfo`, and the About
+  screen reads `LocalAppInfo.current.versionName`. iOS reads `CFBundleShortVersionString`.
+  Hosts that supply nothing leave `versionName == null` and the line is simply omitted.
+- **Rate us** (Settings ▸ App Info) goes through `StoreLauncher`, which opens the Play listing
+  (`market://` first, web listing as fallback). It is deliberately *not* Play's In-App Review API —
+  Google's policy forbids triggering that flow from a button.
+- **In-app updates** use Play's FLEXIBLE flow via `PlayAppUpdateManager` (`play:app-update-ktx`).
+  The bridge only reports `AppUpdateStatus` and performs steps; the *policy* — auto-prompt once per
+  process, then an "Update ready → Restart" dialog — lives in `AppUpdatePrompt` in `shared/App.kt`
+  so every platform behaves identically. Settings also has a manual "App update" row.
+  ⚠️ Play only reports updates for builds **installed from Play**; a debug/sideloaded APK stays
+  `Unknown` forever. Test from an internal-test-track install with a *lower* versionCode than the
+  one live on the track.
 
 ## Build & verify
 ```bash

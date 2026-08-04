@@ -17,6 +17,8 @@ import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.Security
 import androidx.compose.material.icons.rounded.Share
+import androidx.compose.material.icons.rounded.StarRate
+import androidx.compose.material.icons.rounded.SystemUpdate
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -24,12 +26,19 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
+import com.revanthdev.expensetrackr.core.presentation.AppUpdateStatus
+import com.revanthdev.expensetrackr.core.presentation.LocalAppUpdateManager
 import com.revanthdev.expensetrackr.core.presentation.LocalShareHandler
+import com.revanthdev.expensetrackr.core.presentation.LocalStoreLauncher
+import com.revanthdev.expensetrackr.core.presentation.NoOpAppUpdateManager
+import com.revanthdev.expensetrackr.core.presentation.NoStoreLauncher
 import com.revanthdev.expensetrackr.core.presentation.appLanguages
 import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
 import expensetrackr.core.presentation.generated.resources.Res
@@ -39,6 +48,14 @@ import expensetrackr.core.presentation.generated.resources.language_system_defau
 import expensetrackr.core.presentation.generated.resources.nav_settings
 import expensetrackr.core.presentation.generated.resources.settings_about
 import expensetrackr.core.presentation.generated.resources.settings_app_lock
+import expensetrackr.core.presentation.generated.resources.settings_app_update
+import expensetrackr.core.presentation.generated.resources.settings_app_update_available
+import expensetrackr.core.presentation.generated.resources.settings_app_update_downloading
+import expensetrackr.core.presentation.generated.resources.settings_app_update_ready
+import expensetrackr.core.presentation.generated.resources.settings_app_update_unknown
+import expensetrackr.core.presentation.generated.resources.settings_app_update_up_to_date
+import expensetrackr.core.presentation.generated.resources.settings_rate_us
+import expensetrackr.core.presentation.generated.resources.settings_rate_us_desc
 import expensetrackr.core.presentation.generated.resources.settings_budget_mgmt
 import expensetrackr.core.presentation.generated.resources.settings_budget_value
 import expensetrackr.core.presentation.generated.resources.settings_downloads
@@ -67,6 +84,9 @@ private const val PLAY_STORE_URL =
 @Composable
 fun SettingsScreen(state: SettingsState, onAction: (SettingsAction) -> Unit) {
     val shareHandler = LocalShareHandler.current
+    val storeLauncher = LocalStoreLauncher.current
+    val updateManager = LocalAppUpdateManager.current
+    val updateStatus by updateManager.status.collectAsState()
     val shareMessage = stringResource(Res.string.share_app_message, PLAY_STORE_URL)
     val noAppMessage = stringResource(Res.string.error_no_app_found)
     val snackbarHostState = remember { SnackbarHostState() }
@@ -129,6 +149,43 @@ fun SettingsScreen(state: SettingsState, onAction: (SettingsAction) -> Unit) {
                     onClick = {
                         if (!shareHandler.share(shareMessage)) {
                             scope.launch { snackbarHostState.showSnackbar(noAppMessage) }
+                        }
+                    },
+                )
+            }
+            // Same reasoning as the update row: no store to rate on, no entry point.
+            if (storeLauncher !== NoStoreLauncher) item {
+                SettingsItem(
+                    icon = Icons.Rounded.StarRate,
+                    title = stringResource(Res.string.settings_rate_us),
+                    subtitle = stringResource(Res.string.settings_rate_us_desc),
+                    onClick = {
+                        if (!storeLauncher.openStoreListing()) {
+                            scope.launch { snackbarHostState.showSnackbar(noAppMessage) }
+                        }
+                    },
+                )
+            }
+            // Hidden where the host provides no update mechanism (iOS, desktop) — otherwise the
+            // row would be a dead end that can never report anything but "unknown".
+            if (updateManager !== NoOpAppUpdateManager) item {
+                SettingsItem(
+                    icon = Icons.Rounded.SystemUpdate,
+                    title = stringResource(Res.string.settings_app_update),
+                    subtitle = when (updateStatus) {
+                        AppUpdateStatus.Available -> stringResource(Res.string.settings_app_update_available)
+                        AppUpdateStatus.Downloading -> stringResource(Res.string.settings_app_update_downloading)
+                        AppUpdateStatus.ReadyToInstall -> stringResource(Res.string.settings_app_update_ready)
+                        AppUpdateStatus.UpToDate -> stringResource(Res.string.settings_app_update_up_to_date)
+                        AppUpdateStatus.Unknown -> stringResource(Res.string.settings_app_update_unknown)
+                    },
+                    onClick = {
+                        when (updateStatus) {
+                            AppUpdateStatus.Available -> updateManager.startUpdate()
+                            AppUpdateStatus.ReadyToInstall -> updateManager.completeUpdate()
+                            // Nothing to act on yet (or a download is already running) — just
+                            // re-query so the row stops saying "tap to check".
+                            else -> updateManager.refresh()
                         }
                     },
                 )

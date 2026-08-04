@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -11,11 +12,17 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.FragmentActivity
+import com.revanthdev.expensetrackr.core.presentation.AppInfo
+import com.revanthdev.expensetrackr.core.presentation.LocalAppInfo
+import com.revanthdev.expensetrackr.core.presentation.LocalAppUpdateManager
 import com.revanthdev.expensetrackr.core.presentation.LocalBiometricAuthenticator
 import com.revanthdev.expensetrackr.core.presentation.LocalShareHandler
+import com.revanthdev.expensetrackr.core.presentation.LocalStoreLauncher
 import com.revanthdev.expensetrackr.core.presentation.ShareHandler
+import com.revanthdev.expensetrackr.core.presentation.StoreLauncher
 
 class MainActivity : FragmentActivity() {
 
@@ -23,6 +30,14 @@ class MainActivity : FragmentActivity() {
     // (Android 10+ uses MediaStore and needs nothing). Registered here; requested in onCreate.
     private val storagePermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { }
+
+    // Play hands back an IntentSender for the in-app update flow, so this needs the
+    // StartIntentSenderForResult contract. The result itself is ignored: a declined or failed
+    // flow is already reflected in PlayAppUpdateManager's status via its install listener.
+    private val updateFlowLauncher =
+        registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { }
+
+    private val appUpdateManager by lazy { PlayAppUpdateManager(this, updateFlowLauncher) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -46,14 +61,53 @@ class MainActivity : FragmentActivity() {
                 false
             }
         }
+        val appInfo = AppInfo(
+            versionName = BuildConfig.VERSION_NAME,
+            versionCode = BuildConfig.VERSION_CODE.toLong(),
+        )
         setContent {
             CompositionLocalProvider(
                 LocalBiometricAuthenticator provides biometricAuthenticator,
                 LocalShareHandler provides shareHandler,
+                LocalStoreLauncher provides storeLauncher,
+                LocalAppInfo provides appInfo,
+                LocalAppUpdateManager provides appUpdateManager,
             ) {
                 App()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Re-checked on every resume so an update published while the app sat in the background
+        // is picked up, and so a download that completed off-screen surfaces its install prompt.
+        appUpdateManager.refresh()
+    }
+
+    override fun onDestroy() {
+        appUpdateManager.dispose()
+        super.onDestroy()
+    }
+
+    /**
+     * Sends the user to this app's Play listing to leave a rating. Prefers the `market://` scheme
+     * so the Play app opens directly, and falls back to the web listing on devices without it
+     * (and returns false if even a browser is missing, so the caller can say so).
+     */
+    private val storeLauncher = StoreLauncher {
+        val marketUri = "market://details?id=$packageName".toUri()
+        val webUri = "https://play.google.com/store/apps/details?id=$packageName".toUri()
+        openUri(marketUri) || openUri(webUri)
+    }
+
+    private fun openUri(uri: Uri): Boolean = try {
+        startActivity(Intent(Intent.ACTION_VIEW, uri))
+        true
+    } catch (_: ActivityNotFoundException) {
+        false
+    } catch (_: Exception) {
+        false
     }
 
     private fun requestLegacyStoragePermissionIfNeeded() {

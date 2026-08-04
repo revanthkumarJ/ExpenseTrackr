@@ -103,6 +103,21 @@
     <string name="settings_terms">సేవా నిబంధనలు</string>
     <string name="settings_share">యాప్‌ను షేర్ చేయండి</string>
     <string name="share_app_message">ExpenseTrackr చూడండి — సరళమైన, ప్రైవేట్ ఖర్చు ట్రాకర్: %1$s</string>
+
+    <!-- Rate us + in-app updates -->
+    <string name="settings_rate_us">మాకు రేటింగ్ ఇవ్వండి</string>
+    <string name="settings_rate_us_desc">యాప్ నచ్చిందా? Play Store లో రేటింగ్ ఇవ్వండి</string>
+    <string name="settings_app_update">యాప్ అప్‌డేట్</string>
+    <string name="settings_app_update_available">అప్‌డేట్ అందుబాటులో ఉంది — ఇన్‌స్టాల్ చేయడానికి నొక్కండి</string>
+    <string name="settings_app_update_downloading">అప్‌డేట్ డౌన్‌లోడ్ అవుతోంది…</string>
+    <string name="settings_app_update_ready">అప్‌డేట్ డౌన్‌లోడ్ అయింది — రీస్టార్ట్ చేయడానికి నొక్కండి</string>
+    <string name="settings_app_update_up_to_date">మీరు తాజా వెర్షన్‌లో ఉన్నారు</string>
+    <string name="settings_app_update_unknown">అప్‌డేట్‌ల కోసం తనిఖీ చేయడానికి నొక్కండి</string>
+    <string name="settings_version">వెర్షన్ %1$s</string>
+    <string name="update_ready_title">అప్‌డేట్ సిద్ధంగా ఉంది</string>
+    <string name="update_ready_message">కొత్త వెర్షన్ డౌన్‌లోడ్ అయింది. ఇన్‌స్టాల్ పూర్తి చేయడానికి యాప్‌ను రీస్టార్ట్ చేయండి.</string>
+    <string name="action_restart">రీస్టార్ట్ చేయండి</string>
+    <string name="action_later">తర్వాత</string>
     <string name="settings_sync">బ్యాకప్ &amp; సింక్</string>
     <string name="sync_title">బ్యాకప్ &amp; సింక్</string>
     <string name="sync_description">మీ డేటా ఈ పరికరంలో మాత్రమే నిల్వ చేయబడుతుంది. యాప్ డేటా క్లియర్ అయితే అంతా పోతుంది. దీన్ని మీ పరికరంలోని CSV ఫైళ్లలో బ్యాకప్ చేయండి — ఒకటి ఖర్చులకు, ఒకటి ఆదాయానికి — తద్వారా మళ్లీ ఇన్‌స్టాల్ చేసిన తర్వాత కూడా ఎప్పుడైనా పునరుద్ధరించవచ్చు.</string>

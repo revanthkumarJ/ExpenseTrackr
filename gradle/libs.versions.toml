@@ -30,6 +30,9 @@ androidx-biometric = "1.1.0"
 androidx-securityCrypto = "1.1.0"
 androidx-work = "2.11.2"
 androidx-splashscreen = "1.2.0"
+# Play In-App Updates. Only reports updates for builds installed from Play — a sideloaded
+# or locally-built APK never sees one, which is a limitation of the API, not a bug.
+playAppUpdate = "2.1.0"
 # Firebase (Android-only: Crashlytics + Analytics)
 googleServices = "4.4.2"
 firebaseCrashlyticsPlugin = "3.0.2"
@@ -92,6 +95,7 @@ androidx-biometric = { module = "androidx.biometric:biometric", version.ref = "a
 androidx-securityCrypto = { module = "androidx.security:security-crypto", version.ref = "androidx-securityCrypto" }
 androidx-work-runtime = { module = "androidx.work:work-runtime-ktx", version.ref = "androidx-work" }
 androidx-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "androidx-splashscreen" }
+play-appUpdate = { module = "com.google.android.play:app-update-ktx", version.ref = "playAppUpdate" }
 
 # Firebase (Android-only). Versions come from the BOM.
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }

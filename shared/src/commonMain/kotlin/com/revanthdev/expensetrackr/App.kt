@@ -16,6 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavBackStackEntry
@@ -27,11 +28,17 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.revanthdev.expensetrackr.core.designsystem.theme.ExpenseTrackerTheme
 import com.revanthdev.expensetrackr.core.domain.repository.SettingsRepository
+import com.revanthdev.expensetrackr.core.presentation.AppUpdateStatus
+import com.revanthdev.expensetrackr.core.presentation.LocalAppUpdateManager
 import expensetrackr.core.presentation.generated.resources.Res
+import expensetrackr.core.presentation.generated.resources.action_later
+import expensetrackr.core.presentation.generated.resources.action_restart
 import expensetrackr.core.presentation.generated.resources.nav_analytics
 import expensetrackr.core.presentation.generated.resources.nav_dashboard
 import expensetrackr.core.presentation.generated.resources.nav_expenses
 import expensetrackr.core.presentation.generated.resources.nav_settings
+import expensetrackr.core.presentation.generated.resources.update_ready_message
+import expensetrackr.core.presentation.generated.resources.update_ready_title
 import org.jetbrains.compose.resources.stringResource
 import com.revanthdev.expensetrackr.feature.analytics.presentation.AnalyticsRoot
 import com.revanthdev.expensetrackr.feature.analytics.presentation.AnalyticsRoute
@@ -127,7 +134,50 @@ fun App() {
                 return@ExpenseTrackerTheme
             }
             AppNavHost(startDestination = startDestination!!)
+            AppUpdatePrompt()
         }
+    }
+}
+
+/**
+ * Drives the in-app update UX for the whole app. The platform bridge only reports status and
+ * performs the steps — *when* to ask lives here so every platform behaves the same.
+ *
+ * On a platform with no store integration the status never leaves [AppUpdateStatus.Unknown], so
+ * this composable does nothing at all.
+ */
+@Composable
+private fun AppUpdatePrompt() {
+    val updateManager = LocalAppUpdateManager.current
+    val status by updateManager.status.collectAsState()
+    // Ask at most once per process: without this, declining the flow re-triggers it immediately
+    // (status falls back to Available), trapping the user in a loop.
+    var promptedThisSession by rememberSaveable { mutableStateOf(false) }
+    var installDismissed by rememberSaveable { mutableStateOf(false) }
+
+    LaunchedEffect(status) {
+        if (status == AppUpdateStatus.Available && !promptedThisSession) {
+            promptedThisSession = true
+            updateManager.startUpdate()
+        }
+    }
+
+    if (status == AppUpdateStatus.ReadyToInstall && !installDismissed) {
+        AlertDialog(
+            onDismissRequest = { installDismissed = true },
+            title = { Text(stringResource(Res.string.update_ready_title)) },
+            text = { Text(stringResource(Res.string.update_ready_message)) },
+            confirmButton = {
+                TextButton(onClick = { updateManager.completeUpdate() }) {
+                    Text(stringResource(Res.string.action_restart))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { installDismissed = true }) {
+                    Text(stringResource(Res.string.action_later))
+                }
+            },
+        )
     }
 }
 

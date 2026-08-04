@@ -29,8 +29,13 @@ android {
         applicationId = "com.revanthdev.expensetrackr"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 7
-        versionName = "1.0.6"
+        versionCode = 8
+        versionName = "1.0.7"
+    }
+    // BuildConfig.VERSION_NAME / VERSION_CODE are the single source of truth for the version the
+    // UI shows (see AppInfo / the About screen). AGP 8+ leaves this feature off by default.
+    buildFeatures {
+        buildConfig = true
     }
     packaging {
         resources { excludes += "/META-INF/{AL2.0,LGPL2.1}" }
@@ -76,6 +81,8 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.androidx.biometric)
     implementation(libs.kotlinx.coroutinesAndroid)
+    // Play In-App Updates — backs PlayAppUpdateManager.
+    implementation(libs.play.appUpdate)
 
     // Firebase (Android-only): Crashlytics + Analytics. Versions managed by the BOM.
     implementation(platform(libs.firebase.bom))
