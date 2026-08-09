@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Status Saver — No Ads — Privacy Policy</title>
+  <meta name="description" content="Privacy Policy for the Status Saver — No Ads Android app. No ads, no accounts, no tracking, no internet access." />
+  <style>
+    :root {
+      --ink: #08221c;
+      --mint: #12c79a;
+      --teal: #00a97f;
+      --teal-dark: #0b7c63;
+      --violet: #6d4ac9;
+      --text: #1c2320;
+      --muted: #5c665f;
+      --border: #e2e8e4;
+      --bg: #ffffff;
+      --bg-soft: #f5f8f6;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg-soft);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 24px; }
+    header {
+      background: var(--ink);
+      color: #fff;
+      border-radius: 16px;
+      padding: 32px 28px;
+      margin-top: 24px;
+      background-image: radial-gradient(120% 90% at 20% 0%, rgba(18, 199, 154, 0.32), transparent 60%);
+    }
+    header h1 { margin: 0 0 6px; font-size: 1.7rem; }
+    header .sub { color: #b9c6bf; font-size: 0.95rem; }
+    .badge {
+      display: inline-block; margin-bottom: 14px; padding: 4px 12px;
+      border: 1px solid rgba(18, 199, 154, 0.5); border-radius: 999px;
+      color: var(--mint); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.02em;
+    }
+    main {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px; margin: 16px 0 40px;
+    }
+    h2 { font-size: 1.15rem; margin: 28px 0 8px; color: var(--ink); }
+    h2:first-of-type { margin-top: 4px; }
+    p, li { color: var(--text); }
+    a { color: var(--teal-dark); }
+    .tldr {
+      background: var(--bg-soft); border-left: 3px solid var(--teal);
+      border-radius: 8px; padding: 14px 18px; margin: 18px 0;
+    }
+    .tldr strong { color: var(--ink); }
+    ul { padding-left: 20px; }
+    li { margin: 6px 0; }
+    code {
+      background: var(--bg-soft); padding: 1px 6px; border-radius: 5px;
+      font-size: 0.9em; border: 1px solid var(--border);
+    }
+    footer { color: var(--muted); font-size: 0.85rem; text-align: center; padding-bottom: 40px; }
+    .muted { color: var(--muted); font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="badge">NO ADS · NO TRACKING</span>
+      <h1>Status Saver — No Ads — Privacy Policy</h1>
+      <div class="sub">Last updated: 9 August 2026</div>
+    </header>
+
+    <main>
+      <div class="tldr">
+        <strong>In short:</strong> Status Saver collects nothing. There are no accounts,
+        no advertising, no analytics, and no crash reporting. The app does not even hold
+        the Android internet permission, so it is technically incapable of sending your
+        files or any information anywhere.
+      </div>
+
+      <p>
+        This Privacy Policy explains how the Status Saver — No Ads Android application
+        ("Status Saver", "the app", "we", "us") handles your information. By using the
+        app, you agree to the practices described here.
+      </p>
+
+      <h2>1. Information we collect</h2>
+      <p>
+        None. Status Saver has no user accounts, no sign-up, and shows no advertising.
+        We do not collect, store, or transmit your name, email address, phone number,
+        contacts, location, device identifiers, usage analytics, or advertising IDs.
+        We never access, upload, or share the statuses you view or save.
+      </p>
+
+      <h2>2. No internet access</h2>
+      <p>
+        Status Saver does not declare the Android <code>INTERNET</code> permission. Android
+        itself therefore prevents the app from opening any network connection. There is no
+        server, no cloud storage, no analytics service and no crash-reporting service
+        behind this app — not because we promise not to use one, but because the app has
+        no way to reach one. You can confirm this in the app's permission list on the
+        Play Store or in your device settings.
+      </p>
+
+      <h2>3. Permissions we request and why</h2>
+      <ul>
+        <li>
+          <strong>Access to the WhatsApp statuses folder</strong>: on Android 10 and newer,
+          the app asks you once to select WhatsApp's <code>.Statuses</code> folder using
+          Android's own folder picker. The app reads that folder to list the statuses you
+          have already viewed. The permission stays on your device and can be revoked at
+          any time in Android settings.
+        </li>
+        <li>
+          <strong>Storage</strong> (<code>READ_EXTERNAL_STORAGE</code>,
+          <code>WRITE_EXTERNAL_STORAGE</code>, on Android 9 and older only): to read the
+          statuses folder and to copy the files you choose into your Downloads folder.
+        </li>
+        <li>
+          <strong>App visibility</strong> (<code>queries</code>): so the app can tell whether
+          WhatsApp or WhatsApp Business is installed, open it when you tap "Open WhatsApp",
+          and send a status back to it when you tap "Repost".
+        </li>
+        <li>
+          <strong>Wake lock</strong> (<code>WAKE_LOCK</code>): used by the bundled video
+          player component so the screen behaves correctly while a video status is playing.
+        </li>
+        <li>
+          <strong>Network state</strong> (<code>ACCESS_NETWORK_STATE</code>): declared by a
+          bundled media library. Because the app has no internet permission, no network
+          activity is possible and this permission has no effect on your data.
+        </li>
+      </ul>
+      <p class="muted">These permissions are used solely to make the app work and for no other purpose.</p>
+
+      <h2>4. Where your files are stored</h2>
+      <p>
+        Statuses you save are copied into the public Downloads folder on your own device,
+        under <code>Download/StatusSaver/WhatsApp</code>. They belong to you: they are
+        visible in your gallery and file manager, and they remain on your device even if
+        you uninstall Status Saver. The only other thing the app stores is a small local
+        preferences file holding your theme choice and the folder you selected. Uninstalling
+        the app deletes that file.
+      </p>
+
+      <h2>5. Sharing and selling data</h2>
+      <p>
+        We do not sell, share, or transfer any data, because we do not have any. When you
+        tap "Share" or "Repost", Android hands the selected file to the app you pick
+        (for example WhatsApp); from that point the receiving app's own privacy policy
+        applies. When you tap "More apps", "Rate on Play Store", or a privacy link, Android
+        opens the Google Play Store or your browser, which are governed by
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.
+      </p>
+
+      <h2>6. Data retention</h2>
+      <p>
+        We hold no data, so there is nothing for us to retain or delete. Files you save and
+        the app's local preferences stay on your device until you delete them, delete the
+        saved files, or uninstall the app.
+      </p>
+
+      <h2>7. Children's privacy</h2>
+      <p>
+        Status Saver is a general-audience utility and is not directed at children under 13.
+        We do not knowingly collect personal information from anyone, including children.
+      </p>
+
+      <h2>8. Security</h2>
+      <p>
+        The app keeps everything on your device and transmits nothing, so there is no
+        account to breach and no server holding your information.
+      </p>
+
+      <h2>9. Content ownership</h2>
+      <p>
+        Status Saver does not download, host, or distribute any content itself. It only gives
+        you access to media that WhatsApp has already stored on your device after you viewed
+        it. Statuses belong to the people who posted them. Please respect their rights and
+        obtain permission before re-sharing or re-posting someone else's content.
+      </p>
+
+      <h2>10. Changes to this policy</h2>
+      <p>
+        We may update this policy as the app evolves. Material changes will be reflected here
+        with a new "Last updated" date, and, where appropriate, noted in the app.
+      </p>
+
+      <h2>11. Contact</h2>
+      <p>
+        Questions about this policy? Email
+        <a href="mailto:jrevanth101@gmail.com">jrevanth101@gmail.com</a>.
+      </p>
+
+      <p class="muted">
+        Status Saver — No Ads is an independent app and is not affiliated with, endorsed by,
+        or connected to WhatsApp LLC or Meta Platforms, Inc. WhatsApp is a trademark of
+        WhatsApp LLC.
+      </p>
+    </main>
+
+    <footer>
+      &copy; 2026 Status Saver — No Ads. All rights reserved.
+    </footer>
+  </div>
+</body>
+</html>
