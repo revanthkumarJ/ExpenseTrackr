@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Lock
@@ -37,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import com.revanthdev.expensetrackr.core.domain.model.AppLockType
 import com.revanthdev.expensetrackr.core.domain.model.AppSettings
 import com.revanthdev.expensetrackr.core.presentation.LocalBiometricAuthenticator
+import com.revanthdev.expensetrackr.core.presentation.LocalNativeAd
 import expensetrackr.core.presentation.generated.resources.Res
 import expensetrackr.core.presentation.generated.resources.action_back
 import expensetrackr.core.presentation.generated.resources.applock_biometric_need_pin
@@ -86,7 +89,11 @@ fun AppLockSetupScreen(
         TopAppBar(title = { Text(stringResource(Res.string.applock_setup_title)) }, navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.Rounded.ArrowBack, stringResource(Res.string.action_back)) } })
     }) { padding ->
         Column(
-            modifier = Modifier.padding(padding).fillMaxSize().padding(16.dp),
+            modifier = Modifier
+                .padding(padding)
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             // Status
@@ -180,6 +187,7 @@ fun AppLockSetupScreen(
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.error
             )
+            LocalNativeAd.current()
         }
     }
 }

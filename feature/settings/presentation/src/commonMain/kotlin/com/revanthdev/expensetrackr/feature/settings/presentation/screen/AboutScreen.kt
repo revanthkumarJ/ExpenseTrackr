@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.revanthdev.expensetrackr.core.presentation.LocalAppInfo
+import com.revanthdev.expensetrackr.core.presentation.LocalNativeAd
 import expensetrackr.core.presentation.generated.resources.Res
 import expensetrackr.core.presentation.generated.resources.action_back
 import expensetrackr.core.presentation.generated.resources.settings_about
@@ -51,7 +52,8 @@ fun AboutScreen(onBack: () -> Unit) {
             Text("Developer", style = MaterialTheme.typography.titleSmall)
             Text("RevanthDev", style = MaterialTheme.typography.bodyMedium)
             HorizontalDivider()
-            Text("Your financial data stays on your device — expenses, income, and budgets are never uploaded. To improve reliability, the app sends anonymous crash reports and usage analytics via Google Firebase. See the Privacy Policy for details.", style = MaterialTheme.typography.bodyMedium)
+            Text("Your financial records stay on your device and are never sent to advertisers. The Android app is supported by Google AdMob banner, native, and occasional rewarded ads, and uses Firebase for crash reporting and usage analytics. See the Privacy Policy for details and available choices.", style = MaterialTheme.typography.bodyMedium)
+            LocalNativeAd.current()
         }
     }
 }

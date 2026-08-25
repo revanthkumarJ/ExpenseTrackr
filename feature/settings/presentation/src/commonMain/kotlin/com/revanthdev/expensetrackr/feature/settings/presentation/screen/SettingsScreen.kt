@@ -96,7 +96,7 @@ fun SettingsScreen(state: SettingsState, onAction: (SettingsAction) -> Unit) {
         topBar = { TopAppBar(title = { Text(stringResource(Res.string.nav_settings)) }) },
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { padding ->
-        LazyColumn(modifier = Modifier.padding(padding).fillMaxSize(), contentPadding = PaddingValues(bottom = 16.dp)) {
+        LazyColumn(modifier = Modifier.padding(top=padding.calculateTopPadding()).fillMaxSize(), contentPadding = PaddingValues(bottom = 16.dp)) {
             item { SettingsSectionHeader(stringResource(Res.string.settings_section_preferences)) }
             item {
                 SettingsItem(

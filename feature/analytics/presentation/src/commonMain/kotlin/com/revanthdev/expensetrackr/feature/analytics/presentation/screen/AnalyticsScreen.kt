@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.revanthdev.expensetrackr.core.designsystem.component.DateFilterRow
 import com.revanthdev.expensetrackr.core.designsystem.component.EmptyState
 import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
+import com.revanthdev.expensetrackr.core.presentation.LocalBannerAd
 import expensetrackr.core.presentation.generated.resources.Res
 import expensetrackr.core.presentation.generated.resources.analytics_avg_day
 import expensetrackr.core.presentation.generated.resources.analytics_breakdown
@@ -43,7 +44,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun AnalyticsScreen(state: AnalyticsState, onAction: (AnalyticsAction) -> Unit) {
     Scaffold(topBar = { TopAppBar(title = { Text(stringResource(Res.string.nav_analytics)) }) }) { padding ->
-        Column(Modifier.padding(padding).fillMaxSize()) {
+        Column(Modifier.padding(top=padding.calculateTopPadding()).fillMaxSize()) {
             // Filter chips are always visible so the user can switch periods even when a
             // selected period happens to have no data.
             DateFilterRow(
@@ -127,8 +128,11 @@ fun AnalyticsScreen(state: AnalyticsState, onAction: (AnalyticsAction) -> Unit) 
                     item {
                         Text(stringResource(Res.string.analytics_breakdown), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
                     }
-                    items(state.categoryStats, key = { it.category.id }) { stat ->
+                    itemsIndexed(state.categoryStats, key = { _, it -> it.category.id }) { _, stat ->
                         LegendItem(stat, modifier = Modifier.animateItem())
+                    }
+                    item(key = "analytics_end_banner") {
+                        LocalBannerAd.current()
                     }
                 }
             }

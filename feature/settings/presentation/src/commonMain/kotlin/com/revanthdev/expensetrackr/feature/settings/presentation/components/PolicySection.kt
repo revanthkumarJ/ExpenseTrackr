@@ -21,6 +21,6 @@ internal fun PolicySection(title: String, body: String) {
 @Composable
 private fun PolicySectionPreview() {
     ExpenseTrackerTheme {
-        PolicySection("Data Collection", "ExpenseTrackr collects no data. We have no servers, no analytics, and no advertising SDKs.")
+        PolicySection("Advertising", "ExpenseTrackr uses Google AdMob for banner, native, and rewarded ads. Financial records are never provided to advertisers.")
     }
 }

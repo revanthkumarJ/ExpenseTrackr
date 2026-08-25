@@ -38,6 +38,7 @@ import expensetrackr.core.presentation.generated.resources.sync_location
 import expensetrackr.core.presentation.generated.resources.sync_title
 import expensetrackr.core.presentation.generated.resources.sync_upload_button
 import org.jetbrains.compose.resources.stringResource
+import com.revanthdev.expensetrackr.core.presentation.LocalRewardedActionGate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,6 +48,7 @@ internal fun SyncScreen(
     onAction: (SyncAction) -> Unit,
     onBack: () -> Unit,
 ) {
+    val rewardedGate = LocalRewardedActionGate.current
     Scaffold(
         topBar = {
             TopAppBar(
@@ -94,7 +96,7 @@ internal fun SyncScreen(
             }
 
             Button(
-                onClick = { onAction(SyncAction.OnSyncClick) },
+                onClick = { rewardedGate.run("backup_sync") { onAction(SyncAction.OnSyncClick) } },
                 enabled = !state.isBusy,
                 modifier = Modifier.fillMaxWidth(),
             ) {
@@ -106,7 +108,7 @@ internal fun SyncScreen(
                 Text(stringResource(Res.string.sync_button), modifier = Modifier.padding(start = 8.dp))
             }
             OutlinedButton(
-                onClick = { onAction(SyncAction.OnRestoreClick) },
+                onClick = { rewardedGate.run("backup_sync") { onAction(SyncAction.OnRestoreClick) } },
                 enabled = !state.isBusy,
                 modifier = Modifier.fillMaxWidth(),
             ) {

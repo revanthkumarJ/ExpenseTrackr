@@ -24,6 +24,14 @@ import kotlinx.coroutines.launch
 import com.revanthdev.expensetrackr.core.presentation.AppInfo
 import com.revanthdev.expensetrackr.core.presentation.LocalAppInfo
 import com.revanthdev.expensetrackr.core.presentation.LocalAppUpdateManager
+import com.revanthdev.expensetrackr.core.presentation.LocalBannerAd
+import com.revanthdev.expensetrackr.core.presentation.LocalNativeAd
+import com.revanthdev.expensetrackr.ads.AdMobBanner
+import com.revanthdev.expensetrackr.ads.AdMobNative
+import com.revanthdev.expensetrackr.ads.AndroidRewardedActionGate
+import com.revanthdev.expensetrackr.core.database.dao.AdOperationCounterDao
+import com.revanthdev.expensetrackr.core.presentation.LocalRewardedActionGate
+import org.koin.android.ext.android.get
 import com.revanthdev.expensetrackr.core.presentation.LocalBiometricAuthenticator
 import com.revanthdev.expensetrackr.core.presentation.LocalShareHandler
 import com.revanthdev.expensetrackr.core.presentation.LocalStoreLauncher
@@ -51,6 +59,7 @@ class MainActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         requestLegacyStoragePermissionIfNeeded()
         val biometricAuthenticator = AndroidBiometricAuthenticator(this)
+        val rewardedActionGate = AndroidRewardedActionGate(this, get<AdOperationCounterDao>())
         // Returns false (rather than crashing) on the rare device with no app able to receive a
         // share — the caller turns that into a "no app found" message.
         val shareHandler = ShareHandler { text ->
@@ -79,6 +88,9 @@ class MainActivity : FragmentActivity() {
                 LocalStoreLauncher provides storeLauncher,
                 LocalAppInfo provides appInfo,
                 LocalAppUpdateManager provides appUpdateManager,
+                LocalBannerAd provides { AdMobBanner() },
+                LocalNativeAd provides { AdMobNative() },
+                LocalRewardedActionGate provides rewardedActionGate,
             ) {
                 App(quickAddRequest = quickAddRequests)
             }

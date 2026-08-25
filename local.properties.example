@@ -1,0 +1,14 @@
+# Copy these AdMob entries into the root local.properties file. That file is gitignored.
+# Keep exactly one block active. Comment the other block with #.
+
+# DEVELOPMENT — use Google's official Android test IDs from the AdMob documentation.
+ADMOB_APP_ID=YOUR_GOOGLE_TEST_APP_ID
+ADMOB_BANNER_ID=YOUR_GOOGLE_TEST_BANNER_ID
+ADMOB_NATIVE_ID=YOUR_GOOGLE_TEST_NATIVE_ID
+ADMOB_REWARDED_ID=YOUR_GOOGLE_TEST_REWARDED_ID
+
+# PRODUCTION — uncomment these and comment the development values above before a release build.
+# ADMOB_APP_ID=YOUR_PRODUCTION_ADMOB_APP_ID
+# ADMOB_BANNER_ID=YOUR_PRODUCTION_BANNER_AD_UNIT_ID
+# ADMOB_NATIVE_ID=YOUR_PRODUCTION_NATIVE_AD_UNIT_ID
+# ADMOB_REWARDED_ID=YOUR_PRODUCTION_REWARDED_AD_UNIT_ID

@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.revanthdev.expensetrackr.core.designsystem.component.EmptyState
 import com.revanthdev.expensetrackr.core.domain.model.TransactionType
+import com.revanthdev.expensetrackr.core.presentation.LocalBannerAd
 import expensetrackr.core.presentation.generated.resources.Res
 import expensetrackr.core.presentation.generated.resources.action_add
 import expensetrackr.core.presentation.generated.resources.action_back
@@ -100,13 +101,14 @@ fun ManageCategoriesScreen(state: ManageCategoriesState, onAction: (ManageCatego
                 )
             } else {
                 LazyColumn(modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    items(state.categories, key = { it.id }) { cat ->
+                    itemsIndexed(state.categories, key = { _, it -> it.id }) { index, cat ->
                         CategoryRow(
                             category = cat,
                             onEdit = { onAction(ManageCategoriesAction.OnEditClick(cat)) },
                             onDelete = { onAction(ManageCategoriesAction.OnDeleteClick(cat)) },
                             modifier = Modifier.animateItem()
                         )
+                        if ((index + 1) % 6 == 0) LocalBannerAd.current()
                     }
                     item {
                         Spacer(Modifier.height(32.dp))

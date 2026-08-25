@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.CircularProgressIndicator
@@ -36,6 +35,7 @@ import com.revanthdev.expensetrackr.core.designsystem.component.ExpenseItemCard
 import com.revanthdev.expensetrackr.core.designsystem.theme.hexToColor
 import com.revanthdev.expensetrackr.core.domain.model.TransactionType
 import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
+import com.revanthdev.expensetrackr.core.presentation.LocalBannerAd
 import com.revanthdev.expensetrackr.core.presentation.util.toDisplayTime
 import expensetrackr.core.presentation.generated.resources.Res
 import expensetrackr.core.presentation.generated.resources.action_add
@@ -75,7 +75,7 @@ fun AllExpensesScreen(
         },
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { padding ->
-        Column(modifier = Modifier.padding(padding).fillMaxSize()) {
+        Column(modifier = Modifier.padding(top=padding.calculateTopPadding()).fillMaxSize()) {
             DateFilterRow(
                 selected = state.filter,
                 onSelect = { onAction(ExpensesAction.OnFilterChange(it)) },
@@ -118,6 +118,7 @@ fun AllExpensesScreen(
                 )
             } else {
                 LazyColumn(contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    var transactionIndex = 0
                     state.grouped.forEach { (date, expenses) ->
                         item(key = "header_$date") {
                             Text(
@@ -127,19 +128,27 @@ fun AllExpensesScreen(
                                 modifier = Modifier.padding(vertical = 8.dp)
                             )
                         }
-                        items(expenses, key = { it.id }) { expense ->
-                            ExpenseItemCard(
-                                name = expense.name,
-                                amount = expense.amount.toCurrencyString(),
-                                categoryName = expense.category.name,
-                                categoryColor = hexToColor(expense.category.colorHex),
-                                categoryIcon = expense.category.icon,
-                                subCategoryName = expense.subCategory?.name,
-                                time = expense.expenseDate.toDisplayTime(),
-                                onClick = { onAction(ExpensesAction.OnExpenseClick(expense.id)) },
-                                modifier = Modifier.animateItem(),
-                                isIncome = expense.type == TransactionType.INCOME
-                            )
+                        expenses.forEach { expense ->
+                            transactionIndex++
+                            item(key = expense.id) {
+                                ExpenseItemCard(
+                                    name = expense.name,
+                                    amount = expense.amount.toCurrencyString(),
+                                    categoryName = expense.category.name,
+                                    categoryColor = hexToColor(expense.category.colorHex),
+                                    categoryIcon = expense.category.icon,
+                                    subCategoryName = expense.subCategory?.name,
+                                    time = expense.expenseDate.toDisplayTime(),
+                                    onClick = { onAction(ExpensesAction.OnExpenseClick(expense.id)) },
+                                    modifier = Modifier.animateItem(),
+                                    isIncome = expense.type == TransactionType.INCOME
+                                )
+                            }
+                            if (transactionIndex % 6 == 0) {
+                                item(key = "banner_ad_after_$transactionIndex") {
+                                    LocalBannerAd.current()
+                                }
+                            }
                         }
                         item {
                             Spacer(Modifier.height(32.dp))

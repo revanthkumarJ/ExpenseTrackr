@@ -38,6 +38,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.revanthdev.expensetrackr.core.designsystem.component.bounceClick
+import com.revanthdev.expensetrackr.core.presentation.LocalNativeAd
 import expensetrackr.core.presentation.generated.resources.Res
 import expensetrackr.core.presentation.generated.resources.action_back
 import expensetrackr.core.presentation.generated.resources.settings_theme
@@ -117,6 +118,7 @@ fun ThemeSettingsScreen(
                 selected = current == true,
                 onClick = { onSelect(true) }
             )
+            LocalNativeAd.current()
         }
     }
 }

@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -21,6 +21,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.revanthdev.expensetrackr.core.presentation.LocalBannerAd
 import com.revanthdev.expensetrackr.core.designsystem.component.EmptyState
 import expensetrackr.core.presentation.generated.resources.Res
 import expensetrackr.core.presentation.generated.resources.action_add
@@ -79,7 +80,7 @@ fun ManageSubCategoriesScreen(state: ManageSubCategoriesState, onAction: (Manage
             )
         } else {
             LazyColumn(modifier = Modifier.padding(padding).fillMaxSize(), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                items(state.subCategories, key = { it.id }) { sub ->
+                itemsIndexed(state.subCategories, key = { _, it -> it.id }) { index, sub ->
                     val parentCat = state.categories.find { it.id == sub.categoryId }
                     SubCategoryRow(
                         subCategory = sub,
@@ -88,6 +89,7 @@ fun ManageSubCategoriesScreen(state: ManageSubCategoriesState, onAction: (Manage
                         onDelete = { onAction(ManageSubCategoriesAction.OnDeleteClick(sub)) },
                         modifier = Modifier.animateItem()
                     )
+                    if ((index + 1) % 6 == 0) LocalBannerAd.current()
                 }
                 item {
                     Spacer(Modifier.height(32.dp))

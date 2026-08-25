@@ -34,10 +34,12 @@ fun TermsOfServiceScreen(onBack: () -> Unit) {
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(stringResource(Res.string.settings_terms), style = MaterialTheme.typography.headlineMedium)
-            Text("Last updated: June 2026", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text("Last updated: August 2026", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
 
             PolicySection("Acceptance", "By using ExpenseTrackr, you agree to these terms.")
             PolicySection("Free App", "ExpenseTrackr is provided free of charge, as-is, with no warranties.")
+            PolicySection("Advertising", "The Android app is supported by banner, native, and rewarded advertising supplied by Google AdMob and participating ad partners. Advertising availability, content, and delivery are controlled by those providers and may vary by user, device, and region.")
+            PolicySection("Rewarded Features", "Every third Backup & Sync or report-download operation may request completion of a rewarded ad. Closing an available rewarded ad before earning the reward may cancel that operation. If an ad is unavailable because of a loading or network failure, access to the operation will not be blocked.")
             PolicySection("No Financial Advice", "This app is a personal tracking tool only. It does not provide financial advice. We are not liable for any financial decisions you make based on the information shown in this app.")
             PolicySection("Data Loss", "We are not responsible for loss of data due to device failure, app deletion, or any other reason. Back up your device regularly.")
             PolicySection("Changes", "We may update these terms. Continued use of the app constitutes acceptance of any updated terms.")

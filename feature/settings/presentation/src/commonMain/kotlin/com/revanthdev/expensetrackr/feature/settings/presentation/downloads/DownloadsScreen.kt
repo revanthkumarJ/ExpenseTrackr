@@ -63,6 +63,7 @@ import expensetrackr.core.presentation.generated.resources.filter_this_month
 import expensetrackr.core.presentation.generated.resources.period_custom_range
 import expensetrackr.core.presentation.generated.resources.sync_location
 import org.jetbrains.compose.resources.stringResource
+import com.revanthdev.expensetrackr.core.presentation.LocalRewardedActionGate
 
 private val PDF_ACCENT = Color(0xFFD64545)
 private val EXCEL_ACCENT = Color(0xFF1B8A3D)
@@ -75,6 +76,7 @@ internal fun DownloadsScreen(
     onAction: (DownloadsAction) -> Unit,
     onBack: () -> Unit,
 ) {
+    val rewardedGate = LocalRewardedActionGate.current
     Scaffold(
         topBar = {
             TopAppBar(
@@ -153,7 +155,11 @@ internal fun DownloadsScreen(
     PeriodPicker(
         isOpen = state.choosingPeriodFor != null,
         onDismiss = { onAction(DownloadsAction.OnDismissPeriodPicker) },
-        onPicked = { onAction(DownloadsAction.OnPeriodPicked(it)) },
+        onPicked = { period ->
+            rewardedGate.run("report_download") {
+                onAction(DownloadsAction.OnPeriodPicked(period))
+            }
+        },
     )
 }
 

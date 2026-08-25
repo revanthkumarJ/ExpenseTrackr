@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.CircularProgressIndicator
@@ -31,6 +31,7 @@ import com.revanthdev.expensetrackr.core.designsystem.theme.hexToColor
 import com.revanthdev.expensetrackr.core.domain.model.DateFilter
 import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
 import com.revanthdev.expensetrackr.core.presentation.util.toPercentString
+import com.revanthdev.expensetrackr.core.presentation.LocalBannerAd
 import expensetrackr.core.presentation.generated.resources.Res
 import expensetrackr.core.presentation.generated.resources.action_add
 import expensetrackr.core.presentation.generated.resources.action_add_expense
@@ -70,7 +71,7 @@ fun DashboardScreen(state: DashboardState, onAction: (DashboardAction) -> Unit) 
             )
         }
     ) { padding ->
-        Column(modifier = Modifier.padding(padding).fillMaxSize()) {
+        Column(modifier = Modifier.padding(top=padding.calculateTopPadding()).fillMaxSize()) {
             DateFilterRow(
                 selected = state.filter,
                 onSelect = { onAction(DashboardAction.OnFilterChange(it)) },
@@ -113,7 +114,7 @@ fun DashboardScreen(state: DashboardState, onAction: (DashboardAction) -> Unit) 
                     contentPadding = PaddingValues(16.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    items(state.categories, key = { it.category.id }) { catUi ->
+                    itemsIndexed(state.categories, key = { _, it -> it.category.id }) { index, catUi ->
                         CategoryCard(
                             name = catUi.category.name,
                             icon = catUi.category.icon,
@@ -125,6 +126,7 @@ fun DashboardScreen(state: DashboardState, onAction: (DashboardAction) -> Unit) 
                             onClick = { onAction(DashboardAction.OnCategoryClick(catUi.category.id, catUi.category.name)) },
                             modifier = Modifier.animateItem()
                         )
+                        if ((index + 1) % 6 == 0) LocalBannerAd.current()
                     }
                     item {
                         Spacer(Modifier.height(32.dp))

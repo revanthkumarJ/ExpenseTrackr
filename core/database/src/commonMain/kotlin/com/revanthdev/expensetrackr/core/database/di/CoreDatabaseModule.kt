@@ -13,5 +13,6 @@ val coreDatabaseModule = module {
     single { get<ExpenseTrackerDatabase>().categoryDao() }
     single { get<ExpenseTrackerDatabase>().subCategoryDao() }
     single { get<ExpenseTrackerDatabase>().expenseDao() }
+    single { get<ExpenseTrackerDatabase>().adOperationCounterDao() }
     singleOf(::DefaultCategorySeeder)
 }

@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.CircularProgressIndicator
@@ -28,6 +27,7 @@ import com.revanthdev.expensetrackr.core.designsystem.component.ExpenseItemCard
 import com.revanthdev.expensetrackr.core.designsystem.theme.hexToColor
 import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
 import com.revanthdev.expensetrackr.core.presentation.util.toDisplayTime
+import com.revanthdev.expensetrackr.core.presentation.LocalBannerAd
 import expensetrackr.core.presentation.generated.resources.Res
 import expensetrackr.core.presentation.generated.resources.action_back
 import expensetrackr.core.presentation.generated.resources.filtered_empty_message
@@ -61,22 +61,31 @@ fun FilteredExpensesScreen(state: FilteredExpensesState, onAction: (FilteredExpe
                 EmptyState(title = stringResource(Res.string.filtered_empty_title), message = stringResource(Res.string.filtered_empty_message))
             } else {
                 LazyColumn(contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    var transactionIndex = 0
                     state.grouped.forEach { (date, expenses) ->
                         item(key = "header_$date") {
                             Text(date, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(vertical = 8.dp))
                         }
-                        items(expenses, key = { it.id }) { expense ->
-                            ExpenseItemCard(
-                                name = expense.name,
-                                amount = expense.amount.toCurrencyString(),
-                                categoryName = expense.category.name,
-                                categoryColor = hexToColor(expense.category.colorHex),
-                                categoryIcon = expense.category.icon,
-                                subCategoryName = expense.subCategory?.name,
-                                time = expense.expenseDate.toDisplayTime(),
-                                onClick = { onAction(FilteredExpensesAction.OnExpenseClick(expense.id)) },
-                                modifier = Modifier.animateItem()
-                            )
+                        expenses.forEach { expense ->
+                            transactionIndex++
+                            item(key = expense.id) {
+                                ExpenseItemCard(
+                                    name = expense.name,
+                                    amount = expense.amount.toCurrencyString(),
+                                    categoryName = expense.category.name,
+                                    categoryColor = hexToColor(expense.category.colorHex),
+                                    categoryIcon = expense.category.icon,
+                                    subCategoryName = expense.subCategory?.name,
+                                    time = expense.expenseDate.toDisplayTime(),
+                                    onClick = { onAction(FilteredExpensesAction.OnExpenseClick(expense.id)) },
+                                    modifier = Modifier.animateItem()
+                                )
+                            }
+                            if (transactionIndex % 6 == 0) {
+                                item(key = "filtered_banner_after_$transactionIndex") {
+                                    LocalBannerAd.current()
+                                }
+                            }
                         }
                     }
                 }

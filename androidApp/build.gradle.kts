@@ -9,6 +9,17 @@ val keystoreProps = Properties().apply {
     if (keystorePropsFile.exists()) keystorePropsFile.inputStream().use { load(it) }
 }
 
+// AdMob identifiers are machine/release configuration, not source code. Keep them in the
+// gitignored root local.properties (see local.properties.example for the switchable layout).
+val rootLocalProperties = Properties().apply {
+    val propertiesFile = rootProject.file("local.properties")
+    if (propertiesFile.exists()) propertiesFile.inputStream().use { load(it) }
+}
+fun requiredLocalProperty(name: String): String =
+    rootLocalProperties.getProperty(name)?.takeIf { it.isNotBlank() }
+        ?: error("Missing $name in the gitignored root local.properties. See local.properties.example.")
+fun buildConfigString(value: String): String = "\"${value.replace("\\", "\\\\").replace("\"", "\\\"")}\""
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
@@ -31,11 +42,28 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 8
         versionName = "1.0.7"
+        resValue("string", "admob_app_id", requiredLocalProperty("ADMOB_APP_ID"))
+        buildConfigField(
+            "String",
+            "ADMOB_BANNER_ID",
+            buildConfigString(requiredLocalProperty("ADMOB_BANNER_ID")),
+        )
+        buildConfigField(
+            "String",
+            "ADMOB_NATIVE_ID",
+            buildConfigString(requiredLocalProperty("ADMOB_NATIVE_ID")),
+        )
+        buildConfigField(
+            "String",
+            "ADMOB_REWARDED_ID",
+            buildConfigString(requiredLocalProperty("ADMOB_REWARDED_ID")),
+        )
     }
     // BuildConfig.VERSION_NAME / VERSION_CODE are the single source of truth for the version the
     // UI shows (see AppInfo / the About screen). AGP 8+ leaves this feature off by default.
     buildFeatures {
         buildConfig = true
+        resValues = true
     }
     packaging {
         resources { excludes += "/META-INF/{AL2.0,LGPL2.1}" }
@@ -95,7 +123,11 @@ dependencies {
     implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.analytics)
 
+    // AdMob is Android-only. Debug/test integration uses Google's official sample IDs.
+    implementation(libs.google.mobileAds)
+
     implementation(libs.compose.uiToolingPreview)
+    implementation(libs.compose.foundation)
     debugImplementation(libs.compose.uiTooling)
     implementation(project(":core:domain"))
     implementation(project(":core:data"))

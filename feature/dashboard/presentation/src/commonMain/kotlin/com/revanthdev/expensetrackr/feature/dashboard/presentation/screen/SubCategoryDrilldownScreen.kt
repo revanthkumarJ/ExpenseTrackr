@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.revanthdev.expensetrackr.core.designsystem.component.DateFilterRow
 import com.revanthdev.expensetrackr.core.designsystem.component.EmptyState
 import com.revanthdev.expensetrackr.core.presentation.util.toCurrencyString
+import com.revanthdev.expensetrackr.core.presentation.LocalBannerAd
 import expensetrackr.core.presentation.generated.resources.Res
 import expensetrackr.core.presentation.generated.resources.action_add
 import expensetrackr.core.presentation.generated.resources.action_add_expense
@@ -79,12 +80,13 @@ fun SubCategoryDrilldownScreen(state: SubCategoryDrilldownState, onAction: (SubC
                 )
             } else {
                 LazyColumn(contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    items(state.items.filter { it.total > 0 || it.subCategoryId == null }, key = { it.subCategoryId ?: -1L }) { item ->
+                    itemsIndexed(state.items.filter { it.total > 0 || it.subCategoryId == null }, key = { _, it -> it.subCategoryId ?: -1L }) { index, item ->
                         SubCategoryItemRow(
                             item = item,
                             onClick = { onAction(SubCategoryDrilldownAction.OnItemClick(item.subCategoryId)) },
                             modifier = Modifier.animateItem()
                         )
+                        if ((index + 1) % 6 == 0) LocalBannerAd.current()
                     }
                 }
             }

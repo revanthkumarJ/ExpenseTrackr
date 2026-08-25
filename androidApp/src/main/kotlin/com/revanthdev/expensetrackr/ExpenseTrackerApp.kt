@@ -2,6 +2,7 @@ package com.revanthdev.expensetrackr
 
 import android.app.Application
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.android.gms.ads.MobileAds
 import com.revanthdev.expensetrackr.core.domain.repository.BackupFileStore
 import com.revanthdev.expensetrackr.core.data.di.coreDataModule
 import com.revanthdev.expensetrackr.core.data.di.dataStoreContext
@@ -38,6 +39,9 @@ class ExpenseTrackerApp : Application() {
         // Enable Crashlytics crash collection explicitly — this is the hook to gate on a
         // future user opt-out setting if we add one.
         FirebaseCrashlytics.getInstance().isCrashlyticsCollectionEnabled = true
+
+        // Initialize once per process. Ad requests themselves are made by visible composables.
+        MobileAds.initialize(this)
 
         startKoin {
             androidLogger()

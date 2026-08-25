@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -8,10 +7,6 @@
     <!-- Backup CSVs to public Downloads on Android 9 and below (API 29+ uses MediaStore, no permission). -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
-
-    <!-- Firebase Analytics adds AD_ID automatically. We don't use advertising, so remove it
-         so we can truthfully declare "no advertising ID" on the Play Data safety form. -->
-    <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove" />
 
     <application
         android:name=".ExpenseTrackerApp"
@@ -21,6 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ExpenseTrackr">
+        <!-- Generated from the gitignored root local.properties. -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/admob_app_id" />
         <!-- singleTop so the widget's quick-add intent reaches a running app via onNewIntent
              instead of stacking a second copy of the (single-Activity) app on top of itself. -->
         <activity

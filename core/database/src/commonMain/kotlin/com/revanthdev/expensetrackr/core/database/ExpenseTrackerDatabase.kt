@@ -10,16 +10,19 @@ import com.revanthdev.expensetrackr.core.database.dao.SubCategoryDao
 import com.revanthdev.expensetrackr.core.database.entity.CategoryEntity
 import com.revanthdev.expensetrackr.core.database.entity.ExpenseEntity
 import com.revanthdev.expensetrackr.core.database.entity.SubCategoryEntity
+import com.revanthdev.expensetrackr.core.database.entity.AdOperationCounterEntity
+import com.revanthdev.expensetrackr.core.database.dao.AdOperationCounterDao
 
 @Database(
-    entities = [CategoryEntity::class, SubCategoryEntity::class, ExpenseEntity::class],
-    version = 2
+    entities = [CategoryEntity::class, SubCategoryEntity::class, ExpenseEntity::class, AdOperationCounterEntity::class],
+    version = 3
 )
 @ConstructedBy(ExpenseTrackerDatabaseConstructor::class)
 abstract class ExpenseTrackerDatabase : RoomDatabase() {
     abstract fun categoryDao(): CategoryDao
     abstract fun subCategoryDao(): SubCategoryDao
     abstract fun expenseDao(): ExpenseDao
+    abstract fun adOperationCounterDao(): AdOperationCounterDao
 }
 
 // Room's KSP generates the actual object for each platform. Required so Kotlin/Native (iOS)
