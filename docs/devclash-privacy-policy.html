@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevClash — Privacy Policy</title>
+  <meta name="description" content="Privacy Policy for the DevClash app: no account, no server, no tracking. Everything it remembers stays on your device." />
+  <style>
+    :root {
+      --ink: #14122b;
+      --violet: #7c5cff;
+      --violet-dark: #5b3fd6;
+      --amber: #ff9f45;
+      --text: #1c1a24;
+      --muted: #615d75;
+      --border: #e5e2ef;
+      --bg: #ffffff;
+      --bg-soft: #f6f5fb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg-soft);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 24px; }
+    header {
+      background: var(--ink);
+      color: #fff;
+      border-radius: 16px;
+      padding: 32px 28px;
+      margin-top: 24px;
+      background-image:
+        radial-gradient(120% 90% at 15% 0%, rgba(124, 92, 255, 0.45), transparent 60%),
+        radial-gradient(110% 90% at 90% 10%, rgba(255, 159, 69, 0.28), transparent 62%);
+    }
+    header h1 { margin: 0 0 6px; font-size: 1.7rem; }
+    header .sub { color: #b6b1ca; font-size: 0.95rem; }
+    .badge {
+      display: inline-block; margin-bottom: 14px; padding: 4px 12px;
+      border: 1px solid rgba(124, 92, 255, 0.6); border-radius: 999px;
+      color: #c3b2ff; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.02em;
+    }
+    main {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px; margin: 16px 0 40px;
+    }
+    h2 { font-size: 1.15rem; margin: 28px 0 8px; color: var(--ink); }
+    h2:first-of-type { margin-top: 4px; }
+    p, li { color: var(--text); }
+    a { color: var(--violet-dark); }
+    .tldr {
+      background: var(--bg-soft); border-left: 3px solid var(--violet);
+      border-radius: 8px; padding: 14px 18px; margin: 18px 0;
+    }
+    .tldr strong { color: var(--ink); }
+    .callout {
+      background: #fff8f0; border-left: 3px solid var(--amber);
+      border-radius: 8px; padding: 14px 18px; margin: 18px 0;
+    }
+    ul { padding-left: 20px; }
+    li { margin: 6px 0; }
+    code {
+      background: var(--bg-soft); padding: 1px 6px; border-radius: 5px;
+      font-size: 0.9em; border: 1px solid var(--border);
+    }
+    table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 0.95rem; }
+    th, td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; }
+    th { background: var(--bg-soft); color: var(--ink); }
+    footer { color: var(--muted); font-size: 0.85rem; text-align: center; padding-bottom: 40px; }
+    .muted { color: var(--muted); font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="badge">NO ACCOUNT · NO SERVER · NO TRACKING</span>
+      <h1>DevClash — Privacy Policy</h1>
+      <div class="sub">Last updated: September 2026</div>
+    </header>
+
+    <main>
+      <div class="tldr">
+        <strong>In short:</strong> DevClash has no account, no server of its own, and collects
+        nothing about you. Everything it remembers stays on your device, and uninstalling the app
+        removes it.
+      </div>
+
+      <p>
+        This Privacy Policy explains how the DevClash app ("the app", "we", "us") handles
+        information. DevClash compares developers using data those developers already publish
+        on GitHub, Codeforces and LeetCode. The same text is shown inside the app under
+        Settings → Privacy policy.
+      </p>
+
+      <h2>1. What we collect about you</h2>
+      <p>
+        <strong>Nothing.</strong> There is no sign-in, no user profile, no analytics, no
+        advertising, no crash reporting, and no tracking or advertising identifier. DevClash
+        operates no server and receives no data from your device.
+      </p>
+
+      <h2>2. What is stored on your device</h2>
+      <p>
+        The app keeps a small amount of state so it is useful the next time you open it. All of
+        it lives in the app's own private storage on your device:
+      </p>
+      <ul>
+        <li>Your optional GitHub personal access token.</li>
+        <li>The handles you have recently compared.</li>
+        <li>The Analytics cohort you have saved.</li>
+        <li>The card you build on the Profile tab.</li>
+        <li>Your choice of coding platform on the Code and Analytics tabs.</li>
+      </ul>
+      <p>
+        This is removed when you uninstall the app or clear its data. None of it is sent to us,
+        because there is no "us" to send it to — DevClash has no backend.
+      </p>
+
+      <h2>3. What leaves your device</h2>
+      <p>
+        Only requests to the services whose public data the app is reading:
+      </p>
+      <table>
+        <tr><th>Service</th><th>Why</th></tr>
+        <tr><td><code>api.github.com</code></td><td>Public profile, repository and activity data for the GitHub tab.</td></tr>
+        <tr><td><code>codeforces.com</code></td><td>Codeforces' public, documented API for the Code tab.</td></tr>
+        <tr><td><code>alfa-leetcode-api.onrender.com</code></td><td>A community wrapper used for LeetCode, which publishes no official API.</td></tr>
+        <tr><td><code>leetcode.com</code></td><td>LeetCode's own GraphQL endpoint, used as a fallback when the wrapper is unavailable.</td></tr>
+      </table>
+      <p>
+        As with opening any website, those services can see your IP address and the request
+        itself. They are operated by other people under their own privacy policies. The app
+        sends them nothing about you beyond the request — no identifier, no device profile, and
+        no account, because it has none.
+      </p>
+
+      <h2>4. Your GitHub token</h2>
+      <div class="callout">
+        The token is optional. It exists only to raise <em>your own</em> GitHub rate limit from
+        60 requests an hour to 5,000, and a read-only token with no scopes is enough.
+      </div>
+      <p>
+        It is stored on this device, sent to <code>api.github.com</code> in an
+        <code>Authorization</code> header and nowhere else, and never sent to us. You can remove
+        it in Settings at any time.
+      </p>
+
+      <h2>5. The people you compare</h2>
+      <p>
+        DevClash reads only what GitHub, Codeforces and LeetCode publish to anyone — the same
+        data you would see logged out in a browser. Nothing about a compared developer is kept
+        beyond a short-lived in-memory cache, which exists to respect rate limits and is gone
+        when the app closes. The only thing that persists is the handle itself, in your own
+        recent list on your own device.
+      </p>
+
+      <h2>6. Cards you share</h2>
+      <p>
+        A battle card or profile card is rendered on your device and handed to the system share
+        sheet, so it goes only to the app you pick. DevClash does not upload it anywhere.
+      </p>
+
+      <h2>7. Permissions</h2>
+      <p class="muted">
+        The app requests internet access, and nothing else. It does not ask for your location,
+        contacts, camera, microphone, photos or files.
+      </p>
+
+      <h2>8. Children</h2>
+      <p>
+        DevClash is not directed at children and does not knowingly collect anything from anyone,
+        of any age.
+      </p>
+
+      <h2>9. Changes</h2>
+      <p>
+        If this policy changes, the updated version ships with the app update, this page is
+        updated to match, and the date above changes with it.
+      </p>
+
+      <h2>10. Contact</h2>
+      <p>
+        Questions about this policy? Email
+        <a href="mailto:jrevanth101@gmail.com">jrevanth101@gmail.com</a>.
+      </p>
+
+      <p class="muted">
+        DevClash is an independent app. It is not affiliated with, endorsed by, or connected to
+        GitHub, Codeforces or LeetCode, and all trademarks belong to their owners.
+      </p>
+    </main>
+
+    <footer>
+      &copy; 2026 DevClash. All rights reserved.
+    </footer>
+  </div>
+</body>
+</html>
