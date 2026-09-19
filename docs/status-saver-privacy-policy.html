@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Status Saver — No Ads — Privacy Policy</title>
-  <meta name="description" content="Privacy Policy for the Status Saver — No Ads Android app. No ads, no accounts, no tracking, no internet access." />
+  <meta name="description" content="Privacy Policy for the Status Saver — No Ads Android app. No ads, no accounts, no advertising ID. Anonymous crash reports and usage counts only." />
   <style>
     :root {
       --ink: #08221c;
@@ -49,6 +49,7 @@
     }
     h2 { font-size: 1.15rem; margin: 28px 0 8px; color: var(--ink); }
     h2:first-of-type { margin-top: 4px; }
+    h3 { font-size: 1rem; margin: 18px 0 6px; color: var(--teal-dark); }
     p, li { color: var(--text); }
     a { color: var(--teal-dark); }
     .tldr {
@@ -56,6 +57,10 @@
       border-radius: 8px; padding: 14px 18px; margin: 18px 0;
     }
     .tldr strong { color: var(--ink); }
+    .note {
+      background: #f7f4fd; border-left: 3px solid var(--violet);
+      border-radius: 8px; padding: 14px 18px; margin: 18px 0;
+    }
     ul { padding-left: 20px; }
     li { margin: 6px 0; }
     code {
@@ -69,17 +74,18 @@
 <body>
   <div class="wrap">
     <header>
-      <span class="badge">NO ADS · NO TRACKING</span>
+      <span class="badge">NO ADS · NO ACCOUNTS</span>
       <h1>Status Saver — No Ads — Privacy Policy</h1>
-      <div class="sub">Last updated: 9 August 2026</div>
+      <div class="sub">Last updated: 19 September 2026</div>
     </header>
 
     <main>
       <div class="tldr">
-        <strong>In short:</strong> Status Saver collects nothing. There are no accounts,
-        no advertising, no analytics, and no crash reporting. The app does not even hold
-        the Android internet permission, so it is technically incapable of sending your
-        files or any information anywhere.
+        <strong>In short:</strong> Status Saver has no ads, no accounts and no advertising ID.
+        Your statuses and the files you save never leave your phone. The one thing the app does
+        send is anonymous diagnostics — crash reports, and counts of which screens are opened and
+        which buttons are tapped — through Google Firebase, so that bugs can be found and fixed.
+        Those reports contain no file names, no file contents and nothing that identifies you.
       </div>
 
       <p>
@@ -88,26 +94,62 @@
         app, you agree to the practices described here.
       </p>
 
-      <h2>1. Information we collect</h2>
+      <h2>1. What we do not collect</h2>
       <p>
-        None. Status Saver has no user accounts, no sign-up, and shows no advertising.
-        We do not collect, store, or transmit your name, email address, phone number,
-        contacts, location, device identifiers, usage analytics, or advertising IDs.
-        We never access, upload, or share the statuses you view or save.
+        We have no user accounts and no sign-up, and the app shows no advertising. We do not
+        collect, store or transmit your name, email address, phone number, contacts, location,
+        or advertising ID. We never access, upload or share the statuses you view or the files
+        you save — those stay on your device, and there is no server of ours for them to go to.
       </p>
 
-      <h2>2. No internet access</h2>
+      <h2>2. What the app does send</h2>
       <p>
-        Status Saver does not declare the Android <code>INTERNET</code> permission. Android
-        itself therefore prevents the app from opening any network connection. There is no
-        server, no cloud storage, no analytics service and no crash-reporting service
-        behind this app — not because we promise not to use one, but because the app has
-        no way to reach one. You can confirm this in the app's permission list on the
-        Play Store or in your device settings.
+        Status Saver uses two Google Firebase services to stay working: Firebase Crashlytics
+        and Google Analytics for Firebase. Both are anonymous, and both exist for one reason —
+        Android storage behaves differently on nearly every phone model, and without diagnostics
+        a bug that only happens on one manufacturer's device is invisible to us.
       </p>
+
+      <h3>Firebase Crashlytics (crash reports)</h3>
+      <p>
+        When the app crashes, or when it fails to read or save a file and recovers from it,
+        Crashlytics sends a report containing the technical stack trace, your device model,
+        Android version, the app version and the time it happened, along with a randomly
+        generated installation identifier that is not linked to you and is reset if you
+        reinstall the app. Recovered failures are labelled with a fixed internal name such as
+        <code>save_to_downloads</code> — never with the name of the file involved.
+      </p>
+
+      <h3>Google Analytics for Firebase (usage counts)</h3>
+      <p>
+        Analytics counts how the app is used, so we can tell which features are worth keeping
+        and where people get stuck. It records which screen is open (Statuses, Downloads,
+        Settings, Language, Preview) and a short, fixed list of actions: saving, sharing,
+        reposting or deleting a status; whether a save or delete succeeded or failed; granting
+        folder access or picking the wrong folder; opening WhatsApp; changing theme or language;
+        and tapping "More apps", "Rate", "Share app" or the privacy link. Each is recorded only
+        as a count, with at most a media type ("image" or "video") and which screen it came
+        from. Analytics also records standard device information — model, Android version, app
+        version, language and approximate country — and session counts.
+      </p>
+
+      <div class="note">
+        <strong>Never included, on either service:</strong> file names, file contents,
+        thumbnails, folder paths, the statuses you viewed or saved, who posted them, your
+        contacts, your precise location, your advertising ID, or any account or contact detail.
+        The app deliberately removes the Android advertising-ID permission
+        (<code>AD_ID</code>) and switches advertising-ID collection off, so no ad identifier is
+        read even though Analytics is capable of it. Nothing collected is used for advertising,
+        and nothing is sold to anyone.
+      </div>
 
       <h2>3. Permissions we request and why</h2>
       <ul>
+        <li>
+          <strong>Internet</strong> (<code>INTERNET</code>, <code>ACCESS_NETWORK_STATE</code>):
+          used only to deliver the anonymous crash reports and usage counts described above.
+          No app feature needs the network — browsing, saving and sharing all work fully offline.
+        </li>
         <li>
           <strong>Access to the WhatsApp statuses folder</strong>: on Android 10 and newer,
           the app asks you once to select WhatsApp's <code>.Statuses</code> folder using
@@ -130,9 +172,10 @@
           player component so the screen behaves correctly while a video status is playing.
         </li>
         <li>
-          <strong>Network state</strong> (<code>ACCESS_NETWORK_STATE</code>): declared by a
-          bundled media library. Because the app has no internet permission, no network
-          activity is possible and this permission has no effect on your data.
+          <strong>Install referrer</strong>
+          (<code>BIND_GET_INSTALL_REFERRER_SERVICE</code>): added by the Firebase library so
+          Google Play can tell Analytics that an install happened. It reads nothing from your
+          device and is not used for advertising.
         </li>
       </ul>
       <p class="muted">These permissions are used solely to make the app work and for no other purpose.</p>
@@ -143,40 +186,59 @@
         under <code>Download/StatusSaver/WhatsApp</code>. They belong to you: they are
         visible in your gallery and file manager, and they remain on your device even if
         you uninstall Status Saver. The only other thing the app stores is a small local
-        preferences file holding your theme choice and the folder you selected. Uninstalling
-        the app deletes that file.
+        preferences file holding your theme choice, your language and the folder you selected.
+        Uninstalling the app deletes that file.
       </p>
 
       <h2>5. Sharing and selling data</h2>
       <p>
-        We do not sell, share, or transfer any data, because we do not have any. When you
-        tap "Share" or "Repost", Android hands the selected file to the app you pick
-        (for example WhatsApp); from that point the receiving app's own privacy policy
-        applies. When you tap "More apps", "Rate on Play Store", or a privacy link, Android
-        opens the Google Play Store or your browser, which are governed by
+        We do not sell or trade any data, and we never share your files. The anonymous
+        diagnostics described in section 2 are processed on our behalf by Google as part of the
+        Firebase platform, under
+        <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase's privacy terms</a>
+        and
         <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.
+        They are visible only to the app's developer, as aggregate counts and crash reports.
+      </p>
+      <p>
+        When you tap "Share" or "Repost", Android hands the selected file to the app you pick
+        (for example WhatsApp); from that point the receiving app's own privacy policy applies.
+        When you tap "More apps", "Rate on Play Store", or a privacy link, Android opens the
+        Google Play Store or your browser, which are governed by Google's Privacy Policy.
       </p>
 
       <h2>6. Data retention</h2>
       <p>
-        We hold no data, so there is nothing for us to retain or delete. Files you save and
-        the app's local preferences stay on your device until you delete them, delete the
-        saved files, or uninstall the app.
+        We hold no data ourselves and run no server. The diagnostics sit in Google's Firebase
+        systems under Google's retention settings: Crashlytics keeps crash reports for
+        90 days, and user-level Analytics data expires on a rolling window (two months by
+        default), after which only aggregated, non-identifying counts remain. Files you save and
+        the app's local preferences stay on your device until you delete them or uninstall the app.
       </p>
 
-      <h2>7. Children's privacy</h2>
+      <h2>7. Your choices</h2>
+      <p>
+        Because the diagnostics are anonymous and carry no account, there is nothing tied to you
+        for us to look up, export or delete. The app does not currently offer an in-app switch
+        for them; uninstalling Status Saver stops all collection immediately, and Android's
+        per-app network settings can also block it. If you have a question or a request about
+        anything described here, email us at the address in section 12 and we will answer.
+      </p>
+
+      <h2>8. Children's privacy</h2>
       <p>
         Status Saver is a general-audience utility and is not directed at children under 13.
         We do not knowingly collect personal information from anyone, including children.
       </p>
 
-      <h2>8. Security</h2>
+      <h2>9. Security</h2>
       <p>
-        The app keeps everything on your device and transmits nothing, so there is no
-        account to breach and no server holding your information.
+        Your statuses and saved files never leave your device, so there is no account to breach
+        and no server of ours holding your content. The anonymous diagnostics are sent to Google
+        over an encrypted connection.
       </p>
 
-      <h2>9. Content ownership</h2>
+      <h2>10. Content ownership</h2>
       <p>
         Status Saver does not download, host, or distribute any content itself. It only gives
         you access to media that WhatsApp has already stored on your device after you viewed
@@ -184,13 +246,13 @@
         obtain permission before re-sharing or re-posting someone else's content.
       </p>
 
-      <h2>10. Changes to this policy</h2>
+      <h2>11. Changes to this policy</h2>
       <p>
         We may update this policy as the app evolves. Material changes will be reflected here
         with a new "Last updated" date, and, where appropriate, noted in the app.
       </p>
 
-      <h2>11. Contact</h2>
+      <h2>12. Contact</h2>
       <p>
         Questions about this policy? Email
         <a href="mailto:jrevanth101@gmail.com">jrevanth101@gmail.com</a>.
