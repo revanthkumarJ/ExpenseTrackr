@@ -78,7 +78,7 @@
     <header>
       <span class="badge">NO ADS · NO DATA SELLING</span>
       <h1>Yoga With Pavan — Privacy Policy</h1>
-      <div class="sub">Last updated: 29 August 2026</div>
+      <div class="sub">Last updated: 25 September 2026</div>
     </header>
 
     <main>
@@ -86,8 +86,8 @@
         <strong>In short:</strong> You can browse the whole app without an account. If you
         create one, what you tell us — your name, email, your course progress, and anything
         you fill into the optional wellness profile — is stored on our server so it follows
-        you between devices. Health Connect data (your step count and activity) is read only
-        while you are looking at the Fit screen, is never stored by us and never leaves your
+        you between devices. Health Connect data (your daily step count, and nothing else) is read
+        only while you are looking at it, is never stored by us and never leaves your
         phone. We show no advertising and we do not sell your data to anyone.
       </div>
 
@@ -150,22 +150,18 @@
 
       <h2>3. Health and fitness data (Health Connect)</h2>
       <p>
-        The Fit screen shows activity that is already on your phone. It reads it through
-        <strong>Health Connect</strong>, Android's own health data store, and only after you
-        explicitly grant permission.
+        The Fit screen and the steps card on your Dashboard show your daily step count, which is
+        already on your phone. The app reads it through <strong>Health Connect</strong>, Android's
+        own health data store, and only after you explicitly grant permission. Steps are the
+        <strong>only</strong> health data the app reads, and it writes nothing to Health Connect.
       </p>
       <table>
         <tr><th>Permission</th><th>Why the app asks</th></tr>
-        <tr><td>Read steps</td><td>Required for the Fit screen: today's total, your week, your month, your hourly profile and your goal streak.</td></tr>
-        <tr><td>Read distance</td><td>Optional. Shows the distance you have covered today.</td></tr>
-        <tr><td>Read active calories</td><td>Optional. Shows calories burned today.</td></tr>
-        <tr><td>Read floors climbed</td><td>Optional. Shows floors climbed today.</td></tr>
-        <tr><td>Read exercise sessions</td><td>Optional. Lists workouts recorded on your phone.</td></tr>
-        <tr><td>Write exercise sessions</td><td>Optional. When you mark a lesson complete, the app records that yoga session into Health Connect so a class you finish here appears in whichever health app you actually use. It writes the lesson title, its length and the time — nothing else.</td></tr>
+        <tr><td>Read steps</td><td>Shows your step count against a daily goal: today's total, your week, your month, your hourly profile and your goal streak, on the Fit screen and the Dashboard.</td></tr>
       </table>
       <p>
-        Each optional permission simply removes its own section from the screen if you refuse
-        it, and the app keeps working. <strong>None of this data is stored by the app and none
+        If you refuse it, the step charts are not shown and the rest of the app keeps working.
+        <strong>None of this data is stored by the app and none
         of it is sent to us or to anyone else.</strong> It is read while you are looking at the
         page, used to draw the charts, and discarded. It never reaches our server.
       </p>
@@ -174,7 +170,7 @@
         say "Google Fit" rather than a package name. That lookup happens on your device.
       </p>
       <p>
-        You can withdraw any of these permissions at any time in Health Connect, in your
+        You can withdraw this permission at any time in Health Connect, in your
         Android settings.
       </p>
 
@@ -224,7 +220,7 @@
       <ul>
         <li><code>INTERNET</code> and <code>ACCESS_NETWORK_STATE</code> — to load content and sync your account.</li>
         <li><code>POST_NOTIFICATIONS</code> (Android 13+) — asked only when you download a certificate, to confirm the file was saved. Refusing it changes nothing else.</li>
-        <li>The Health Connect permissions listed in section 3 — all optional, all asked for in context.</li>
+        <li>The Health Connect steps permission described in section 3 — optional, asked for only when you open the Fit screen.</li>
       </ul>
       <p class="muted">
         The app does not request access to your location, contacts, camera, microphone, photos
