@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NotiVault — Privacy Policy</title>
+  <meta name="description" content="Privacy Policy for the NotiVault Android app. Your notification history is stored only on your device. No accounts, no sync, no backup. Anonymous crash reports and usage counts only." />
+  <style>
+    :root {
+      --ink: #0f1424;
+      --accent: #5b8cff;
+      --accent-dark: #2f5fd6;
+      --amber: #c98a12;
+      --text: #1d2130;
+      --muted: #5d6475;
+      --border: #e2e5ee;
+      --bg: #ffffff;
+      --bg-soft: #f5f6fa;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg-soft);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 24px 16px; }
+    header {
+      background: var(--ink);
+      color: #fff;
+      border-radius: 16px;
+      padding: 32px 28px;
+      margin-top: 24px;
+      background-image: radial-gradient(120% 90% at 20% 0%, rgba(91, 140, 255, 0.32), transparent 60%);
+    }
+    header h1 { margin: 0 0 6px; font-size: 1.7rem; }
+    header .sub { color: #b8bfd3; font-size: 0.95rem; }
+    .badge {
+      display: inline-block; margin-bottom: 14px; padding: 4px 12px;
+      border: 1px solid rgba(91, 140, 255, 0.55); border-radius: 999px;
+      color: #9db8ff; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.02em;
+    }
+    main {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px; margin: 16px 0 40px;
+    }
+    h2 { font-size: 1.15rem; margin: 28px 0 8px; color: var(--ink); }
+    h2:first-of-type { margin-top: 4px; }
+    h3 { font-size: 1rem; margin: 18px 0 6px; color: var(--accent-dark); }
+    p, li { color: var(--text); }
+    a { color: var(--accent-dark); }
+    .tldr {
+      background: var(--bg-soft); border-left: 3px solid var(--accent);
+      border-radius: 8px; padding: 14px 18px; margin: 18px 0;
+    }
+    .tldr strong { color: var(--ink); }
+    .note {
+      background: #fdf8ee; border-left: 3px solid var(--amber);
+      border-radius: 8px; padding: 14px 18px; margin: 18px 0;
+    }
+    ul { padding-left: 20px; }
+    li { margin: 6px 0; }
+    code {
+      background: var(--bg-soft); padding: 1px 6px; border-radius: 5px;
+      font-size: 0.9em; border: 1px solid var(--border); overflow-wrap: anywhere;
+    }
+    footer { color: var(--muted); font-size: 0.85rem; text-align: center; padding-bottom: 40px; }
+    .muted { color: var(--muted); font-size: 0.9rem; }
+    @media (max-width: 520px) {
+      header { padding: 26px 20px; }
+      main { padding: 22px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="badge">ON-DEVICE · NO ACCOUNTS</span>
+      <h1>NotiVault — Privacy Policy</h1>
+      <div class="sub">Last updated: 2 October 2026</div>
+    </header>
+
+    <main>
+      <div class="tldr">
+        <strong>In short:</strong> NotiVault saves the notifications your phone receives so you
+        can read them again later. That history is stored <strong>only on your device</strong>.
+        It is never uploaded, synced or included in a backup, and there is no account and no
+        server of ours for it to go to. The one thing the app does send is anonymous
+        diagnostics — crash reports and counts of a short, fixed list of actions — through
+        Google Firebase. Those never contain notification content, senders or the names of
+        apps on your phone.
+      </div>
+
+      <p>
+        This Privacy Policy explains how the NotiVault Android application ("NotiVault",
+        "the app", "we", "us"), package <code>com.revanthapps.notivault</code>, handles your
+        information. By using the app, you agree to the practices described here.
+      </p>
+
+      <h2>1. Notification access and what it is used for</h2>
+      <p>
+        NotiVault's only purpose is to keep a history of your notifications, including
+        messages that disappear from the notification shade or that the sender later deletes.
+        To do that it needs <strong>Notification access</strong>, which you grant yourself in
+        Android's system settings. Before sending you there, the app shows a screen explaining
+        exactly what access means and what will be stored. You can revoke it at any time in
+        <em>Settings → Notifications → Device &amp; app notifications</em> (the exact path
+        varies by phone), and capture stops immediately.
+      </p>
+      <p>
+        With access granted, Android delivers each notification to the app as it is posted.
+        For each one, NotiVault stores in a local database on your device:
+      </p>
+      <ul>
+        <li>the name and package name of the app that posted it;</li>
+        <li>its title, text, expanded text and sub-text, as shown in the notification;</li>
+        <li>its category (for example "message" or "email"), when the posting app sets one;</li>
+        <li>a conversation key, so messages from the same chat can be grouped together;</li>
+        <li>when it was posted, when it was saved, and when it was later removed from the shade.</li>
+      </ul>
+      <p>
+        Images, attachments and notification icons are not saved. App icons shown in the log
+        are read live from your installed apps and are not stored.
+      </p>
+      <p>
+        Ongoing notifications — download progress bars, media controls, navigation and
+        similar — are never saved.
+      </p>
+
+      <div class="note">
+        <strong>About other people's messages.</strong> Notifications often contain messages
+        sent to you by other people. NotiVault keeps a copy of what was shown on your screen,
+        on your device, for you. It does not send that content anywhere, and it is not
+        available to us.
+      </div>
+
+      <h2>2. Sensitive notifications</h2>
+      <p>
+        Notifications can include one-time passcodes, bank alerts and card transactions.
+        The first time NotiVault sees an app, it decides whether to start that app switched on
+        or off. It starts switched <strong>off</strong> if its package name suggests banking,
+        payments, a wallet or an authenticator, or if that first notification is one the
+        sending app marked as a one-time passcode, a system message or a transport update.
+      </p>
+      <p>
+        This is a cautious default, not a guarantee. Your SMS app, for example, is usually
+        switched on, so passcodes that arrive by text message will be saved unless you switch
+        it off. You can turn capture off (or on) for any individual app at any time in the
+        app's <em>Apps</em> screen.
+      </p>
+
+      <h2>3. Where your notification history is stored</h2>
+      <p>
+        Everything described in sections 1 and 2 is stored in the app's private storage on
+        your device, which other apps cannot read. It is <strong>never</strong>:
+      </p>
+      <ul>
+        <li>uploaded to us or to anyone else — the app has no server and no sync;</li>
+        <li>included in Google cloud backup — app backup is switched off;</li>
+        <li>copied during device-to-device transfer when you set up a new phone.</li>
+      </ul>
+      <p>
+        Because nothing is held anywhere else, deleted history cannot be recovered by us or
+        by anyone.
+      </p>
+      <p>
+        The app also stores a small preferences file holding your retention choice, whether
+        App lock is on, whether you have completed setup, and which apps are switched on or
+        off. That file stays on your device too.
+      </p>
+
+      <h2>4. What the app does send</h2>
+      <p>
+        NotiVault uses two Google Firebase services: Firebase Crashlytics and Google Analytics
+        for Firebase. Both are anonymous. They exist because notification capture behaves
+        differently on nearly every phone model — some manufacturers' battery managers stop
+        it silently — and without diagnostics those failures would be invisible to us.
+      </p>
+
+      <h3>Firebase Crashlytics (crash reports)</h3>
+      <p>
+        If the app crashes, Crashlytics sends a report containing the technical stack trace,
+        your device model, Android version, the app version and the time it happened, along
+        with a randomly generated installation identifier that is not linked to you and is
+        reset if you reinstall the app.
+      </p>
+
+      <h3>Google Analytics for Firebase (usage counts)</h3>
+      <p>
+        Analytics counts a short, fixed list of events:
+      </p>
+      <ul>
+        <li>notification access was granted, or setup was finished without granting it;</li>
+        <li>background running was allowed from the battery dialog;</li>
+        <li>a conversation was opened, or a search returned results;</li>
+        <li>an app was switched off for capture (<em>which</em> app is not sent);</li>
+        <li>the log was cleared, or a date range was deleted by hand;</li>
+        <li>old history was trimmed by the retention setting;</li>
+        <li>capture was found not to be working when the app was opened.</li>
+      </ul>
+      <p>
+        The only extra detail attached to any event is a value from a small fixed set — a
+        capture state such as "disconnected", or a rough size band such as "100–1,000" rather
+        than an exact number. Analytics also records standard device information (model,
+        Android version, app version, language and approximate country), session counts and
+        which screen is open.
+      </p>
+
+      <div class="note">
+        <strong>Never included, on either service:</strong> notification titles or text,
+        senders, conversations, search terms, the names or package names of the apps on your
+        phone, your contacts, your precise location, or any account or contact detail. The app
+        does not currently read your advertising ID: the advertising-ID permission
+        (<code>AD_ID</code>) is removed from the app and advertising-ID collection is switched
+        off in Analytics. Nothing collected is sold.
+      </div>
+
+      <h2>5. Permissions we request and why</h2>
+      <ul>
+        <li>
+          <strong>Notification access</strong> (granted in system settings, not by a pop-up):
+          to receive and save your notifications, as described in section 1. The app cannot
+          work without it.
+        </li>
+        <li>
+          <strong>Run at startup</strong> (<code>RECEIVE_BOOT_COMPLETED</code>): so capture
+          resumes after your phone restarts or the app is updated.
+        </li>
+        <li>
+          <strong>Battery optimisation exemption</strong>
+          (<code>REQUEST_IGNORE_BATTERY_OPTIMIZATIONS</code>): lets the app show Android's
+          one-tap "allow background running" dialog. Some phones (notably Samsung's
+          "sleeping apps") stop apps that have not been opened for a few days, which would stop
+          capture. This is optional; you can skip it during setup and change it later.
+        </li>
+        <li>
+          <strong>Biometrics</strong> (<code>USE_BIOMETRIC</code>): only if you turn on
+          App lock, to ask for your fingerprint, face or screen lock before the history is
+          shown. Biometric data is handled entirely by Android and never reaches the app.
+        </li>
+        <li>
+          <strong>Internet</strong> (<code>INTERNET</code>, <code>ACCESS_NETWORK_STATE</code>):
+          used only to deliver the anonymous crash reports and usage counts in section 4.
+          No feature of the app needs the network.
+        </li>
+        <li>
+          <strong>Install referrer</strong>
+          (<code>BIND_GET_INSTALL_REFERRER_SERVICE</code>): added by the Firebase library so
+          Google Play can tell Analytics that an install happened. It reads nothing from your
+          device.
+        </li>
+      </ul>
+      <p class="muted">These permissions are used solely to make the app work and for no other purpose.</p>
+
+      <h2>6. Data retention and deletion</h2>
+      <p>
+        Saved notifications are kept for <strong>30 days</strong> by default, after which they
+        are deleted automatically. You can change this to 7 days, 90 days or forever in
+        Settings. You can also, at any time:
+      </p>
+      <ul>
+        <li>delete everything older than a date you choose;</li>
+        <li>clear a single conversation, a single app, or the whole history;</li>
+        <li>uninstall the app, which deletes the database and preferences with it.</li>
+      </ul>
+      <p>
+        Before any deletion, the app shows how many notifications will be removed. Deletion is
+        permanent.
+      </p>
+      <p>
+        The anonymous diagnostics in section 4 are kept by Google under Firebase's retention
+        settings: Crashlytics keeps crash reports for 90 days, and user-level Analytics data
+        expires on a rolling window (two months by default), after which only aggregated,
+        non-identifying counts remain.
+      </p>
+
+      <h2>7. Sharing and selling data</h2>
+      <p>
+        We do not sell your data, and your notification history is never shared with anyone.
+        The anonymous diagnostics in section 4 are processed on our behalf by Google as part of
+        the Firebase platform, under
+        <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase's privacy terms</a>
+        and
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>,
+        and are visible to the app's developer only as aggregate counts and crash reports.
+      </p>
+      <p>
+        If what the app collects or who it shares it with ever changes, this policy and the
+        app's Google Play Data safety section will be updated before that version is released.
+      </p>
+
+      <h2>8. Your choices</h2>
+      <ul>
+        <li>Revoke notification access in system settings to stop all capture.</li>
+        <li>Switch capture off for any app in the app's <em>Apps</em> screen.</li>
+        <li>Shorten the retention period, or delete history by date, app or conversation.</li>
+        <li>Turn on App lock to require your fingerprint, face or screen lock.</li>
+      </ul>
+      <p>
+        Because the diagnostics are anonymous and carry no account, there is nothing tied to
+        you for us to look up, export or delete. The app does not currently offer an in-app
+        switch for them; uninstalling NotiVault stops all collection immediately. If you have a
+        question or a request, email us at the address in section 12.
+      </p>
+
+      <h2>9. Children's privacy</h2>
+      <p>
+        NotiVault is a general-audience utility and is not directed at children under 13. We
+        do not knowingly collect personal information from anyone, including children.
+      </p>
+
+      <h2>10. Security</h2>
+      <p>
+        Your notification history never leaves your device, so there is no account to breach
+        and no server of ours holding your content. It is kept in the app's private storage,
+        which Android isolates from other apps, and App lock can put a biometric or screen-lock
+        check in front of it. Anyone who can unlock your phone and open the app can read the
+        history unless App lock is on, so we recommend enabling it. The anonymous diagnostics
+        are sent to Google over an encrypted connection.
+      </p>
+
+      <h2>11. Changes to this policy</h2>
+      <p>
+        We may update this policy as the app evolves. Changes will be posted on this page with
+        a new "Last updated" date and, where appropriate, noted in the app.
+      </p>
+
+      <h2>12. Contact</h2>
+      <p>
+        Questions about this policy? Email
+        <a href="mailto:jrevanth101@gmail.com">jrevanth101@gmail.com</a>.
+      </p>
+    </main>
+
+    <footer>
+      &copy; 2026 NotiVault. All rights reserved.
+    </footer>
+  </div>
+</body>
+</html>
