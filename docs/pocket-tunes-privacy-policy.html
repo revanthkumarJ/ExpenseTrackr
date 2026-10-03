@@ -69,7 +69,7 @@
     <header>
       <span class="badge">PRIVACY FIRST</span>
       <h1>Pocket Tunes — Privacy Policy</h1>
-      <div class="sub">Last updated: 9 September 2026</div>
+      <div class="sub">Last updated: 3 October 2026</div>
     </header>
 
     <main>
@@ -94,6 +94,12 @@
         your name, email, contacts, or precise location. We never access, upload, or
         share your music files or playlists. We do not sell your personal
         information.
+      </p>
+      <p>
+        If you choose to give one contact their own ringtone, the app writes that
+        single ringtone setting on the contact you pick in Android's contact
+        picker. It does not read your address book, and no contact information
+        leaves your device.
       </p>
 
       <h2>2. Crash reporting</h2>
@@ -125,15 +131,19 @@
       <ul>
         <li>which screens you open and how long a session lasts;</li>
         <li>basic events such as first launch and app updates;</li>
+        <li>which features are used &mdash; for example that a playlist was created,
+          the playback speed was changed, a ringtone was set, or a launcher shortcut
+          was tapped &mdash; recorded as the feature and a small fixed setting (such as
+          the speed or the tone type), never the item involved;</li>
         <li>your device model, Android version, app version, and country-level region derived from your IP address.</li>
       </ul>
       <p>
         It <strong>does not</strong> record your advertising ID &mdash; analytics
         collection of the advertising ID is explicitly switched off in the app, and
         analytics data is kept separate from the advertising described in Section 4.
-        It never records the names of your songs, playlists, or files, and screen
-        reporting logs only the screen name (e.g. "NowPlaying"), never the item you
-        opened.
+        It never records the names of your songs, playlists, contacts, or files, and
+        screen reporting logs only the screen name (e.g. "NowPlaying"), never the item
+        you opened.
       </p>
       <p>
         Crash reporting and analytics are processed by Google on our behalf; see
@@ -191,6 +201,7 @@
         <li><strong>Audio / media access</strong> (<code>READ_MEDIA_AUDIO</code>): to find and play the music already on your device.</li>
         <li><strong>Notifications</strong> (<code>POST_NOTIFICATIONS</code>): to show playback controls in the notification shade and on the lock screen.</li>
         <li><strong>Modify system settings</strong> (<code>WRITE_SETTINGS</code>): only when you choose to set a song as your ringtone, notification, or alarm sound.</li>
+        <li><strong>Contacts</strong> (<code>WRITE_CONTACTS</code>): requested only when you choose to give one contact their own ringtone, and used only to save that ringtone on the contact you pick. The app does not read your contacts.</li>
         <li><strong>Internet / network state</strong> (<code>INTERNET</code>, <code>ACCESS_NETWORK_STATE</code>): to load the ads described in Section 4, and to send the anonymous crash reports and usage analytics described above.</li>
         <li><strong>Advertising ID</strong> (<code>AD_ID</code>, and the related Android Privacy Sandbox permissions): used by Google AdMob to serve and measure ads, as described in Section 4.</li>
       </ul>
@@ -198,9 +209,12 @@
 
       <h2>6. Where your content is stored</h2>
       <p>
-        Everything you create stays on your device. Playlists are saved in the app's
-        local database, and trimmed audio clips are saved into your device's standard
-        Ringtones, Notifications, and Alarms folders. Uninstalling the app removes its
+        Everything you create stays on your device. Playlists, favourites, and how
+        many times each song has been played are saved in the app's local database.
+        Trimmed tones are saved into your device's standard Ringtones, Notifications,
+        and Alarms folders, and saved clips and audio extracted from videos go into
+        your Music folder. A video you pick to extract audio from is only read on
+        your device; it is never uploaded or changed. Uninstalling the app removes its
         local data (clips you have exported into your sound folders remain, as they
         become part of your device's media).
       </p>
