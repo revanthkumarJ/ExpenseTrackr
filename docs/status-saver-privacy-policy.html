@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Status Saver — Privacy Policy</title>
-  <meta name="description" content="Privacy Policy for the Status Saver Android app. No accounts, no purchases, no advertising ID. Your files stay on your phone; anonymous crash reports and usage counts only." />
+  <meta name="description" content="Privacy Policy for the Status Saver Android app. No accounts, no purchases. Your files stay on your phone. Anonymous diagnostics through Firebase, and ads from Google AdMob after the first week." />
   <style>
     :root {
       --ink: #08221c;
@@ -76,18 +76,17 @@
     <header>
       <span class="badge">NO ACCOUNTS · FILES STAY ON YOUR PHONE</span>
       <h1>Status Saver — Privacy Policy</h1>
-      <div class="sub">Last updated: 31 October 2026</div>
+      <div class="sub">Last updated: 1 November 2026</div>
     </header>
 
     <main>
       <div class="tldr">
-        <strong>In short:</strong> Status Saver has no accounts, no sign-up, no in-app purchases or
-        subscriptions, and does not read your advertising ID. Your statuses, the files you save, the
-        files you hide in the vault and the numbers you type into Direct chat never leave your phone.
-        The one thing the app does send is anonymous diagnostics — crash reports, and counts of which
-        screens are opened and which features are used — through Google Firebase, so that bugs can be
-        found and fixed. Those reports contain no file names, no file contents, no phone numbers and
-        nothing that identifies you.
+        <strong>In short:</strong> Status Saver has no accounts, no sign-up and no in-app purchases or
+        subscriptions. Your statuses, the files you save, the files you hide in the vault and the
+        numbers you type into Direct chat never leave your phone. The app sends anonymous diagnostics
+        through Google Firebase so bugs can be found and fixed, and — from the second week after you
+        install it — shows ads from Google AdMob, which uses your device's advertising ID. Neither ever
+        receives your file names, file contents or phone numbers.
       </div>
 
       <p>
@@ -99,7 +98,7 @@
       <h2>1. What we do not collect</h2>
       <p>
         We have no user accounts and no sign-up. We do not collect, store or transmit your name,
-        email address, contacts, precise location, payment details or advertising ID. We never
+        email address, contacts, precise location or payment details. We never
         access, upload or share the statuses you view, the files you save or the files you hide in
         the vault — those stay on your device, and there is no server of ours for them to go to.
       </p>
@@ -110,10 +109,11 @@
 
       <h2>2. What the app does send</h2>
       <p>
-        Status Saver uses two Google Firebase services: Firebase Crashlytics and Google Analytics
-        for Firebase. Both are anonymous, and both exist for one reason — Android storage behaves
-        differently on nearly every phone model, and without diagnostics a bug that only happens on
-        one manufacturer's device is invisible to us.
+        Status Saver uses two Google Firebase services — Firebase Crashlytics and Google Analytics
+        for Firebase — and, after the first week, Google AdMob for ads (section 3). The Firebase
+        services are anonymous and exist for one reason: Android storage behaves differently on
+        nearly every phone model, and without diagnostics a bug that only happens on one
+        manufacturer's device is invisible to us.
       </p>
 
       <h3>Firebase Crashlytics (crash reports)</h3>
@@ -151,16 +151,44 @@
       </p>
 
       <div class="note">
-        <strong>Never included, on either service:</strong> file names, file contents, thumbnails,
-        folder paths, the statuses you viewed or saved, who posted them, phone numbers or messages
-        typed into Direct chat, your contacts, your precise location, your advertising ID, or any
-        account or contact detail. The app deliberately removes the Android advertising-ID
-        permission (<code>AD_ID</code>) and switches advertising-ID collection and ad
-        personalisation off, so no ad identifier is read even though Analytics is capable of it.
-        Nothing collected is used for advertising, and nothing is sold to anyone.
+        <strong>Never included, on either Firebase service:</strong> file names, file contents,
+        thumbnails, folder paths, the statuses you viewed or saved, who posted them, phone numbers or
+        messages typed into Direct chat, your contacts, your precise location, your advertising ID, or
+        any account or contact detail. Analytics' own advertising-ID collection and ad-personalisation
+        signals are switched off, so Firebase never links your usage to an ad profile. We do not sell
+        data to anyone.
       </div>
 
-      <h2>3. Features that handle your data on your device only</h2>
+      <h2>3. Advertising (Google AdMob)</h2>
+      <p>
+        For the first 7 days after you install Status Saver there are no ads at all — the ad
+        software is not even started. After that, the app shows a small number of ads from
+        <strong>Google AdMob</strong>: a banner at the bottom of some secondary screens (such as
+        Settings and Tools), an occasional ad tile in Downloads and between statuses in the full-screen
+        viewer, and at most one full-screen ad after finishing an edit or tool, no more often than
+        every few minutes. There are never ads on the Statuses screen, in the vault, or while you save
+        or play a status.
+      </p>
+      <p>
+        To show and measure ads and to prevent ad fraud, the Google Mobile Ads SDK collects and shares
+        with Google: your device's <strong>advertising ID</strong> and app set ID, your
+        <strong>IP address</strong> (which may be used to estimate your general location),
+        <strong>interactions with ads</strong> (such as ad views and taps) and <strong>diagnostic
+        information</strong> about app and ad performance. This is sent encrypted. AdMob never receives
+        your statuses, saved files, file names or anything you type into Direct chat.
+      </p>
+      <p>
+        If you are in the European Economic Area, the United Kingdom or Switzerland, the app asks for
+        your consent through Google's consent form before personalised ads are shown, and you can
+        change your choice at any time in <strong>Settings → Ad privacy choices</strong>. Anywhere,
+        you can reset or delete your advertising ID, or opt out of ad personalisation, in your phone's
+        settings (<em>Settings → Privacy → Ads</em> on most Android phones). How Google uses this
+        information is described in
+        <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">How Google uses information from sites or apps that use its services</a>
+        and the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>.
+      </p>
+
+      <h2>4. Features that handle your data on your device only</h2>
       <ul>
         <li>
           <strong>Direct chat</strong>: the number and optional message you type are passed
@@ -185,12 +213,13 @@
         </li>
       </ul>
 
-      <h2>4. Permissions we request and why</h2>
+      <h2>5. Permissions we request and why</h2>
       <ul>
         <li>
           <strong>Internet</strong> (<code>INTERNET</code>, <code>ACCESS_NETWORK_STATE</code>):
-          used only to deliver the anonymous crash reports and usage counts described above. No
-          app feature needs the network — browsing, saving, editing and sharing all work fully offline.
+          used to deliver the anonymous diagnostics described above and, after the first week, to load
+          ads. No app feature needs the network — browsing, saving, editing and sharing all work fully
+          offline, and an ad space with no connection simply stays empty.
         </li>
         <li>
           <strong>Access to the WhatsApp statuses folder</strong>: on Android 10 and newer, the app
@@ -218,6 +247,10 @@
           and video-processing components so the screen and processing behave correctly.
         </li>
         <li>
+          <strong>Advertising ID</strong> (<code>AD_ID</code>, plus Android's ad-services
+          permissions): used by Google AdMob to show and measure ads, as described in section 3.
+        </li>
+        <li>
           <strong>Install referrer</strong> (<code>BIND_GET_INSTALL_REFERRER_SERVICE</code>):
           added by the Firebase library so Google Play can tell Analytics that an install happened.
           It reads nothing from your device and is not used for advertising.
@@ -225,7 +258,7 @@
       </ul>
       <p class="muted">These permissions are used solely to make the app work and for no other purpose.</p>
 
-      <h2>5. Where your files are stored</h2>
+      <h2>6. Where your files are stored</h2>
       <p>
         Statuses you save are copied into public folders on your own device —
         <code>Download/StatusSaver/WhatsApp</code>, or <code>Pictures/StatusSaver/WhatsApp</code> if
@@ -240,11 +273,11 @@
         leaves your phone, and uninstalling the app deletes it.
       </p>
 
-      <h2>6. Sharing and selling data</h2>
+      <h2>7. Sharing and selling data</h2>
       <p>
         We do not sell or trade any data, and we never share your files. The anonymous diagnostics
         described in section 2 are processed on our behalf by Google as part of the Firebase
-        platform, under
+        platform, and the advertising data described in section 3 is shared with Google AdMob, under
         <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase's privacy terms</a>
         and
         <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.
@@ -258,7 +291,7 @@
         review and in-app update screens are shown by the Play Store app itself.
       </p>
 
-      <h2>7. Data retention</h2>
+      <h2>8. Data retention</h2>
       <p>
         We hold no data ourselves and run no server. The diagnostics sit in Google's Firebase
         systems under Google's retention settings: Crashlytics keeps crash reports for 90 days, and
@@ -267,22 +300,23 @@
         app's local preferences stay on your device until you delete them or uninstall the app.
       </p>
 
-      <h2>8. Your choices</h2>
+      <h2>9. Your choices</h2>
       <p>
         Because the diagnostics are anonymous and carry no account, there is nothing tied to you
-        for us to look up, export or delete. The app does not currently offer an in-app switch for
+        for us to look up, export or delete. For ads, use Settings → Ad privacy choices (where
+        offered) and your phone's ad settings, as described in section 3. The app does not currently offer an in-app switch for
         them; uninstalling Status Saver stops all collection immediately, and Android's per-app
         network settings can also block it. If you have a question or a request about anything
-        described here, email us at the address in section 13 and we will answer.
+        described here, email us at the address in section 14 and we will answer.
       </p>
 
-      <h2>9. Children's privacy</h2>
+      <h2>10. Children's privacy</h2>
       <p>
         Status Saver is a general-audience utility and is not directed at children under 13. We do
         not knowingly collect personal information from anyone, including children.
       </p>
 
-      <h2>10. Security</h2>
+      <h2>11. Security</h2>
       <p>
         Your statuses and saved files never leave your device, so there is no account to breach and
         no server of ours holding your content. Vault files sit in the app's private storage and
@@ -290,7 +324,7 @@
         an encrypted connection.
       </p>
 
-      <h2>11. Content ownership</h2>
+      <h2>12. Content ownership</h2>
       <p>
         Status Saver does not download, host, or distribute any content itself. It only gives you
         access to media that WhatsApp has already stored on your device after you viewed it.
@@ -298,13 +332,13 @@
         permission before re-sharing or re-posting someone else's content.
       </p>
 
-      <h2>12. Changes to this policy</h2>
+      <h2>13. Changes to this policy</h2>
       <p>
         We may update this policy as the app evolves. Material changes will be reflected here with
         a new "Last updated" date, and, where appropriate, noted in the app.
       </p>
 
-      <h2>13. Contact</h2>
+      <h2>14. Contact</h2>
       <p>
         Questions about this policy? Email
         <a href="mailto:jrevanth101@gmail.com">jrevanth101@gmail.com</a>.
