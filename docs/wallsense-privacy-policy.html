@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WallSense — Privacy Policy</title>
+  <meta name="description" content="Privacy Policy for the WallSense Android app. Location is used only on your device to change your wallpaper at places you save. No internet access, no accounts, no ads, no analytics." />
+  <style>
+    :root {
+      --ink: #1e1a4d;
+      --accent: #7c3aed;
+      --accent-dark: #4338ca;
+      --amber: #c98a12;
+      --text: #1d2130;
+      --muted: #5d6475;
+      --border: #e2e5ee;
+      --bg: #ffffff;
+      --bg-soft: #f5f6fa;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg-soft);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 24px 16px; }
+    header {
+      background: var(--ink);
+      color: #fff;
+      border-radius: 16px;
+      padding: 32px 28px;
+      margin-top: 24px;
+      background-image: radial-gradient(120% 90% at 20% 0%, rgba(124, 58, 237, 0.45), transparent 60%);
+    }
+    header h1 { margin: 0 0 6px; font-size: 1.7rem; }
+    header .sub { color: #b8bfd3; font-size: 0.95rem; }
+    .badge {
+      display: inline-block; margin-bottom: 14px; padding: 4px 12px;
+      border: 1px solid rgba(229, 83, 61, 0.7); border-radius: 999px;
+      color: #ffb4a6; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.02em;
+    }
+    main {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px; margin: 16px 0 40px;
+    }
+    h2 { font-size: 1.15rem; margin: 28px 0 8px; color: var(--ink); }
+    h2:first-of-type { margin-top: 4px; }
+    h3 { font-size: 1rem; margin: 18px 0 6px; color: var(--accent-dark); }
+    p, li { color: var(--text); }
+    a { color: var(--accent-dark); }
+    .tldr {
+      background: var(--bg-soft); border-left: 3px solid var(--accent);
+      border-radius: 8px; padding: 14px 18px; margin: 18px 0;
+    }
+    .tldr strong { color: var(--ink); }
+    .note {
+      background: #fdf8ee; border-left: 3px solid var(--amber);
+      border-radius: 8px; padding: 14px 18px; margin: 18px 0;
+    }
+    ul { padding-left: 20px; }
+    li { margin: 6px 0; }
+    code {
+      background: var(--bg-soft); padding: 1px 6px; border-radius: 5px;
+      font-size: 0.9em; border: 1px solid var(--border); overflow-wrap: anywhere;
+    }
+    footer { color: var(--muted); font-size: 0.85rem; text-align: center; padding-bottom: 40px; }
+    .muted { color: var(--muted); font-size: 0.9rem; }
+    @media (max-width: 520px) {
+      header { padding: 26px 20px; }
+      main { padding: 22px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="badge">ON-DEVICE · NO INTERNET · NO ACCOUNTS</span>
+      <h1>WallSense — Privacy Policy</h1>
+      <div class="sub">Last updated: 1 November 2026</div>
+    </header>
+
+    <main>
+      <div class="tldr">
+        <strong>In short:</strong> WallSense changes your wallpaper based on where you are and
+        what time it is. To do that it uses your device's location, and it does that
+        <strong>only on your device</strong>. The app has no internet permission, no account,
+        no ads and no analytics, so your location, your saved places, your rules and your
+        pictures are never sent to us or to anyone else.
+      </div>
+
+      <p>
+        This Privacy Policy explains how the WallSense Android application ("WallSense",
+        "the app", "we", "us"), package <code>com.revanthapps.wallsense</code>, handles your
+        information. By using the app, you agree to the practices described here.
+      </p>
+
+      <h2>1. Location, and why the app needs it</h2>
+      <p>
+        WallSense's core feature is showing a different wallpaper when you are at one of the
+        places you saved (for example Home, Office or College). To know when you arrive at or
+        leave those places, the app uses your device's location through Android and Google Play
+        services' geofencing, including <strong>while the app is closed or not in use</strong>
+        ("Allow all the time" / background location). Before Android asks you for this
+        permission, the app shows its own screen explaining exactly this.
+      </p>
+      <ul>
+        <li>Location is used only to decide whether you are inside one of your saved places
+          and which wallpaper to show.</li>
+        <li>The app does <strong>not</strong> keep a history of where you have been. It
+          remembers only which of your saved places you are currently inside.</li>
+        <li>Your location is never sent to us, never shared and never used for advertising.
+          The app cannot send it anywhere: it does not have Android's internet permission.</li>
+        <li>Rules that only use the time of day work without any location permission.</li>
+      </ul>
+      <p>
+        You can turn location access off at any time in <em>Settings → Apps → WallSense →
+        Permissions → Location</em> (the exact path varies by phone). Place-based rules then
+        stop working; everything else keeps working.
+      </p>
+      <div class="note">
+        Geofencing is provided by Google Play services on your device. Google may process
+        location data as part of Android's own location services, under
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>
+        and your device's location settings. WallSense itself does not receive or store any of
+        that data beyond what is described here.
+      </div>
+
+      <h2>2. What is stored on your device</h2>
+      <p>The following is stored in the app's private storage on your phone:</p>
+      <ul>
+        <li><strong>Places you save:</strong> the name you give each place, its coordinates and
+          its radius.</li>
+        <li><strong>Rules you create:</strong> their names, conditions (place, time, days),
+          order and on/off state.</li>
+        <li><strong>Pictures you choose:</strong> a copy of each picture you pick for a rule,
+          straightened and resized, so it can be set as the wallpaper later.</li>
+        <li><strong>Current state:</strong> which saved places you are currently inside, which
+          wallpaper was last applied, and whether automatic changes are paused.</li>
+      </ul>
+      <p>
+        Pictures are chosen with Android's photo picker, which gives the app access only to the
+        pictures you select, not to the rest of your gallery.
+      </p>
+
+      <h2>3. What we collect</h2>
+      <p>
+        <strong>Nothing.</strong> WallSense has no servers, no account system, no analytics, no
+        crash-reporting SDK and no advertising. None of the information above leaves your
+        device through the app. If the app crashes, Android and Google Play may report
+        anonymous crash information to the developer through the Google Play Console, as for
+        every app on Google Play, depending on your device's settings.
+      </p>
+
+      <h2>4. Backups</h2>
+      <p>
+        If you have Android backup turned on, Android may include your rules, places and chosen
+        pictures in your device backup (stored in your own Google account and encrypted by
+        Android), so they can be restored on a new phone. Your current location state is
+        excluded from backups. You control this in your phone's backup settings. We have no
+        access to these backups.
+      </p>
+
+      <h2>5. Other permissions</h2>
+      <ul>
+        <li><strong>Set wallpaper:</strong> to change your home and lock screen wallpaper.</li>
+        <li><strong>Run at startup:</strong> geofences and timers are cleared when your phone
+          restarts; this lets the app set them up again.</li>
+      </ul>
+
+      <h2>6. Sharing</h2>
+      <p>
+        We do not sell, rent or share any information, because we do not receive any. There
+        are no third-party SDKs in the app that collect data.
+      </p>
+
+      <h2>7. Your choices and deleting your data</h2>
+      <ul>
+        <li>Delete any place or rule in the app at any time.</li>
+        <li>Pause automatic changes in <em>Settings</em>.</li>
+        <li>Revoke location permission in system settings.</li>
+        <li>Clear the app's storage, or uninstall the app, to delete everything it has stored.</li>
+      </ul>
+
+      <h2>8. Children's privacy</h2>
+      <p>
+        WallSense is a general-audience utility and is not directed at children under 13. It
+        does not collect personal information from anyone, including children.
+      </p>
+
+      <h2>9. Security</h2>
+      <p>
+        Everything WallSense stores is kept in its private app storage, which Android isolates
+        from other apps. Because nothing is transmitted, there is no server or account that
+        could be breached.
+      </p>
+
+      <h2>10. Changes to this policy</h2>
+      <p>
+        If the app ever starts collecting or sending any data, this policy and the app's Google
+        Play Data safety section will be updated before that version is released. Changes will
+        be posted on this page with a new "Last updated" date.
+      </p>
+
+      <h2>11. Contact</h2>
+      <p>
+        Questions about this policy? Email
+        <a href="mailto:jrevanth101@gmail.com">jrevanth101@gmail.com</a>.
+      </p>
+    </main>
+
+    <footer>
+      &copy; 2026 WallSense. All rights reserved.
+    </footer>
+  </div>
+</body>
+</html>
