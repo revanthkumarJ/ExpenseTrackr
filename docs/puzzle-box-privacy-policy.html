@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Puzzle Box — Privacy Policy</title>
-  <meta name="description" content="Privacy Policy for the Puzzle Box Android app. No accounts, no purchases. Progress stays on your phone. Anonymous diagnostics through Firebase." />
+  <meta name="description" content="Privacy Policy for the Puzzle Box Android app. No accounts, no purchases. Progress stays on your phone. Ads through Google AdMob and anonymous diagnostics through Firebase." />
   <style>
     :root {
       --ink: #1c1470;
@@ -74,9 +74,9 @@
 <body>
   <div class="wrap">
     <header>
-      <span class="badge">NO ACCOUNTS · PLAYS OFFLINE</span>
+      <span class="badge">NO ACCOUNTS · PLAYS OFFLINE · AD-SUPPORTED</span>
       <h1>Puzzle Box — Privacy Policy</h1>
-      <div class="sub">Last updated: 9 November 2026</div>
+      <div class="sub">Last updated: 11 November 2026</div>
     </header>
 
     <main>
@@ -85,8 +85,9 @@
         to play with friends on one phone. It has no accounts, no in-app purchases and no
         chat. Your progress, coins and scores are stored only on your phone. The app sends anonymous
         diagnostics — crash reports and gameplay counts such as which game was opened and how long a
-        level took — through Google Firebase, so bugs can be fixed and the games improved. It does not
-        use your advertising ID.
+        level took — through Google Firebase, so bugs can be fixed and the games improved. The app is
+        free and shows ads from Google AdMob, which uses your device's advertising ID; in the EEA, UK
+        and Switzerland it asks for your consent first, and you can change your choice at any time.
       </div>
 
       <p>
@@ -129,7 +130,41 @@
       <p>
         Analytics also collects standard technical information: app version, device model, Android
         version, language, country (estimated from the network) and a random app-instance identifier.
-        <strong>The advertising ID is not collected</strong> and ad-personalisation signals are turned off.
+        Analytics' own advertising-ID collection and ad-personalisation signals are turned off, so
+        Analytics never links your play to an ad profile (AdMob's use of the advertising ID for ads is
+        described below).
+      </p>
+
+      <h3>Google AdMob (advertising)</h3>
+      <p>
+        Puzzle Box is free and is paid for by ads served by Google AdMob. Ads appear only in a few
+        places, never on a game board or while you are playing:
+      </p>
+      <ul>
+        <li>a banner below the card shown when a game ends (level solved, winner, game over);</li>
+        <li>an ad tile in the list of games on the home screen, marked "Ad";</li>
+        <li>a rewarded video, <strong>only if you choose it</strong>, when you run out of coins for a hint — watching it adds coins.</li>
+      </ul>
+      <p>
+        To choose, show and measure ads and to protect against ad fraud, AdMob and its advertising
+        partners may collect and process your device's <strong>advertising ID</strong>, IP address,
+        approximate location (from the IP address), device and app information, and how you interact
+        with ads. Google's handling of this data is described in
+        <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">How Google uses information from apps that use its services</a>
+        and the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>.
+        No game progress, typed words or other content from the app is shared with advertisers.
+      </p>
+      <p>
+        <strong>Consent.</strong> If you are in the European Economic Area, the UK or Switzerland, the
+        app asks for your consent through Google's consent form before personalised ads are shown. In
+        US states with privacy laws, you can opt out of the sale or sharing of your data through
+        Google's US privacy message. You can review or change your choice any time with the
+        <strong>Ad privacy</strong> button on the Trophies &amp; stats screen (shown where it applies).
+      </p>
+      <p>
+        Analytics records when a rewarded ad was watched and how many coins it gave, without any
+        advertising data. Google Analytics for Firebase itself still does not collect the advertising
+        ID; only AdMob uses it, for ads.
       </p>
 
       <h2>3. Data stored on your device only</h2>
@@ -144,8 +179,8 @@
       <ul>
         <li>
           <strong>Internet</strong> (<code>INTERNET</code>, <code>ACCESS_NETWORK_STATE</code>): used only
-          to deliver the anonymous diagnostics above. Every game works fully offline; diagnostics are
-          queued and sent later when a connection is available.
+          to deliver the anonymous diagnostics above and to load ads. Every game works fully offline;
+          diagnostics are queued and sent later when a connection is available, and no ads load while offline.
         </li>
         <li>
           <strong>Wake lock</strong> (<code>WAKE_LOCK</code>): added by the Firebase library so
@@ -155,6 +190,16 @@
           <strong>Install referrer</strong> (<code>BIND_GET_INSTALL_REFERRER_SERVICE</code>): added by
           Firebase so Google Play can tell Analytics that an install happened. It reads nothing from your device.
         </li>
+        <li>
+          <strong>Advertising ID</strong> (<code>AD_ID</code>) and Android's privacy-preserving ads
+          permissions (<code>ACCESS_ADSERVICES_AD_ID</code>, <code>ACCESS_ADSERVICES_ATTRIBUTION</code>,
+          <code>ACCESS_ADSERVICES_TOPICS</code>): added by the Google Mobile Ads SDK so AdMob can show and
+          measure ads. You can reset or delete your advertising ID in Android Settings → Privacy → Ads.
+        </li>
+        <li>
+          <strong>Foreground service</strong> (<code>FOREGROUND_SERVICE</code>): added by Google
+          libraries for short background tasks; the app does not run anything in the background on its own.
+        </li>
       </ul>
 
       <h2>5. Sharing and selling data</h2>
@@ -163,22 +208,27 @@
         Google as part of the Firebase platform under
         <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase's privacy terms</a>
         and the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>,
-        and are visible only to the app's developer as aggregate counts and crash reports.
+        and are visible only to the app's developer as aggregate counts and crash reports. Advertising
+        data is collected and processed by Google AdMob and its advertising partners as described in
+        section 2.
       </p>
 
       <h2>6. Data retention</h2>
       <p>
         We run no server of our own. Crashlytics keeps crash reports for 90 days, and user-level
         Analytics data expires on a rolling window (two months by default), after which only
-        aggregated, non-identifying counts remain. Data on your device stays until you uninstall the app.
+        aggregated, non-identifying counts remain. Advertising data is kept by Google under its own
+        retention policies. Data on your device stays until you uninstall the app.
       </p>
 
       <h2>7. Your choices</h2>
       <p>
         Because the diagnostics are anonymous and carry no account, there is nothing tied to you for
-        us to look up, export or delete. Uninstalling Puzzle Box stops all collection immediately, and
-        you can block the app's network access in Android settings without losing any feature. For any
-        question or request, email the address in section 11.
+        us to look up, export or delete. For ads, you can change your consent with the
+        <strong>Ad privacy</strong> button (where offered), and reset or delete your advertising ID or
+        opt out of personalised ads in Android Settings → Privacy → Ads. Uninstalling Puzzle Box stops all
+        collection immediately, and you can block the app's network access in Android settings without
+        losing any game. For any question or request, email the address in section 11.
       </p>
 
       <h2>8. Children's privacy</h2>
